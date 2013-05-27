@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
 	def find_by_oauth(auth, signedInResource = nil, provider)
 		user = User.where(:provider => auth.provider, :uid => auth.uid)
 		unless user
-			UserFactory.createUserBy:provider(auth)
+			UserFactory.createUserBy :provider
 		end
 		user
 	end
