@@ -1,0 +1,24 @@
+= stylesheet_link_tag 'home'
+= stylesheet_link_tag 'scaffold'
+.navbar.navbar-inverse.navbar-fixed-top
+  .navbar-inner
+    .container
+      %button{:type=> 'button', :class=> 'btn btn-navbar collapsed', 'data-toggle'=>'collapse','data-target'=>'.nav-colapse' }
+        %span{:class=>'icon-bar'}
+        %span{:class=>'icon-bar'}
+        %span{:class=>'icon-bar'}
+      %a{:class => 'brand', :href=> 'index'} Kogdata
+      .nav-collapse.collapse
+        %ul{:class => 'nav'}
+          %li
+            %a Home
+          %li
+            %a About
+          %li
+            %a Contact
+        %form{:class => 'navbar-form pull-right'}
+          %input{:class=> 'span2', :type=>'text', :placeholder=> 'Email'}
+          %input{:class=> 'span2', :type=>'password', :placeholder=> 'Password'}
+          %button{:class=> 'btn', :type=>'submit'} Login
+.calendar-container
+  #calendar
