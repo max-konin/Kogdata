@@ -13,17 +13,30 @@ gem 'mysql2'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
+  gem 'bootstrap-sass'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
+  # Only linux users
+  gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
 end
 
 gem 'jquery-rails'
 
-gem 'bootstrap-sass'
+# Modules that makes life easier
 gem 'haml-rails'
+
+# Work with auth
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-deviantart'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-gplus'
+gem 'omniauth-instagram'
+gem 'omniauth-twitter'
+gem 'omniauth-vkontakte'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -38,4 +51,4 @@ gem 'haml-rails'
 # gem 'capistrano'
 
 # To use debugger
-# gem 'debugger'
+gem 'debugger', group: [:developmnet, :test]
