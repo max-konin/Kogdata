@@ -28,6 +28,9 @@ gem 'jquery-rails'
 gem 'haml-rails'
 gem 'fullcalendar-rails'
 
+# For work with images
+gem 'paperclip'
+
 # Work with auth
 gem 'devise'
 gem 'omniauth'

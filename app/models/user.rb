@@ -8,4 +8,9 @@ class User < ActiveRecord::Base
 
 	# Setup accessible (or protected) attributes for your model
 	attr_accessible :email, :password, :remember_me, :name, :provider, :uid
+	has_many :images
+
+	def get_image_by_name(name)
+		images.find(name)
+	end
 end
