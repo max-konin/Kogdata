@@ -1,4 +1,30 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+//= require fullcalendar
 @import "bootstrap";
+@import "bootstrap-responsive";
+
+div.container{
+  margin-left: 30px;
+  margin-right: 30px;
+}
+.navbar-fixed-top .container{
+  width: auto;
+}
+input.span2{
+  height: 20px;
+}
+.calendar-container
+{
+  margin-top: 50px;
+  text-align: center;
+  font-size: 14px;
+  font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+}
+#calendar
+{
+  display: block;
+  width: 900px;
+  margin: 0 auto
+}

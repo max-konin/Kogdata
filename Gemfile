@@ -26,6 +26,7 @@ gem 'jquery-rails'
 
 # Modules that makes life easier
 gem 'haml-rails'
+gem 'fullcalendar-rails'
 
 # Work with auth
 gem 'devise'
