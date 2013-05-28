@@ -8,12 +8,4 @@ class User < ActiveRecord::Base
 
 	# Setup accessible (or protected) attributes for your model
 	attr_accessible :email, :password, :remember_me, :name, :provider, :uid
-
-	def find_by_oauth(auth, signedInResource = nil, provider)
-		user = User.where(:provider => auth.provider, :uid => auth.uid)
-		unless user
-			UserFactory.createUserBy :provider
-		end
-		user
-	end
 end
