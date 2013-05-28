@@ -14,8 +14,8 @@ development:
   reconnect: false
   database: kogdata_development
   pool: 5
-  username: root
-  password: qwas
+  username: kogdata
+  password: kogdata
   host: localhost
 
 # Warning: The database defined as "test" will be erased and

@@ -1,7 +1,5 @@
 Kogdata::Application.routes.draw do
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" } do
-    match "/users/auth/:provider/callback" => "OmniauthCallbacks#index"
-  end
+  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
   root :to => 'Home#index'
   get "home/index"
