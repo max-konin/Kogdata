@@ -10,37 +10,45 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
+
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
+//= require jquery.ui.all
 //= require fullcalendar
 //= require_tree .
-
-$(document).ready(function() {
 
     // page is now ready, initialize the calendar...
 
     $(document).ready(function() {
 
 
-        var date = new Date();
-        var d = date.getDate();
-        var m = date.getMonth();
-        var y = date.getFullYear();
-        change_event = function(_event, delta) {
-            console.log("evento" + _event.id);
-            $.ajax({
-                url: "events/"+_event.id+'.json',
-                data: {event:{id:_event.id,start:_event.start,end: _event.end}},
-                method: 'PUT' ,
-                datatype: 'JSON',
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus);
-                },
-                success: function(data) {
-                    console.log('event was success updated');
-                }
-            });
-        }
+        /* initialize the external events
+         -----------------------------------------------------------------*/
+
+
+
+        $('#external-events div.external-event').each(function() {
+
+            // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+            // it doesn't need to have a start or end
+            var eventObject = {
+                title: $.trim($(this).text()) // use the element's text as the event title
+            };
+
+            // store the Event Object in the DOM element so we can get to it later
+            $(this).data('eventObject', eventObject);
+
+            // make the event draggable using jQuery UI
+                $(this).draggable({
+                    zIndex: 999,
+                    revert: true,      // will cause the event to go back to its
+                    revertDuration: 0  //  original position after the drag
+                });
+
+        });
+
+
         $('#calendar').fullCalendar({
             header: {
                 left: 'prev,next today',
@@ -50,32 +58,29 @@ $(document).ready(function() {
                 next: 'circle-triangle-e'
             },
             editable: true,
-            events: "events/",
-            eventResize: change_event,
-            eventDrop: change_event ,
+            droppable: true, // this allows things to be dropped onto the calendar !!!
+            drop: function(date, allDay) { // this function is called when something is dropped
 
-            loading: function(bool) {
-                if (bool) $('#loading').show();
-                else $('#loading').hide();
+                // retrieve the dropped element's stored Event Object
+                var originalEventObject = $(this).data('eventObject');
+
+                // we need to copy it, so that multiple events don't have a reference to the same object
+                var copiedEventObject = $.extend({}, originalEventObject);
+
+                // assign it the date that was reported
+                copiedEventObject.start = date;
+                copiedEventObject.allDay = allDay;
+
+                // render the event on the calendar
+                // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+                $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+
+                // is the "remove after drop" checkbox checked?
+                if ($('#drop-remove').is(':checked')) {
+                    // if so, remove the element from the "Draggable Events" list
+                    $(this).remove();
+                }
             }
         });
 
-        $(".iframe").fancybox({
-            "type":"iframe",
-            "width": 800,
-            "height": 600,
-            "scrolling": 'no',
-            "titleShow": false,
-            'afterClose': function(){
-
-                //$('#calendar').fullCalendar('removeEvents')
-                //$('#calendar').fullCalendar('addEventSource', "events/");
-                $('#calendar').fullCalendar('refetchEvents');
-                //$('#calendar').fullCalendar('rerenderEvents')
-                console.log('render compleate');
-
-            }
-        });
     });
-
-});

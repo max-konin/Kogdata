@@ -1,9 +1,66 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+//- require jquery.ui
+//- require jqurey.ui.all
 //= require fullcalendar
 @import "bootstrap";
 @import "bootstrap-responsive";
+
+
+
+
+body {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 14px;
+  font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+}
+
+#wrap {
+  width: 1100px;
+  margin: 0 auto;
+}
+
+#external-events {
+  float: left;
+  width: 150px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  background: #eee;
+  text-align: left;
+}
+
+#external-events h4 {
+  font-size: 16px;
+  margin-top: 0;
+  padding-top: 1em;
+}
+
+.external-event { /* try to mimick the look of a real event */
+  margin: 10px 0;
+  padding: 2px 4px;
+  background: #3366CC;
+  color: #fff;
+  font-size: .85em;
+  cursor: pointer;
+}
+
+#external-events p {
+  margin: 1.5em 0;
+  font-size: 11px;
+  color: #666;
+}
+
+#external-events p input {
+  margin: 0;
+  vertical-align: middle;
+}
+
+#calendar {
+  float: right;
+  width: 900px;
+}
 
 div.container{
   margin-left: 30px;
@@ -27,4 +84,14 @@ input.span2{
   display: block;
   width: 900px;
   margin: 0 auto
+}
+
+#external-events
+{
+  margin-top: 50px;
+}
+
+p4
+{
+  font-size: 11px;
 }
