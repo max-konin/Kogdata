@@ -1,5 +1,4 @@
 = stylesheet_link_tag 'home'
-= stylesheet_link_tag 'scaffold'
 .navbar.navbar-inverse.navbar-fixed-top
   .navbar-inner
     .container
@@ -9,16 +8,19 @@
         %span{:class=>'icon-bar'}
       %a{:class => 'brand', :href=> 'index'} Kogdata
       .nav-collapse.collapse
-        %ul{:class => 'nav'}
-          %li
-            %a Home
-          %li
-            %a About
-          %li
-            %a Contact
+      .nav-collapse.collapse
         %form{:class => 'navbar-form pull-right'}
           %input{:class=> 'span2', :type=>'text', :placeholder=> 'Email'}
           %input{:class=> 'span2', :type=>'password', :placeholder=> 'Password'}
           %button{:class=> 'btn', :type=>'submit'} Login
-.calendar-container
-  #calendar
+#wrap
+  #external-events
+    %h4 New event
+    %h6 Event title
+    %input{:class=> 'span2', :id=> 'EventTitle', :type=>'text', :placeholder=> 'Title'}
+    %h6 Event description
+    %textarea{:class=> 'input-medium', :id=> 'EventDescription', :type=>'text', :placeholder=> 'Description'}
+    %p4 Drag the event to the calendar to create new event
+    #external-event-template{:class=> 'external-event ui-draggable'} New Event
+  .calendar-container
+    #calendar
