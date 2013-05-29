@@ -1,0 +1,1 @@
+EventsController < ApplicationController
