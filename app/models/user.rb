@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
 	devise :database_authenticatable, :registerable,
 			:recoverable, :rememberable, :trackable, :validatable,
 			:omniauthable, :omniauth_providers => [:facebook, :vkontakte, :twitter, :gplus, :google_oauth2, :devianart]
-
+  #Reference with events
+  has_many :event
 	# Setup accessible (or protected) attributes for your model
 	attr_accessible :email, :password, :remember_me, :name, :provider, :uid, :role
 

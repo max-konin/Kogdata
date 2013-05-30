@@ -71,7 +71,7 @@
                     next: 'circle-triangle-e'
                 },
                 editable: true,
-                droppable: AllowDrop,
+                droppable: true,
                 events: function(start, end, callback)
                 {
                     callback(arrayOfEvents);
