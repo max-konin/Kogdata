@@ -1,4 +1,8 @@
 Kogdata::Application.routes.draw do
+
+  get "image/select_image"
+  put "image/bind_image"
+
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
   root :to => 'Home#index'
