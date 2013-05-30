@@ -1,1 +1,3 @@
-EventsController < ApplicationController
+class EventsController < ApplicationController
+
+end
