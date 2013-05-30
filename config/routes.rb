@@ -1,9 +1,15 @@
 Kogdata::Application.routes.draw do
+
+
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
   root :to => 'Home#index'
   get "home/index"
   get "calendar/index"
+  get "lc/index"
+  #get "lc/create_msg"
+  #get "lc/delete_msg"
+  #get "lc/profile_update"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -13,7 +13,6 @@
 
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
 //= require jquery.ui.all
 //= require fullcalendar
 //= require_tree .
@@ -72,7 +71,7 @@
                     next: 'circle-triangle-e'
                 },
                 editable: true,
-                droppable: AllowDrop,
+                droppable: true,
                 events: function(start, end, callback)
                 {
                     callback(arrayOfEvents);
