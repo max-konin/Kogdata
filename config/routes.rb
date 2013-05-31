@@ -4,6 +4,7 @@ Kogdata::Application.routes.draw do
   root :to => 'Home#index'
   get "home/index"
   get "calendar/index"
+  post 'events/new'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

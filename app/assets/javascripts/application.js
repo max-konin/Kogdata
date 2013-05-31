@@ -14,6 +14,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.all
+//= require RailsAjax-Config
 //= require fullcalendar
 //= require_tree .
 
@@ -92,7 +93,15 @@
                         copiedEventObject.allDay = allDay;
                         copiedEventObject.title = InputTitle.value;
                         copiedEventObject.Description = InputTitle.value;
-                        alert(copiedEventObject.start);
+                        data= 'title=' + copiedEventObject.title + 'start='+copiedEventObject.start+'description='+copiedEventObject.description;
+                        $.ajax('/events/new',
+                        {
+                            type: "POST",
+                            contentType: 'application/json',
+                            success: function(){
+
+                            }
+                        });
                         // render the event on the calendar
                         // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
                         $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);

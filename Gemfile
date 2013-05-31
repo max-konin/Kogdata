@@ -24,6 +24,7 @@ end
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'rails-ajax'
 
 # Modules that makes life easier
 gem 'haml-rails'
