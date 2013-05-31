@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 	# Setup accessible (or protected) attributes for your model
 	attr_accessible :email, :password, :remember_me, :name, :provider, :uid, :role
 
-  before_save :set_default_role
+  after_initialize :set_default_role
 
   def set_default_role
     self.role ||= :client
