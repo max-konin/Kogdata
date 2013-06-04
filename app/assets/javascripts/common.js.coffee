@@ -16,3 +16,6 @@ setEventToLastInput = () ->
 $(document).ready (e) ->
 	setEventToLastInput()
 	return
+
+window.requestSignOut = new XMLHttpRequest()
+window.requestSignOut.open("DELETE", "http://localhost:3000/users/sign_out", false)
