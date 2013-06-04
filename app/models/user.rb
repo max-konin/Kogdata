@@ -8,13 +8,14 @@ class User < ActiveRecord::Base
 
 	# Setup accessible (or protected) attributes for your model
 	attr_accessible :email, :password, :remember_me, :name, :provider, :uid, :role
-	has_many :images, :event
+	has_many :images
+	has_many :event
 
 	def get_image_by_name(name)
 		Image.find(name)
 	end
 	
-	before_save :set_default_role
+	after_create :set_default_role
 
 	def set_default_role
 		self.role ||= :client

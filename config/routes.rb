@@ -1,7 +1,6 @@
 Kogdata::Application.routes.draw do
 
-  get "image/select_image"
-  put "image/bind_image"
+  post "image/bind"
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
