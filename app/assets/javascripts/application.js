@@ -17,51 +17,16 @@
 //= require fullcalendar
 //= require_tree .
 
-    // page is now ready, initialize the calendar...
-
-
-    // List of events
-    arrayOfEvents=[];
-    $(document).ready(function() {
-
-        InputTitle = document.getElementById('EventTitle');
-        InputTitle.onchange = function() {
-
-        };
-
-        InputText = document.getElementById('EventDescription')
-        Calendar = document.getElementById('calendar')
-
-        $.ajax({
-            url:"/events/all.json",
-            dataType:'json',
-            success:function(response){
-                events = JSON.parse(response.div_contents.body);
-                for (var i=0; i<events.length; i++)
-                {
-                    $('#calendar').fullCalendar('renderEvent',events[i],true);
-                }
-
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                alert("Error: " + errorThrown);
-            }
-        });
-
-
+    $(document).ready(function()
+    {
         $('#external-events div.external-event').each(function() {
-
             // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
             var eventObject = $(this).data() // use the element's text as the event title
-
-
             //make a copy of Event Object
             var copiedEventObject;
             copiedEventObject = $.extend({},eventObject);
-
             // store the Event Object in the DOM element so we can get to it later
             $(this).data('eventObject', eventObject);
-
             // make the event draggable using jQuery UI
                 $(this).draggable({
                     zIndex: 999,
@@ -71,25 +36,19 @@
 
         });
 
-
             $('#calendar').fullCalendar({
                 header: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'month,agendaWeek,agendaDay',
                     prev: 'circle-triangle-w',
                     next: 'circle-triangle-e'
                 },
                 editable: true,
                 droppable: true,
-                events: function(start, end, callback)
-                {
-                    callback(arrayOfEvents);
-                },
                 eventDrop: function(event,dayDelta,minuteDelta,allDay,revertFunc)
                 {
                     var EventObject = event;
-                    var request = {title: EventObject.title,start:EventObject.start,description:
+                    var request = {title: EventObject.title,start:EventObject.start.toJSON,description:
                         EventObject.description};
                     $.ajax({
                         url:"/events/update.json",
@@ -105,23 +64,22 @@
                 },
                 // this allows things to be dropped onto the calendar !!!
                 drop: function(date, allDay) { // this function is called when something is dropped
-
-
                     if ((InputTitle.value!='') && (InputText.value!=''))
                     {
                     // retrieve the dropped element's stored Event Object
                         var originalEventObject = $(this).data('eventObject');
                         // we need to copy it, so that multiple events don't have a reference to the same object
                         var copiedEventObject = $.extend({}, originalEventObject);
-
                         // assign it the date that was reported
-                        copiedEventObject.start = date;
+                        copiedEventObject.start =  new Date(date);
+                        console.log(copiedEventObject.start.getMonth());
                         copiedEventObject.allDay = allDay;
                         copiedEventObject.title = InputTitle.value;
                         copiedEventObject.description = InputText.value;
-
-                        console.log($('#calendar').fullCalendar('getDate'));
-                        request = {title: copiedEventObject.title,start:copiedEventObject.start,description:
+                        var S = copiedEventObject.start;
+                        var Start4request = S.toJSON();
+                        console.log(Start4request);
+                        request = {title: copiedEventObject.title,start:Start4request,description:
                             copiedEventObject.description};
                         //request = JSON.stringify(request);
                         $.ajax({
@@ -130,7 +88,7 @@
                             dataType:'json',
                             data:{events: request},
                             success:function(response){
-                                var events = response;
+                                var events = JSON.parse(response.div_contents.body);;
                                 copiedEventObject.id = events.id;
                                 $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
                                 // is the "remove after drop" checkbox checked?
@@ -142,18 +100,48 @@
                                 alert("Error: " + errorThrown);
                             }
                         });
-
-                       /* $.getJSON('/events/new.json',
-                        function(data1,data2,data3){
-                            alert(data3)
-                        }); */
-                        // render the event on the calendar
-                        // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-
                     }}
-
-
-
             });
+        function updateCalendar()
+        {
+            var currentDate = $('#calendar').fullCalendar('getDate');
+            var curDate = new Date();
+            console.log(currentDate);
+            var S = currentDate.toJSON();
+            curDate = Date.parse(currentDate);
+            console.log(S);
+            request = {curDate: S};
+            InputTitle = document.getElementById('EventTitle');
+            InputText = document.getElementById('EventDescription')
+            $.ajax({
+                url:"/events/all.json",
+                dataType:'json',
+                contentType:'application/json; charset-utf8',
+                data: request,
+                success:function(response){
+                    events = JSON.parse(response.div_contents.body);
+                    for (var i=0; i<events.length; i++)
+                    {
+                        $('#calendar').fullCalendar('renderEvent',events[i],true);
+                    }
 
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Error: " + errorThrown);
+                }
+            });
+        }
+        $('.fc-button-next').click(function(){
+            $('#calendar').fullCalendar('removeEvents');
+            //$('#calendar').fullCalendar('next');
+            updateCalendar();
+            }
+
+        );
+        $('.fc-button-prev').click(function()
+        {
+            $('#calendar').fullCalendar('removeEvents');
+            updateCalendar();
+        });
+        updateCalendar();
     });
