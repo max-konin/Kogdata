@@ -14,8 +14,8 @@ class User < ActiveRecord::Base
 	def get_image_by_name(name)
 		Image.find(name)
 	end
-	
-	after_create :set_default_role
+
+  after_initialize :set_default_role
 
 	def set_default_role
 		self.role ||= :client

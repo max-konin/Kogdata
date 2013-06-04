@@ -24,12 +24,6 @@
     arrayOfEvents=[];
     $(document).ready(function() {
 
-
-        var eObj1=$('#external-events div.external-event').data;
-        eObj1.start =  "Mon May 13 2013 00:00:00 GMT+0700(N. Central Asia Standard Time)";
-        eObj1.title = 'Hello';
-        arrayOfEvents.push(eObj1);
-
         InputTitle = document.getElementById('EventTitle');
         InputTitle.onchange = function() {
 
@@ -37,6 +31,23 @@
 
         InputText = document.getElementById('EventDescription')
         Calendar = document.getElementById('calendar')
+
+        $.ajax({
+            url:"/events/all.json",
+            dataType:'json',
+            success:function(response){
+                events = JSON.parse(response.div_contents.body);
+                for (var i=0; i<events.length; i++)
+                {
+                    $('#calendar').fullCalendar('renderEvent',events[i],true);
+                }
+
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alert("Error: " + errorThrown);
+            }
+        });
+
 
         $('#external-events div.external-event').each(function() {
 
@@ -47,7 +58,6 @@
             //make a copy of Event Object
             var copiedEventObject;
             copiedEventObject = $.extend({},eventObject);
-            arrayOfEvents.push(copiedEventObject);
 
             // store the Event Object in the DOM element so we can get to it later
             $(this).data('eventObject', eventObject);
@@ -76,6 +86,23 @@
                 {
                     callback(arrayOfEvents);
                 },
+                eventDrop: function(event,dayDelta,minuteDelta,allDay,revertFunc)
+                {
+                    var EventObject = event;
+                    var request = {title: EventObject.title,start:EventObject.start,description:
+                        EventObject.description};
+                    $.ajax({
+                        url:"/events/update.json",
+                        dataType: 'json',
+                        contentType: 'application/json; charset-utf8',
+                        data: {events:request, id: EventObject.id},
+                        success:function(){
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Error: " + errorThrown);
+                        }
+                    });
+                },
                 // this allows things to be dropped onto the calendar !!!
                 drop: function(date, allDay) { // this function is called when something is dropped
 
@@ -91,19 +118,42 @@
                         copiedEventObject.start = date;
                         copiedEventObject.allDay = allDay;
                         copiedEventObject.title = InputTitle.value;
-                        copiedEventObject.Description = InputTitle.value;
-                        alert(copiedEventObject.start);
+                        copiedEventObject.description = InputText.value;
+
+                        console.log($('#calendar').fullCalendar('getDate'));
+                        request = {title: copiedEventObject.title,start:copiedEventObject.start,description:
+                            copiedEventObject.description};
+                        //request = JSON.stringify(request);
+                        $.ajax({
+                            url:"/events/new.json",
+                            contentType:'application/json; charset-utf8',
+                            dataType:'json',
+                            data:{events: request},
+                            success:function(response){
+                                var events = response;
+                                copiedEventObject.id = events.id;
+                                $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+                                // is the "remove after drop" checkbox checked?
+                                if ($('#drop-remove').is(':checked')) {
+                                    // if so, remove the element from the "Draggable Events" list
+                                    $(this).remove();}
+                            },
+                            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                                alert("Error: " + errorThrown);
+                            }
+                        });
+
+                       /* $.getJSON('/events/new.json',
+                        function(data1,data2,data3){
+                            alert(data3)
+                        }); */
                         // render the event on the calendar
                         // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-                        $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
 
-                        // is the "remove after drop" checkbox checked?
-                        if ($('#drop-remove').is(':checked')) {
-                            // if so, remove the element from the "Draggable Events" list
-                            $(this).remove();
-                    };}
+                    }}
 
-                }
+
+
             });
 
     });
