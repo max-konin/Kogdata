@@ -4,13 +4,15 @@ lastInputUploadImage = uploadImageDivLast + " input"
 
 setEventToLastInput = () ->
 	innerHtml = $(uploadImageDivLast).html()
-	$(lastInputUploadImage).change (e) ->
-		if $(this).val().length != 0
+	job = (e) ->
+		if $(lastInputUploadImage).val().length != 0
 			$(uploadImageDivLast).after "<div class='uploadImage'>" + innerHtml + "</div>"
 			setEventToLastInput()
-		if $(this).val().length == 0 && $(uploadImageDiv).size() != 1
+		if $(lastInputUploadImage).val().length == 0 && $(uploadImageDiv).size() != 1
 			$(uploadImageDivLast).remove()
 		return
+	job()
+	$(lastInputUploadImage).change job
 	return
 
 $(document).ready (e) ->
