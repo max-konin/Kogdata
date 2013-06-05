@@ -12,6 +12,7 @@
 //
 
 //= require jquery
+//= require dateFormat
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require fullcalendar
@@ -43,22 +44,29 @@
                     prev: 'circle-triangle-w',
                     next: 'circle-triangle-e'
                 },
+                timeFormat: "%FT%T.%LZ",
                 editable: true,
                 droppable: true,
                 eventDrop: function(event,dayDelta,minuteDelta,allDay,revertFunc)
                 {
                     var EventObject = event;
-                    var request = {title: EventObject.title,start:EventObject.start.toJSON,description:
+                    var Start4request = EventObject.start.format('isoDateTime');
+                    var request = {title: EventObject.title,start:Start4request,description:
                         EventObject.description};
+                    // current date of the calendar
+                    var currentDate = $('#calendar').fullCalendar('getDate');
+                    currentDate = currentDate.format('isoDateTime');
+                    console.log(currentDate)
                     $.ajax({
                         url:"/events/update.json",
                         dataType: 'json',
                         contentType: 'application/json; charset-utf8',
-                        data: {events:request, id: EventObject.id},
+                        data: {events:request, id: EventObject.id,curDate:currentDate},
                         success:function(){
                         },
                         error: function(XMLHttpRequest, textStatus, errorThrown) {
                             alert("Error: " + errorThrown);
+                            revertFunc();
                         }
                     });
                 },
@@ -71,14 +79,16 @@
                         // we need to copy it, so that multiple events don't have a reference to the same object
                         var copiedEventObject = $.extend({}, originalEventObject);
                         // assign it the date that was reported
-                        copiedEventObject.start =  new Date(date);
-                        console.log(copiedEventObject.start.getMonth());
                         copiedEventObject.allDay = allDay;
                         copiedEventObject.title = InputTitle.value;
                         copiedEventObject.description = InputText.value;
-                        var S = copiedEventObject.start;
-                        var Start4request = S.toJSON();
-                        console.log(Start4request);
+                        copiedEventObject.start = date;
+                        var Start4request = date;
+                        Start4request = Start4request.format('isoDateTime');
+                        // current date of calendar
+                        var currentDate = $('#calendar').fullCalendar('getDate');
+                        currentDate = currentDate.format('isoDateTime');
+                        console.log(currentDate);
                         request = {title: copiedEventObject.title,start:Start4request,description:
                             copiedEventObject.description};
                         //request = JSON.stringify(request);
@@ -86,7 +96,7 @@
                             url:"/events/new.json",
                             contentType:'application/json; charset-utf8',
                             dataType:'json',
-                            data:{events: request},
+                            data:{events: request,curDate:currentDate},
                             success:function(response){
                                 var events = JSON.parse(response.div_contents.body);;
                                 copiedEventObject.id = events.id;
@@ -105,12 +115,8 @@
         function updateCalendar()
         {
             var currentDate = $('#calendar').fullCalendar('getDate');
-            var curDate = new Date();
-            console.log(currentDate);
-            var S = currentDate.toJSON();
-            curDate = Date.parse(currentDate);
-            console.log(S);
-            request = {curDate: S};
+            currentDate = currentDate.format('isoDateTime');
+            request = {curDate: currentDate};
             InputTitle = document.getElementById('EventTitle');
             InputText = document.getElementById('EventDescription')
             $.ajax({
