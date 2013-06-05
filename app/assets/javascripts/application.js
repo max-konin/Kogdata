@@ -57,7 +57,6 @@
                     // current date of the calendar
                     var currentDate = $('#calendar').fullCalendar('getDate');
                     currentDate = currentDate.format('isoDateTime');
-                    console.log(currentDate)
                     $.ajax({
                         url:"/events/update.json",
                         dataType: 'json',
@@ -89,7 +88,6 @@
                         // current date of calendar
                         var currentDate = $('#calendar').fullCalendar('getDate');
                         currentDate = currentDate.format('isoDateTime');
-                        console.log(currentDate);
                         request = {title: copiedEventObject.title,start:Start4request,description:
                             copiedEventObject.description};
                         //request = JSON.stringify(request);
