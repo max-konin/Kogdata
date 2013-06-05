@@ -39,7 +39,8 @@
 
             $('#calendar').fullCalendar({
                 header: {
-                    left: 'prev,next today',
+                    left: 'prev',
+                    right: 'next',
                     center: 'title',
                     prev: 'circle-triangle-w',
                     next: 'circle-triangle-e'
