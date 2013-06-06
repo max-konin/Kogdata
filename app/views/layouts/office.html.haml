@@ -1,0 +1,33 @@
+%html
+  %head
+  = stylesheet_link_tag 'office'
+  = javascript_include_tag "application"
+  //= javascript_include_tag "calendar"
+  %title Kogdata
+%body
+  = render 'application/header'
+  %p.notice
+    = notice
+  %p.alert
+    = alert
+  .container-fluid
+    .row-fluid
+      .span3#container
+        .well.sidebar-nav
+          %ul{:class=>'nav nav-list'} Office
+          %li{:class=> 'nav-header'}
+            =link_to 'home' ,root_url, :data =>{:remote => false}
+        #external-events.well.sidebar-nav
+          #events-label-container
+            %h4 New event
+            %h6 Event title
+          %input{:class=> 'span2', :id=> 'EventTitle', :type=>'text', :placeholder=> 'Title',:value=>'11'}
+          #events-label-container
+            %h6 Event description
+          %textarea{:class=> 'input-medium', :id=> 'EventDescription', :type=>'text', :placeholder=> 'Description'}
+          %br
+          #events-label-container
+            %p4 Drag the event to the calendar to create new event
+          #external-event-template{:class=> 'external-event ui-draggable'} New Event
+      .span9
+        = yield

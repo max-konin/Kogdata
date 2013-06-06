@@ -11,24 +11,23 @@
 
 
 body {
-  margin-top: 0px;
   text-align: center;
   font-size: 14px;
   font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
 }
 
 #wrap {
-  width: 1100px;
+  width: auto;
   margin: 0 auto;
 }
 
-#external-events {
-  float: left;
-  width: 150px;
-  padding: 0 10px;
+div#external-events {
+  padding-left: 10px;
+  max-width: 216px;
   border: 1px solid #ccc;
   background: #eee;
   text-align: left;
+  margin: 0px;
 }
 
 #external-events h4 {
@@ -57,10 +56,6 @@ body {
   vertical-align: middle;
 }
 
-#calendar {
-  float: right;
-  width: 900px;
-}
 
 div.container{
   margin-left: 30px;
@@ -74,25 +69,56 @@ input.span2{
 }
 .calendar-container
 {
-  margin-top: 50px;
+  margin-top: 0px;
   text-align: center;
   font-size: 14px;
   font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
 }
 #calendar
 {
-  display: block;
-  width: 900px;
-  margin: 0 auto
+  //display: block;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  min-width: 700px;
 }
+
+#EventTitle
+{
+  width: auto;
+  max-width: 150px;
+}
+
+#EventDescription
+{
+  width:auto;
+  max-width: 150px;
+}
+
+#external-event-template
+{
+  width:auto;
+  max-width: 150px;
+}
+
 
 #external-events
 {
-  margin-top: 50px;
+
 }
 
 
+#events-label-container
+{
+  width:auto;
+  max-width: 150px;
+  margin-right: 0px;
+}
 
+.span9
+{
+  float: left;
+}
 
 p4
 {
