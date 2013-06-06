@@ -1,6 +1,9 @@
-%h1 Select Image
+%h2 Select Image
 %div
-	= form_tag :controller => "/image", :action => "bind" do
-		%div.uploadImage
-			= file_field_tag :image, :accept => "image/*"
-		= submit_tag "Submit Images"
+	= form_for :images, :url => "/image/bind" do |f|
+		- user.images.each do |image|
+			%div.uploadImage{:id => image.name}
+				%div.image
+					%img{:src => image.src}
+				= f.file_field :image, :accept => "image/*", :value => image.name
+		= f.submit "Submit Images"
