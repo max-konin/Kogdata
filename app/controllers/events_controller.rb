@@ -2,32 +2,28 @@ class EventsController < ApplicationController
   before_filter :authenticate_user!
   def new
       @user = current_user
-      format = "%FT%T.%LZ"
-      stringTime = params[:events][:start]
-      @event = @user.event.new(params[:events])
-      @event.start = DateTime.strptime(stringTime,format)
-      puts params[:events][:start]
-      @event.save
-      respond_to do |format|
-        format.html
-        format.json {render :json => @event}
-        format.xml {render :xml => @event}
+      if Days.inMonth?(params[:events][:start],params[:curDate])
+        @event = @user.event.new(params[:events])
+        @event.save
+        respond_to do |format|
+          format.html
+          format.json {render :json => @event}
+          format.xml {render :xml => @event}
+        end
+      else
+        respond_to do |format|
+          format.html
+          format.json {render :json=>{ }, status: :bad_request}
+        end
       end
-      #head :ok
+
   end
   def all
     @user = current_user
-    stringTime = params[:curDate]
-    format = "%FT%T.%LZ"
-    first_day = DateTime.strptime(stringTime,format)
-    last_day = DateTime.strptime(stringTime,format)
-
-    first_day = first_day.change({:day=> 1}).beginning_of_day
-    last_day = last_day.at_end_of_month.end_of_day
-
-    puts first_day
-    puts last_day
-    @events = Event.where("user_id = ? AND start > ? AND start < ? ",@user.id,first_day,last_day)
+    #the curDate parameter is a day of the current month
+    #the event must be created by the current user and be booked on the current mobth
+    @events = Event.where("user_id = ? AND start >= ? AND start <= ? ",@user.id,Days.firstDay(params[:curDate]),
+    Days.lastDay(params[:curDate]))
     respond_to do |format|
       format.html
       format.json {render :json => @events}
@@ -43,14 +39,21 @@ class EventsController < ApplicationController
     end
   end
   def update
-    @event = Event.find(params[:id])
-    respond_to do |format|
-      if @event.update_attributes(params[:events])
+    if Days.inMonth?(params[:events][:start],params[:curDate])
+      @event = Event.find(params[:id])
+      respond_to do |format|
+        if @event.update_attributes(params[:events])
+          format.html
+          format.json { render :json => true}
+        else
+          format html
+          format.json {render json=> @events.errors, status: :unprocessable_entity}
+        end
+      end
+    else
+      respond_to do |format|
         format.html
-        format.json { render :json => true}
-      else
-        format html
-        format.json {render json=> @events.errors, status: :unprocessable_entity}
+        format.json {render :json=>{ }, status: :bad_request}
       end
     end
   end
