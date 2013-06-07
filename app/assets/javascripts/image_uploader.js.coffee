@@ -41,27 +41,23 @@ lastInputUploadImage = uploadImageDivLast + " input"
 uploadImageHtml = "t"
 
 job = (e) ->
-	if $(lastInputUploadImage).val().length != 0
-		reader = new FileReader()
-		reader.onload = (e) ->
-			$(uploadImageDivLast).find("div.image img")
-				.attr("src", e.target.result)
-				.width(50)
-				.height(50)
-		reader.readAsDataURL($(lastInputUploadImage)[0].files[0])
-		$(uploadImageDivLast).after uploadImageHtml
-		setEventToLastInput()
-		return
-	if $(lastInputUploadImage).val().length == 0 && $(uploadImageDiv).size() != 1
-		$(uploadImageDivLast).remove()
+	reader = new FileReader()
+	reader.onload = (e) ->
+		$(uploadImageDivLast).find("div.image img")
+			.attr("src", e.target.result)
+			.width(50)
+			.height(50)
+	reader.readAsDataURL($(lastInputUploadImage)[0].files[0])
+	$(uploadImageDivLast).after uploadImageHtml
+	setEventToLastInput()
 	return
 
 setEventToLastInput = () ->
-	$(lastInputUploadImage).change job
+	$("input[type='file']").change job
 	return
 
 $(document).ready (e) ->
-	image_uploader.init()
+	setEventToLastInput()
 	return
 
 window.requestSignOut = new XMLHttpRequest()
