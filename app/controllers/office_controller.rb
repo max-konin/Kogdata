@@ -1,5 +1,6 @@
 class OfficeController < ApplicationController
-  def all
+  before_filter :authenticate_user!
+  def index
 
   end
 
