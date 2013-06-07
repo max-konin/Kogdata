@@ -1,13 +1,14 @@
 %html
 	%head
+		= stylesheet_link_tag 'home'
 		= javascript_include_tag "application"
 		= javascript_include_tag "image_uploader"
 		= stylesheet_link_tag "application"
 		%title Kogdata
 	%body
+		= render 'application/header'
 		%p.notice
 			= notice
 		%p.alert
 			= alert
-		= render 'application/header'
 		= yield
