@@ -16,9 +16,8 @@
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require fullcalendar
-//= require_tree .
 
-    $(document).ready(function()
+/*    $(document).ready(function()
     {
         $('#external-events div.external-event').each(function() {
             // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
@@ -149,4 +148,4 @@
             updateCalendar();
         });
         updateCalendar();
-    });
+    });*/

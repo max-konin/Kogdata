@@ -1,9 +1,10 @@
 %h2 Select Image
 %div
 	= form_for :images, :url => "/image/bind" do |f|
+		- user.images.build if user.images.count == 0
 		- user.images.each do |image|
 			%div.uploadImage{:id => image.name}
 				%div.image
-					%img{:src => image.src}
+					%img{:src => image.src.url(:thumb)}
 				= f.file_field :image, :accept => "image/*", :value => image.name
 		= f.submit "Submit Images"
