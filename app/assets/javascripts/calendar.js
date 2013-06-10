@@ -14,10 +14,14 @@
 $(document).ready(function()
 {
     var enableEdit = true;
+    //if variable role is defined
     if (typeof(role) != 'undefined')
     {
+        //and it's value is contractor
         if (role == 'contractor')
         {
+            //so the contractor is watching all the bookings
+            //and cant change the events
             enableEdit = false;
         }
     }
