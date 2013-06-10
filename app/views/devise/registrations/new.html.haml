@@ -7,14 +7,14 @@
         %a.btn.social-btn.btn-inverse{:href => "/users/auth/vkontakte"} Sign up with vkontakte
         %a.btn.social-btn.btn-info{:href => "/users/auth/twitter"} Sign up with twitter
         %a.btn.social-btn.btn-primary{:href => "/users/auth/facebok"} Sign up with facebok
-      .span3
+      .span6
         %br
         = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
           = devise_error_messages!
           .control-group
-            = f.email_field :email, :autofocus => true, :class => "input-xlarge", :placeholder => "Email"
+            = f.email_field :email, :class => 'large', :autofocus => true,  :placeholder => "Email"
           .control-group
-            = f.password_field :password, :class => "input-xlarge",  :placeholder => "Password"
+            = f.password_field :password, :class => 'large', :placeholder => "Password"
           .control-group
             = f.submit "Sign up", :class => "btn btn-danger"
 
