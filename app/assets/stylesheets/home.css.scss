@@ -12,7 +12,6 @@
 
 body {
   margin-top: 0px;
-  text-align: center;
   font-size: 14px;
   font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
 }
@@ -22,9 +21,7 @@ body {
   margin: 0 auto;
 }
 
-#external-events {
-  float: left;
-  width: 150px;
+div#external-events {
   padding: 0 10px;
   border: 1px solid #ccc;
   background: #eee;
@@ -61,7 +58,7 @@ body {
   width: 100%;
   position: relative;
   min-width: 700px;
-  float: right;
+  margin: 0;
 }
 
 div.container{
@@ -74,19 +71,37 @@ div.container{
 input.span2{
   height: 30px;
 }
-.calendar-container.container
+.calendar-container
 {
-  margin-top: 50px;
   text-align: center;
   font-size: 14px;
   font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-  width: auto;
-  float: right;
 }
 
-#external-events
+
+#EventTitle
 {
-  margin-top: 50px;
+  width: auto;
+  max-width: 150px;
+}
+
+#EventDescription
+{
+  width:auto;
+  max-width: 150px;
+}
+
+#external-event-template
+{
+  width:auto;
+  max-width: 150px;
+}
+
+#events-label-container
+{
+  width:auto;
+  max-width: 150px;
+  margin-right: 0px;
 }
 
 p4
@@ -129,4 +144,14 @@ p4
 			cursor: pointer;
 		}
 	}
+=======
+.social-btn
+{
+  width: 150px;
+  margin-top: 12px;
+}
+
+#forms
+{
+  padding: 120px 0 100px;
 }

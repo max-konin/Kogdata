@@ -9,6 +9,8 @@ class UserTest < ActiveSupport::TestCase
     user.role = :client
     assert (user.role? :client)
     assert !(user.role? :admin)
+    user.role = 'client'
+    assert (user.role? :client)
   end
 
 end

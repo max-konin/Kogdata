@@ -1,11 +1,2 @@
-#wrap
-  #external-events
-    %h4 New event
-    %h6 Event title
-    %input{:class=> 'span2', :id=> 'EventTitle', :type=>'text', :placeholder=> 'Title',:value=>'11'}
-    %h6 Event description
-    %textarea{:class=> 'input-medium', :id=> 'EventDescription', :type=>'text', :placeholder=> 'Description'}
-    %p4 Drag the event to the calendar to create new event
-    #external-event-template{:class=> 'external-event ui-draggable'} New Event
-  .calendar-container.container
-    #calendar
+.calendar-container
+  #calendar

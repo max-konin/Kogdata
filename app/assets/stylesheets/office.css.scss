@@ -11,7 +11,6 @@
 
 
 body {
-  text-align: center;
   font-size: 14px;
   font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
 }
@@ -23,7 +22,6 @@ body {
 
 div#external-events {
   padding-left: 10px;
-  max-width: 216px;
   border: 1px solid #ccc;
   background: #eee;
   text-align: left;
@@ -69,7 +67,6 @@ input.span2{
 }
 .calendar-container
 {
-  margin-top: 0px;
   text-align: center;
   font-size: 14px;
   font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
@@ -101,11 +98,6 @@ input.span2{
   max-width: 150px;
 }
 
-
-#external-events
-{
-
-}
 
 
 #events-label-container

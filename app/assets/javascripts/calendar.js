@@ -13,6 +13,22 @@
 
 $(document).ready(function()
 {
+    $('#show-bookings').click(function (event)
+    {
+        event.preventDefault();
+        $.ajax({
+            url:'/office/all',
+            dataType:'json',
+            success: function(response){
+                events = JSON.parse(response.div_contents.body);
+                for (var i=0; i<events.length; i++)
+                {
+                    $('#calendar').fullCalendar('renderEvent',events[i],true);
+                }
+            }
+        })
+    });
+
     $('#external-events div.external-event').each(function() {
         // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
         var eventObject = $(this).data() // use the element's text as the event title
@@ -38,6 +54,7 @@ $(document).ready(function()
             prev: 'circle-triangle-w',
             next: 'circle-triangle-e'
         },
+        firstDay: 1,
         timeFormat: "%FT%T.%LZ",
         editable: true,
         droppable: true,
@@ -125,7 +142,6 @@ $(document).ready(function()
 
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
-                alert("Error: " + errorThrown);
             }
         });
     }
