@@ -8,5 +8,5 @@
 			= notice
 		%p.alert
 			= alert
-		= render 'application/header'
+		= if user_signed_in? then render 'application/header_authorized' else render 'application/header' end
 		= yield

@@ -1,14 +1,21 @@
 Kogdata::Application.routes.draw do
 
 
+  get "messages/show_all"
+
+  get "messages/show_dialog"
+
+  get "messages/create_message"
+
+  get "messages/delete_message"
+
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
+  resources :messages
 
   root :to => 'Home#index'
   get "home/index"
   get "calendar/index"
   get "lc/index"
-  #get "lc/create_msg"
-  #get "lc/delete_msg"
   #get "lc/profile_update"
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,4 +1,6 @@
 class Message < ActiveRecord::Base
-  belongs_to :user
-  attr_accessible :body, :date
+  attr_accessible :body,  :was_seen
+  belongs_to :recipient
+  belongs_to :sender
+
 end
