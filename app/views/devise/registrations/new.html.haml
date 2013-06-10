@@ -1,13 +1,14 @@
-.container
-  %h2.span10.offset3 Sign up to Kogdata
+.container#forms
+  %h2.span8.offset3 Sign up to Kogdata
   .container-fluid
     .row-fluid
       .span3.offset3
         //= render "devise/shared/links"
-        %a.btn.social-btn.btn-inverse{:href => "/users/auth/vkontakte"} Log in with vkontakte
-        %a.btn.social-btn.btn-info{:href => "/users/auth/twitter"} Log in with Twitter
-        %a.btn.social-btn.btn-primary{:href => "/users/auth/facebok"} Log in with Twitter
+        %a.btn.social-btn.btn-inverse{:href => "/users/auth/vkontakte"} Sign up with vkontakte
+        %a.btn.social-btn.btn-info{:href => "/users/auth/twitter"} Sign up with twitter
+        %a.btn.social-btn.btn-primary{:href => "/users/auth/facebok"} Sign up with facebok
       .span3
+        %br
         = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
           = devise_error_messages!
           .control-group
