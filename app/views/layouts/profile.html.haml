@@ -1,0 +1,14 @@
+%html
+  %head
+    = stylesheet_link_tag 'home'
+    = stylesheet_link_tag 'profile'
+    = javascript_include_tag "application"
+    = stylesheet_link_tag 'application'
+    %title Kogdata
+%body
+  = render 'application/header'
+  %p.notice
+    = notice
+  %p.alert
+    = alert
+  = yield
