@@ -1,16 +1,22 @@
-%h2 Sign in
-= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-  %div
-    = f.label :email
-    %br/
-    = f.email_field :email, :autofocus => true
-  %div
-    = f.label :password
-    %br/
-    = f.password_field :password
-  - if devise_mapping.rememberable?
-    %div
-      = f.check_box :remember_me
-      = f.label :remember_me
-  %div= f.submit "Sign in"
-= render "devise/shared/links"
+.container#forms
+  %h2.span8.offset3 Sign in to Kogdata
+  .container-fluid
+    .row-fluid
+      .span3.offset3
+        //= render "devise/shared/links"
+        %a.btn.social-btn.btn-inverse{:href => "/users/auth/vkontakte"} Sign in with vkontakte
+        %a.btn.social-btn.btn-info{:href => "/users/auth/twitter"} Sign in with twitter
+        %a.btn.social-btn.btn-primary{:href => "/users/auth/facebok"} Sign in with facebok
+      .span6
+        %br
+        = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+          = devise_error_messages!
+          .control-group
+            = f.email_field :email, :class => 'large', :autofocus => true,  :placeholder => "Email"
+          .control-group
+            = f.password_field :password, :class => 'large', :placeholder => "Password"
+          .control-group
+            = f.check_box :remember_me
+            = f.label :remember_me
+            = f.submit "Sign in", :class => "btn btn-danger"
+
