@@ -13,6 +13,14 @@
 
 $(document).ready(function()
 {
+    var enableEdit = true;
+    if (typeof(role) != 'undefined')
+    {
+        if (role == 'contractor')
+        {
+            enableEdit = false;
+        }
+    }
     $('#show-bookings').click(function (event)
     {
         event.preventDefault();
@@ -56,7 +64,7 @@ $(document).ready(function()
         },
         firstDay: 1,
         timeFormat: "%FT%T.%LZ",
-        editable: true,
+        editable: enableEdit,
         droppable: true,
         eventDrop: function(event,dayDelta,minuteDelta,allDay,revertFunc)
         {

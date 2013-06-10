@@ -7,12 +7,13 @@ Kogdata::Application.routes.draw do
   root :to => 'calendar#index/'
   get "home/index"
   get "calendar/index"
-  match 'office/'=> "office#index"
+  get 'office/show'
   get 'office/all'
   get 'events/new'
   get 'events/all'
   get 'events/show'
   get 'events/update'
+  match 'office/'=> "office#show"
   resources :users do
     resources :events
   end
