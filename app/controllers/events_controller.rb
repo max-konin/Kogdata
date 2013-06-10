@@ -1,3 +1,4 @@
+require 'Days'
 class EventsController < ApplicationController
   before_filter :authenticate_user!
   def new
@@ -22,7 +23,7 @@ class EventsController < ApplicationController
     @user = current_user
     #the curDate parameter is a day of the current month
     #the event must be created by the current user and be booked on the current mobth
-    @events = Event.where("user_id = ? AND start >= ? AND start <= ? ",@user.id,Days.firstDay(params[:curDate]),
+    @events = Event.where("user_id = ? AND start >= ? AND start <= ? ",@user.id, Days.firstDay(params[:curDate]),
     Days.lastDay(params[:curDate]))
     respond_to do |format|
       format.html
