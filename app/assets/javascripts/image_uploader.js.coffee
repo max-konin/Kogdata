@@ -16,7 +16,7 @@ image_uploader.prototype.on_change = (e) ->
 	if select_last_input().val().length != 0
 		reader = new FileReader()
 		reader.onload = (e) ->
-			select_last.find("div.image img")
+			select_last().find("div.image img")
 				.attr("src", e.target.result)
 				.width(50)
 				.height(50)
@@ -50,16 +50,24 @@ delete_image = () ->
 
 upload_image = () ->
 	thus = this
-	if(thus.value.lenght == 0)
+	if(thus.value.length == 0)
 		return
 	$.ajax {
 		url: "/image/bind",
 		type: "POST",
-		data: { image: thus.files[0] },
+		data: { image: {
+			name: thus.files[0].name,
+			size: thus.files[0].size,
+			type: thus.files[0].type,
+			lastModifiedDate: thus.files[0].lastModifiedDate
+		} },
 		success: () ->
 			html = $("li.image")[0].outerHTML
 			$("li.image:last").after html
 			$("li.image:last").find(".deleteImage").click delete_image
+			if typeof FileReader == undefined
+				$("li.image:last").find("img").attr("src", "http://placekitten.com/50/50")
+				return
 			reader = new FileReader()
 			reader.onload (e) ->
 				$("li.image:last").find("img")
@@ -70,9 +78,10 @@ upload_image = () ->
 		error: () ->
 			console.log "Something went wrong!"
 	}
+	$(thus).val ""
 	return
 
 $(document).ready (e) ->
-	$("#uploadImage").click upload_image
+	$("#uploadImage").change upload_image
 	$(".deleteImage").click delete_image
 	return

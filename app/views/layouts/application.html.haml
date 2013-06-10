@@ -1,9 +1,10 @@
 %html
-<<<<<<< HEAD
 	%head
 		= stylesheet_link_tag 'home'
 		= javascript_include_tag "application"
+		= javascript_include_tag "common"
 		= javascript_include_tag "image_uploader"
+		= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery?
 		= stylesheet_link_tag "application"
 		%title Kogdata
 	%body
@@ -13,17 +14,3 @@
 		%p.alert
 			= alert
 		= yield
-=======
-  %head
-    = stylesheet_link_tag 'home'
-    = javascript_include_tag "application"
-    = stylesheet_link_tag 'application'
-    %title Kogdata
-%body
-  = render 'application/header'
-  %p.notice
-    = notice
-  %p.alert
-    = alert
-  = yield
->>>>>>> 9af7e512a769aa0a971a6daba330d3db9353765d
