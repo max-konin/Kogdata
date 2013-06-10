@@ -13,5 +13,7 @@
 
 //= require jquery
 //= require jquery.ui.all
-//= require_tree .
+//= require jquery.cookie
+
+var role
 

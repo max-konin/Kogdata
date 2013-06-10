@@ -73,6 +73,7 @@ input.span2{
 }
 .calendar-container
 {
+  margin-top: 50px;
   text-align: center;
   font-size: 14px;
   font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
@@ -108,6 +109,17 @@ input.span2{
 p4
 {
   font-size: 11px;
+}
+
+.sidebar{
+  float: left;
+  width: 300px;
+  margin-left: 10px;
+}
+
+.mainbox{
+  margin-left: 320;
+  margin-right: 10px;
 }
 
 .social-btn

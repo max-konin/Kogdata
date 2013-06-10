@@ -14,9 +14,11 @@ Kogdata::Application.routes.draw do
   get 'events/show'
   get 'events/update'
 
-  #resources :users do
-  #  resources :events
-  #end
+  match 'office/'=> "office#show"
+  match '/users/:user_id/messages' => 'messages#show_all',        :via => :get
+  match '/users/:user_id/messages/:id' => 'messages#new_message', :via => :post
+  match '/users/:user_id/messages/:id' => 'messages#show_dialog', :via => :get
+  match '/users/:user_id/messages' => 'messages#create_message',  :via => :post
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

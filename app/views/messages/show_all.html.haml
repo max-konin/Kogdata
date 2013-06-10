@@ -1,0 +1,17 @@
+.mainbox
+  .well
+    .btn-toolbar
+      %button{:class => 'btn pull-left', :type => 'submit'} New message
+      %h3{:align=>'center'} YOUR MESSAGES
+  -if @messages.nil?
+    %p You have no messages yet
+  -else
+  -@messages.each do |message|
+    .well.well-small
+      .navbar
+        %h6{:align=>'left'}= message.recipient.name
+        .btn-group.pull-right
+          =button_to 'Reply', :controller => 'messages', :action => 'create_message', :id => message.sender.id;
+        %p{:align=>'left'}= message.body
+        %P{:align=>'left'}Received at
+        %p{:align=>'left'}= message.created_at
