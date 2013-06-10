@@ -1,10 +1,13 @@
 %h2 Select Image
 %div
 	= form_for :images, :url => "/image/bind" do |f|
-		- 5.times do |t| user.images.build(:id => t) end
-		- user.images.each do |image|
-			%div.uploadImage{:id => image.id}
-				%div.image
-					%img{:src => image.src.url(:thumb)}
-				= f.file_field :image, :accept => "image/*", :value => image.name
-		= f.submit "Submit Images"
+		%ul#images
+			- user.images.each do |image|
+				%li.image
+					%div
+						%img{:src => image.src.url(:thumb)}
+					%div.deleteImage{ :id => image.id }
+						X
+		%div.uploadImage.btn
+			add image
+			= f.file_field :image, :accept => "image/*", :id => "uploadImage"

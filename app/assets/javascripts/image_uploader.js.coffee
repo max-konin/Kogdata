@@ -1,4 +1,4 @@
-image_uploader = Object.create(Object)
+###image_uploader = Object.create(Object)
 image_uploader.prototype.images = []
 image_uploader.prototype.html_of_object = "full in init"
 image_uploader.prototype.selector = "div.uploadImage:visible"
@@ -34,31 +34,45 @@ image_uploader.init = () ->
 	for image in images
 		image.find("input").change on_change
 	return
-
-uploadImageDiv = "div.uploadImage"
-uploadImageDivLast = uploadImageDiv + ":last"
-lastInputUploadImage = uploadImageDivLast + " input"
-uploadImageHtml = "t"
-
-job = (e) ->
-	reader = new FileReader()
-	reader.onload = (e) ->
-		$(uploadImageDivLast).find("div.image img")
-			.attr("src", e.target.result)
-			.width(50)
-			.height(50)
-	reader.readAsDataURL($(lastInputUploadImage)[0].files[0])
-	$(uploadImageDivLast).after uploadImageHtml
-	setEventToLastInput()
+###
+delete_image = () ->
+	thus = this
+	id = thus.id
+	$.ajax {
+		url: "/image/delete/" + id,
+		type: "DELETE",
+		success: () ->
+			thus.parent().remove()
+		error: () ->
+			console.log "Something went wrong!"
+	}
 	return
 
-setEventToLastInput = () ->
-	$("input[type='file']").change job
+upload_image = () ->
+	thus = this
+	if(thus.value.lenght == 0)
+		return
+	$.ajax {
+		url: "/image/bind",
+		type: "POST",
+		data: { image: thus.files[0] },
+		success: () ->
+			html = $("li.image")[0].outerHTML
+			$("li.image:last").after html
+			$("li.image:last").find(".deleteImage").click delete_image
+			reader = new FileReader()
+			reader.onload (e) ->
+				$("li.image:last").find("img")
+					.attr("src", e.target.result)
+					.width(50)
+					.height(50)
+			reader.readAsDataURL(thus.files[0])
+		error: () ->
+			console.log "Something went wrong!"
+	}
 	return
 
 $(document).ready (e) ->
-	setEventToLastInput()
+	$("#uploadImage").click upload_image
+	$(".deleteImage").click delete_image
 	return
-
-window.requestSignOut = new XMLHttpRequest()
-window.requestSignOut.open("DELETE", "http://localhost:3000/users/sign_out", false)
