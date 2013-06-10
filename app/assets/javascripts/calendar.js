@@ -13,6 +13,18 @@
 
 $(document).ready(function()
 {
+    var enableEdit = true;
+    //if variable role is defined
+    if (typeof(role) != 'undefined')
+    {
+        //and it's value is contractor
+        if (role == 'contractor')
+        {
+            //so the contractor is watching all the bookings
+            //and cant change the events
+            enableEdit = false;
+        }
+    }
     $('#show-bookings').click(function (event)
     {
         event.preventDefault();
@@ -56,7 +68,7 @@ $(document).ready(function()
         },
         firstDay: 1,
         timeFormat: "%FT%T.%LZ",
-        editable: true,
+        editable: enableEdit,
         droppable: true,
         eventDrop: function(event,dayDelta,minuteDelta,allDay,revertFunc)
         {

@@ -14,7 +14,7 @@
         %li.divider-vertical
         -if user_signed_in?
           %li
-            %a{:href => "/users/sign_out"} SIGN OUT
+            = link_to "SIGN OUT", destroy_user_session_path
         -else
           %li
             %a{:href => "/users/sign_in"} LOG IN
