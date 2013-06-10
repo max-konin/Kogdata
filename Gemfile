@@ -24,10 +24,14 @@ end
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-
+gem 'rails-ajax'
+gem 'json'
 # Modules that makes life easier
 gem 'haml-rails'
 gem 'fullcalendar-rails'
+
+# For work with images
+gem 'paperclip'
 
 # Work with auth
 gem 'devise'
@@ -39,6 +43,7 @@ gem 'omniauth-gplus'
 gem 'omniauth-instagram'
 gem 'omniauth-twitter'
 gem 'omniauth-vkontakte'
+gem 'cancan'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

@@ -1,0 +1,7 @@
+%h1 Select Image
+%div
+	= form_for :images, :html => { :multipath => true }, :action => "/image/bind" do |f|
+		%div.uploadImage
+			= f.label :image
+			= f.file_field :image, :accept => "image/*"
+		= f.submit "Submit Images"

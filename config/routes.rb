@@ -1,22 +1,21 @@
 Kogdata::Application.routes.draw do
 
-
-  get "messages/show_all"
-
-  get "messages/show_dialog"
-
-  get "messages/create_message"
-
-  get "messages/delete_message"
+  post "image/bind"
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
-  resources :messages
 
-  root :to => 'Home#index'
+  root :to => 'calendar#index/'
   get "home/index"
   get "calendar/index"
-  get "lc/index"
-  #get "lc/profile_update"
+  match 'office/'=> "office#index"
+  get 'office/all'
+  get 'events/new'
+  get 'events/all'
+  get 'events/show'
+  get 'events/update'
+  resources :users do
+    resources :events
+  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

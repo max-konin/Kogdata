@@ -11,7 +11,6 @@
 
 
 body {
-  margin-top: 0px;
   font-size: 14px;
   font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
 }
@@ -22,10 +21,11 @@ body {
 }
 
 div#external-events {
-  padding: 0 10px;
+  padding-left: 10px;
   border: 1px solid #ccc;
   background: #eee;
   text-align: left;
+  margin: 0px;
 }
 
 #external-events h4 {
@@ -54,12 +54,6 @@ div#external-events {
   vertical-align: middle;
 }
 
-#calendar {
-  width: 100%;
-  position: relative;
-  min-width: 700px;
-  margin: 0;
-}
 
 div.container{
   margin-left: 30px;
@@ -73,12 +67,18 @@ input.span2{
 }
 .calendar-container
 {
-  margin-top: 50px;
   text-align: center;
   font-size: 14px;
   font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
 }
-
+#calendar
+{
+  //display: block;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  min-width: 700px;
+}
 
 #EventTitle
 {
@@ -98,6 +98,8 @@ input.span2{
   max-width: 150px;
 }
 
+
+
 #events-label-container
 {
   width:auto;
@@ -105,30 +107,12 @@ input.span2{
   margin-right: 0px;
 }
 
+.span9
+{
+  float: left;
+}
 
 p4
 {
   font-size: 11px;
-}
-
-.sidebar{
-  float: left;
-  width: 300px;
-  margin-left: 10px;
-}
-
-.mainbox{
-  margin-left: 320;
-  margin-right: 10px;
-}
-
-.social-btn
-{
-  width: 150px;
-  margin-top: 12px;
-}
-
-#forms
-{
-  padding: 120px 0 100px;
 }
