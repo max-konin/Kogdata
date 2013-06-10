@@ -17,3 +17,9 @@
 # Ignore some rails files
 Gemfile.lock
 db/schema.rb
+
+config/database.yml
+
+# Anti vim
+*.swp
+*.orig

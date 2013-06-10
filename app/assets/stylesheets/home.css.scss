@@ -70,6 +70,7 @@ input.span2{
 }
 .calendar-container
 {
+  margin-top: 50px;
   text-align: center;
   font-size: 14px;
   font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
@@ -141,6 +142,16 @@ p4
 			cursor: pointer;
 		}
 	}
+
+.sidebar{
+  float: left;
+  width: 300px;
+  margin-left: 10px;
+}
+
+.mainbox{
+  margin-left: 320;
+  margin-right: 10px;
 }
 
 .social-btn
@@ -152,4 +163,9 @@ p4
 #forms
 {
   padding: 120px 0 100px;
+}
+
+input.large
+{
+  height: 30px;
 }

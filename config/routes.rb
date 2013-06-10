@@ -8,15 +8,20 @@ Kogdata::Application.routes.draw do
   root :to => 'calendar#index/'
   get "home/index"
   get "calendar/index"
-  match 'office/'=> "office#index"
+  get 'office/show'
   get 'office/all'
   get 'events/new'
   get 'events/all'
   get 'events/show'
   get 'events/update'
+  match 'office/'=> "office#show"
   resources :users do
     resources :events
   end
+  match '/users/:user_id/messages' => 'messages#show_all',        :via => :get
+  match '/users/:user_id/messages/:id' => 'messages#new_message', :via => :post
+  match '/users/:user_id/messages/:id' => 'messages#show_dialog', :via => :get
+  match '/users/:user_id/messages' => 'messages#create_message',  :via => :post
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

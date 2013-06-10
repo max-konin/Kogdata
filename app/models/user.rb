@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 	attr_accessible :email, :password, :remember_me, :name, :provider, :uid, :role, :images
 	has_many :images
 	has_many :event
+    has_many :message
 
 	def get_image_by_name(name)
 		Image.find(name)
