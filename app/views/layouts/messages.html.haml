@@ -1,22 +1,23 @@
 %html
   %head
-    =javascript_include_tag "application"
-    =stylesheet_link_tag 'application'
-    %title Kogdata
-  %body
-    %p.notice
-      = notice
-    %p.alert
-      = alert
-    = if user_signed_in? then render 'application/header_authorized' else render 'application/header' end
-    .sidebar
-      .hero-unit
-        %ul{:class => 'nav nav-list'}
-          %li{:class=>'nav-header'}
-            %a{:href=>'index'}
-              %h4 Personal Page
-          %li
-            %a{:href=>'profile_update'} Change profile
-          %li
-            %a{:href=>'show_all'} Messages
-    = yield
+    = stylesheet_link_tag 'office'
+    = javascript_include_tag "application"
+  //= javascript_include_tag "calendar"
+  %title Kogdata
+%body
+  = render 'application/header'
+  %p.notice
+    = notice
+  %p.alert
+    = alert
+  .container-fluid
+    .row-fluid
+      .span3#container
+        .well.sidebar-nav
+          %ul{:class=>'nav nav-list'}
+            %li{:class => 'nav-header'}Office
+            %li
+              =link_to 'home' ,root_url,:remote => false, :method => 'GET'
+            %li
+              =link_to 'messages', :controller => 'messages', :action => 'show_all'
+        = yield

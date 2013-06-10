@@ -1,4 +1,3 @@
-= stylesheet_link_tag 'home'
 .mainbox
   .well
     .btn-toolbar
@@ -8,12 +7,11 @@
     %p You have no messages yet
   -else
   -@messages.each do |message|
-    -if message.was_seen == nil
     .well.well-small
       .navbar
         %h6{:align=>'left'}= message.recipient.name
         .btn-group.pull-right
-          %button{:class => 'btn', :type => 'submit'} Reply
+          =button_to 'Reply', :controller => 'messages', :action => 'create_message', :id => message.sender.id;
         %p{:align=>'left'}= message.body
         %P{:align=>'left'}Received at
         %p{:align=>'left'}= message.created_at

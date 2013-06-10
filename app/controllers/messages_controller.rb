@@ -14,19 +14,31 @@ class MessagesController < ApplicationController
   end
 
   def new_message
-
+    @message = Message.new()
+    @recipient = params[:id]
   end
 
   def create_message
-    @message = Message.create(params[:message])
-    redirect_to 'messages/show_all'
+    @message = Message.new(params[:body])
+    @message.was_seen = 0
+    @message.sender_id = current_user.id
+    @message.recipient_id = @recipient
+    if @message.save
+      redirect_to 'messages/show_all'
+    else
+      flash[:notice] = 'An error sending occurred'
+    end
   end
 
   def delete_message
     Message.destroy(params[:id])
+    redirect_to 'messages/show_all'
   end
 
+
+
   def user_check
+
 
   end
 end
