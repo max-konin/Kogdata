@@ -36,6 +36,11 @@ class Ability
 
     if user.role? :contractor
       can :upload, :photo
+      can :read, :all
+    end
+
+    if user.role? :client
+      can :create, :all
     end
 
 

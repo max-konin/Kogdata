@@ -25,6 +25,6 @@ class User < ActiveRecord::Base
 
 	#check user's role
 	def role? (role)
-		self.role.eql?(role)
+		self.role.to_sym == role.to_sym
 	end
 end
