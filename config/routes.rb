@@ -14,9 +14,9 @@ Kogdata::Application.routes.draw do
   get 'events/show'
   get 'events/update'
 
-  resources :users do
-    resources :events
-  end
+  #resources :users do
+  #  resources :events
+  #end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
