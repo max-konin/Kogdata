@@ -54,6 +54,7 @@ $(document).ready(function()
             prev: 'circle-triangle-w',
             next: 'circle-triangle-e'
         },
+        firstDay: 1,
         timeFormat: "%FT%T.%LZ",
         editable: true,
         droppable: true,
@@ -141,7 +142,6 @@ $(document).ready(function()
 
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
-                alert("Error: " + errorThrown);
             }
         });
     }
