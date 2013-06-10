@@ -13,6 +13,7 @@ Kogdata::Application.routes.draw do
   get 'events/all'
   get 'events/show'
   get 'events/update'
+
   resources :users do
     resources :events
   end
