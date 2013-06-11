@@ -16,4 +16,3 @@
 //= require jquery.cookie
 
 var role
-

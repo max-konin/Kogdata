@@ -1,7 +1,16 @@
-%h1 Select Image
+%h2 Select Image
 %div
-	= form_for :images, :html => { :multipath => true }, :action => "/image/bind" do |f|
-		%div.uploadImage
-			= f.label :image
-			= f.file_field :image, :accept => "image/*"
-		= f.submit "Submit Images"
+	= form_for :images, :url => "/image/bind" do |f|
+		%ul#images
+			- user.images.each do |image|
+				%li.image
+					%div
+						%img{:src => image.src.url(:thumb)}
+					%div.deleteImage{:id => image.id}
+						X
+		%div.uploadImage.btn
+			add image
+			= f.file_field :upload, :accept => "image/*", :id => "uploadImage"
+		%div.uploadImage.btn
+			submit images
+			= f.submit

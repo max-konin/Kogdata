@@ -1,6 +1,7 @@
 Kogdata::Application.routes.draw do
 
   post "image/bind"
+  delete "image/delete"
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 

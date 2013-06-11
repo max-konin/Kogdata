@@ -1,10 +1,11 @@
-.mainbox
+.span9#container
   .well
     .btn-toolbar
       %button{:class => 'btn pull-left', :type => 'submit'} New message
       %h3{:align=>'center'} YOUR MESSAGES
-  -if @messages.nil?
-    %p You have no messages yet
+  -if @messages.empty?
+    .well
+      %p You have no messages yet
   -else
   -@messages.each do |message|
     .well.well-small

@@ -7,16 +7,25 @@ class User < ActiveRecord::Base
 			:omniauthable, :omniauth_providers => [ :facebook, :vkontakte, :twitter, :gplus, :google_oauth2, :devianart ]
 
 	# Setup accessible (or protected) attributes for your model
-	attr_accessible :email, :password, :remember_me, :name, :provider, :uid, :role
+	attr_accessible :email, :password, :remember_me, :name, :provider, :uid, :role, :images
 	has_many :images
 	has_many :event
-    has_many :message
+  has_many :messages, :class_name => 'Message', :foreign_key => 'user_recipient_id'
+  has_many :messages, :class_name => 'Message', :foreign_key => 'user_sender_id'
 
 	def get_image_by_name(name)
 		Image.find(name)
 	end
 
-  after_initialize :set_default_role
+  after_create :set_default_role
+  after_save :set_default_name
+
+  def set_default_name
+    if (self.name.nil?) || (self.name.empty?) then
+      self.name = "user" + self.id.to_s
+      self.save
+    end
+  end
 
 	def set_default_role
 		self.role ||= :client
