@@ -1,6 +1,6 @@
 %h2 Select Image
 %div
-	= form_for :images, :url => "/image/bind" do |f|
+	= form_for :upload, :url => "/image/bind" do |f|
 		%ul#images
 			- user.images.each do |image|
 				%li.image
@@ -10,7 +10,8 @@
 						X
 		%div.uploadImage.btn
 			add image
-			= f.file_field :upload, :accept => "image/*", :id => "uploadImage"
+			= f.fields_for :images do |file|
+				= file.file_field :image, :accept => "image/*", :id => "uploadImage", :name => "images[]"
 		%div.uploadImage.btn
 			submit images
 			= f.submit

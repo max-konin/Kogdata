@@ -27,8 +27,8 @@ test:
   reconnect: false
   database: kogdata_test
   pool: 5
-  username: root
-  password: spawnown
+  username: kogdata
+  password: kogdata
   host: localhost
 
 production:
@@ -37,6 +37,6 @@ production:
   reconnect: false
   database: kogdata_production
   pool: 5
-  username: root
-  password: spawnown
+  username: kogdata
+  password: kogdata
   host: localhost
