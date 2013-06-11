@@ -1,7 +1,8 @@
-###image_uploader = Object.create(Object)
+###image_uploader = Object.create(null)
+image_uploader.prototype = Object.create(null)
 image_uploader.prototype.images = []
 image_uploader.prototype.html_of_object = "full in init"
-image_uploader.prototype.selector = "div.uploadImage:visible"
+image_uploader.prototype.selector = "li.image"
 # Select all object by selector
 image_uploader.prototype.select_all = () ->
 	$(selector)
@@ -14,18 +15,24 @@ image_uploader.prototype.select_last_input = () ->
 # Function to catch change in input
 image_uploader.prototype.on_change = (e) ->
 	if select_last_input().val().length != 0
-		reader = new FileReader()
-		reader.onload = (e) ->
-			select_last().find("div.image img")
-				.attr("src", e.target.result)
-				.width(50)
-				.height(50)
-		reader.readAsDataURL(select_last_input()[0].files[0])
-		select_last().after html_of_object
-		select_last_input().change on_change
-		return
+		if typeof FileReader == undefined
+			select_last.find("img").attr("src", "http://placekitten.com/50/50")
+		else
+			reader = new FileReader()
+			reader.onload = (e) ->
+				select_last().find("div.image img")
+					.attr("src", e.target.result)
+					.width(50)
+					.height(50)
+			reader.readAsDataURL(select_last_input()[0].files[0])
+			select_last().after html_of_object
+			select_last_input().change on_change
 	if select_all().size() != 1
 		select_last().hide()
+	return
+# Function for delete
+image_uploader.prototype.on_delete = (e) ->
+	
 	return
 # Init Function
 image_uploader.init = () ->
@@ -38,46 +45,36 @@ image_uploader.init = () ->
 delete_image = () ->
 	thus = this
 	id = thus.id
-	$.ajax {
-		url: "/image/delete/" + id,
-		type: "DELETE",
-		success: () ->
-			thus.parent().remove()
-		error: () ->
-			console.log "Something went wrong!"
-	}
+	if id != ""
+		$.ajax {
+			url: "/image/delete/" + id,
+			type: "DELETE",
+			success: () ->
+				$(thus).parent().remove()
+			error: () ->
+				console.log "Something went wrong!"
+		}
+	else
+		$(thus).parent().remove()
 	return
 
 upload_image = () ->
 	thus = this
 	if(thus.value.length == 0)
 		return
-	$.ajax {
-		url: "/image/bind",
-		type: "POST",
-		data: { image: {
-			name: thus.files[0].name,
-			size: thus.files[0].size,
-			type: thus.files[0].type,
-			lastModifiedDate: thus.files[0].lastModifiedDate
-		} },
-		success: () ->
-			html = $("li.image")[0].outerHTML
-			$("li.image:last").after html
-			$("li.image:last").find(".deleteImage").click delete_image
-			if typeof FileReader == undefined
-				$("li.image:last").find("img").attr("src", "http://placekitten.com/50/50")
-				return
-			reader = new FileReader()
-			reader.onload (e) ->
-				$("li.image:last").find("img")
-					.attr("src", e.target.result)
-					.width(50)
-					.height(50)
-			reader.readAsDataURL(thus.files[0])
-		error: () ->
-			console.log "Something went wrong!"
-	}
+	html = $("li.image")[0].outerHTML
+	$("#images").append html
+	$("li.image:last").find(".deleteImage").attr("id", "").click delete_image
+	if typeof FileReader == undefined
+		$("li.image:last").find("img").attr("src", "http://placekitten.com/50/50")
+	else
+		reader = new FileReader()
+		reader.onload = (e) ->
+			$("li.image:last").find("img")
+				.attr("src", e.target.result)
+				.width(50)
+				.height(50)
+		reader.readAsDataURL(thus.files[0])
 	$(thus).val ""
 	return
 

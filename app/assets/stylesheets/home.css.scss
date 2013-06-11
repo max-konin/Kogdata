@@ -70,7 +70,6 @@ input.span2{
 }
 .calendar-container
 {
-  margin-top: 50px;
   text-align: center;
   font-size: 14px;
   font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
@@ -109,10 +108,10 @@ p4
 
 .uploadImage {
 	box-sizing: border-box;
-	width: 120px;
+	width: 160px;
 	text-transform: uppercase;
 	position: relative;
-	input#uploadImage {
+	input {
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -142,6 +141,7 @@ p4
 			cursor: pointer;
 		}
 	}
+}
 
 .sidebar{
   float: left;

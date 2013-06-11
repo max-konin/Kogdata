@@ -10,4 +10,7 @@
 						X
 		%div.uploadImage.btn
 			add image
-			= f.file_field :image, :accept => "image/*", :id => "uploadImage"
+			= f.file_field :upload, :accept => "image/*", :id => "uploadImage"
+		%div.uploadImage.btn
+			submit images
+			= f.submit
