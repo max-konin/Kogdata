@@ -150,8 +150,7 @@ p4
 }
 
 .mainbox{
-  margin-left: 320;
-  margin-right: 10px;
+
 }
 
 .social-btn
@@ -168,4 +167,9 @@ p4
 input.large
 {
   height: 30px;
+}
+
+select#user_role
+{
+  max-width: 206px;
 }

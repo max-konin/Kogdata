@@ -14,6 +14,8 @@
           .control-group
             = f.text_field :name, :class => 'large', :autofocus => true,  :placeholder => "Your name"
           .control-group
+            = f.select :role, options_for_select([['Client', :client], ['Photographer', :contractor]] )
+          .control-group
             = f.email_field :email, :class => 'large',  :placeholder => "Email"
           .control-group
             = f.password_field :password, :class => 'large', :placeholder => "Password"
