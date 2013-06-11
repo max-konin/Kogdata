@@ -3,7 +3,8 @@ class MessagesController < ApplicationController
  # before_filter :user_check
 
   def show_all
-    @messages = current_user.messages
+    @user = current_user
+    @messages = @user.messages
   end
 
   def show_dialog
