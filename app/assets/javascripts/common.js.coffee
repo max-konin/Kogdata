@@ -1,21 +1,7 @@
-uploadImageDiv = "div.uploadImage"
-uploadImageDivLast = uploadImageDiv + ":last"
-lastInputUploadImage = uploadImageDivLast + " input"
-
-setEventToLastInput = () ->
-	innerHtml = $(uploadImageDivLast).html()
-	$(lastInputUploadImage).change (e) ->
-		if $(this).val().length != 0
-			$(uploadImageDivLast).after "<div class='uploadImage'>" + innerHtml + "</div>"
-			setEventToLastInput()
-		if $(this).val().length == 0 && $(uploadImageDiv).size() != 1
-			$(uploadImageDivLast).remove()
+$(document).ajaxSend (e, r, s) ->
+	if typeof AUTH_TOKEN == undefined
 		return
+	s.data = s.data || ""
+	s.data += (if s.data then "&" else "") + "authenticity_token=" + encodeURIComponent AUTH_TOKEN
+	#s.data['authenticity_token']  = encodeURIComponent AUTH_TOKEN
 	return
-
-$(document).ready (e) ->
-	setEventToLastInput()
-	return
-
-window.requestSignOut = new XMLHttpRequest()
-window.requestSignOut.open("DELETE", "http://localhost:3000/users/sign_out", false)

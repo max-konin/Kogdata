@@ -3,12 +3,17 @@ class ImageController < ApplicationController
 
 	def bind
 		debugger
-		images = params[:user].images
-		userId = current_user.id
-		images.count.times do current_user.images.build end
+		images = params[:images]
 		images.each do |image|
-			Image.new(image)
+			current_user.images.create :src => image, :name => image.original_filename
 		end
-		redirect_to "users/edit"
+		redirect_to "/users/edit"
+	end
+
+	def delete
+		debugger
+		image_id = params[:id]
+		current_user.images.find(image_id).delete
+		redirect_to "/users/edit"
 	end
 end
