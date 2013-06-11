@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 = stylesheet_link_tag 'home'
-=======
->>>>>>> 9af7e512a769aa0a971a6daba330d3db9353765d
 .navbar.navbar-inverse.navbar-fixed-top
   .navbar-inner
     .container
@@ -9,10 +6,13 @@
         %span{:class=>'icon-bar'}
         %span{:class=>'icon-bar'}
         %span{:class=>'icon-bar'}
-      %a{:class => 'brand', :href=> 'index'} Kogdata
+      %a{:class => 'brand', :href=> '/'} Kogdata
       %ul.nav.pull-right
         %li.divider-vertical
         -if user_signed_in?
+          %li
+            = link_to "OFFICE", "/office"
+          %li.divider-vertical
           %li
             = link_to "SIGN OUT", destroy_user_session_path
         -else

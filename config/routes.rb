@@ -13,10 +13,12 @@ Kogdata::Application.routes.draw do
   get 'events/all'
   get 'events/show'
   get 'events/update'
+  get 'profile/index'
   match 'office/'=> "office#show"
-  resources :users do
-    resources :events
-  end
+  match 'profile/:id' => 'profile#show'
+  #resources :users do
+  #  resources :events
+  #end
   match '/users/:user_id/messages' => 'messages#show_all',        :via => :get
   match '/users/:user_id/messages/:id' => 'messages#new_message', :via => :post
   match '/users/:user_id/messages/:id' => 'messages#show_dialog', :via => :get
