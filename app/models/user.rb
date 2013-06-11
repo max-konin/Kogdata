@@ -17,7 +17,15 @@ class User < ActiveRecord::Base
 		Image.find(name)
 	end
 
-   after_create :set_default_role
+  after_create :set_default_role
+  after_save :set_default_name
+
+  def set_default_name
+    if (self.name.nil?) || (self.name.empty?) then
+      self.name = "user" + self.id.to_s
+      self.save
+    end
+  end
 
 	def set_default_role
 		self.role ||= :client
