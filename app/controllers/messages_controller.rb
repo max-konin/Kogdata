@@ -1,10 +1,9 @@
 class MessagesController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :user_check
+ # before_filter :user_check
 
   def show_all
-    id = current_user.id
-    @messages = Message.where('recipient_id = ?', id)
+    @messages = current_user.messages
   end
 
   def show_dialog

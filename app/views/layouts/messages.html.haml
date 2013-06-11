@@ -1,9 +1,9 @@
 %html
   %head
-    = stylesheet_link_tag 'office'
+    = stylesheet_link_tag 'home'
     = javascript_include_tag "application"
-  //= javascript_include_tag "calendar"
-  %title Kogdata
+    = stylesheet_link_tag 'application'
+    %title Kogdata
 %body
   = render 'application/header'
   %p.notice
@@ -20,4 +20,4 @@
               =link_to 'home' ,root_url,:remote => false, :method => 'GET'
             %li
               =link_to 'messages', :controller => 'messages', :action => 'show_all'
-        = yield
+      = yield
