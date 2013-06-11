@@ -5,6 +5,57 @@
         .left-column
           .avatar
             = image_tag '/profile/bender.jpg'
+          .btn-container
+            %button{:type=> 'button', :class => 'btn btn-primary', :id=>'message-btn'} Send a message
         .right-column
           %h3
             = @user.name
+          .container.demo-4
+            .main
+              .gallery
+                %ul{:class=>'elastislide-list', :id=>'carousel'}
+                  %li{'data-preview'=> '/images/large/1.jpg'}
+                    %a{:href=> '#'}
+                      = image_tag'/images/small/1.jpg'
+                  %li{'data-preview'=> '/images/large/2.jpg'}
+                    %a{:href=> '#'}
+                      = image_tag '/images/small/2.jpg'
+                  %li{'data-preview'=> '/images/large/3.jpg'}
+                    %a{:href=> '#'}
+                      = image_tag '/profile/small/3.jpg'
+                  %li{'data-preview'=> '/images/large/4.jpg'}
+                    %a{:href=> '#'}
+                      = image_tag '/profile/small/4.jpg'
+                  %li{'data-preview'=> '/images/large/5.jpg'}
+                    %a{:href=> '#'}
+                      = image_tag '/profile/small/5.jpg'
+                  %li{'data-preview'=> '/images/large/6.jpg'}
+                    %a{:href=> '#'}
+                      = image_tag '/profile/small/6.jpg'
+                  %li{'data-preview'=> '/images/large/7.jpg'}
+                    %a{:href=> '#'}
+                      = image_tag '/profile/small/7.jpg'
+                  %li{'data-preview'=> '/images/large/8.jpg'}
+                    %a{:href=> '#'}
+                      = image_tag '/profile/small/8.jpg'
+                  %li{'data-preview'=> '/images/large/9.jpg'}
+                    %a{:href=> '#'}
+                      = image_tag '/profile/small/9.jpg'
+                  %li{'data-preview'=> '/images/large/10.jpg'}
+                    %a{:href=> '#'}
+                      = image_tag '/profile/small/10.jpg'
+                  %li{'data-preview'=> '/images/large/11.jpg'}
+                    %a{:href=> '#'}
+                      = image_tag '/profile/small/11.jpg'
+                  %li{'data-preview'=> '/images/large/12.jpg'}
+                    %a{:href=> '#'}
+                      = image_tag '/profile/small/12.jpg'
+                  %li{'data-preview'=> '/images/large/13.jpg'}
+                    %a{:href=> '#'}
+                      = image_tag '/profile/small/13.jpg'
+                  %li{'data-preview'=> '/images/large/14.jpg'}
+                    %a{:href=> '#'}
+                      = image_tag '/profile/small/14.jpg'
+                .image-preview
+                  %img{:id=>'preview'}
+          = javascript_include_tag "profile"
