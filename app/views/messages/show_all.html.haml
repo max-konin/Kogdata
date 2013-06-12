@@ -1,7 +1,7 @@
 .span9#container
   .well
     .btn-toolbar
-      %button{:class => 'btn pull-left', :type => 'submit'} New message
+      =button_to 'New message', :controller => 'messages', :action => 'new_message', :recipient_id => 1
       %h3{:align=>'center'} YOUR MESSAGES
   -if @messages.empty?
     .well
