@@ -46,9 +46,12 @@ delete_image = () ->
 	thus = this
 	id = thus.id
 	if id != ""
+		if not confirm "Are you sure you want delete this image?"
+			return
 		$.ajax {
-			url: "/image/delete/" + id,
+			url: "/image/delete",
 			type: "DELETE",
+			data: { id: id }
 			success: () ->
 				$(thus).parent().remove()
 			error: () ->
@@ -62,9 +65,12 @@ upload_image = () ->
 	thus = this
 	if(thus.value.length == 0)
 		return
-	html = $("li.image")[0].outerHTML
+	html = "<li class='image'><div><img src /></div><div class='deleteImage' id>X</div></li>"
 	$("#images").append html
 	$("li.image:last").find(".deleteImage").attr("id", "").click delete_image
+	$(thus).after thus.outerHTML
+	$(thus).css { display: "none" }
+	$(thus).siblings("input[type='file']").change upload_image
 	if typeof FileReader == undefined
 		$("li.image:last").find("img").attr("src", "http://placekitten.com/50/50")
 	else
@@ -75,7 +81,6 @@ upload_image = () ->
 				.width(50)
 				.height(50)
 		reader.readAsDataURL(thus.files[0])
-	$(thus).val ""
 	return
 
 $(document).ready (e) ->
