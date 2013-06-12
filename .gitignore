@@ -19,3 +19,10 @@ Gemfile.lock
 db/schema.rb
 
 config/database.yml
+
+# Anti vim
+*.swp
+*.orig
+
+# Anti paperclip
+/public/system/
