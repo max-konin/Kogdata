@@ -6,7 +6,11 @@
           .avatar
             = image_tag '/profile/bender.jpg'
           .btn-container
-            %button{:type=> 'button', :class => 'btn btn-primary', :id=>'message-btn'} Send a message
+            %button{:type=> 'button', :class => 'btn btn-primary', :id=>'message-btn', :href=>'messageModal',
+            'data-toggle' => 'modal'}
+            Send a message
+            #messageModal.modal.hide.fade
+              = render :partial => "messages/new_message", :locals => {:contact_id => @user.id}
         .right-column
           %h3
             = @user.name
@@ -17,9 +21,9 @@
                 .gallery
                   %ul{:class=>'elastislide-list', :id=>'carousel'}
                     - @images.each do |image|
-                      %li{'data-preview'=> image.image.url(:original)}
+                      %li{'data-preview'=> image.src.url(:original)}
                         %a{:href=> '#'}
-                          = image_tag image.image.url(:small)
+                          = image_tag image.src.url(:small)
                   .image-preview
                     %img{:id=>'preview'}
           = javascript_include_tag "profile"
