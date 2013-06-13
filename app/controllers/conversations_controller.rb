@@ -9,7 +9,7 @@ class ConversationsController < ApplicationController
     @conversation = Conversation.find_by_2_users(current_user.id, params[:contact_id]).first
     if @conversation.nil? then
       @conversation = current_user.conversations.build
-      @conversation.users << contact
+      @conversation.users << User.find(params[:contact_id])
       @conversation.save!
     end
     message = @conversation.messages.build(params[:message])

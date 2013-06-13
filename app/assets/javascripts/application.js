@@ -14,5 +14,6 @@
 //= require jquery
 //= require jquery.ui.all
 //= require jquery.cookie
+//= require bootstrap
 
 var role
