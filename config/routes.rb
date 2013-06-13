@@ -10,6 +10,7 @@ Kogdata::Application.routes.draw do
   get "calendar/index"
   get 'office/show'
   get 'office/all'
+  get 'office/portfolio' => 'office#portfolio'
   get 'events/new'
   get 'events/all'
   get 'events/show'
