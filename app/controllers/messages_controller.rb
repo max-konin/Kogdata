@@ -8,19 +8,19 @@ class MessagesController < ApplicationController
   end
 
   def show_dialog
-    @user = current_user
-    @messages = @user.received_messages.where('user_sender_id = ?', :id)
+    @messages = (current_user.received_messages.where('sender_id = ?', params[:partner])+
+                 current_user.sent_messages.where('recipient_id = ?', params[:partner])).sort_by_created_at
   end
  #TODO: Переписать говно-код
   def new_message
     #@message = Message.new
     @message = current_user.sent_messages.build
-    @message.recipient = User.find(params[:recipient_id])
+    @message.recipient = User.find(params[:partner])
   end
 
   def create_message
     @message = Message.new(params[:message])
-    @message.recipient = User.find(params[:recipient_id])
+    @message.recipient = User.find(params[:partner])
     @message.was_seen = 0
     #@message.user_sender_id = current_user.id
 

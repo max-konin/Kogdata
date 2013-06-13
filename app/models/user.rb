@@ -8,8 +8,8 @@ class User < ActiveRecord::Base
 	attr_accessible :email, :password, :remember_me, :name, :provider, :uid, :role, :images
 	has_many :images
 	has_many :event
-  has_many :received_messages, :class_name => 'Message', :foreign_key => 'user_recipient_id'
-  has_many :sent_messages, :class_name => 'Message', :foreign_key => 'user_sender_id'
+  has_and_belongs_to_many :conversations
+  has_many :messages
 
 	def get_image_by_name(name)
 		Image.find(name)
