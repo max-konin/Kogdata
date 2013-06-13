@@ -1,0 +1,7 @@
+= stylesheet_link_tag 'home'
+.mainbox
+  =form_for Message.new, :url => {:controller => 'conversations', :action => 'create_message',
+  :contact_id => contact_id} do |f|
+    =f.label :body, 'New message'
+    =f.text_field :body
+    =f.submit 'Send'
