@@ -10,14 +10,16 @@
         .right-column
           %h3
             = @user.name
-          .container.demo-4
-            .main
-              .gallery
-                %ul{:class=>'elastislide-list', :id=>'carousel'}
-                  - @images.each do |image|
-                    %li{'data-preview'=> image.image.url(:original)}
-                      %a{:href=> '#'}
-                        = image_tag image.image.url(:small)
-                .image-preview
-                  %img{:id=>'preview'}
+          - if @user.role == 'contractor'
+            %h3 Portfolio
+            .container.demo-4
+              .main
+                .gallery
+                  %ul{:class=>'elastislide-list', :id=>'carousel'}
+                    - @images.each do |image|
+                      %li{'data-preview'=> image.image.url(:original)}
+                        %a{:href=> '#'}
+                          = image_tag image.image.url(:small)
+                  .image-preview
+                    %img{:id=>'preview'}
           = javascript_include_tag "profile"
