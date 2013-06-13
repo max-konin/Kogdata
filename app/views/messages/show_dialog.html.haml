@@ -1,18 +1,18 @@
-= stylesheet_link_tag 'home'
-.mainbox
+.span9#container
   .well
     .btn-toolbar
-      %button{:class => 'btn pull-left', :type => 'submit'} New message
+      =button_to 'New message', :controller => 'messages', :action => 'new_message'
       %h3{:align=>'center'} YOUR MESSAGES
-  -if @messages.nil?
-    %p You have no messages from this user yet
+  -if @messages.empty?
+    .well
+      %p You have no messages from this user yet
   -else
   -@messages.each do |message|
     .well.well-small
       .navbar
-        %h6{:align=>'left'}= message.recipient.name
+        %h6{:align=>'left'}= message.sender.name
         .btn-group.pull-right
-          %button{:class => 'btn', :type => 'submit'} Reply
+          =button_to 'Reply', :controller => 'messages', :action => 'new_message', :id => message.sender.id;
         %p{:align=>'left'}= message.body
         %P{:align=>'left'}Received at
         %p{:align=>'left'}= message.created_at

@@ -3,7 +3,7 @@ class Image < ActiveRecord::Base
 
 	attr_accessible :name, :src
 	has_attached_file :src,
-		:styles => { :small => ["200x200^", :png], :thumb => ["50x50^", :png], :original => ["1600x1200^", :png] },	
+		:styles => { :small => ["200x200^", :png], :thumb => ["50x50^", :png], :original => ["1600x1200^", :png] },
 		:default_url => "http://placekitten.com/50/50",
 		:path => ":rails_root/public/system/:style/:filename",
 		:url => "/system/:style/:filename"

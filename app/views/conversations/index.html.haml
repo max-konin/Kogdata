@@ -3,11 +3,11 @@
     .btn-toolbar
       =button_to 'New message', :controller => 'messages', :action => 'new_message', :recipient_id => 1
       %h3{:align=>'center'} YOUR MESSAGES
-  -if @messages.empty?
+  -if @list.empty?
     .well
       %p You have no messages yet
   -else
-  -@messages.each do |message|
+  -@list.each do |list|
     .well.well-small
       .navbar
         %h6{:align=>'left'}= message.recipient.name
