@@ -26,3 +26,4 @@ config/database.yml
 
 # Anti paperclip
 /public/system/
+/config/database.yml

@@ -1,0 +1,6 @@
+= stylesheet_link_tag 'home'
+.mainbox
+  =form_for @message, :url => {:action => 'create_message', :recipient_id => params[:recipient_id]} do |f|
+    =f.label :body, 'New message'
+    =f.text_field :body
+    =f.submit 'Send'
