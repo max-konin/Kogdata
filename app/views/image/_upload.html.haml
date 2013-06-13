@@ -5,7 +5,7 @@
 			- user.images.each do |image|
 				%li.image
 					%div
-						%img{:image => image.image.url(:thumb)}
+						%img{:src => image.src.url(:thumb)}
 					%div.deleteImage{:id => image.id}
 						X
 		%div.uploadImage.btn

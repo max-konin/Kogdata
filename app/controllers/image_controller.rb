@@ -4,7 +4,7 @@ class ImageController < ApplicationController
 	def bind
 		images = params[:images]
 		images.each do |image|
-			current_user.images.create :image => image, :name => image.original_filename
+			current_user.images.create :src => image, :name => image.original_filename
 		end
 		redirect_to "/users/edit"
 	end

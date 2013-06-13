@@ -36,7 +36,7 @@ class MessagesController < ApplicationController
     redirect_to 'messages/show_all'
   end
 
-  #END TODO
+  #ENDTODO
 
   def user_check
     @request_user = User.find(params[:user_id])

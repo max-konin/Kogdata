@@ -31,14 +31,16 @@ class EventsController < ApplicationController
       format.xml {render :xml => @event}
     end
   end
+
   def show
     @user = current_user
-    @event = @user.event.find(params[:id])
+    @event = Event.find(params[:id])
     respond_to do |format|
       format.html
       format.json {render json:@event, :content_type => 'application/json'}
     end
   end
+
   def update
     if Days.inMonth?(params[:events][:start],params[:curDate])
       @event = Event.find(params[:id])
