@@ -4,8 +4,7 @@ module OmniauthCallbacksHelper
 			sign_in_and_redirect @user, :event => :authentication
 		else
 			sign_in @user
-			#session["devise.user_data"] = request.env['omniauth.auth']
-			redirect_to "/"
+			redirect_to "/users/sign_in"
 		end
 	end
 end

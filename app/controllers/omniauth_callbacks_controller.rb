@@ -3,7 +3,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
 	def twitter
 		oauth = request.env['omniauth.auth']
-		@user = User.where(:provider => oauth.provider, :uid => oauth.uid)[0]
+		@user = User.where(:provider => oauth.provider, :uid => oauth.uid).first
 		unless @user
 			@user = User.new
 			@user.name = oauth.info.name
