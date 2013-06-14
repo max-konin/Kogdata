@@ -1,6 +1,6 @@
 class ConversationsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :user_check
+  #before_filter :user_check
 
   def show
     @list = Conversation.where('id = ?', :id).messages

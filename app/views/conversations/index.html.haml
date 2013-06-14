@@ -1,18 +1,10 @@
 .span9#container
   .well
     .btn-toolbar
-      =button_to 'New message', :controller => 'messages', :action => 'new_message', :recipient_id => 1
       %h3{:align=>'center'} YOUR MESSAGES
   -if @list.empty?
     .well
       %p You have no messages yet
   -else
   -@list.each do |list|
-    .well.well-small
-      .navbar
-        %h6{:align=>'left'}= message.recipient.name
-        .btn-group.pull-right
-          =button_to 'Reply', :controller => 'messages', :action => 'create_message', :id => message.sender.id;
-        %p{:align=>'left'}= message.body
-        %P{:align=>'left'}Received at
-        %p{:align=>'left'}= message.created_at
+    render 'message'

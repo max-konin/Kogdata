@@ -19,8 +19,6 @@
             %li{:class => 'nav-header'}Office
             %li
               =link_to 'home' ,root_url,:remote => false, :method => 'GET'
-            %li
-              =link_to 'messages', :controller => 'messages', :action => 'show_all', :user_id => current_user.id
             - if can? :read, @event
               %li
                 =link_to 'show-bookings','', :id => 'show-bookings'
