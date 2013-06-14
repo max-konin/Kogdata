@@ -13,22 +13,26 @@ Kogdata::Application.routes.draw do
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
+  resources :users do
+    resources :events
+  end
+
+
+
   root :to => 'calendar#index/'
   get "home/index"
   get "calendar/index"
   get 'office/show'
   get 'office/all'
   get 'office/portfolio' => 'office#portfolio'
-  get 'events/new'
-  get 'events/all'
-  get 'events/show'
-  get 'events/update'
-  get 'profile/index'
+
   match 'office/'=> "office#show"
   match 'profile/:id' => 'profile#show'
   #resources :users do
   #  resources :events
   #end
+
+
   match '/users/:user_id/messages' => 'messages#show_all',        :via => :get
   match '/users/:user_id/messages/:partner' => 'messages#new_message', :via => :post
   match '/users/:user_id/messages/:partner' => 'messages#show_dialog', :via => :get
