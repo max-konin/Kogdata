@@ -17,8 +17,7 @@
 # Ignore some rails files
 Gemfile.lock
 db/schema.rb
-
-config/database.yml
+/config/database.yml
 
 # Anti vim
 *.swp
@@ -26,4 +25,6 @@ config/database.yml
 
 # Anti paperclip
 /public/system/
-/config/database.yml
+
+# Anti Shubin
+rakeDB.sh

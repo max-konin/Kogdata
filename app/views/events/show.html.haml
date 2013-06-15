@@ -1,0 +1,12 @@
+.container
+  .span10.offset2
+    %h1
+      =@event.title
+    %p
+      %h4 Date:
+      =@event.start.strftime("%m/%d/%Y")
+    %p
+      %br
+      %h4 Description:
+      =@event.description
+    %button.btn.btn-large.btn-inverse TO PHOTO

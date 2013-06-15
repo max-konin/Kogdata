@@ -1,5 +1,11 @@
 Kogdata::Application.routes.draw do
 
+  get "conversations/show"
+
+  get "conversations/delete"
+
+  get "conversations/index"
+
   post "image/bind"
   delete "image/delete" => "image#delete"
 
@@ -10,6 +16,7 @@ Kogdata::Application.routes.draw do
   get "calendar/index"
   get 'office/show'
   get 'office/all'
+  get 'office/portfolio' => 'office#portfolio'
   get 'events/new'
   get 'events/all'
   get 'events/show'
