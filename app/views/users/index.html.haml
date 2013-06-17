@@ -1,0 +1,8 @@
+.container
+  %table.table.table-hover
+    %tbody
+    -@users.each do |user|
+      %tr
+        %tb
+          =link_to user.name, user
+

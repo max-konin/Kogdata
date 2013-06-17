@@ -14,6 +14,7 @@ Kogdata::Application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
   resources :users do
+    get 'all_photographer'
     resources :events
   end
 
