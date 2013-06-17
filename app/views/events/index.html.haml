@@ -1,0 +1,13 @@
+%h5 EVENTS
+- @events.each do |event|
+  .container#events-container
+    .span10.offset2
+      %h1
+        =event.title
+        %h4 Date:
+        =event.start.strftime("%m/%d/%Y")
+        %br
+        %h4 Description:
+        =event.description
+        %br
+      %button.btn.btn-large.btn-inverse TO PHOTO

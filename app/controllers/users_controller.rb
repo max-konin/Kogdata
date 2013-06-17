@@ -12,9 +12,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    redirect_to 'profile/'+params[:user_id]
-    puts '!!!!!!!!!'
-    puts params
+    redirect_to '/profile/'+params[:id]
   end
 
   def edit
