@@ -4,9 +4,7 @@ class EventsController < ApplicationController
   def index
     #@user = current_user
     #the curDate parameter is a day of the current month
-    #the event must be created by the current user and be booked on the current mobth
-    puts '!!!!!!!!!!!!!!'
-    puts params[:curDate] != nil
+    #the event must be created by the current user and be booked on the current month
     if params[:curDate] != nil
       @eventsMonth = Event.where("user_id = ? AND start >= ? AND start <= ? ",@user.id, Days.firstDay(params[:curDate]),
                           Days.lastDay(params[:curDate]))
