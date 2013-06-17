@@ -29,6 +29,21 @@ class UsersControllerTest < ActionController::TestCase
     rescue
       assert true
     end
+  end
+
+  test "destroy users" do
+    begin
+      get :destroy, {:id => '2'}
+      #assert false
+    rescue
+      assert true
+    end
+
+    sign_out users(:Mitya)
+    sign_in  users(:Max)
+
+    get :destroy, {:id => '2'}
+    assert User.find(2).nil?
 
   end
 end

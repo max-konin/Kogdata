@@ -3,9 +3,12 @@
     Users:
   -@users.each do |user|
     .row
-      .span4.offset2
+      .span2.offset2
         %h2
           =link_to user.name, user
+      .span1
+        %h4
+          =user.role
       .span4.offset1
         %h2
           %button{:type=> 'button', :class => 'btn btn-primary', :id=>'message-btn', 'data-target'=>'#messageModal',
