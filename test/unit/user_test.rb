@@ -13,4 +13,9 @@ class UserTest < ActiveSupport::TestCase
     assert (user.role? :client)
   end
 
+  test "save" do
+    user = User.new :name => "SuperUser", :password=> "superpass", :role => :admin, :email => "super@user.com"
+    assert user.save!
+  end
+
 end
