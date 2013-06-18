@@ -1,0 +1,17 @@
+.container
+  %h1
+    Users:
+  -@users.each do |user|
+    .row
+      .span4.offset2
+        %h2
+          =link_to user.name, user
+      .span4.offset1
+        %h2
+          %button{:type=> 'button', :class => 'btn btn-primary', :id=>'message-btn', 'data-target'=>'#messageModal',
+                        'data-toggle' => 'modal'} Send a message
+        #messageModal.modal.hide.fade
+          = render :partial => "messages/new_message", :locals => {:contact_id => user.id}
+
+= javascript_include_tag "profile"
+

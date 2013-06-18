@@ -1,0 +1,22 @@
+
+Mitya:
+  id: 1
+  name: mitya
+  email: mitya@gmail.com
+  encrypted_password: mityapass
+  role: client
+
+Adarich:
+  id: 2
+  name: ivan
+  email: ad@fromhell.com
+  encrypted_password: adpass
+  role: contractor
+
+Anton:
+  id: 3
+  name: anton
+  email: a@ton.com
+  encrypted_password: apass
+  role: contractor
+
