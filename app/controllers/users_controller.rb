@@ -21,7 +21,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    redirect_to '/profile/'+params[:id]
+    @user = User.find(params[:id])
+    authorize! :read, @user
+    respond_to do |format|
+      format.html { render :layout => 'profile'}# users/show.html.haml
+      format.json { render :json => @user }
+    end
   end
 
   def destroy

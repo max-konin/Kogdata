@@ -31,16 +31,15 @@ class Ability
 
 
     user ||= User.new
-    can :view, User, :role => [:contractor, :client]
+    can :read, User#, :role => [:contractor, :client]
     if user.role? :admin
       can :destroy, User
       can :manage, :all
-      can :view, :all
+      can :read, :all
     end
 
     if user.role? :contractor
       can :upload, :photo
-      can :read, :all
     end
 
     if user.role? :client

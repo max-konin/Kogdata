@@ -24,8 +24,10 @@ class UsersControllerTest < ActionController::TestCase
 
   test "show" do
     sign_in  users(:Mitya)
-    get :show, {:id => 3}
-    assert_redirected_to '/profile/'+'3'
+    get :show, {:id => 1}
+    assert_response :success
+    assert 1 == assigns(:user).id
+    assert_template :show
   end
 
 
@@ -36,6 +38,7 @@ class UsersControllerTest < ActionController::TestCase
     assert_not_nil assigns(:users)
     users = assigns(:users)
     assert (users.count == User.all.count)
+    assert_template :index
   end
 
   test "select all photographers" do
@@ -46,6 +49,7 @@ class UsersControllerTest < ActionController::TestCase
     users.each do |user|
       assert user.role? :contractor
     end
+    assert_template :index
   end
 
   test "select users with fake role" do
