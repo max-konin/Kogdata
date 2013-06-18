@@ -4,6 +4,7 @@ require 'rails/test_help'
 
 class ActionController::TestCase
   include Devise::TestHelpers
+  fixtures :all
 end
 
 class ActiveSupport::TestCase
