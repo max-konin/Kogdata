@@ -1,10 +1,5 @@
 .span9#container
   .well
     .btn-toolbar
-      %h3{:align=>'center'} YOUR MESSAGES
-  -if @list.empty?
-    .well
-      %p You have no messages yet
-  -else
-  -@list.each do |list|
-    render 'message'
+      %h3{:align=>'center'} Your messages
+  -render(@list) || 'You have no messages yet'
