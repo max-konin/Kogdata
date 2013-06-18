@@ -14,9 +14,9 @@ Kogdata::Application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
   resources :users do
-    get 'all_photographer'
     resources :events
   end
+  get 'users/:role' => 'users#index'
 
 
 
@@ -28,7 +28,6 @@ Kogdata::Application.routes.draw do
   get 'office/portfolio' => 'office#portfolio'
 
   match 'office/'=> "office#show"
-  match 'profile/:id' => 'profile#show'
   #resources :users do
   #  resources :events
   #end

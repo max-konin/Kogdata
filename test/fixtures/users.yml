@@ -20,3 +20,8 @@ Anton:
   encrypted_password: apass
   role: contractor
 
+Max:
+  id: 4
+  name: max
+  role: admin
+
