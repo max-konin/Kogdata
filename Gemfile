@@ -58,4 +58,4 @@ gem 'cancan'
 # gem 'capistrano'
 
 # To use debugger
-#gem 'debugger', group: [:developmnet, :test]
+gem 'debugger', group: [:developmnet, :test]

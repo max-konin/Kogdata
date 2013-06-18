@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   def index
     #@user = current_user
     #the curDate parameter is a day of the current month
-    #the event must be created by the current user and be booked on the current mobth
+    #the event must be created by the current user and be booked on the current mobth 
     puts '!!!!!!!!!!!!!!'
     puts params[:curDate] != nil
     if params[:curDate] != nil
@@ -38,7 +38,6 @@ class EventsController < ApplicationController
           format.json {render :json=>{ }, status: :bad_request}
         end
       end
-
   end
 
 

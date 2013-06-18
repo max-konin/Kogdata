@@ -1,161 +1,147 @@
 #= require dateFormat
 #= require fullcalendar
 
-$(document).ready ->
-	enableEdit = true
-	InputTitle = { todo: "global" }
-	InputText = { todo: "global" }
-	copiedEventObject = { todo: "global" }
-	#if variable role is defined
-	if typeof role != 'undefined'
-		#and it's value is contractor
-		if role == 'contractor'
-			#so the contractor is watching all the bookings
-			#and cant change the events
-			enableEdit = false
+calendar_selector = '#calendar'
+bookings_selector = '#show-bookings'
+add_event_selectors = {
+	parent: '#external-events'
+	child: 'div.external-event'
+}
 
-	$('#show-bookings').click (event) ->
-		event.preventDefault()
-		$.getJSON '/office/all', (response) ->
-				events = JSON.parse response.div_contents.body
-				$('#calendar').fullCalendar 'removeEvents'
-				for event in events
-					$('#calendar').fullCalendar 'renderEvent', event, true
-				return
-		return
+role = $.cookie 'role'
+user_id = $.cookie 'user_id'
+enable_edit = true
+event_title = { todo: "global" }
+event_description = { todo: "global" }
+#if variable role is defined and it's value is contractor
+if typeof role != 'undefined' and role == 'contractor'
+	#so the contractor is watching all the bookings
+	#and cant change the events
+	enable_edit = false
 
-	$('#external-events div.external-event').each () ->
-		# create an Event Object (http:#arshaw.com/fullcalendar/docs/event_data/Event_Object/)f
-		eventObject = $(this).data() # use the element's text as the event title
-		# make a copy of Event Object
-		copiedEventObject = $.extend {}, eventObject
-		# store the Event Object in the DOM element so we can get to it later
-		$(this).data 'eventObject', eventObject
-		# make the event draggable using jQuery UI
-		$(this).draggable {
-			zIndex: 10
-			revert: true			# will cause the event to go back to its
-			revertDuration: 0		# original position after the drag
+# Get all events on calendar(bind by click on something)
+bookings_on_click = (event) ->
+	event.preventDefault()
+	$.getJSON '/office/all.json', (response) ->
+			events = JSON.parse response.div_contents.body
+			$(calendar_selector).fullCalendar 'removeEvents'
+			for event in events
+				$(calendar_selector).fullCalendar 'renderEvent', event, true
+			return
+	return
+
+# Bind to draggable something, that then will be droppable on calendar(call a bit tricky, see below)
+add_event_handler = () ->
+	this.draggable {
+		zIndex: 10
+		revert: true			# will cause the event to go back to its
+		revertDuration: 0		# original position after the drag
+	}
+	return
+
+update_event = (event, day_delta, minute_delta, all_day, revert_func) ->
+		request = {
+			title: event.title
+			start: event.start.format 'isoDateTime'
+			description: event.description
 		}
-		return
-
-	$('#calendar').fullCalendar {
-		header: {
-			left: 'prev'
-			right: 'next'
-			center: 'title'
-			prev: 'circle-triangle-w'
-			next: 'circle-triangle-e'
-		}
-		firstDay: 1
-		timeFormat: "%FT%T.%LZ"
-		editable: enableEdit
-		droppable: true
-		eventDrop: (event, dayDelta, minuteDelta, allDay, revertFunc) ->
-			EventObject = event
-			Start4request = EventObject.start.format 'isoDateTime'
-			request = {
-				title: EventObject.title
-				start: Start4request
-				description: EventObject.description
+		$.ajax {
+			type: 'PUT'
+			url: "/users/#{user_id}/events/#{event.id}.json"
+			dataType: 'json'
+			data: {
+				events: request
+				curDate: $(calendar_selector).fullCalendar('getDate').format 'isoDateTime'
 			}
-			# current date of the calendar
-			currentDate = $('#calendar').fullCalendar 'getDate'
-			currentDate = currentDate.format 'isoDateTime'
+			success: () ->
+				return
+			error: (XMLHttpRequest, textStatus, errorThrown) ->
+				console.log "Error: " + errorThrown
+				revert_func()
+				return
+		}
+		return
+
+add_event = (date, allDay) -> # this function is called when something is dropped
+		if event_title.value != '' and event_description.value != ''
+			clone_event = {
+				allDay: allDay
+				title: event_title.value
+				description: event_description.value
+				start: date
+			}
+			request = {
+				title: clone_event.title
+				start: date.format 'isoDateTime'
+				description: clone_event.description
+			}
 			$.ajax {
-				url: "/events/update.json"
+				type: 'POST'
+				url: "/users/#{user_id}/events.json"
 				dataType: 'json'
-				contentType: 'application/json; charset-utf8'
 				data: {
 					events: request
-					id: EventObject.id
-					curDate: currentDate
+					curDate: $(calendar_selector).fullCalendar('getDate').format 'isoDateTime'
 				}
-				success: () ->
+				success: (response) ->
+					events = JSON.parse response.div_contents.body
+					clone_event.id = events.id
+					$(calendar_selector).fullCalendar 'renderEvent', clone_event, true
 					return
 				error: (XMLHttpRequest, textStatus, errorThrown) ->
 					console.log "Error: " + errorThrown
-					revertFunc()
 					return
 			}
+		return
+
+fullCalendarOption = {
+	header: {
+		left: 'prev'
+		right: 'next'
+		center: 'title'
+		prev: 'circle-triangle-w'
+		next: 'circle-triangle-e'
+	}
+	firstDay: 1
+	timeFormat: "%FT%T.%LZ"
+	editable: enable_edit
+	droppable: true
+	eventDrop: update_event
+	# this allows things to be dropped onto the calendar !!!
+	drop: add_event
+}
+
+update_calendar = () ->
+	return unless $(calendar_selector).length != 0
+	$(calendar_selector).fullCalendar 'removeEvents'
+	request = {
+		curDate: $(calendar_selector).fullCalendar('getDate').format 'isoDateTime'
+	}
+	event_title = document.getElementById 'EventTitle'
+	event_description = document.getElementById 'EventDescription'
+	$.ajax {
+		type: 'GET'
+		url: "/office/all.json"
+		dataType: 'json'
+		data: request
+		success: (response) ->
+			events = JSON.parse response.div_contents.body
+			for event in events
+				$(calendar_selector).fullCalendar 'renderEvent', event, true
 			return
-		# this allows things to be dropped onto the calendar !!!
-		drop: (date, allDay) -> # this function is called when something is dropped
-			if InputTitle.value != '' and InputText.value != ''
-				# retrieve the dropped element's stored Event Object
-				originalEventObject = $(this).data 'eventObject'
-				# we need to copy it, so that multiple events don't have a reference to the same object
-				copiedEventObject = $.extend {}, originalEventObject
-				# assign it the date that was reported
-				copiedEventObject = {
-					allDay: allDay
-					title: InputTitle.value
-					description: InputText.value
-					start: date
-				}
-				Start4request = date.format 'isoDateTime'
-				# current date of calendar
-				currentDate = $('#calendar').fullCalendar('getDate').format 'isoDateTime'
-				request = {
-					title: copiedEventObject.title
-					start: Start4request
-					description: copiedEventObject.description
-				}
-				#request = JSON.stringify(request);
-				$.ajax {
-					url: "/events/new.json"
-					contentType: 'application/json; charset-utf8'
-					dataType: 'json'
-					data: {
-						events: request
-						curDate: currentDate
-					}
-					success: (response) ->
-						events = JSON.parse response.div_contents.body
-						copiedEventObject.id = events.id
-						$('#calendar').fullCalendar 'renderEvent', copiedEventObject, true
-						# is the "remove after drop" checkbox checked?
-						if $('#drop-remove').is ':checked'
-							# if so, remove the element from the "Draggable Events" list
-							$(this).remove()
-						return
-					error: (XMLHttpRequest, textStatus, errorThrown) ->
-						alert("Error: " + errorThrown)
-						return
-				}
+		error: (XMLHttpRequest, textStatus, errorThrown) ->
 			return
 	}
+	return
 
-	updateCalendar = () ->
-		currentDate = $('#calendar').fullCalendar('getDate').format 'isoDateTime'
-		request = {
-			curDate: currentDate
-		}
-		InputTitle = document.getElementById 'EventTitle'
-		InputText = document.getElementById 'EventDescription'
-		$.ajax {
-			url: "/events/all.json"
-			dataType: 'json'
-			contentType: 'application/json; charset-utf8'
-			data: request
-			success: (response) ->
-				events = JSON.parse response.div_contents.body
-				for event in events
-					$('#calendar').fullCalendar 'renderEvent', event, true
-				return
-			error: (XMLHttpRequest, textStatus, errorThrown) ->
-				return
-		}
+$(document).ready () ->
+	$(bookings_selector).click bookings_on_click
+	add_event_handler.call $(add_event_selectors.parent).find add_event_selectors.child
+	$(calendar_selector).fullCalendar fullCalendarOption
 
-	$('.fc-button-next').click () ->
-		$('#calendar').fullCalendar 'removeEvents'
-		updateCalendar()
+	$('.fc-button-next, .fc-button-prev').click () ->
+		update_calendar()
 		return
 
-	$('.fc-button-prev').click () ->
-		$('#calendar').fullCalendar 'removeEvents'
-		updateCalendar()
-		return
-
-	updateCalendar()
+	update_calendar()
 	return
