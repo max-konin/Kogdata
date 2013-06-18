@@ -6,6 +6,8 @@ Kogdata::Application.routes.draw do
 
   get "conversations/index"
 
+  post 'conversations/create_message'
+
   post "image/bind"
   delete "image/delete"
 
@@ -19,9 +21,9 @@ Kogdata::Application.routes.draw do
   get 'office/portfolio' => 'office#portfolio'
 
   match 'office/'=> "office#show"
-  #resources :users do
-  #  resources :events
-  #end
+  resources :users do
+    resources :events
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
