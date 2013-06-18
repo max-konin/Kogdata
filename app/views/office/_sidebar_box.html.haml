@@ -1,0 +1,17 @@
+= stylesheet_link_tag 'office'
+= stylesheet_link_tag 'home'
+= javascript_include_tag "application"
+= javascript_include_tag "office"
+= javascript_include_tag "calendar"
+= javascript_include_tag "image_uploader"
+.well.sidebar-nav
+  %ul{:class=>'nav nav-list'}
+    %li{:class => 'nav-header'}Office
+    %li
+      =link_to 'home' ,root_url,:remote => false, :method => 'GET'
+    - if can? :read, @event
+      %li
+        =link_to 'show-bookings','', :id => 'show-bookings'
+    - if can? :upload, :photo
+      %li
+        =link_to 'portfolio', 'office/portfolio', :id => 'porfolio'

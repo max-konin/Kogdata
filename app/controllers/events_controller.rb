@@ -4,18 +4,17 @@ class EventsController < ApplicationController
   def index
     #@user = current_user
     #the curDate parameter is a day of the current month
-    #the event must be created by the current user and be booked on the current mobth 
-    puts '!!!!!!!!!!!!!!'
-    puts params[:curDate] != nil
+    #the event must be created by the current user and be booked on the current month
     if params[:curDate] != nil
-      @eventsMonth = Event.where("user_id = ? AND start >= ? AND start <= ? ",@user.id, Days.firstDay(params[:curDate]),
+      @events = Event.where("user_id = ? AND start >= ? AND start <= ? ",params[:user_id], Days.firstDay(params[:curDate]),
                           Days.lastDay(params[:curDate]))
+    else
+      @events = Event.where("user_id = ?",params[:user_id])
     end
-    @eventsAll = Event.where("user_id = ?",params[:user_id])
     respond_to do |format|
-      format.html {render :html => @eventsAll}
-      format.json {render :json => @eventsMonth}
-      format.xml {render :xml => @eventsAll}
+      format.html {render :html => @events}
+      format.json {render :json => @events}
+      format.xml {render :xml => @events}
     end
   end
 
@@ -28,13 +27,13 @@ class EventsController < ApplicationController
       if Days.inMonth?(params[:events][:start],params[:curDate])
         @event = @user.event.create(params[:events])
         respond_to do |format|
-          format.html
+          format.html {head :ok}
           format.json {render :json => @event}
           format.xml {render :xml => @event}
         end
       else
         respond_to do |format|
-          format.html
+          format.html {head :bad_request}
           format.json {render :json=>{ }, status: :bad_request}
         end
       end
@@ -43,9 +42,9 @@ class EventsController < ApplicationController
 
   def show
     @user = current_user
-    @event = Event.find(params[:user_id])
+    @event = Event.find(params[:id])
     respond_to do |format|
-      format.html
+      format.html {head :ok}
       format.json {render json:@event, :content_type => 'application/json'}
     end
   end
@@ -55,17 +54,17 @@ class EventsController < ApplicationController
       @event = Event.find(params[:id])
       respond_to do |format|
         if @event.update_attributes(params[:events])
-          format.html
+          format.html {head :ok}
           format.json { render :json => true}
         else
-          format html
-          format.json {render json=> @events.errors, status: :unprocessable_entity}
+          format.html {head :unprocessable_entity}
+          format.json {render :json=> @events.errors, status: :unprocessable_entity}
         end
       end
     else
       respond_to do |format|
-        format.html
-        format.json {render :json=>{ }, status: :bad_request}
+        format.html {head :unprocessable_entity}
+        format.json {render :json=>{ }, status: :unprocessable_entity}
       end
     end
   end
