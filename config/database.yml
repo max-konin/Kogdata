@@ -27,8 +27,8 @@ test:
   reconnect: false
   database: kogdata_test
   pool: 5
-  username: kogdata
-  password: kogdata
+  username: kogda  password: kogdata
+as
   host: localhost
 
 production:
