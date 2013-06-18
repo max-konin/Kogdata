@@ -9,7 +9,7 @@ Kogdata::Application.routes.draw do
   post 'conversations/create_message/:contact_id' => 'conversations#create_message'
 
   post "image/bind"
-  delete "image/delete" => "image#delete"
+  delete "image/delete"
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
