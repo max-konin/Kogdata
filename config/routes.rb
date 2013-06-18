@@ -7,7 +7,7 @@ Kogdata::Application.routes.draw do
   get "conversations/index"
 
   post "image/bind"
-  delete "image/delete" => "image#delete"
+  delete "image/delete"
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
@@ -19,7 +19,6 @@ Kogdata::Application.routes.draw do
   get 'office/portfolio' => 'office#portfolio'
 
   match 'office/'=> "office#show"
-  match 'profile/:id' => 'profile#show'
   #resources :users do
   #  resources :events
   #end

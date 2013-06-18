@@ -27,7 +27,13 @@ class UserTest < ActiveSupport::TestCase
     user = users(:Max)
     ability = Ability.new user
     assert ability.can?(:destroy, User)
+  end
 
+  test 'client ability' do
+    user = users(:Mitya)
+    ability = Ability.new user
+    assert ability.can?(:read, User)
+    assert ability.can?(:read, user)
   end
 
 end
