@@ -1,0 +1,19 @@
+= stylesheet_link_tag 'office'
+= stylesheet_link_tag 'home'
+= javascript_include_tag "application"
+= javascript_include_tag "office"
+= javascript_include_tag "calendar"
+= javascript_include_tag "image_uploader"
+- if can? :create, @event
+  #external-events.well.sidebar-nav
+    #events-label-container
+      %h4 New event
+      %h6 Event title
+    %input{:class=> 'span2', :id=> 'EventTitle', :type=>'text', :placeholder=> 'Title',:value=>'11'}
+    #events-label-container
+      %h6 Event description
+    %textarea{:class=> 'input-medium', :id=> 'EventDescription', :type=>'text', :placeholder=> 'Description'}
+    %br
+    #events-label-container
+      %p4 Drag the event to the calendar to create new event
+    #external-event-template{:class=> 'external-event ui-draggable'} New Event

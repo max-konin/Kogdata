@@ -3,50 +3,48 @@
 
 $(document).ready ->
 	enableEdit = true
-	InputTitle = { todo: "global"}
+	InputTitle = { todo: "global" }
 	InputText = { todo: "global" }
+	copiedEventObject = { todo: "global" }
 	#if variable role is defined
-	if (typeof(role) != 'undefined')
+	if typeof role != 'undefined'
 		#and it's value is contractor
-		if (role == 'contractor')
+		if role == 'contractor'
 			#so the contractor is watching all the bookings
 			#and cant change the events
 			enableEdit = false
 
 	$('#show-bookings').click (event) ->
 		event.preventDefault()
-		$.ajax {
-			url:'/office/all',
-			dataType:'json',
-			success: (response) ->
+		$.getJSON '/office/all', (response) ->
 				events = JSON.parse response.div_contents.body
+				$('#calendar').fullCalendar 'removeEvents'
 				for event in events
-					$('#calendar').fullCalendar('renderEvent', event, true)
+					$('#calendar').fullCalendar 'renderEvent', event, true
 				return
-			}
 		return
 
 	$('#external-events div.external-event').each () ->
-		# create an Event Object (http:#arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+		# create an Event Object (http:#arshaw.com/fullcalendar/docs/event_data/Event_Object/)f
 		eventObject = $(this).data() # use the element's text as the event title
-		#make a copy of Event Object
+		# make a copy of Event Object
 		copiedEventObject = $.extend {}, eventObject
 		# store the Event Object in the DOM element so we can get to it later
 		$(this).data 'eventObject', eventObject
 		# make the event draggable using jQuery UI
 		$(this).draggable {
-			zIndex: 999
+			zIndex: 10
 			revert: true			# will cause the event to go back to its
-			revertDuration: 0		#  original position after the drag
+			revertDuration: 0		# original position after the drag
 		}
 		return
 
 	$('#calendar').fullCalendar {
 		header: {
-			left: 'prev',
-			right: 'next',
-			center: 'title',
-			prev: 'circle-triangle-w',
+			left: 'prev'
+			right: 'next'
+			center: 'title'
+			prev: 'circle-triangle-w'
 			next: 'circle-triangle-e'
 		}
 		firstDay: 1
@@ -55,28 +53,28 @@ $(document).ready ->
 		droppable: true
 		eventDrop: (event, dayDelta, minuteDelta, allDay, revertFunc) ->
 			EventObject = event
-			Start4request = EventObject.start.format('isoDateTime')
+			Start4request = EventObject.start.format 'isoDateTime'
 			request = {
 				title: EventObject.title
-				start:Start4request
+				start: Start4request
 				description: EventObject.description
 			}
 			# current date of the calendar
-			currentDate = $('#calendar').fullCalendar('getDate')
-			currentDate = currentDate.format('isoDateTime')
+			currentDate = $('#calendar').fullCalendar 'getDate'
+			currentDate = currentDate.format 'isoDateTime'
 			$.ajax {
-				url:"/events/update.json"
+				url: "/events/update.json"
 				dataType: 'json'
 				contentType: 'application/json; charset-utf8'
 				data: {
 					events: request
 					id: EventObject.id
-					curDate:currentDate
+					curDate: currentDate
 				}
 				success: () ->
 					return
 				error: (XMLHttpRequest, textStatus, errorThrown) ->
-					console.log("Error: " + errorThrown)
+					console.log "Error: " + errorThrown
 					revertFunc()
 					return
 			}
@@ -152,9 +150,12 @@ $(document).ready ->
 	$('.fc-button-next').click () ->
 		$('#calendar').fullCalendar 'removeEvents'
 		updateCalendar()
+		return
 
 	$('.fc-button-prev').click () ->
 		$('#calendar').fullCalendar 'removeEvents'
 		updateCalendar()
+		return
 
-	#updateCalendar()
+	updateCalendar()
+	return

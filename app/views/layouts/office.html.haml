@@ -15,29 +15,8 @@
     = alert
   .container-fluid
     .row-fluid
-      .span3#container
-        .well.sidebar-nav
-          %ul{:class=>'nav nav-list'}
-            %li{:class => 'nav-header'}Office
-            %li
-              =link_to 'home' ,root_url,:remote => false, :method => 'GET'
-            %li
-              =link_to 'messages', :controller => 'messages', :action => 'show_all', :user_id => current_user.id
-            - if can? :read, @event
-              %li
-                =link_to 'show-bookings','', :id => 'show-bookings'
-        - if can? :create, @event
-          #external-events.well.sidebar-nav
-            #events-label-container
-              %h4 New event
-              %h6 Event title
-            %input{:class=> 'span2', :id=> 'EventTitle', :type=>'text', :placeholder=> 'Title',:value=>'11'}
-            #events-label-container
-              %h6 Event description
-            %textarea{:class=> 'input-medium', :id=> 'EventDescription', :type=>'text', :placeholder=> 'Description'}
-            %br
-            #events-label-container
-              %p4 Drag the event to the calendar to create new event
-            #external-event-template{:class=> 'external-event ui-draggable'} New Event
+      .sidebar#container
+        =render 'office/sidebar_box'
+        =render 'office/event_box'
       .span9
         = yield

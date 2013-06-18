@@ -1,3 +1,4 @@
-$(document).ready () ->
-    role = $.cookie 'role'
-	 return
+#=require jquery.cookie.js
+
+role = $.cookie 'role'
+return

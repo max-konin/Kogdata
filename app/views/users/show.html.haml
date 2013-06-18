@@ -18,23 +18,16 @@
               .main
                 .gallery
                   %ul{:class=>'elastislide-list', :id=>'carousel'}
-                    - @images.each do |image|
+                    - @user.images.each do |image|
                       %li{'data-preview'=> image.src.url(:original)}
                         %a{:href=> '#'}
                           = image_tag image.src.url(:small)
                   .image-preview
                     %img{:id=>'preview'}
           - if @user.role == 'client'
-            %h4 Events list
-            #events-container-profile
-              - @events.each do |event|
-                %h4
-                  = link_to event.title, '/users/'+@user.id.to_s+'/events/'+event.id.to_s
-                #date-container-1
-                  %p
-                    %h4 Date:
-                    =event.start.strftime("%m/%d/%Y")
-                  %br
+            - @events = @user.event
+            = render :template => 'events/index'
+
 #messageModal.modal.hide.fade
   = render :partial => "messages/new_message", :locals => {:contact_id => @user.id}
 = javascript_include_tag "profile"

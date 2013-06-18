@@ -6,19 +6,12 @@ Kogdata::Application.routes.draw do
 
   get "conversations/index"
 
-  post 'conversations/create_message/:contact_id' => 'conversations#create_message'
+  post 'conversations/create_message'
 
   post "image/bind"
-  delete "image/delete" => "image#delete"
+  delete "image/delete"
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
-
-  resources :users do
-    resources :events
-  end
-  get 'users/:role' => 'users#index'
-
-
 
   root :to => 'calendar#index/'
   get "home/index"
@@ -28,16 +21,10 @@ Kogdata::Application.routes.draw do
   get 'office/portfolio' => 'office#portfolio'
 
   match 'office/'=> "office#show"
-  match 'profile/:id' => 'profile#show'
-  #resources :users do
-  #  resources :events
-  #end
+  resources :users do
+    resources :events
+  end
 
-
-  match '/users/:user_id/messages' => 'messages#show_all',        :via => :get
-  match '/users/:user_id/messages/:partner' => 'messages#new_message', :via => :post
-  match '/users/:user_id/messages/:partner' => 'messages#show_dialog', :via => :get
-  match '/users/:user_id/messages' => 'messages#create_message',  :via => :post
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

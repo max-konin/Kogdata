@@ -1,39 +1,57 @@
 class ConversationsController < ApplicationController
   before_filter :authenticate_user!
-  #before_filter :user_check
 
-  #Create new conversation if its not be found and add new message
   def create_message
-    #Unsafe code. Не придумал ничего лучше как руками написать sql запрос
-    #TODO Написать нормальный код
-    @conversation = Conversation.find_by_2_users(current_user.id, params[:contact_id]).first
-    if @conversation.nil? then
-      @conversation = current_user.conversations.build
-      @conversation.users << User.find(params[:contact_id])
-      @conversation.save!
-    end
+
+    compare_conversation   #Creates a new conversation if it wasn't be found
+
     message = @conversation.messages.build(params[:message])
     message.user = current_user
     message.save!
-    redirect_to :back
 
+    redirect_to :back
   end
+
 
   def show
     @list = Conversation.where('id = ?', :id).messages
-  end
-
-  def delete
-    #delete all shit
   end
 
   def index
     @list = Array.new
     @conversations = current_user.conversations
     @conversations.each do |conversation|
-      @last_msg = conversation.messages.last
+      @last_msg = conversation.messages.last.cut_body!
       @list << {:msg => @last_msg, :id => conversation.id}
     end
+  end
+
+  private
+  def compare_conversation
+    members = params[:members]
+    members << current_user.id.to_s
+    members.sort!
+    @hash = String.new
+    members.each do |member|
+      @hash += (member.to_s + ' ')               #makes hash string from accepted ids of declared members and current user id
+    end
+
+    @conversation = current_user.conversations.where(:hash_string => @hash)
+
+    #@cu_convs.each do |conv|                     #compares new hash string with ones from database
+    #  if conv.hash_string == @hash then
+    #    @conversation = conv
+    #  end
+    #end
+
+    if @conversation.empty? then
+      @conversation = @cu_convs.build              #creates a new conversation for current user if no matches found
+      params[:members].each do |member|
+        @conversation.users << User.find(member)
+      end
+      @conversation.save!
+    end
+
   end
 
 end
