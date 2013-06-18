@@ -16,6 +16,7 @@ Kogdata::Application.routes.draw do
   resources :users do
     resources :events
   end
+  get 'users/:role' => 'users#index'
 
 
 

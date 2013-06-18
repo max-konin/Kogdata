@@ -29,9 +29,13 @@ class Ability
     # See the wiki for details:
     # https://github.com/ryanb/cancan/wiki/Defining-Abilities
 
+
     user ||= User.new
+    can :view, User, :role => [:contractor, :client]
     if user.role? :admin
+      can :destroy, User
       can :manage, :all
+      can :view, :all
     end
 
     if user.role? :contractor
