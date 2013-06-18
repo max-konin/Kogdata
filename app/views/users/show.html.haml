@@ -4,7 +4,7 @@
       #layout
         .left-column
           .avatar
-            = image_tag '/profile/bender.jpg'
+            = image_tag @user.avatar.url(:small)
           .btn-container
             - if @user.id != current_user.id
               %button{:type=> 'button', :class => 'btn btn-primary', :id=>'message-btn', 'data-target'=>'#messageModal',
