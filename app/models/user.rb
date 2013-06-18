@@ -5,7 +5,15 @@ class User < ActiveRecord::Base
 	devise :database_authenticatable, :registerable, :recoverable,	:rememberable, :trackable,	:validatable, :omniauthable, :token_authenticatable, :omniauth_providers => [ :facebook, :vkontakte, :twitter, :gplus, :google_oauth2, :devianart ]
 
 	# Setup accessible (or protected) attributes for your model
-	attr_accessible :email, :password, :remember_me, :name, :provider, :uid, :role, :images
+	attr_accessible :email, :password, :remember_me, :name, :provider, :uid, :role, :images, :avatar
+
+  has_attached_file :avatar,
+                    :styles => { :small => ["300x300", :png],
+                                 :thumb => ["50x50^", :png],
+                                 :original => ["1600x1200^", :png] },
+                    :default_url => "/default_avatar.png",
+                    :path => ":rails_root/public/system/:style/:filename",
+                    :url => "/system/:style/:filename"
 	has_many :images
 	has_many :event
   has_and_belongs_to_many :conversations
