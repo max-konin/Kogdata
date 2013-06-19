@@ -16,4 +16,4 @@
 //= require jquery.cookie
 //= require bootstrap
 
-var role
+
