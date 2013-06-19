@@ -4,6 +4,8 @@
 calendar_selector = '#calendar'
 bookings_selector = '#show-bookings'
 event_modal_selector = '#events-modal'
+create_event_selector = '#create-event-button'
+error_message_selector = '#error-div'
 add_event_selectors = {
 	parent: '#external-events'
 	child: 'div.external-event'
@@ -14,6 +16,8 @@ user_id = $.cookie 'user_id'
 enable_edit = true
 event_title = { todo: "global" }
 event_description = { todo: "global" }
+event_start = {todo: "global"}
+error_message = {todo: "global"}
 #if variable role is defined and it's value is contractor
 if typeof role != 'undefined' and role == 'contractor'
 	#so the contractor is watching all the bookings
@@ -64,6 +68,7 @@ update_event = (event, day_delta, minute_delta, all_day, revert_func) ->
 		return
 
 add_event = (date, allDay) -> # this function is called when something is dropped
+		res = true
 		if event_title.value != '' and event_description.value != ''
 			clone_event = {
 				allDay: allDay
@@ -93,11 +98,33 @@ add_event = (date, allDay) -> # this function is called when something is droppe
 					console.log "Error: " + errorThrown
 					return
 			}
-		return
+		else
+			error_message_selector.show
+			res = false
+		return res
 onDayClick = (date, allDay, jsEvent, view) ->
-	$(event_modal_selector).modal 'show'
+	$(this).attr('rel','popover')
+	$(event_modal_selector).popover(container: this)
+	$(this).css('background-color','green')
+	$(event_modal_selector).popover 'show'
+	$(this).addClass('selected-day')
+	event_start = document.getElementById 'date-input'
+	event_start.value = date
+	error_message = document.getElementById 'error-div'
 	return
 
+add_event_on_submit = ()->
+	date = event_start.value
+	date1 = new Date event_start.value
+	if add_event(date1, true)
+		$(event_modal_selector).popover 'hide'
+
+	else
+		error_message.style.display = 'block'
+	return
+hide_event_modal = ()->
+	$('.selected-day').removeClass 'selected-day'
+	return
 fullCalendarOption = {
 	header: {
 		left: 'prev'
@@ -122,8 +149,8 @@ update_calendar = () ->
 	request = {
 		curDate: $(calendar_selector).fullCalendar('getDate').format 'isoDateTime'
 	}
-	event_title = document.getElementById 'EventTitle'
-	event_description = document.getElementById 'EventDescription'
+	event_title = document.getElementById 'title-input'
+	event_description = document.getElementById 'description-input'
 	$.ajax {
 		type: 'GET'
 		url: "/users/#{user_id}/events.json"
@@ -144,6 +171,8 @@ $(document).ready () ->
 	$(bookings_selector).click bookings_on_click
 	add_event_handler.call $(add_event_selectors.parent).find add_event_selectors.child
 	$(calendar_selector).fullCalendar fullCalendarOption
+	$(create_event_selector).click add_event_on_submit
+	$(event_modal_selector).on 'hidden', hide_event_modal
 	$('.fc-button-next, .fc-button-prev').click () ->
 		update_calendar()
 		return

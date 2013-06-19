@@ -1,5 +1,6 @@
 .calendar-container
   #calendar
-#events-modal.modal.hide.fade
-  = render :partial => 'new_event', :locals => {:user_id => 1}
-
+- if user_signed_in?
+  #events-modal.popover.fade.top.in
+    %p hello
+    //= render :partial => 'new_event', :locals => {:user_id => @user.id}
