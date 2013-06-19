@@ -1,5 +1,7 @@
 Kogdata::Application.routes.draw do
 
+  root :to => 'calendar#index'
+
   get "conversations/show"
 
   get "conversations/delete"
@@ -13,7 +15,6 @@ Kogdata::Application.routes.draw do
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
-  root :to => 'calendar#index/'
   get "home/index"
   get "calendar/index"
   get 'office/show'
