@@ -1,6 +1,6 @@
 .well.well-small
   .navbar
-    =link_to list.msg.user, ':user_id/conversations/:id', :id => list.id
-    %p{:align=>'left'}= list.msg.body
+    =link_to list[:msg].user.name, ':user_id/conversations/:id', :id => list[:id]
+    %p{:align=>'left'}= list[:msg].body
     %P{:align=>'left'}Received at
-    %p{:align=>'left'}= list.msg.time
+    %p{:align=>'left'}= list[:msg].created_at

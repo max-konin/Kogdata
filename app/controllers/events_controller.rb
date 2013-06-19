@@ -37,7 +37,6 @@ class EventsController < ApplicationController
           format.json {render :json=>{ }, status: :bad_request}
         end
       end
-
   end
 
 

@@ -1,5 +1,5 @@
 class Conversation < ActiveRecord::Base
-  attr_accessible :theme, :hash_string
+  attr_accessible :theme, :hash_string, :users
   has_and_belongs_to_many :users
   has_many :messages
 
