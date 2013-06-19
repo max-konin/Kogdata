@@ -1,26 +1,24 @@
 Kogdata::Application.routes.draw do
 
-  get "conversations/show"
-
-  get "conversations/delete"
-
-  get "conversations/index"
+  match 'conversations/:id' => 'conversations#show'
+  match 'conversations'          => 'conversations#index'
+  match 'conversations/create'   => 'conversations#create_message'
 
   post 'conversations/create_message'
 
-  post "image/bind"
-  delete "image/delete"
+  post 'image/bind'
+  delete 'image/delete'
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
+  devise_for :users, :controllers => { :omniauth_callbacks => 'omniauth_callbacks' }
 
   root :to => 'calendar#index/'
-  get "home/index"
-  get "calendar/index"
+  get 'home/index'
+  get 'calendar/index'
   get 'office/show'
   get 'office/all'
   get 'office/portfolio' => 'office#portfolio'
 
-  match 'office/'=> "office#show"
+  match 'office/'=> 'office#show'
   resources :users do
     resources :events
   end

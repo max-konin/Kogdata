@@ -1,10 +1,10 @@
 .span9#container
-  .well
+  .well.well-small
     .btn-toolbar
       =button_to 'New message', :controller => 'messages', :action => 'new_message'
-      %h3{:align=>'center'} YOUR MESSAGES
+      %h5{:align=>'left'} YOUR MESSAGES
   -if @messages.empty?
-    .well
+    .well.well-small
       %p You have no messages from this user yet
   -else
   -@messages.each do |message|

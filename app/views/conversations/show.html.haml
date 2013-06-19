@@ -1,2 +1,5 @@
-%h1 Conversations#show
-%p Find me in app/views/conversations/show.html.haml
+.mainbox#container
+  .well.well-small
+    .btn-toolbar
+      %h4{:align=>'left'} Your conversation with #{}
+  =render :partial => 'messages/list', :collection => @list

@@ -1,5 +1,5 @@
-.span9#container
-  .well
+.mainbox#container
+  .well.well-small
     .btn-toolbar
-      %h3{:align=>'center'} Your messages
-  =render :partial => 'messages/list', :collection => @list
+      %h4{:align=>'left'} Your conversations
+  =render :partial => 'conversations/list', :collection => @list

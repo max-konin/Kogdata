@@ -14,7 +14,13 @@ class ConversationsController < ApplicationController
 
 
   def show
-    @list = Conversation.where('id = ?', :id).messages
+    conv = Conversation.where('id = ?', :id)
+    @list = conv.messages
+    users = conv.users
+    @u_n = Array.new
+    users.each do |user|
+      @u_n << user.name
+    end
   end
 
   def index
@@ -37,6 +43,7 @@ class ConversationsController < ApplicationController
     end
 
     @conversation = current_user.conversations.find_by_hash_string(@hash)
+
     if @conversation.nil? then
       @conversation = current_user.conversations.build              #creates a new conversation for current user if no matches found
       @conversation.hash_string = @hash
