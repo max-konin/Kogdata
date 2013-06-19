@@ -12,3 +12,6 @@
     - if can? :read, @event
       %li
         =link_to 'show-bookings','', :id => 'show-bookings'
+    - if can? :upload, :photo
+      %li
+        =link_to 'portfolio', 'office/portfolio', :id => 'porfolio'
