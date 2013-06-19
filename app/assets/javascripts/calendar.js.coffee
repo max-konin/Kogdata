@@ -125,7 +125,7 @@ update_calendar = () ->
 	event_description = document.getElementById 'EventDescription'
 	$.ajax {
 		type: 'GET'
-		url: "/office/all.json"
+		url: "/users/#{user_id}/events.json"
 		dataType: 'json'
 		data: request
 		success: (response) ->

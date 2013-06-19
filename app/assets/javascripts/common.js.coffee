@@ -3,5 +3,4 @@ $(document).ajaxSend (e, r, s) ->
 		return
 	s.data = s.data || ""
 	s.data += (if s.data then "&" else "") + "authenticity_token=" + encodeURIComponent AUTH_TOKEN
-	#s.data['authenticity_token']  = encodeURIComponent AUTH_TOKEN
 	return
