@@ -1,0 +1,72 @@
+
+require "net/sftp"
+require 'rails/all'
+require 'sftp_compatibility'
+
+task :ring do
+  puts "Bell is ringing."
+end
+
+
+class SFTPHelper
+  def initialize(remote_path, protected_paths, sftp)
+    @remote = remote_path
+    @protected_paths = protected_paths
+    @sftp = sftp
+  end
+
+  # file list
+  def list(path = nil)
+    # ftp.nlst(path).select { |f| f != "." && f != ".." }
+    # @sftp.nlst(path).select { |entry| entry !~ /^\.{1,2}$/ }
+  end
+
+  def delete_recursive(file_or_dir)
+    if @protected_paths.include? file_or_dir then
+      return
+    end
+    if file_or_dir == list(file_or_dir).first
+      puts "Removing file: #{file_or_dir}"
+      #@sftp.remove!(file_or_dir)
+    else
+      list(file_or_dir).each { |entry| delete_recursive(file_or_dir + "/" + entry) }
+      puts "Removing directory: #{file_or_dir}"
+      #@sftp.rmdir(file_or_dir)
+    end
+  end
+
+  def copy_recursive(file_or_dir, prefix_to_remove = nil)
+    remote_file_or_dir = prefix_to_remove ? file_or_dir.gsub(prefix_to_remove, "") : file_or_dir
+    if @protected_paths.include? remote_file_or_dir then
+      return
+    end
+    remote_file_or_dir = @remote + remote_file_or_dir
+    puts remote_file_or_dir
+    if File.directory?(file_or_dir)
+      puts "Creating directory #{remote_file_or_dir}"
+      @sftp.mkdir(remote_file_or_dir)
+      Dir.glob(file_or_dir + "/*").each { |entry| copy_recursive(entry, prefix_to_remove) }
+    else
+      puts "Creating file #{remote_file_or_dir}"
+      @sftp.upload!(file_or_dir, remote_file_or_dir)
+    end
+  end
+end
+
+task :deploy do
+  protected_path = %w[tmp, public/system]
+  Net::SFTP.start('168.63.105.134', 'deployer', :password => 'E1plHrOq') do |sftp|
+    sftp.mkdir("kogdata")
+    helper = SFTPHelper.new("kogdata/", protected_path, sftp)
+    puts "Remove files"
+    helper.list('kogdata').each do |entry|
+      helper.delete_recursive(entry)
+    end
+    puts "Upload files..."
+    local = "."
+    Dir.glob(local + "/*").each do |entry|
+      helper.copy_recursive(entry, local + "/")
+    end
+
+  end
+end
