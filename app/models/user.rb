@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
 		Image.find(name)
 	end
 
-  after_create :set_default_role
+  after_initialize :set_default_role
   after_save :set_default_name
 
   def set_default_name

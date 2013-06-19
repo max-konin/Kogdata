@@ -1,12 +1,16 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "default role" do
+    user = User.new
+    assert user.role? :client
+
+  end
+
   test "role?" do
     user = User.new
     user.role = :client
+    assert user.role? :client
     assert (user.role? :client)
     assert !(user.role? :admin)
     user.role = 'client'
