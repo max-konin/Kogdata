@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 	# Setup accessible (or protected) attributes for your model
 	attr_accessible :email, :password, :remember_me, :name, :provider, :uid, :role, :images, :avatar
 
-  has_attached_file :avatar,
+	has_attached_file :avatar,
                     :styles => { :small => ["300x300", :png],
                                  :thumb => ["50x50^", :png],
                                  :original => ["1600x1200^", :png] },
@@ -16,19 +16,19 @@ class User < ActiveRecord::Base
                     :url => "/system/:style/:filename"
 	has_many :images
 	has_many :event
-  has_and_belongs_to_many :conversations
-  has_many :messages
+	has_and_belongs_to_many :conversations
+	has_many :messages
 
 	def get_image_by_name(name)
 		Image.find(name)
 	end
 
-  after_create :set_default_role
+  after_save :set_default_role
   after_save :set_default_name
 
   def set_default_name
     if (self.name.nil?) || (self.name.empty?) then
-      self.name = "user" + self.id.to_s
+      self.name = "user_" + self.id.to_s
       self.save
     end
   end
@@ -42,5 +42,9 @@ class User < ActiveRecord::Base
 	#check user's role
 	def role? (role)
 		self.role.to_sym == role.to_sym
+	end
+	
+	def active_for_authentication?
+		true
 	end
 end

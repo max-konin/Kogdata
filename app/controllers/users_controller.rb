@@ -17,7 +17,6 @@ class UsersController < ApplicationController
     else
       raise ActionController::RoutingError.new('Not Found')
     end
-
   end
 
   def show

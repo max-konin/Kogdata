@@ -7,11 +7,14 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 		unless @user
 			@user = User.new
 			@user.name = oauth.info.name
+			@user.email = oauth.extra.raw_info.screen_name + "@please.full"
 			@user.provider = oauth.provider
 			@user.uid = oauth.uid
 			@user.password = Devise.friendly_token[0,20]
+			@user.save!
 		end
-		routesFurther
+		sign_in_and_redirect @user, :event => :authentication
+		#routesFurther
 	end
 
 	def facebook

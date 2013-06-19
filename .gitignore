@@ -27,4 +27,4 @@ db/schema.rb
 /public/system/
 
 # Anti Shubin
-rakeDB.sh
+goalfile
