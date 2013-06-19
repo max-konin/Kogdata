@@ -93,6 +93,9 @@ add_event = (date, allDay) -> # this function is called when something is droppe
 					return
 			}
 		return
+onDayClick = (date, allDay, jsEvent, view) ->
+  alert(date)
+  return
 
 fullCalendarOption = {
 	header: {
@@ -109,6 +112,7 @@ fullCalendarOption = {
 	eventDrop: update_event
 	# this allows things to be dropped onto the calendar !!!
 	drop: add_event
+  #dayClick: onDayClick
 }
 
 update_calendar = () ->
@@ -133,6 +137,7 @@ update_calendar = () ->
 			return
 	}
 	return
+
 
 $(document).ready () ->
 	$(bookings_selector).click bookings_on_click
