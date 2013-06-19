@@ -1,6 +1,6 @@
 
 require "net/sftp"
-require 'rails/all'
+
 
 task :ring do
   puts "Bell is ringing."
