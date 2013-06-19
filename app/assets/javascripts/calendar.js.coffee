@@ -3,6 +3,7 @@
 
 calendar_selector = '#calendar'
 bookings_selector = '#show-bookings'
+event_modal_selector = '#events-modal'
 add_event_selectors = {
 	parent: '#external-events'
 	child: 'div.external-event'
@@ -94,8 +95,8 @@ add_event = (date, allDay) -> # this function is called when something is droppe
 			}
 		return
 onDayClick = (date, allDay, jsEvent, view) ->
-  alert(date)
-  return
+	$(event_modal_selector).modal 'show'
+	return
 
 fullCalendarOption = {
 	header: {
@@ -112,7 +113,7 @@ fullCalendarOption = {
 	eventDrop: update_event
 	# this allows things to be dropped onto the calendar !!!
 	drop: add_event
-  #dayClick: onDayClick
+	dayClick: onDayClick
 }
 
 update_calendar = () ->
@@ -143,7 +144,6 @@ $(document).ready () ->
 	$(bookings_selector).click bookings_on_click
 	add_event_handler.call $(add_event_selectors.parent).find add_event_selectors.child
 	$(calendar_selector).fullCalendar fullCalendarOption
-
 	$('.fc-button-next, .fc-button-prev').click () ->
 		update_calendar()
 		return

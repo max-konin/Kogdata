@@ -1,2 +1,5 @@
 .calendar-container
   #calendar
+#events-modal.modal.hide.fade
+  = render :partial => 'new_event', :locals => {:user_id => 1}
+
