@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
 		Image.find(name)
 	end
 
-  after_save :set_default_role
+  after_create :set_default_role
   after_save :set_default_name
 
   def set_default_name
@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   end
 
 	def set_default_role
-		self.role ||= :client
+		self.role ||= "client"
 	end
 
 	ROLES = %w[admin client contractor banned]

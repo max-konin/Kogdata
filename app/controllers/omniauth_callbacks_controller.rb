@@ -11,6 +11,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 			@user.provider = oauth.provider
 			@user.uid = oauth.uid
 			@user.password = Devise.friendly_token[0,20]
+			debugger
 			@user.save!
 		end
 		sign_in_and_redirect @user, :event => :authentication
