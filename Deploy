@@ -28,7 +28,7 @@ class SFTPHelper
 
   def delete_recursive(file_or_dir, prefix)
     puts  "Scanning: #{prefix + file_or_dir.name}"
-    if @protected_paths.include? file_or_dir.name then
+    if @protected_paths.include? (prefix + file_or_dir.name) then
       puts "It's protected!"
       return
     end
@@ -45,6 +45,7 @@ class SFTPHelper
 
   def copy_recursive(file_or_dir, prefix_to_remove = nil)
     remote_file_or_dir = prefix_to_remove ? file_or_dir.gsub(prefix_to_remove, "") : file_or_dir
+    puts remote_file_or_dir
     if @protected_paths.include? remote_file_or_dir then
       return
     end
@@ -72,7 +73,8 @@ task :see do
 end
 
 task :deploy do
-  protected_path = %w[tmp, public/system]
+  protected_path = %w[kogdata/tmp kogdata/public/system]
+  puts protected_path
   Net::SFTP.start('168.63.105.134', 'deployer', :password => 'E1plHrOq') do |sftp|
     sftp.mkdir("kogdata")
     helper = SFTPHelper.new("kogdata/", protected_path, sftp)
@@ -80,11 +82,11 @@ task :deploy do
     helper.list("kogdata").each do |entry|
       helper.delete_recursive(entry, "kogdata/")
     end
-    #puts "Upload files..."
-    #local = "."
-    #Dir.glob(local + "/*").each do |entry|
-    #  helper.copy_recursive(entry, local + "/")
-    #end
+    puts "Upload files..."
+    local = "."
+    Dir.glob(local + "/*").each do |entry|
+      helper.copy_recursive(entry, local + "/")
+    end
 
   end
 end
