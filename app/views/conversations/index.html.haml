@@ -2,4 +2,4 @@
   .well
     .btn-toolbar
       %h3{:align=>'center'} Your messages
-  -render(@list) || 'You have no messages yet'
+  =render :partial => 'messages/list', :collection => @list
