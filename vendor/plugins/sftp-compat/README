@@ -1,0 +1,60 @@
+SFTP Compatibility
+==================
+
+Wouldn't you like it if instances of Net::SFTP supported the same commands as
+regular Net::FTP?  Sure, we all would.  Just require 'sftp_compatibility' and
+you'll be writing code that seamlessly swaps between ftp and sftp.  Yay!
+
+Currently supported commands, developed against net-sftp 1.1.0:
+  chdir
+  delete
+  mkdir
+  nlst
+  putbinaryfile
+  rmdir
+==================
+
+Here's a typlical use case (actually the only one right now):
+
+require 'net/ftp'
+require 'net/sftp'
+require 'sftp_compatibility'
+
+def do_stuff(ftp)
+  ftp.chdir('phil')
+  ftp.mkdir('test_dir')
+  ftp.chdir('test_dir')
+  ftp.nlst.each{ |f| p f }
+  ftp.putbinaryfile('local_filename', 'testfile')
+  ftp.nlst.each{ |f| p f }
+  ftp.delete('testfile')
+  ftp.chdir('..')
+  ftp.rmdir('test_dir')
+end
+
+@protocol = :sftp
+@host = 'ftp.domain.corn'
+@user = 'phil'
+@pass = 'xxxx'
+
+if @protocol == :sftp
+  Net::SFTP.start(@host, :username => @user, :password => @pass) do |sftp|
+    do_stuff(sftp)
+  end
+else
+  Net::FTP.open(@host, @user, @pass) do |ftp|
+    do_stuff(sftp)
+  end
+end
+
+==================
+Installation Instructions
+
+If you use piston:
+ piston import svn://rubyforge.org/var/svn/sftp-compat/trunk vendor/plugins/sftp-compat
+      
+If you use script/plugin:
+ script/plugin install svn://rubyforge.org/var/svn/sftp-compat/trunk
+
+==================
+http://rubyforge.org/projects/sftp-compat/
