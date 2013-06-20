@@ -1,7 +1,7 @@
 
 require "net/sftp"
-require 'rails/all'
-require 'sftp_compatibility'
+require "net/ssh"
+
 
 task :ring do
   puts "Bell is ringing."
@@ -17,26 +17,36 @@ class SFTPHelper
 
   # file list
   def list(path = nil)
-    # ftp.nlst(path).select { |f| f != "." && f != ".." }
-    # @sftp.nlst(path).select { |entry| entry !~ /^\.{1,2}$/ }
+    path ||= "."
+    list = Array.new
+    @sftp.dir.foreach(path) do |entry|
+       if !([".", ".."].include? entry.name) then
+        list << entry
+       end
+    end
+    return list
   end
 
-  def delete_recursive(file_or_dir)
-    if @protected_paths.include? file_or_dir then
+  def delete_recursive(file_or_dir, prefix)
+    puts  "Scanning: #{prefix + file_or_dir.name}"
+    if @protected_paths.include? (prefix + file_or_dir.name) then
+      puts "It's protected!"
       return
     end
-    if file_or_dir == list(file_or_dir).first
-      puts "Removing file: #{file_or_dir}"
-      #@sftp.remove!(file_or_dir)
+
+    if file_or_dir.file?
+      puts "Removing file: #{prefix + file_or_dir.name}"
+      @sftp.remove!(prefix + file_or_dir.name)
     else
-      list(file_or_dir).each { |entry| delete_recursive(file_or_dir + "/" + entry) }
-      puts "Removing directory: #{file_or_dir}"
-      #@sftp.rmdir(file_or_dir)
+      list(prefix + file_or_dir.name).each { |entry| delete_recursive(entry, (prefix + file_or_dir.name + "/")) }
+      puts "Removing directory: #{prefix + file_or_dir.name}"
+      @sftp.rmdir(prefix + file_or_dir.name)
     end
   end
 
   def copy_recursive(file_or_dir, prefix_to_remove = nil)
     remote_file_or_dir = prefix_to_remove ? file_or_dir.gsub(prefix_to_remove, "") : file_or_dir
+    puts remote_file_or_dir
     if @protected_paths.include? remote_file_or_dir then
       return
     end
@@ -51,16 +61,27 @@ class SFTPHelper
       @sftp.upload!(file_or_dir, remote_file_or_dir)
     end
   end
+
 end
 
-task :deploy do
-  protected_path = %w[tmp, public/system]
+task :see do
+  Net::SFTP.start('168.63.105.134', 'deployer', :password => 'E1plHrOq') do |sftp|
+    sftp.dir.foreach("kogdata") do |entry|
+      puts entry.name
+      puts entry.file?
+    end
+  end
+end
+
+task :clear_and_upload do
+  protected_path = %w[kogdata/tmp kogdata/public/system]
+  puts protected_path
   Net::SFTP.start('168.63.105.134', 'deployer', :password => 'E1plHrOq') do |sftp|
     sftp.mkdir("kogdata")
     helper = SFTPHelper.new("kogdata/", protected_path, sftp)
     puts "Remove files"
-    helper.list('kogdata').each do |entry|
-      helper.delete_recursive(entry)
+    helper.list("kogdata").each do |entry|
+      helper.delete_recursive(entry, "kogdata/")
     end
     puts "Upload files..."
     local = "."
@@ -68,5 +89,14 @@ task :deploy do
       helper.copy_recursive(entry, local + "/")
     end
 
+  end
+end
+
+task :deploy => :clear_and_upload do
+  Net::SSH.start('168.63.105.134', 'deployer', :password => 'E1plHrOq') do |ssh|
+    puts "Running bundle update...."
+    ssh.exec!("bundle update")
+    puts "Running rake deployment:setup..."
+    ssh.exec!("rake deployment:setup")
   end
 end
