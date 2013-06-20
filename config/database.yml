@@ -37,6 +37,6 @@ production:
   reconnect: false
   database: kogdata_production
   pool: 5
-  username: kogdata
-  password: VmQDR2XHyHzqtNPT
+  username: root
+  password: qwas
   host: localhost
