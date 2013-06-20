@@ -1,5 +1,6 @@
 
 require "net/sftp"
+require "net/ssh"
 
 
 task :ring do
@@ -60,6 +61,7 @@ class SFTPHelper
       @sftp.upload!(file_or_dir, remote_file_or_dir)
     end
   end
+
 end
 
 task :see do
@@ -69,10 +71,9 @@ task :see do
       puts entry.file?
     end
   end
-
 end
 
-task :deploy do
+task clear_and_upload do
   protected_path = %w[kogdata/tmp kogdata/public/system]
   puts protected_path
   Net::SFTP.start('168.63.105.134', 'deployer', :password => 'E1plHrOq') do |sftp|
@@ -88,5 +89,14 @@ task :deploy do
       helper.copy_recursive(entry, local + "/")
     end
 
+  end
+end
+
+task :deploy => clear_and_upload do
+  Net::SSH.start('168.63.105.134', 'deployer', :password => 'E1plHrOq') do |ssh|
+    puts "Running bundle update...."
+    ssh.exec!("bundle update")
+    puts "Running rake deployment:setup..."
+    ssh.exec!("rake deployment:setup")
   end
 end
