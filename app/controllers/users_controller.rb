@@ -38,6 +38,8 @@ class UsersController < ApplicationController
     end
   end
 
+
+
   private
   def can_view_users_with_role? role
     if current_user.role? :admin then
