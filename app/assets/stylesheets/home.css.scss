@@ -144,16 +144,42 @@ p4
 	}
 }
 
+
+.main_box{
+  position: absolute;
+  margin-left: -500px;
+  width: 1000px;
+  min-height: 100%;
+  left: 50%;
+}
 .sidebar{
+  position: fixed;
   float: left;
   width: 180px;
-  margin-left: 10px;
 }
-
-.mainbox{
-
+.content_box{
+  margin-left: 220px;
 }
+.list_box{
+  position: absolute;
+  min-width: 780px;
+  overflow: auto;
 
+  top: 0px;
+  bottom: 300px;
+}
+.message_box{
+  padding-left: 20px;
+  border-bottom: 3px solid #aaaaaa;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #ffffff;
+}
+.message_box:hover{
+  background: #F5F5F5;
+  border-radius: 10px;
+  border-left: 2px solid #aaaaaa;
+  border-right: 2px solid #aaaaaa;
+}
 .social-btn
 {
   width: 150px;
@@ -181,6 +207,7 @@ div#blac-div
   background-color: #000;
   color: #999999;
   maggin-top:0px;
+  maggin-bottom:5px;
   padding-top: 2px;
   height: 40px;
   padding-left: 10px;
@@ -213,8 +240,13 @@ div#for-close
 
 
 div.mainbox{
+  height: 200px;
+  bottom: 0;
+  position: fixed;
   padding-left: 10px;
   padding-right: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
 
   textarea#send-message-input
   {

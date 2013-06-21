@@ -1,2 +1,12 @@
-%h1 Conversations#show
-%p Find me in app/views/conversations/show.html.haml
+.list_box
+  =render :partial => 'messages/list', :collection => @list
+.mainbox
+  #blac-div
+    %h5
+      New message
+      #for-close
+        %a{'data-dismiss'=> 'modal',:id=> 'close-button'} Close
+  =form_for Message.new, :url => {:controller => 'conversations', :action => 'create_message',
+  :id => [@id]} do |f|
+    =f.text_area :body, :class=>'span2', :id=> 'send-message-input'
+    =f.submit 'Send', :class => 'btn btn-small btn-inverse',:id=> 'send-message-button';
