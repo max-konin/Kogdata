@@ -17,7 +17,6 @@ class UsersController < ApplicationController
     else
       raise ActionController::RoutingError.new('Not Found')
     end
-
   end
 
   def show
@@ -38,6 +37,8 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
 
   private
   def can_view_users_with_role? role
