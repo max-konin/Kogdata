@@ -53,10 +53,10 @@ div#external-events {
 }
 
 #calendar {
-  width: 100%;
+  width: 980px;
   position: relative;
   min-width: 700px;
-  margin: 0;
+  margin: 0 auto;
 }
 
 div.container{
@@ -274,4 +274,48 @@ div#events-container.container
 div.span10.offset2
 {
   margin-left: 0px;
+}
+
+div#events-modal
+{
+  width: 400px;
+  padding-bottom: 10px;
+  data-html: true
+}
+
+#create-event-button
+{
+  float: right
+}
+
+#error-div
+{
+  display: none;
+}
+
+#date-input
+{
+  display: none;
+}
+
+form#add-event-form
+{
+  #title-input
+  {
+    width: 380px;
+  }
+  #description-input
+  {
+    width: 380px;
+  }
+}
+.fc-border-separate
+{
+  tbody
+  {  cursor: hand;  }
+}
+
+.selected-day
+{
+  background-color: #949494;
 }

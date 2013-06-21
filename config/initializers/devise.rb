@@ -219,8 +219,8 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  config.omniauth :facebook, 'APP_', 'A_SECRET', :scope => 'photos,video'
-  config.omniauth :deviantart, '421', '3ae387333d8c8046799def045233a267'
+  config.omniauth :facebook, '621473184544291', 'd0b9c329484a16c77b53e0bbd72e89fb', :scope => 'email,user_birthday'
+  config.omniauth :deviantart, '421', '3ae387333d8c8046799def045233a267', :display => 'popup'
   config.omniauth :google_oauth2, '183339686901.apps.googleusercontent.com', 'Tim-Em4xoaatj5ELlzkM9we7', :scope => 'userinfo.profile'
   config.omniauth :gplus, '183339686901.apps.googleusercontent.com', 'Tim-Em4xoaatj5ELlzkM9we7', :scope => 'userinfo.profile'
   config.omniauth :instagram, 'APP_ID', 'A_SECRET'

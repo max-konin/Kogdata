@@ -19,7 +19,5 @@
     .row-fluid
       .sidebar#container
         =render 'office/sidebar_box'
-        - if can? :create, @event
-          =render 'office/event_box'
       .span9
         = yield
