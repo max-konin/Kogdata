@@ -1,5 +1,12 @@
-.mainbox#container
-  .well.well-small
-    .btn-toolbar
-      %h4{:align=>'left'} Your conversation with #{@u_n}
+.list_box
   =render :partial => 'messages/list', :collection => @list
+.mainbox
+  #blac-div
+    %h5
+      New message
+      #for-close
+        %a{'data-dismiss'=> 'modal',:id=> 'close-button'} Close
+  =form_for Message.new, :url => {:controller => 'conversations', :action => 'create_message',
+  :id => [@id]} do |f|
+    =f.text_area :body, :class=>'span2', :id=> 'send-message-input'
+    =f.submit 'Send', :class => 'btn btn-small btn-inverse',:id=> 'send-message-button';

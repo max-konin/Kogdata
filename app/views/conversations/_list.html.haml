@@ -1,6 +1,4 @@
-.well.well-small
-  .navbar
-    %h2
-      =button_to 'Show dialog', :controller => 'conversations', :action => 'show', :id => list[:id]
-    %p{:align=>'left'}= list[:msg].body
-    %p{:align=>'left'}=puts 'Received at'; list[:msg].created_at
+.message_box{:onclick => "window.location = '/conversations/"+list[:conv].id.to_s+"'"}
+    %br #{link_to list[:user].name, list[:user]} says:
+    %p= list[:msg].body
+    %p at #{list[:msg].created_at.strftime("%H:%M, %d %B")}

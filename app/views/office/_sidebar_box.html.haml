@@ -3,6 +3,9 @@
     %li{:class => 'nav-header'}Office
     %li
       =link_to 'home' ,root_url,:remote => false, :method => 'GET'
+    - if user_signed_in?
+      %li
+        =link_to 'conversations', '/conversations'
     - if can? :read, @event
       %li
         =link_to 'show-bookings','', :id => 'show-bookings'

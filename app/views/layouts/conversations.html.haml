@@ -15,9 +15,8 @@
     = notice
   %p.alert
     = alert
-  .container-fluid
-    .row-fluid
-      .sidebar#container
-        =render 'office/sidebar_box'
-      .span10
-        = yield
+  .main_box
+    .sidebar#container
+      =render 'office/sidebar_box'
+    .content_box
+      =yield

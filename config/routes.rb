@@ -2,11 +2,12 @@ Kogdata::Application.routes.draw do
 
   root :to => 'calendar#index'
 
-  get "conversations/show"
-  match 'conversations/:id' => 'conversations#show'
-  match 'conversations'          => 'conversations#index'
-  match 'conversations/create'   => 'conversations#create_message'
-
+  get 'conversations/:id'             => 'conversations#show'
+  get 'conversations'                => 'conversations#index'
+  #get 'conversations/:id'            => 'conversations#create_message'
+  #get 'conversations/:members'       => 'conversations#create_message'
+  #post 'conversations/*id'  => 'conversations#create_message'
+  #post 'conversations/:members'      => 'conversations#create_mess
   post 'conversations/create_message'
 
   post 'image/bind'

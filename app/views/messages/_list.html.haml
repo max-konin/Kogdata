@@ -1,4 +1,4 @@
-.well.well-small
-  .navbar
-    %p{:align=>'left'}= list.body
-    %p{:align=>'left'} 'Received at' #{list.created_at}
+.message_box
+    %br #{link_to list[:user].name, list[:user]} says:
+    = list[:msg].body
+    %br at #{list[:msg].created_at.strftime("%H:%M,  %d %B")}
