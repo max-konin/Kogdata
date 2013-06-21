@@ -1,17 +1,9 @@
 = stylesheet_link_tag 'home'
-#blac-div
-  %h5
-    New event
-    #for-close
-      %a{'data-dismiss'=> 'modal',:id=> 'close-button'} Close
-.mainbox
-  #error-div
-    %p Please fill in all fields, son of a bitch!!
+.mainbox-add
   %form{:id => 'add-event-form'}
-    %label Title
-    %input{ :id=> 'title-input', :type => 'text', :placeholder => 'Title'}
-    %label Description
-    %textarea{ :rows => 5, :id=> 'description-input', :type => 'text', :placeholder =>'Description' }
+    %h6 new event
+    %input{ :class=> 'title-input', :type => 'text', :placeholder => 'Title'}
+    %textarea{ :rows => 2, :class=> 'description-input', :type => 'text', :placeholder =>'Description' }
     %input{:id => 'date-input', :type => 'text'}
     %br
     %submit{ :class => 'btn btn-small btn-inverse',:id=> 'create-event-button'} Submit
