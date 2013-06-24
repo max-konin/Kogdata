@@ -1,10 +1,10 @@
 = stylesheet_link_tag 'home'
-#blac-div
-  %h5
-    New message
-    #for-close
-      %a{'data-dismiss'=> 'modal',:id=> 'close-button'} Close
 .mainbox
+  #blac-div
+    %h5
+      New message
+      #for-close
+        %a{'data-dismiss'=> 'modal',:id=> 'close-button'} Close
   =form_for Message.new, :url => {:controller => 'conversations', :action => 'create_message',
   :members => [contact_id]} do |f|
     =f.label :body, 'New message for '+User.find(contact_id).name

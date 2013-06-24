@@ -1,0 +1,4 @@
+.message_box{:onclick => "window.location = '/conversations/"+list[:conv].id.to_s+"'"}
+    %br #{link_to list[:user].name, list[:user]} says:
+    %p= list[:msg].body
+    %p at #{list[:msg].created_at.strftime("%H:%M, %d %B")}

@@ -2,12 +2,12 @@ Kogdata::Application.routes.draw do
 
   root :to => 'calendar#index'
 
-  get "conversations/show"
-
-  get "conversations/delete"
-
-  get "conversations/index"
-
+  get 'conversations/:id'             => 'conversations#show'
+  get 'conversations'                => 'conversations#index'
+  #get 'conversations/:id'            => 'conversations#create_message'
+  #get 'conversations/:members'       => 'conversations#create_message'
+  #post 'conversations/*id'  => 'conversations#create_message'
+  #post 'conversations/:members'      => 'conversations#create_mess
   post 'conversations/create_message'
 
   post "image/bind"
@@ -20,6 +20,8 @@ Kogdata::Application.routes.draw do
 
   get "home/index"
   get "calendar/index"
+  get "calendar/new_form"
+  get "calendar/show_form"
   get 'office/show'
   get 'office/all'
   get 'office/portfolio' => 'office#portfolio'

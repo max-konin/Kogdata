@@ -1,0 +1,9 @@
+= stylesheet_link_tag 'home'
+.mainbox-add
+  %form{:id => 'add-event-form'}
+    %h6 new event
+    %input{ :class=> 'title-input', :type => 'text', :placeholder => 'Title'}
+    %textarea{ :rows => 2, :class=> 'description-input', :type => 'text', :placeholder =>'Description' }
+    %input{:id => 'date-input', :type => 'text'}
+    %br
+    %submit{ :class => 'btn btn-small btn-inverse',:id=> 'create-event-button'} Submit
