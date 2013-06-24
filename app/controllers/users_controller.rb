@@ -38,7 +38,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+	 @user = current_user
+  end
 
+  def update
+	 if current_user.role != params[:user].role and current_user.role != :contactor
+				
+	 end
+	 User.update(current_user.id, params[:user])
+	 redirect_to '/users/' + current_user.id.to_s
+  end
 
   private
   def can_view_users_with_role? role

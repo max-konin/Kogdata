@@ -3,6 +3,8 @@
     %li{:class => 'nav-header'}Office
     %li
       =link_to 'home' ,root_url,:remote => false, :method => 'GET'
+    %li
+      =link_to 'edit page', "/users/edit"
     - if can? :read, @event
       %li
         =link_to 'show-bookings','', :id => 'show-bookings'
