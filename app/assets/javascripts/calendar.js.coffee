@@ -125,13 +125,14 @@ init_popover_show_options = {
 	container: 'body'
 	trigger: 'manual'
 }
-
+#on day clik method!!!1
 onDayClick = (date, allDay, jsEvent, view) ->
 	if !$(this).hasClass('selected-day')
 		parent = $(this).parent()
 		placement = 'top'
 		if parent.hasClass('fc-week0')
-			placement = 'bottom'
+    placement = 'bottom'
+  console.log placement
 		init_popover_new_options['placement'] = placement
 		$('.selected-day').popover 'destroy'
 		$('.selected-event').popover 'destroy'
