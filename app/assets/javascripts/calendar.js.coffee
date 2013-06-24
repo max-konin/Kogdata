@@ -130,9 +130,8 @@ onDayClick = (date, allDay, jsEvent, view) ->
 	if !$(this).hasClass('selected-day')
 		parent = $(this).parent()
 		placement = 'top'
-		if parent.hasClass('fc-week0')
-    placement = 'bottom'
-  console.log placement
+		if parent.hasClass('fc-first')
+      			placement = 'bottom'
 		init_popover_new_options['placement'] = placement
 		$('.selected-day').popover 'destroy'
 		$('.selected-event').popover 'destroy'
