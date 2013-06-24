@@ -43,10 +43,10 @@ class UsersController < ApplicationController
   end
 
   def update
-	 if current_user.role != params[:user].role and current_user.role != :contactor
-				
+	 if not current_user.role? params[:user][:role] and current_user.role? 'contractor' then
+		Image.destroy_all :user_id => current_user.id	
 	 end
-	 User.update(current_user.id, params[:user])
+	 User.update current_user.id, params[:user]
 	 redirect_to '/users/' + current_user.id.to_s
   end
 
