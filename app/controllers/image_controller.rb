@@ -6,12 +6,12 @@ class ImageController < ApplicationController
 		images.each do |image|
 			current_user.images.create :src => image, :name => image.original_filename
 		end
-		redirect_to "/users/edit"
+		redirect_to "/office/portfolio"
 	end
 
 	def delete
 		image_id = params[:id]
-		current_user.images.find(image_id).delete
-		redirect_to "/users/edit"
+		current_user.images.find(image_id).destroy
+		redirect_to "/office/portfolio"
 	end
 end

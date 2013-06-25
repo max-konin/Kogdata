@@ -6,4 +6,11 @@ class CalendarController < ApplicationController
 	    cookies[:user_id] = @user.id
     end
   end
+  def new_form
+    render :partial => 'new_event'
+  end
+
+  def show_form
+    render :partial => 'show_event'
+  end
 end

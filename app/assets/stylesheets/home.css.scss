@@ -267,12 +267,6 @@ div.span10.offset2
   margin-left: 0px;
 }
 
-div#events-modal
-{
-  width: 400px;
-  padding-bottom: 10px;
-  data-html: true
-}
 
 #create-event-button
 {
@@ -293,11 +287,19 @@ form#add-event-form
 {
   #title-input
   {
-    width: 380px;
+    font-size: 11px;
+    width: 195px;
   }
   #description-input
   {
-    width: 380px;
+
+    font-size: 11px;
+    width: 195px;
+  }
+  label
+  {
+    margin-right: 10px;
+    font-size: 11px;
   }
 }
 .fc-border-separate
@@ -308,5 +310,19 @@ form#add-event-form
 
 .selected-day
 {
-  background-color: #949494;
+  background-color: #EAF7D6;
+}
+
+#inside-popover
+{
+  display: none
+}
+
+div.mainbox-add
+{
+  width: 200px;
+  padding-bottom: 10px;
+  data-html: true;
+  font-size: 8px
+
 }
