@@ -3,7 +3,7 @@ class ConversationsController < ApplicationController
 
   def create_message
 
-    compare_conversation!   #Creates a new conversation if it wasn't be found
+    find_or_create_conversation!   #Creates a new conversation if it wasn't be found
 
     message = @conversation.messages.build(params[:message])
     message.user = current_user
@@ -38,7 +38,7 @@ class ConversationsController < ApplicationController
 
   private
 
-  def compare_conversation!
+  def find_or_create_conversation!
 
     if params[:id].nil? then
       members = params[:members]
