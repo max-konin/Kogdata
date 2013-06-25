@@ -1,0 +1,16 @@
+= form_for @user, :html => { :method => :put, :multipath => true } do |f|
+	%span
+		= f.label :name
+		= f.text_field :name, :autocomplete => "on"
+	%span
+		= f.label :email
+		= f.email_field :email, :autocomplete => "on"
+	%span
+		= f.label :avatar
+		%div
+			%img{:src => @user.avatar.url(:thumb)}
+		= f.file_field :avatar
+	%span
+		= f.label :role
+		= f.select :role, :options => [ :client, :contractor]
+	= f.submit
