@@ -146,14 +146,10 @@ p4
 
 
 .main_box{
-  position: absolute;
-  margin-left: -500px;
+  margin: 0 auto;
   width: 1000px;
-  min-height: 100%;
-  left: 50%;
 }
 .sidebar{
-  position: fixed;
   float: left;
   width: 180px;
 }
@@ -161,12 +157,7 @@ p4
   margin-left: 220px;
 }
 .list_box{
-  position: absolute;
-  min-width: 780px;
   overflow: auto;
-
-  top: 0px;
-  bottom: 300px;
 }
 .message_box{
   padding-left: 20px;
