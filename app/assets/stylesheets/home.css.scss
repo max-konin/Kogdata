@@ -151,25 +151,26 @@ p4
 }
 .sidebar{
   float: left;
-  width: 180px;
+  width: 20%;
 }
 .content_box{
-  margin-left: 220px;
+  margin-left: 22%;
 }
 .list_box{
   overflow: auto;
+  max-height: 70%;
 }
 .message_box{
   padding-left: 20px;
-  border-bottom: 3px solid #aaaaaa;
-  border-left: 2px solid #ffffff;
-  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #aaaaaa;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #ffffff;
 }
 .message_box:hover{
   background: #F5F5F5;
   border-radius: 10px;
-  border-left: 2px solid #aaaaaa;
-  border-right: 2px solid #aaaaaa;
+  border-left: 1px solid #aaaaaa;
+  border-right: 1px solid #aaaaaa;
 }
 .social-btn
 {
@@ -233,11 +234,9 @@ div#for-close
 div.mainbox{
   height: 200px;
   bottom: 0;
-  position: fixed;
   padding-left: 10px;
   padding-right: 10px;
-  margin-bottom: 20px;
-  margin-top: 20px;
+  margin-top: 10px;
 
   textarea#send-message-input
   {
