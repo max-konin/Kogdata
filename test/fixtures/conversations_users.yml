@@ -1,15 +1,15 @@
-one:
+Conv1User1:
   converstion_id: 1
   user_id: 1
 
-two:
+Conv1User2:
   converstion_id: 1
   user_id: 2
 
-three:
+Conv2User3:
   converstion_id: 2
   user_id: 3
 
-four:
+Conv2User4:
   converstion_id: 2
   user_id: 4
