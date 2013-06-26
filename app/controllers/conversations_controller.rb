@@ -2,17 +2,15 @@ class ConversationsController < ApplicationController
   before_filter :authenticate_user!
 
   def create_message
+    @conversation = (params[:id].nil?) ? Conversation.find_or_create_by_users(params[:members] + [current_user.id.to_s])
+                                       : Conversation.find(params[:id])
 
-    compare_conversation!   #Creates a new conversation if it wasn't be found
-
-    message = @conversation.messages.build(params[:message])
-    message.user = current_user
-    message.save!
+    @message = @conversation.messages.create params[:message] do |message|
+      message.user = current_user
+    end
 
     redirect_to :back
-
   end
-
 
   def show
 
@@ -37,8 +35,7 @@ class ConversationsController < ApplicationController
   end
 
   private
-
-  def compare_conversation!
+  def find_or_create_conversation!
 
     if params[:id].nil? then
       members = params[:members]
