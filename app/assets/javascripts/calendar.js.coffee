@@ -21,6 +21,7 @@ event_description = { todo: "global" }
 event_start = {todo: "global"}
 inside_popover_new = {todo: "global"}
 inside_popover_show = {todo: "global"}
+Popover = {todo: "global"}
 
 
 
@@ -127,22 +128,8 @@ init_popover_show_options = {
 }
 #on day clik method!!!1
 onDayClick = (date, allDay, jsEvent, view) ->
-	if !$(this).hasClass('selected-day')
-		parent = $(this).parent()
-		placement = 'top'
-		if parent.hasClass('fc-first')
-      			placement = 'bottom'
-		init_popover_new_options['placement'] = placement
-		$('.selected-day').popover 'destroy'
-		$('.selected-event').popover 'destroy'
-		$('.selected-day').removeClass 'selected-day'
-		$(this).addClass('selected-day')
-		$('.selected-day').popover(init_popover_new_options).popover 'show'
-		event_start = document.getElementById 'date-input'
-		event_start.value = date
-	else
-		$('.selected-day').popover 'destroy'
-		$('.selected-day').removeClass 'selected-day'
+	Popover.show($(this),'day')
+	console.log $(this)
 	return
 
 
@@ -162,7 +149,6 @@ onEventClick = (event, jsEvent, view) ->
 		$(this).addClass('selected-event')
 		document.getElementById('title-for-show').value = event.title
 		document.getElementById('description-for-show').value = event.description
-		$('.selected-event').popover(init_popover_show_options).popover 'show'
 	else
 		$('.selected-event').popover 'destroy'
 		$('.selected-event').removeClass 'selected-event'
@@ -228,10 +214,32 @@ get_inside_popover = () ->
 			return
 	}
 	return
+popoverController = () ->
+	this.init = () ->
+		$('.selected-event').popover(init_popover_show_options)
+		a = $('.selected-day').popover(init_popover_new_options)
+		return
+
+	this.show = (owner, type) ->
+		if type == 'day'
+
+			$('.selected-day').popover 'hide'
+			$('.selected-day').removeClass('selected-day')
+			owner.addClass('selected-day')
+			$('.selected-day').popover(init_popover_new_options)
+			$('.selected-day').popover 'show'
+		return
+
+	this.hide = () ->
+		return
+	return
+
 
 
 $(document).ready () ->
 	get_inside_popover()
+	Popover = new popoverController()
+	Popover.init()
 	$(bookings_selector).click bookings_on_click
 	add_event_handler.call $(add_event_selectors.parent).find add_event_selectors.child
 	$(calendar_selector).fullCalendar fullCalendarOption
