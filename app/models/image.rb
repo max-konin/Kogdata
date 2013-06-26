@@ -5,9 +5,9 @@ class Image < ActiveRecord::Base
 	attr_accessible :name, :src
 	has_attached_file :src,
 				:styles => { 
-					:thumb => ["50x50^", :png],
-					:small => ["90x90^", :png],
-					:original => ["1600x1200^", :png] 
+					:thumb => ["50x50#", :png],
+					:small => ["90x90#", :png],
+					:original => ["1600x1200#", :png] 
 				},
 				:default_url => "/system/:style/default_image.png",
 				:path => ":rails_root/public/system/:style/:filename",
