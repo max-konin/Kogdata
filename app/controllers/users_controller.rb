@@ -40,6 +40,7 @@ class UsersController < ApplicationController
 
   def edit
 	 @user = current_user
+	 render 'users/edit', :layout => 'office'
   end
 
   def update

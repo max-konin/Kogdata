@@ -13,25 +13,18 @@ class ConversationsController < ApplicationController
   end
 
   def show
-
-    @list = Array.new
-    conversation = current_user.conversations.find_by_id(params[:id])
-    conversation.messages.reverse.each do |msg|
-      @list << {:user => msg.user, :msg => msg}
-    end
     @id = params[:id]
-
+    @conversation = current_user.conversations.find_by_id(params[:id]).messages.reverse
   end
 
   def index
+    @conversations = current_user.conversations.reverse
+  end
 
-    @list = Array.new
-    conversations = current_user.conversations
-    conversations.reverse.each do |conversation|
-      message = conversation.messages.last
-      @list << {:msg => message, :conv => conversation, :user => message.user}
-    end
+  def delete_message
+    current_user.messages.find_by_id(params[:id]).destroy
 
+    redirect_to :back
   end
 
   private
