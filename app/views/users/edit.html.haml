@@ -1,16 +1,16 @@
-= form_for @user, :html => { :method => :put, :multipath => true } do |f|
-	%span
+= form_for @user, :html => { :method => :put, :multipath => true, :id => 'user_update' } do |f|
+	%div
 		= f.label :name
 		= f.text_field :name, :autocomplete => "on"
-	%span
+	%div
 		= f.label :email
 		= f.email_field :email, :autocomplete => "on"
-	%span
+	%div
 		= f.label :avatar
-		%div
+		%span
 			%img{:src => @user.avatar.url(:thumb)}
-		= f.file_field :avatar
-	%span
+		= f.file_field :avatar, :accept => 'image/*'
+	%div
 		= f.label :role
-		= f.select :role, :options => [ :client, :contractor]
+		= f.select :role, :options => [ :client, :contractor ]
 	= f.submit
