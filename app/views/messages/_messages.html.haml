@@ -1,0 +1,4 @@
+.message_box
+    %br #{link_to message.user.name, message.user} says:
+    = message.body
+    %br at #{message.created_at.strftime("%H:%M,  %d %B")}

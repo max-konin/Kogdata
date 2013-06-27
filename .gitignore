@@ -25,6 +25,7 @@ db/schema.rb
 
 # Anti paperclip
 /public/system/
+/public/avatar/
 
 # Anti Shubin
 goalfile
