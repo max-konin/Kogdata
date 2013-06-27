@@ -69,6 +69,16 @@ class EventsController < ApplicationController
     end
   end
 
+  def respond
+    @event = Event.find(params[:event_id])
+    conversation = Conversation.find_or_create_by_users [current_user.id, @event.user_id]
+    conversation.messages.create (params[:message]) do |m|
+      m.user = current_user
+      m.event = @event
+    end
+    redirect_to :back
+  end
+
   def edit
     raise NotImplementedError
   end

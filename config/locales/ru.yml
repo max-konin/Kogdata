@@ -1,2 +1,7 @@
 ru:
+  respond_to_event: "Заявка"
+  new_message_for: "Новое сообщение для: "
   new_message: "Новое сообщение"
+  to_photo: "Фотографировать"
+  send: "Отправить"
+  close: "Закрыть"

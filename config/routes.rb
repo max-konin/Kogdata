@@ -25,7 +25,9 @@ Kogdata::Application.routes.draw do
 
   match 'office/'=> "office#show"
   resources :users do
-    resources :events
+    resources :events do
+      post 'respond'
+    end
   end
 
   # The priority is based upon order of creation:
