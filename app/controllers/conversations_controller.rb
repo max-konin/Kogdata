@@ -6,6 +6,7 @@ class ConversationsController < ApplicationController
                                        : Conversation.find(params[:id])
 
     @message = @conversation.messages.create params[:message] do |message|
+      message.was_seen = false
       message.user = current_user
     end
 

@@ -1,7 +1,10 @@
 module MessagesHelper
-  def new_response_for_event (event_id)
-    raise ArgumentError, 'Cannot create response for nil event' if event_id.nil?
-    event = Event.find event_id
-    message = event.messages.build
+  def count_unread_messages
+    count = 0
+    converstions = current_user.conversations
+    converstions.each do |conv|
+      count += (conv.messages.where('user_id != ? AND was_seen = ?',current_user.id, false)).count
+    end
+    (count == 0)? '' : '(' + count.to_s + ')'
   end
 end
