@@ -8,7 +8,8 @@ Kogdata::Application.routes.draw do
   #get 'conversations/:members'       => 'conversations#create_message'
   #post 'conversations/*id'  => 'conversations#create_message'
   #post 'conversations/:members'      => 'conversations#create_mess
-  post 'conversations/create_message'
+  post   'conversations/create_message'
+  delete 'conversations/destroy_message'
 
   post "image/bind"
   delete "image/delete"
@@ -30,7 +31,9 @@ Kogdata::Application.routes.draw do
 
   match 'office/'=> "office#show"
   resources :users do
-    resources :events
+    resources :events do
+      post 'respond'
+    end
   end
 
   # The priority is based upon order of creation:
