@@ -14,6 +14,8 @@ Kogdata::Application.routes.draw do
   delete "image/delete"
   
   get 'users/edit'
+  get 'users/get_info' => 'users#registration_after_omniauth'
+  put 'users' => 'users#create'
   put 'users/:id' => 'users#update'
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }

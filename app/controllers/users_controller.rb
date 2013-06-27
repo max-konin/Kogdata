@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [ :registration_after_omniauth, :create ]
 
   def index
     if params[:role].nil? then
@@ -49,6 +49,20 @@ class UsersController < ApplicationController
 	 end
 	 User.update current_user.id, params[:user]
 	 redirect_to '/users/' + current_user.id.to_s
+  end
+
+  def registration_after_omniauth
+	 debugger
+	 @user = session['devise.omniauth_data']
+	 if @user == nil
+		redirect_to 'users/edit'
+	 end
+	 render 'users/edit', :layout => 'office'
+  end
+
+  def create
+	 User.create 
+	 session['devise.omniauth_data'] = nil
   end
 
   private

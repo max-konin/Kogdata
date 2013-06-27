@@ -13,4 +13,10 @@
 	%div
 		= f.label :role
 		= f.select :role, :options => [ :client, :contractor ]
+	%div
+		= f.label :old_password
+		= f.password_field :old_password
+	%div
+		= f.label :password
+		= f.password_field :password
 	= f.submit
