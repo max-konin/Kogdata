@@ -28,7 +28,7 @@ four:
   created_at: 2013-05-30 18:16:12
   created_at: 2013-05-30 18:16:12
   user_id: 3
-  conversation_id: 1
+  conversation_id: 2
 
 five:
   id: 5
@@ -36,4 +36,4 @@ five:
   created_at: 2013-05-30 18:16:13
   created_at: 2013-05-30 18:16:13
   user_id: 4
-  conversation_id: 1
+  conversation_id: 2
