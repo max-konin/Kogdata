@@ -14,11 +14,6 @@ class ConversationsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'index' do
 
-  end
 
-  test 'show' do
-
-  end
 end

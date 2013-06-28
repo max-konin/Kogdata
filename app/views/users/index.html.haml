@@ -11,9 +11,10 @@
           =user.role
       .span4.offset1
         %h2
-          %button{:type=> 'button', :class => 'btn btn-primary', :id=>'message-btn', 'data-target'=>'#messageModal',
-                        'data-toggle' => 'modal'} Send a message
-        #messageModal.modal.hide.fade
+          %button{:type=> 'button', :class => 'btn btn-primary', :id=>'message-btn',
+                  'data-target'=>'#messageModal_' + user.id.to_s,
+                  'data-toggle' => 'modal'} Send a message
+        .modal.hide.fade{:id => 'messageModal_' + user.id.to_s}
           = render :partial => "messages/new_message", :locals => {:contact_id => user.id}
 
 = javascript_include_tag "profile"
