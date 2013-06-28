@@ -45,24 +45,25 @@ class UsersController < ApplicationController
 
   def update
 	 if not current_user.role? params[:user][:role] and current_user.role? 'contractor' then
-		Image.destroy_all :user_id => current_user.id	
+		Image.destroy_all :user_id => current_user.id
 	 end
 	 User.update current_user.id, params[:user]
 	 redirect_to '/users/' + current_user.id.to_s
   end
 
   def registration_after_omniauth
-	 debugger
 	 @user = session['devise.omniauth_data']
 	 if @user == nil
 		redirect_to 'users/edit'
 	 end
-	 render 'users/edit', :layout => 'office'
+	 render 'users/after_omniauth', :layout => 'office'
   end
 
   def create
-	 User.create 
+	 @user = User.new params[:user]
+	 @user.save!
 	 session['devise.omniauth_data'] = nil
+	 sign_in_and_redirect @user
   end
 
   private
