@@ -20,7 +20,6 @@ event_title = { todo: "global" }
 event_description = { todo: "global" }
 event_start = {todo: "global"}
 inside_popover_new = {todo: "global"}
-inside_popover_show = {todo: "global"}
 Popover = {todo: "global"}
 
 
@@ -106,8 +105,23 @@ add_event = (date, allDay) -> # this function is called when something is droppe
 add_event_on_submit = ()->
 	event_title = document.getElementsByClassName('title-input')[0]
 	event_description = document.getElementsByClassName('description-input')[0]
-	date1 = new Date event_start.value
+	date1 = new Date document.getElementById('date-input').value
 	add_event(date1, true)
+	return
+
+get_inside_popover_new = () ->
+	$.ajax {
+		type: 'GET'
+		url: 'calendar/new_form'
+		dataType: 'html'
+		success: (data) ->
+			inside_popover_new = data
+			return
+	}
+	return
+get_inside_popover_show = (event_id) ->
+
+
 	return
 
 init_popover_new_options = {
@@ -119,41 +133,21 @@ init_popover_new_options = {
 }
 
 
-init_popover_show_options = {
-	html: true
-	content: () ->
-		return inside_popover_show
-	container: 'body'
-	trigger: 'manual'
-}
 #on day clik method!!!1
 onDayClick = (date, allDay, jsEvent, view) ->
-	Popover.show($(this),'day')
-	console.log $(this)
+	Popover.hide()
+	Popover.show($(this),date,'day','','')
 	return
 
 
 onEventClick = (event, jsEvent, view) ->
-	if !$(this).hasClass('selected-event')
-		$('.selected-event').popover 'destroy'
-		$('.selected-day').popover 'destroy'
-		$('.title-label').removeClass 'title-label'
-		p = $(this).position()
-		top =  p.top
-		placement = 'top'
-		if top < 154.0
-			placement = 'bottom'
-		init_popover_show_options['placement'] = placement
-		$('.selected-day').removeClass 'selected-day'
-		$('.selected-event').removeClass 'selected-event'
-		$(this).addClass('selected-event')
-		document.getElementById('title-for-show').value = event.title
-		document.getElementById('description-for-show').value = event.description
-	else
-		$('.selected-event').popover 'destroy'
-		$('.selected-event').removeClass 'selected-event'
+	Popover.hide()
+	Popover.show($(this),'','event', event.id,event)
 	return
 
+onDragStart = () ->
+	$('.clicked').removeClass('clicked')
+	return
 
 fullCalendarOption = {
 	header: {
@@ -172,6 +166,7 @@ fullCalendarOption = {
 	drop: add_event
 	dayClick: onDayClick
 	eventClick: onEventClick
+	eventDragStart: onDragStart
 }
 
 update_calendar = () ->
@@ -195,68 +190,99 @@ update_calendar = () ->
 	}
 	return
 
-get_inside_popover = () ->
-	$.ajax {
-		type: 'GET'
-		url: 'calendar/new_form'
-		dataType: 'html'
-		success: (data) ->
-			inside_popover_new = data
-			return
-	}
-	$.ajax {
-		type: 'GET'
-		url: 'calendar/show_form'
-		dataType: 'html'
-		success: (data) ->
-			inside_popover_show = data
-			console.log data
-			return
-	}
-	return
 popoverController = () ->
-	this.init = () ->
-		$('.selected-event').popover(init_popover_show_options)
-		a = $('.selected-day').popover(init_popover_new_options)
-		return
-
-	this.show = (owner, type) ->
+	this.popover_id = "null"
+	this.show = (owner, date, type, number,event) ->
+		inside_popover_show = 'null'
+		if date != ''
+			this.popover_id = 'day'+date.getDate().toString() + number + ""
+		else
+			this.popover_id = number + ""
 		if type == 'day'
-
-			$('.selected-day').popover 'hide'
-			$('.selected-day').removeClass('selected-day')
-			owner.addClass('selected-day')
-			$('.selected-day').popover(init_popover_new_options)
-			$('.selected-day').popover 'show'
+			if !owner.hasClass 'clicked'
+				$('.clicked').removeClass('clicked')
+				owner.addClass 'clicked'
+				owner.addClass 'selected-day'
+				owner.attr("id", this.popover_id)
+#				console.log this.popover_id
+				$('#'+this.popover_id).popover(init_popover_new_options).popover 'show'
+				document.getElementById('date-input').value = date
+			else
+				owner.removeClass 'clicked'
+		if type == 'event'
+			if !owner.hasClass 'clicked'
+				$('.clicked').removeClass('clicked')
+				owner.addClass 'clicked'
+				owner.addClass 'selected-event'
+				owner.attr("id", this.popover_id)
+#				console.log get_inside_popover_show(event.id)
+				$.ajax {
+					type: 'GET'
+					url: "calendar/show_form/#{event.id}"
+					async: false
+					dataType: 'html'
+					contentType: 'application/json'
+					data: {event_id: event.id}
+					success: (data) ->
+						inside_popover_show = data
+						console.log data
+						return
+					error: () ->
+						console.log 'Error!!'
+						return
+				}
+				init_popover_show_options = {
+					html: true
+					content: () ->
+						return inside_popover_show
+					container: 'body'
+					trigger: 'manual'
+				}
+#				console.log init_popover_show_options.content(event.id)
+#				console.log init_popover_new_options.content()
+				#init_popover_show_options['content'] = init_popover_show_options['content'] +"<a href='users/"+user_id+"/events/"+event.id+"'> to photo"
+				#console.log init_popover_show_options
+				$('#'+this.popover_id).popover(init_popover_show_options).popover 'show'
+				$('.title-label').html event.title
+				$('.description-label').html event.description
+			else
+				owner.removeClass 'clicked'
 		return
-
 	this.hide = () ->
+		$('.selected-day').removeClass 'selected-day'
+		$('#'+this.popover_id).popover 'destroy'
 		return
 	return
 
 
 
 $(document).ready () ->
-	get_inside_popover()
+	$('body').on('mousedown', (e) ->
+		if  $(e.target).parents('.popover').size() == 0
+			Popover.hide()
+	)
+
+	get_inside_popover_new()
 	Popover = new popoverController()
-	Popover.init()
 	$(bookings_selector).click bookings_on_click
 	add_event_handler.call $(add_event_selectors.parent).find add_event_selectors.child
 	$(calendar_selector).fullCalendar fullCalendarOption
-	console.log $(create_event_selector).click
 	$('.fc-button-next, .fc-button-prev').click () ->
 		$('.selected-day').popover 'destroy'
 		#$('.selected-event').popover ''
-		$('.selected-event').removeClass 'selected-event'
+#		$('.selected-event').removeClass 'selected-event'
 		$('.selected-day').removeClass 'selected-day'
 		update_calendar()
 		return
-	$('body').on('shown', '.selected-event',()->
-		console.log document.getElementById('title-for-show').value
-		console.log document.getElementsByClassName('title-label')
-		document.getElementsByClassName('title-label')[0].innerHTML = document.getElementById('title-for-show').value
+
+	$('body').on('shown', '.popover',()->
+		#console.log document.getElementById('title-for-show').value
+		#console.log document.getElementsByClassName('title-label')
+		$(this).find('.title-label').html '!!!!'
+		#document.getElementsByClassName('title-label')[0].innerHTML = document.getElementById('title-for-show').value
 		return
 	)
+
 	$('body').on('click', '.popover submit', () ->
 		add_event_on_submit()
 		return)

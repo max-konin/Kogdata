@@ -44,7 +44,7 @@ class EventsController < ApplicationController
     @user = current_user
     @event = Event.find(params[:id])
     respond_to do |format|
-      format.html {head :ok}
+      format.html
       format.json {render json:@event, :content_type => 'application/json'}
     end
   end
