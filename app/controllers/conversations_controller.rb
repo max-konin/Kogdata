@@ -4,7 +4,9 @@ class ConversationsController < ApplicationController
   def create_message
     @conversation = (params[:id].nil?) ? Conversation.find_or_create_by_users(params[:members] + [current_user.id.to_s])
                                        : Conversation.find(params[:id])
+
     @message = @conversation.messages.create params[:message] do |message|
+      message.was_seen = false
       message.user = current_user
     end
 
@@ -24,4 +26,6 @@ class ConversationsController < ApplicationController
 
     redirect_to :back
   end
+
+
 end

@@ -7,7 +7,7 @@
       =link_to 'edit page', "/users/edit"
     - if user_signed_in?
       %li
-        =link_to 'conversations', '/conversations'
+        =link_to 'conversations ' + count_unread_messages, '/conversations'
     - if can? :read, @event
       %li
         =link_to 'show-bookings','', :id => 'show-bookings'
