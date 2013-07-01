@@ -7,7 +7,7 @@ class EventsController < ApplicationController
     #the event must be created by the current user and be booked on the current month
     if params[:curDate] != nil
       @events = Event.where("user_id = ? AND start >= ? AND start <= ? ",params[:user_id], Days.firstDay(params[:curDate]),
-                          Days.lastDay(params[:curDate]))
+                           Days.lastDay(params[:curDate]))
     else
       @events = Event.where("user_id = ?",params[:user_id])
     end

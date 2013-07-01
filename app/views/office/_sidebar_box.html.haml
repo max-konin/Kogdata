@@ -8,7 +8,7 @@
     - if user_signed_in?
       %li
         =link_to 'conversations ' + count_unread_messages, '/conversations'
-    - if can? :read, @event
+    - if can? :read, @events
       %li
         =link_to 'show-bookings','', :id => 'show-bookings'
     - if can? :upload, :photo

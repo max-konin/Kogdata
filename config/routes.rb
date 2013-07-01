@@ -26,8 +26,8 @@ Kogdata::Application.routes.draw do
   get 'office/show'
   get 'office/all'
   get 'office/portfolio' => 'office#portfolio'
-
   match 'office/'=> "office#show"
+
   resources :users do
     resources :events do
       post 'respond'

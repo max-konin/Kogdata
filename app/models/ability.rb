@@ -40,6 +40,7 @@ class Ability
 
     if user.role? :contractor
       can :upload, :photo
+      can :read, @events
     end
 
     if user.role? :client
