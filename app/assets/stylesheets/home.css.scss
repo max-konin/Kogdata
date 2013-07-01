@@ -157,7 +157,7 @@ p4
   margin-left: 22%;
 }
 .list_box{
-  overflow-y: hidden;
+  overflow-y: scroll;
   max-height: 70%;
 }
 .message_box{
@@ -166,7 +166,19 @@ p4
   border-left: 1px solid #ffffff;
   border-right: 1px solid #ffffff;
 }
-.message_box:hover{
+.message_content{
+
+}
+.avatar_in_box{
+  float: left;
+}
+.conversation_box{
+  padding-left: 20px;
+  border-bottom: 2px solid #aaaaaa;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #ffffff;
+}
+.conversation_box:hover{
   background: #F5F5F5;
   border-radius: 10px;
   border-left: 1px solid #aaaaaa;
@@ -233,10 +245,6 @@ div#for-close
 
 div.mainbox{
   height: 200px;
-  bottom: 0;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-top: 10px;
 
   textarea#send-message-input
   {
@@ -245,12 +253,18 @@ div.mainbox{
     resize: none;
   }
 }
-
+#iconic{
+  text-align: center;
+}
 #messageModal
 {
   width: 400px;
 }
 
+#send-message-button-for-list
+{
+  float:left
+}
 #send-message-button
 {
   float:right
@@ -317,11 +331,9 @@ form#add-event-form
   display: none
 }
 
-div.mainbox-add
-{
+div.mainbox-add{
   width: 200px;
   padding-bottom: 10px;
   data-html: true;
   font-size: 8px
-
 }

@@ -1,4 +1,14 @@
+= stylesheet_link_tag 'home'
 .message_box
-    %br #{link_to message.user.name, message.user} says:
-    = message.body
-    %br at #{message.created_at.strftime("%H:%M,  %d %B")}
+  .container-fluid
+    .row-fluid
+      .span1
+        = image_tag message.user.avatar.url(:small)
+      .span10
+        %br #{link_to message.user.name, message.user} says:
+        = message.body
+        %br at #{message.created_at.strftime("%H:%M,  %d %B")}
+      -if message.user == current_user
+        .span1#iconic
+          =link_to(:controller => 'conversations', :action => 'delete_message', :m_id => message.id) do
+            %i{:class => 'icon-trash'}
