@@ -31,6 +31,6 @@ class ConversationsControllerTest < ActionController::TestCase
   test 'show' do
     sign_in users :Adarich
     get 'show', {:id => 1}
-    assert assigns(:conversation).messages.first.id == 1, assigns(:conversation).messages.first.inspect
+    assert assigns(:conversation).messages.first.id == 1, assigns(:conversation).inspect
   end
 end

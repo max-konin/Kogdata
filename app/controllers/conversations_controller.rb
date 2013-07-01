@@ -14,6 +14,7 @@ class ConversationsController < ApplicationController
   end
 
   def show
+    @id = params[:id]
     @conversation = current_user.conversations.find_by_id(params[:id])
   end
 
