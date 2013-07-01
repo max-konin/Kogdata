@@ -1,6 +1,18 @@
 //= require elastislide
 //= require custom
-//= require demo
+.js .gallery {
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+  border-radius: 20px;
+  position: relative;
+  background: #000 url(img/black_denim.png);
+  box-shadow: 0 2px 1px rgba(255,255,255,0.9), 0 -2px 1px rgba(255,255,255,0.9);
+}
+
+.lt-ie8 .elastislide-list {
+  display: none;
+}
 
 .left-column
 {
