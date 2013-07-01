@@ -47,25 +47,6 @@ Popover = {todo: "global"}
 
 class calendarHomeController
 
-	fullCalendarOption: {
-		header: {
-			left: 'prev'
-			right: 'next'
-			center: 'title'
-			prev: 'circle-triangle-w'
-			next: 'circle-triangle-e'
-		}
-		firstDay: 1
-		timeFormat: "%FT%T.%LZ"
-		editable: enable_edit
-		droppable: true
-		eventDrop: update_event
-	# this allows things to be dropped onto the calendar !!!
-		drop: add_event
-		dayClick: onDayClick
-		eventClick: onEventClick
-		eventDragStart: onDragStart
-	}
 
 	add_event: (date, allDay) -> # this function is called when something is dropped
 		res = true
@@ -102,7 +83,7 @@ class calendarHomeController
 			res = false
 		return res
 
-	add_event_on_submit = ()->
+	add_event_on_submit: ()->
 		event_title = document.getElementsByClassName('title-input')[0]
 		event_description = document.getElementsByClassName('description-input')[0]
 		date1 = new Date document.getElementById('date-input').value
@@ -156,16 +137,41 @@ class calendarHomeController
 		$('.clicked').removeClass('clicked')
 		return
 
-	onDayClick : (date, allDay, jsEvent, view) ->
+	onDayClick: (date, allDay, jsEvent, view) ->
 		Popover.hide()
 		Popover.show($(this),date,'day','','')
 		return
 
-	onEventClick = (event, jsEvent, view) ->
+	onEventClick: (event, jsEvent, view) ->
 		Popover.hide()
 		Popover.show($(this),'','event', event.id,event)
 		return
-
+	add_event_handler: () ->
+		this.draggable {
+			zIndex: 10
+			revert: true			# will cause the event to go back to its
+			revertDuration: 0		# original position after the drag
+		}
+		return
+	fullCalendarOption: {
+		header: {
+			left: 'prev'
+			right: 'next'
+			center: 'title'
+			prev: 'circle-triangle-w'
+			next: 'circle-triangle-e'
+		}
+		firstDay: 1
+		timeFormat: "%FT%T.%LZ"
+		editable: enable_edit
+		droppable: true
+		eventDrop: @::update_event
+	# this allows things to be dropped onto the calendar !!!
+		drop: @::add_event
+		dayClick: @::onDayClick
+		eventClick: @::onEventClick
+		eventDragStart: @::onDragStart
+	}
 
 
 class popoverController
@@ -183,7 +189,7 @@ class popoverController
 				owner.addClass 'selected-day'
 				owner.attr("id", this.popover_id)
 #				console.log this.popover_id
-				$('#'+this.popover_id).popover(init_popover_new_options).popover 'show'
+				$('#'+this.popover_id).popover(@init_popover_new_options).popover 'show'
 				document.getElementById('date-input').value = date
 			else
 				owner.removeClass 'clicked'
@@ -229,24 +235,17 @@ class popoverController
 		$('.selected-day').removeClass 'selected-day'
 		$('#'+this.popover_id).popover 'destroy'
 		return
-	add_event_handler = () ->
-	this.draggable {
-		zIndex: 10
-		revert: true			# will cause the event to go back to its
-		revertDuration: 0		# original position after the drag
-	}
-	return
 
 	get_inside_popover_new: () ->
-	$.ajax {
-		type: 'GET'
-		url: 'calendar/new_form'
-		dataType: 'html'
-		success: (data) ->
-			inside_popover_new = data
-			return
-	}
-	return
+		$.ajax {
+			type: 'GET'
+			url: 'calendar/new_form'
+			dataType: 'html'
+			success: (data) ->
+				inside_popover_new = data
+				return
+		}
+		return
 
 	init_popover_new_options: {
 		html: true
@@ -259,15 +258,15 @@ class popoverController
 
 
 $(document).ready () ->
+	Popover = new popoverController
+	Calendar = new calendarHomeController
 	$('body').on('mousedown', (e) ->
 		if  $(e.target).parents('.popover').size() == 0
 			Popover.hide()
 	)
 
-	get_inside_popover_new()
-	Popover = new popoverController
-	Calendar = new calendarHomeController
-	$(bookings_selector).click Calendar.bookings_on_click
+	Popover.get_inside_popover_new()
+#	$(bookings_selector).click Calendar.bookings_on_click
 	Calendar.add_event_handler.call $(add_event_selectors.parent).find add_event_selectors.child
 	$(calendar_selector).fullCalendar Calendar.fullCalendarOption
 	$('.fc-button-next, .fc-button-prev').click () ->
