@@ -15,7 +15,7 @@ class ConversationsController < ApplicationController
 
   def show
     @id = params[:id]
-    @conversation = current_user.conversations.find_by_id(params[:id]).messages.reverse
+    @conversation = current_user.conversations.find_by_id(params[:id])
   end
 
   def index
@@ -23,7 +23,7 @@ class ConversationsController < ApplicationController
   end
 
   def delete_message
-    current_user.messages.find_by_id(params[:id]).destroy
+    current_user.messages.find_by_id(params[:m_id]).destroy
 
     redirect_to :back
   end
