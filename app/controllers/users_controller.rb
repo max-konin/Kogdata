@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     authorize! :read, @user
     respond_to do |format|
-      format.html { render :layout => 'profile'}# users/show.html.haml
+      format.html # users/show.html.haml
       format.json { render :json => @user }
     end
   end
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
 
   def edit
 	 @user = current_user
-	 render 'users/edit', :layout => 'office'
+	 render 'users/edit'
   end
 
   def update

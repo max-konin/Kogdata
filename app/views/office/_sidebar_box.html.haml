@@ -2,15 +2,17 @@
   %ul{:class=>'nav nav-list'}
     %li{:class => 'nav-header'}Office
     %li
-      =link_to 'home' ,root_url,:remote => false, :method => 'GET'
+      =link_to t(:home) ,root_url,:remote => false, :method => 'GET'
     %li
-      =link_to 'edit page', "/users/edit"
+      =link_to t(:my_page), user_url(current_user)
+    %li
+      =link_to t(:edit_page), "/users/edit"
     - if user_signed_in?
       %li
-        =link_to 'conversations ' + count_unread_messages, '/conversations'
+        =link_to t(:conversations) + count_unread_messages, '/conversations'
     - if can? :read, @event
       %li
-        =link_to 'show-bookings','', :id => 'show-bookings'
+        =link_to t(:show_bookings),'', :id => 'show-bookings'
     - if can? :upload, :photo
       %li
-        =link_to 'portfolio', 'office/portfolio', :id => 'porfolio'
+        =link_to t(:portfolio), '/office/portfolio', :id => 'porfolio'

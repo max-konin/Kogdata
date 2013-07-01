@@ -11,3 +11,10 @@ ru:
   new_event: "Создать событие"
   the_event: "Просмотр события"
   to_event: "Перейти"
+  my_page: "Моя страница"
+
+  home: "Главная"
+  edit_page: "Редактировать"
+  conversations: "Сообщения"
+  show_bookings: "Просмотр заказов"
+  portfolio: "Портфолио"
