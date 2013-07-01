@@ -1,16 +1,28 @@
 %html
-	%head
-		= stylesheet_link_tag 'home'
-		= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery?
-		= javascript_include_tag "common"
-		= javascript_include_tag "application"
-		= javascript_include_tag "image_uploader"
-		= stylesheet_link_tag "application"
-		%title Kogdata
-	%body
-		= render 'application/header'
-		%p.notice
-			= notice
-		%p.alert
-			= alert
-		= yield
+  %head
+    = stylesheet_link_tag 'profile'
+    = stylesheet_link_tag 'home'
+    = javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery?
+    = javascript_include_tag "common"
+    = javascript_include_tag "application"
+    = javascript_include_tag "image_uploader"
+    = stylesheet_link_tag "application"
+    = javascript_include_tag 'modernizr.custom.17475'
+
+
+    %title Kogdata
+  %body
+    = render 'application/header'
+    %p.notice
+      = notice
+    %p.alert
+      = alert
+    -if user_signed_in? then
+      .container-fluid
+        .row-fluid
+          .sidebar#container
+            =render 'office/sidebar_box'
+          .span9
+            = yield
+    -else
+      = yield

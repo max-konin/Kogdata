@@ -9,10 +9,7 @@
 //= require jquerypp.custom
 //= require jquery.elastislide
 
-
-
     // example how to integrate with a previewer
-
     var current = 0,
         $preview = $( '#preview' ),
         $carouselEl = $( '#carousel' ),

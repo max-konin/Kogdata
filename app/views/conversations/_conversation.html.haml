@@ -1,4 +1,4 @@
 .conversation_box{:onclick => "window.location = '/conversations/"+conversation.id.to_s+"'"}
-    %br #{link_to conversation.user.name, conversation.user} says:
+    %br #{link_to conversation.messages.last.user.name, conversation.messages.last.user} says:
     %p= conversation.messages.last.body
     %p at #{conversation.messages.last.created_at.strftime("%H:%M, %d %B")}

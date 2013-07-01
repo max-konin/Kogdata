@@ -2,14 +2,10 @@ Kogdata::Application.routes.draw do
 
   root :to => 'calendar#index'
 
-  get 'conversations/:id'             => 'conversations#show'
-  get 'conversations'                => 'conversations#index'
-  #get 'conversations/:id'            => 'conversations#create_message'
-  #get 'conversations/:members'       => 'conversations#create_message'
-  #post 'conversations/*id'  => 'conversations#create_message'
-  #post 'conversations/:members'      => 'conversations#create_mess
-  post   'conversations/create_message'
-  delete 'conversations/destroy_message'
+  get  'conversations/:id'             => 'conversations#show'
+  get  'conversations'                => 'conversations#index'
+  post 'conversations/create_message'
+  get  'conversations/delete_message/:m_id' => 'conversations#delete_message'
 
   post "image/bind"
   delete "image/delete"
