@@ -18,9 +18,9 @@
     %p.alert
       = alert
     -if user_signed_in? then
-      .container-fluid
-        .row-fluid
-          .sidebar#container
+      .container
+        .row
+          .span3
             =render 'office/sidebar_box'
           .span9
             = yield
