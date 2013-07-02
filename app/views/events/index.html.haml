@@ -14,5 +14,5 @@
       %button{:type=> 'button', :class => 'btn btn-large btn-inverse', :id=>'message-btn',
       'data-target'=>'#messageModal_' + event.id.to_s, 'data-toggle' => 'modal'}
         =t :to_photo
-      .modal.hide.fade{:id => 'messageModal_' + event.id.to_s}
+      #messageModal.modal.hide.fade{:id => 'messageModal_' + event.id.to_s}
         = render :partial => 'messages/new_response_to_event', :locals => {:event => event}
