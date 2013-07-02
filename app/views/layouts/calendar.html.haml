@@ -13,4 +13,12 @@
     = notice
   %p.alert
     = alert
-= yield
+  -if user_signed_in? then
+    .container
+      .row
+        .span3
+          =render 'office/sidebar_box'
+        .span9
+          = yield
+  -else
+    = yield
