@@ -8,7 +8,10 @@ class UsersController < ApplicationController
       else
         @users = User.where(:role => [:client, :contractor])
       end
-      render
+		respond_to do |f|
+			f.html { render }
+			f.json { render :json => @users }
+		end
       return
     end
 
