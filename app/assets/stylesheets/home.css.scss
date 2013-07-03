@@ -259,9 +259,15 @@ div.mainbox{
 #iconic{
   text-align: center;
 }
-#messageModal
+.modal
 {
-  width: 400px;
+  width: 350px;
+}
+
+#black
+{
+  background-color: #000;
+  color: #999999;
 }
 
 #send-message-button-for-list
