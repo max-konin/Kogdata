@@ -29,11 +29,10 @@ class UsersController < ApplicationController
   end
   
   def search
-   debugger
 	if params[:input].nil? or params[:input].empty?
-		@users = User.all
+		@users = User.all(:order => :name)
 	else
-		@users = User.where 'name like ?', params[:input]
+		@users = User.where('`users`.`name` like ?', '%' + params[:input] + '%').order :name
 	end
 	render :partial => "user_search_chunk", :locals => { :users => @users }
   end

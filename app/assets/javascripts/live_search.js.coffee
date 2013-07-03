@@ -1,44 +1,42 @@
 class searcher
-	constructor: (@url, input_selector, data_container_selector) ->
-		@input = $(input_selector)
-		@data_container = $(data_container_selector)
+
+	_url = _input = _data_container = _data = ""
+
+	constructor: (options) ->
+		options ||= {}
+		_url = options.url || "/users/search"
+		_input = if options.input_selector then $(input_selector) else $("#search_pattern")
+		_data_container = if options.data_container_selector then $(data_container_selector) else $("#search_content")
 		$.ajax {
-			url: @url
+			url: _url
 			type: 'post'
 			data: { s: 'earch' }
 			success: (data, document, state) ->
-				@data = data
+				show_data(data)
 			error: (e) ->
 				console.log e
 		}
-
-		@input.on 'keypress', (event) ->
-			search this.value
-			return
-
-		@input.change (event) ->
+	
+		_input.bind 'input', (event) ->
 			search this.value
 			return
 
 	search = (input) ->
 		$.ajax {
-			url: @url + "/" + input
+			url: _url + "/" + input
 			type: 'post'
 			data:  { s: 'earch' }
 			success: (data, document, state) ->
-				@data = data
+				show_data(data)
 			error: (e) ->
 				console.log e
 		}
 		return
 
-	show_data = () ->
-		@data_container.html @data
-		return
-		
-	@::__defineSetter__ "data", (value) ->
-		@data = value
-		show_data()
+	show_data = (data) ->
+		_data = data
+		_data_container.html _data
 		return
 
-window.searcher = searcher
+$(document).ready () ->
+	live_search = new searcher()

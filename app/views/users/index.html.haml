@@ -2,7 +2,8 @@
   %h1
     Users:
   %div.flying
-    %input#searchPattern
-  %div.search_content
+    %input#search_pattern
+  %div#search_content
     = render "user_search_chunk", :users => @users
 = javascript_include_tag "portfolio_viewer"
+= javascript_include_tag "live_search"
