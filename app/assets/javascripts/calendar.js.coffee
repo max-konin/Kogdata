@@ -162,7 +162,7 @@ class calendarHomeController
 			next: 'circle-triangle-e'
 		}
 		firstDay: 1
-		height: 500
+		height: 600
 		timeFormat: "%FT%T.%LZ"
 		monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь']
 		monthNamesShort: ['Янв.','Фев.','Март','Апр.','Май','Июнь','Июль','Авг.','Сент.','Окт.','Ноя.','Дек.']
