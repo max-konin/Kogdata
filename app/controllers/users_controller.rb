@@ -8,10 +8,7 @@ class UsersController < ApplicationController
       else
         @users = User.where(:role => [:client, :contractor])
       end
-		respond_to do |f|
-			f.html { render }
-			f.json { render :json => @users }
-		end
+		render
       return
     end
 
@@ -29,6 +26,16 @@ class UsersController < ApplicationController
       format.html # users/show.html.haml
       format.json { render :json => @user }
     end
+  end
+  
+  def search
+   debugger
+	if params[:input].nil? or params[:input].empty?
+		@users = User.all
+	else
+		@users = User.where 'name like ?', params[:input]
+	end
+	render :partial => "user_search_chunk", :locals => { :users => @users }
   end
 
   def destroy

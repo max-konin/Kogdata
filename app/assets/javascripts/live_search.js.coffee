@@ -1,23 +1,44 @@
 class searcher
-	constructor: (@url, @selector ### should select input ###) ->
+	constructor: (@url, input_selector, data_container_selector) ->
+		@input = $(input_selector)
+		@data_container = $(data_container_selector)
 		$.ajax {
-			url: url
-			type: POST
+			url: @url
+			type: 'post'
+			data: { s: 'earch' }
 			success: (data, document, state) ->
-				data = JSON.parse data
-				@data = parse_tree(data)
+				@data = data
 			error: (e) ->
 				console.log e
 		}
-		
-		$(document).ready () ->
-			$(@selector).change (input) ->
-				search(input)
+
+		@input.on 'keypress', (event) ->
+			search this.value
+			return
+
+		@input.change (event) ->
+			search this.value
+			return
 
 	search = (input) ->
-		
+		$.ajax {
+			url: @url + "/" + input
+			type: 'post'
+			data:  { s: 'earch' }
+			success: (data, document, state) ->
+				@data = data
+			error: (e) ->
+				console.log e
+		}
+		return
 
-	parse_tree = (data) ->
-		for elem in data
-			for char in elem
-				@data[char] ||= NULL
+	show_data = () ->
+		@data_container.html @data
+		return
+		
+	@::__defineSetter__ "data", (value) ->
+		@data = value
+		show_data()
+		return
+
+window.searcher = searcher

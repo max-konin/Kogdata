@@ -9,11 +9,14 @@ Kogdata::Application.routes.draw do
 
   post "image/bind"
   delete "image/delete"
-  
+ 
+  post 'users/search' => 'users#search'
+  post 'users/search/:input' => 'users#search'
   get 'users/edit'
   get 'users/get_info' => 'users#registration_after_omniauth'
   put 'users' => 'users#create'
   put 'users/:id' => 'users#update'
+
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
