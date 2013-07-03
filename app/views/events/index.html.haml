@@ -1,13 +1,16 @@
-%h5 EVENTS
+%h5
+  =t(:events).mb_chars.upcase
 - @events.each do |event|
   .container#events-container
     .span10.offset2
       %h1
         =event.title
-        %h4 Date:
+        %h4
+          = t(:date) + ':'
         =event.start.strftime("%m/%d/%Y")
         %br
-        %h4 Description:
+        %h4
+          = t(:description) + ':'
         =event.description
         %br
 

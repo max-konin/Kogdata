@@ -8,12 +8,14 @@
           .btn-container
             - if @user.id != current_user.id
               %button{:type=> 'button', :class => 'btn btn-primary', :id=>'message-btn', 'data-target'=>'#messageModal',
-              'data-toggle' => 'modal'} Send a message
+              'data-toggle' => 'modal'}
+                = t :send_message
         .right-column
           %h3
             = @user.name
           - if @user.role == 'contractor'
-            %h3 Portfolio
+            %h3
+              = t :portfolio
             .container.demo-4
               .main
                 .gallery
