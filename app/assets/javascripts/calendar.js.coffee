@@ -162,7 +162,12 @@ class calendarHomeController
 			next: 'circle-triangle-e'
 		}
 		firstDay: 1
+		height: 500
 		timeFormat: "%FT%T.%LZ"
+		monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь']
+		monthNamesShort: ['Янв.','Фев.','Март','Апр.','Май','Июнь','Июль','Авг.','Сент.','Окт.','Ноя.','Дек.']
+		dayNames: ["Воскресенье","Понедельник","Вторник","Среда","Четверг","Пятница","Суббота"]
+		dayNamesShort: ["ВС","ПН","ВТ","СР","ЧТ","ПТ","СБ"]
 		editable: enable_edit
 		droppable: true
 		eventDrop: @::update_event
