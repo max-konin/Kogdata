@@ -8,4 +8,4 @@
           = t :close
   =form_for Message.new, :url => user_event_respond_path(event.user, event) do |f|
     =f.text_area :body, :class=>'span2', :id=> 'send-message-input'
-    =f.submit (t :send), :class => 'btn btn-small btn-inverse',:id=> 'send-message-button';
+    =f.submit t :send, :class => 'btn btn-small btn-inverse',:id=> 'send-message-button';

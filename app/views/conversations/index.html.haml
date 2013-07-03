@@ -1,4 +1,5 @@
 .well.well-small
   .btn-toolbar
-    %h4{:align=>'left'} Your conversations
+    %h4{:align=>'left'}
+      = t :your_conversations
 =render :partial => 'conversations/conversation', :collection => @conversations, :as => :conversation

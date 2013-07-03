@@ -1,7 +1,7 @@
 = stylesheet_link_tag 'home'
 .mainbox-add
   %h6
-    =t :new_event
+    =t :create_event
   %form{:id => 'add-event-form'}
     %input{ :class=> 'title-input', :type => 'text', :placeholder => t(:title), :autofocus => true}
     %textarea{ :rows => 2, :class=> 'description-input', :type => 'text', :placeholder => t(:description) }

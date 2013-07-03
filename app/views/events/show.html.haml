@@ -3,11 +3,13 @@
     %h1
       =@event.title
     %p
-      %h4 Date:
+      %h4
+        = t(:date) + ':'
       =@event.start.strftime("%m/%d/%Y")
     %p
       %br
-      %h4 Description:
+      %h4
+        = t(:description) + ':'
       =@event.description
 
     %button{:type=> 'button', :class => 'btn btn-large btn-inverse', :id=>'message-btn',
