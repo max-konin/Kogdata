@@ -1,11 +1,13 @@
 = stylesheet_link_tag 'home'
 .mainbox
-  #blac-div
+  #blac-div.modal-header
     %h5
       =t :respond_to_event
       #for-close
         %a{'data-dismiss'=> 'modal',:id=> 'close-button'}
           = t :close
   =form_for Message.new, :url => user_event_respond_path(event.user, event) do |f|
-    =f.text_area :body, :class=>'span2', :id=> 'send-message-input'
-    =f.submit t :send, :class => 'btn btn-small btn-inverse',:id=> 'send-message-button';
+    .modal-body
+      =f.text_area :body, :id=> 'send-message-input'
+    .modal-footer
+      =f.submit t :send, :class => 'btn btn-small btn-inverse',:id=> 'send-message-button';
