@@ -1,19 +1,2 @@
-.container
-  .span10.offset2
-    %h1
-      =@event.title
-    %p
-      %h4
-        = t(:date) + ':'
-      =@event.start.strftime("%m/%d/%Y")
-    %p
-      %br
-      %h4
-        = t(:description) + ':'
-      =@event.description
-
-    %button{:type=> 'button', :class => 'btn btn-large btn-inverse', :id=>'message-btn',
-    'data-target'=>'#messageModal', 'data-toggle' => 'modal'}
-      =t :to_photo
-    #messageModal.modal.hide.fade
-      = render :partial => 'messages/new_response_to_event', :locals => {:event => @event}
+= render :partial => 'events/event_box'#, :locals => {:event => @event}
+- @event.messages.each do |message|
