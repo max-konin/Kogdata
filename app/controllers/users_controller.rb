@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [ :registration_after_omniauth, :create ]
 
   def index
     if params[:role].nil? then
@@ -8,7 +8,7 @@ class UsersController < ApplicationController
       else
         @users = User.where(:role => [:client, :contractor])
       end
-      render
+		render
       return
     end
 
@@ -26,6 +26,15 @@ class UsersController < ApplicationController
       format.html # users/show.html.haml
       format.json { render :json => @user }
     end
+  end
+  
+  def search
+	if params[:input].nil? or params[:input].empty?
+		@users = User.all(:order => :name)
+	else
+		@users = User.where('`users`.`name` like ?', '%' + params[:input] + '%').order :name
+	end
+	render :partial => "user_search_chunk", :locals => { :users => @users }
   end
 
   def destroy
@@ -45,10 +54,25 @@ class UsersController < ApplicationController
 
   def update
 	 if not current_user.role? params[:user][:role] and current_user.role? 'contractor' then
-		Image.destroy_all :user_id => current_user.id	
+		Image.destroy_all :user_id => current_user.id
 	 end
 	 User.update current_user.id, params[:user]
 	 redirect_to '/users/' + current_user.id.to_s
+  end
+
+  def registration_after_omniauth
+	 @user = session['devise.omniauth_data']
+	 if @user == nil
+		redirect_to 'users/edit'
+	 end
+	 render 'users/after_omniauth', :layout => 'office'
+  end
+
+  def create
+	 @user = User.new params[:user]
+	 @user.save!
+	 session['devise.omniauth_data'] = nil
+	 sign_in_and_redirect @user
   end
 
   private
