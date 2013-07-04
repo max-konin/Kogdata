@@ -1,53 +1,12 @@
-#= require dateFormat
-#= require fullcalendar
-#= require bootstrap-tooltip
-#= require bootstrap-popover
+#= require Calendar/init
 
-calendar_selector = '#calendar'
-bookings_selector = '#show-bookings'
-event_modal_selector = '#events-modal'
-create_event_selector = '#create-event-button'
-error_message_selector = '#error-div'
-add_event_selectors = {
-	parent: '#external-events'
-	child: 'div.external-event'
-}
-
-role = $.cookie 'role'
-user_id = $.cookie 'user_id'
-enable_edit = true
-event_title = { todo: "global" }
-event_description = { todo: "global" }
-event_start = {todo: "global"}
-inside_popover_new = {todo: "global"}
-Popover = {todo: "global"}
-
-
-
-# Get all events on calendar(bind by click on something)
-#bookings_on_click = (event) ->
-#	event.preventDefault()
-#	$.ajax {
-#	type: 'GET'
-#	url: "/office/all.json"
-#	dataType: 'json'
-#	contentType: 'application/json'
-#	data: {curDate: $(calendar_selector).fullCalendar('getDate').format 'isoDateTime'}
-#	success:	(response) ->
-#			events = JSON.parse response.div_contents.body
-#			$(calendar_selector).fullCalendar 'removeEvents'
-#			for event in events
-#				$(calendar_selector).fullCalendar 'renderEvent', event, true
-#			return
-#	}
-#	return
-
-# Bind to draggable something, that then will be droppable on calendar(call a bit tricky, see below)
-
-
-class calendarHomeController
-
-
+class window.calendarHomeController
+	calendar_selector: '#calendar'
+	create_event_selector: '#create-event-button'
+	add_event_selectors: {
+		parent: '#external-events'
+		child: 'div.external-event'
+	}
 	add_event: (date, allDay) -> # this function is called when something is dropped
 		res = true
 		if event_title.value != '' and event_description.value != ''
@@ -62,18 +21,19 @@ class calendarHomeController
 				start: date.format 'isoDateTime'
 				description: clone_event.description
 			}
+			console.log request
 			$.ajax {
 				type: 'POST'
 				url: "/users/#{user_id}/events.json"
 				dataType: 'json'
 				data: {
 					events: request
-					curDate: $(calendar_selector).fullCalendar('getDate').format 'isoDateTime'
+					curDate: $(@calendar_selector).fullCalendar('getDate').format 'isoDateTime'
 				}
 				success: (response) ->
 					events = JSON.parse response.div_contents.body
 					clone_event.id = events.id
-					$(calendar_selector).fullCalendar 'renderEvent', clone_event, true
+					$(calendarHomeController::calendar_selector).fullCalendar 'renderEvent', clone_event, true
 					return
 				error: (XMLHttpRequest, textStatus, errorThrown) ->
 					console.log "Error: " + errorThrown
@@ -84,10 +44,11 @@ class calendarHomeController
 		return res
 
 	add_event_on_submit: ()->
-		event_title = document.getElementsByClassName('title-input')[0]
-		event_description = document.getElementsByClassName('description-input')[0]
+		window.event_title = document.getElementsByClassName('title-input')[0]
+		window.event_description = document.getElementsByClassName('description-input')[0]
 		date1 = new Date document.getElementById('date-input').value
-		add_event(date1, true)
+		console.log this
+		calendarHomeController::add_event(date1, true)
 		return
 
 	update_event: (event, day_delta, minute_delta, all_day, revert_func) ->
@@ -102,7 +63,7 @@ class calendarHomeController
 			dataType: 'json'
 			data: {
 				events: request
-				curDate: $(calendar_selector).fullCalendar('getDate').format 'isoDateTime'
+				curDate: $(calendarHomeController::calendar_selector).fullCalendar('getDate').format 'isoDateTime'
 			}
 			success: () ->
 				return
@@ -114,10 +75,10 @@ class calendarHomeController
 		return
 
 	update_calendar: () ->
-		return unless $(calendar_selector).length != 0
-		$(calendar_selector).fullCalendar 'removeEvents'
+		return unless $(@calendar_selector).length != 0
+		$(@calendar_selector).fullCalendar 'removeEvents'
 		request = {
-			curDate: $(calendar_selector).fullCalendar('getDate').format 'isoDateTime'
+			curDate: $(@calendar_selector).fullCalendar('getDate').format 'isoDateTime'
 		}
 		$.ajax {
 			type: 'GET'
@@ -127,7 +88,7 @@ class calendarHomeController
 			success: (response) ->
 				events = JSON.parse response.div_contents.body
 				for event in events
-					$(calendar_selector).fullCalendar 'renderEvent', event, true
+					$(calendarHomeController::calendar_selector).fullCalendar 'renderEvent', event, true
 				return
 			error: (XMLHttpRequest, textStatus, errorThrown) ->
 				return
@@ -138,8 +99,8 @@ class calendarHomeController
 		return
 
 	onDayClick: (date, allDay, jsEvent, view) ->
-		Popover.hide()
-		Popover.show($(this),date,'day','','')
+		window.Popover.hide()
+		window.Popover.show($(this),date,'day','','')
 		return
 
 	onEventClick: (event, jsEvent, view) ->
@@ -163,12 +124,12 @@ class calendarHomeController
 		}
 		firstDay: 1
 		height: 600
-		timeFormat: "%FT%T.%LZ"
 		monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь']
 		monthNamesShort: ['Янв.','Фев.','Март','Апр.','Май','Июнь','Июль','Авг.','Сент.','Окт.','Ноя.','Дек.']
 		dayNames: ["Воскресенье","Понедельник","Вторник","Среда","Четверг","Пятница","Суббота"]
 		dayNamesShort: ["ВС","ПН","ВТ","СР","ЧТ","ПТ","СБ"]
-		editable: enable_edit
+		timeFormat: "%FT%T.%LZ"
+		editable: true
 		droppable: true
 		eventDrop: @::update_event
 	# this allows things to be dropped onto the calendar !!!
@@ -178,8 +139,7 @@ class calendarHomeController
 		eventDragStart: @::onDragStart
 	}
 
-
-class popoverController
+class window.popoverController
 	popover_id: "null"
 	show: (owner, date, type, number,event) ->
 		inside_popover_show = 'null'
@@ -193,7 +153,7 @@ class popoverController
 				owner.addClass 'clicked'
 				owner.addClass 'selected-day'
 				owner.attr("id", this.popover_id)
-#				console.log this.popover_id
+				#				console.log this.popover_id
 				$('#'+this.popover_id).popover(@init_popover_new_options).popover 'show'
 				document.getElementById('date-input').value = date
 			else
@@ -204,7 +164,7 @@ class popoverController
 				owner.addClass 'clicked'
 				owner.addClass 'selected-event'
 				owner.attr("id", this.popover_id)
-#				console.log get_inside_popover_show(event.id)
+				#				console.log get_inside_popover_show(event.id)
 				$.ajax {
 					type: 'GET'
 					url: "calendar/show_form/#{event.id}"
@@ -213,7 +173,6 @@ class popoverController
 					contentType: 'application/json'
 					success: (data) ->
 						inside_popover_show = data
-						console.log data
 						return
 					error: () ->
 						console.log 'Error!!'
@@ -226,8 +185,8 @@ class popoverController
 					container: 'body'
 					trigger: 'manual'
 				}
-#				console.log init_popover_show_options.content(event.id)
-#				console.log init_popover_new_options.content()
+				#				console.log init_popover_show_options.content(event.id)
+				#				console.log init_popover_new_options.content()
 				#init_popover_show_options['content'] = init_popover_show_options['content'] +"<a href='users/"+user_id+"/events/"+event.id+"'> to photo"
 				#console.log init_popover_show_options
 				$('#'+this.popover_id).popover(init_popover_show_options).popover 'show'
@@ -247,7 +206,7 @@ class popoverController
 			url: 'calendar/new_form'
 			dataType: 'html'
 			success: (data) ->
-				inside_popover_new = data
+				window.inside_popover_new = data
 				return
 		}
 		return
@@ -260,26 +219,3 @@ class popoverController
 		trigger: 'manual'
 	}
 
-
-
-$(document).ready () ->
-	Popover = new popoverController
-	Calendar = new calendarHomeController
-	$('body').on('mousedown', (e) ->
-		if  $(e.target).parents('.popover').size() == 0
-			Popover.hide()
-	)
-
-	Popover.get_inside_popover_new()
-#	$(bookings_selector).click Calendar.bookings_on_click
-	Calendar.add_event_handler.call $(add_event_selectors.parent).find add_event_selectors.child
-	$(calendar_selector).fullCalendar Calendar.fullCalendarOption
-	$('.fc-button-next, .fc-button-prev').click () ->
-		Calendar.update_calendar()
-		return
-
-	$('body').on('click', '.popover submit', () ->
-		Calendar.add_event_on_submit()
-		return)
-	Calendar.update_calendar()
-	return
