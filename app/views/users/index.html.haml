@@ -1,8 +1,8 @@
 .container
   %h1
     = t(:users) + ":"
-  %div.flying
-    %input#search_pattern
+  %form.flying
+    %input#search_pattern.search-query.input-medium{:placeholder => t(:find_user)}
   %div#search_content
     = render "user_search_chunk", :users => @users
 = javascript_include_tag "portfolio_viewer"

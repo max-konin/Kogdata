@@ -29,3 +29,5 @@ db/schema.rb
 
 # Anti Shubin
 goalfile
+create_many_users
+
