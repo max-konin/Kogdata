@@ -13,7 +13,7 @@ class OfficeController < ApplicationController
   @events = Event.where("start >= ? AND start <= ? ", Days.firstDay(params[:curDate]),
                         Days.lastDay(params[:curDate]))
   respond_to do |format|
-    format.html {render :html => @events}
+    format.html {render :json => @events }
     format.json {render :json => @events}
     format.xml {render :xml => @events}
   end

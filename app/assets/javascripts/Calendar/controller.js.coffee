@@ -1,6 +1,7 @@
 #= require Calendar/init
 
 class window.calendarHomeController
+	myEventColor: '#2D46AD'
 	calendar_selector: '#calendar'
 	create_event_selector: '#create-event-button'
 	add_event_selectors: {
@@ -33,6 +34,8 @@ class window.calendarHomeController
 				success: (response) ->
 					events = JSON.parse response.div_contents.body
 					clone_event.id = events.id
+					clone_event.user_id = events.user_id
+					clone_event.color = calendarHomeController::myEventColor
 					$(calendarHomeController::calendar_selector).fullCalendar 'renderEvent', clone_event, true
 					return
 				error: (XMLHttpRequest, textStatus, errorThrown) ->
@@ -47,7 +50,6 @@ class window.calendarHomeController
 		window.event_title = document.getElementsByClassName('title-input')[0]
 		window.event_description = document.getElementsByClassName('description-input')[0]
 		date1 = new Date document.getElementById('date-input').value
-		console.log this
 		calendarHomeController::add_event(date1, true)
 		return
 
@@ -88,6 +90,7 @@ class window.calendarHomeController
 			success: (response) ->
 				events = JSON.parse response.div_contents.body
 				for event in events
+					event.color = calendarHomeController::myEventColor
 					$(calendarHomeController::calendar_selector).fullCalendar 'renderEvent', event, true
 				return
 			error: (XMLHttpRequest, textStatus, errorThrown) ->
@@ -218,4 +221,5 @@ class window.popoverController
 		container: 'body'
 		trigger: 'manual'
 	}
+window.Calendar = new calendarHomeController
 
