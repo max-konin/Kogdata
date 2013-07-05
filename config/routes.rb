@@ -20,7 +20,7 @@ Kogdata::Application.routes.draw do
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
-  get "home/index"
+  get "welcome/index"
   get "calendar/index"
   get "calendar/new_form"
   get "show_bookings" => 'calendar#show_bookings'

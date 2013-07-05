@@ -4,6 +4,8 @@ class CalendarController < ApplicationController
 	    @user = current_user
 	    cookies[:role] = @user.role
 	    cookies[:user_id] = @user.id
+    else
+      redirect_to '/welcome/index'
     end
     @action = 'show-current'
   end
