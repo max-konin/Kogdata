@@ -14,11 +14,9 @@ class Image < ActiveRecord::Base
 				:url => "/system/:style/:filename"
 
 	def set_file_name
-		debugger
-		name = SecureRandom.uuid
-		while not Image.where(:src_file_name => name).empty?
+		begin
 			name = SecureRandom.uuid
-		end
+		end while not Image.where(:src_file_name => name).empty?
 		self.src.instance_write :file_name, "_#{name}"
 	end
 end

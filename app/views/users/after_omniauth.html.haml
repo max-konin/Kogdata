@@ -1,0 +1,19 @@
+= form_for @user, :html => { :method => :put, :multipath => true, :id => 'user_update' } do |f|
+	= f.hidden_field :provider, :value => @user.provider
+	= f.hidden_field :uid, :value => @user.uid
+	= f.hidden_field :password, :value => @user.password
+	%div
+		= f.label :name
+		= f.text_field :name, :autocomplete => "on"
+	%div
+		= f.label :email
+		= f.email_field :email, :autocomplete => "on"
+	%div
+		= f.label :avatar
+		%span
+			%img{:src => @user.avatar.url(:thumb)}
+		= f.file_field :avatar, :accept => 'image/*'
+	%div
+		= f.label :role
+		= f.select :role, :options => [ :client, :contractor ]
+	= f.submit

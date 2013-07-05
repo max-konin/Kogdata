@@ -25,7 +25,9 @@ db/schema.rb
 
 # Anti paperclip
 /public/system/
-/public/avatar/
+/public/avatars/
 
 # Anti Shubin
 goalfile
+create_many_users
+

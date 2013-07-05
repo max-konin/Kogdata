@@ -3,10 +3,12 @@
     %li{:class => 'nav-header'}Office
     %li
       =link_to t(:home) ,root_url,:remote => false, :method => 'GET'
-    %li
-      =link_to t(:my_page), user_url(current_user)
-    %li
-      =link_to t(:edit_page), "/users/edit"
+    - if user_signed_in?
+      %li
+        =link_to t(:my_page), user_url(current_user)
+    - if user_signed_in?
+      %li
+        =link_to t(:edit_page), "/users/edit"
     - if user_signed_in?
       %li
         =link_to t(:conversations) + count_unread_messages, '/conversations'

@@ -60,8 +60,9 @@ div#external-events {
 }
 
 div.container{
-//  margin-left: 30px;
-//  margin-right: 30px;
+  h1 {
+	 display: inline-block;
+  }
 }
 .navbar-fixed-top .container{
   width: auto;
