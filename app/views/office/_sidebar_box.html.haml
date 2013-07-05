@@ -13,7 +13,7 @@
         =link_to t(:conversations) + count_unread_messages, '/conversations'
     - if can? :read, @event
       %li
-        =link_to t(:show_bookings),'', :id => 'show-bookings'
+        =link_to t(:show_bookings),'/show_bookings', :id => 'show-bookings'
     - if can? :upload, :photo
       %li
         =link_to t(:portfolio), '/office/portfolio', :id => 'porfolio'

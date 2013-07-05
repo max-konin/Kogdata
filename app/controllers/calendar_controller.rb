@@ -5,7 +5,19 @@ class CalendarController < ApplicationController
 	    cookies[:role] = @user.role
 	    cookies[:user_id] = @user.id
     end
+    @action = 'show-current'
   end
+
+  def show_bookings
+    if user_signed_in?
+      @user = current_user
+      cookies[:role] = @user.role
+      cookies[:user_id] = @user.id
+    end
+    @action = 'show-bookings'
+    render 'calendar/index'
+  end
+
   def new_form
     render :partial => 'new_event'
   end

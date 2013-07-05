@@ -52,14 +52,18 @@ class EventsController < ApplicationController
   def update
     if Days.inMonth?(params[:events][:start],params[:curDate])
       @event = Event.find(params[:id])
-      respond_to do |format|
-        if @event.update_attributes(params[:events])
-          format.html {head :ok}
-          format.json { render :json => true}
-        else
-          format.html {head :unprocessable_entity}
-          format.json {render :json=> @events.errors, status: :unprocessable_entity}
+      if @event.user_id == current_user.id
+        respond_to do |format|
+          if @event.update_attributes(params[:events])
+            format.html {head :ok}
+            format.json { render :json => true}
+          else
+            format.html {head :unprocessable_entity}
+            format.json {render :json=> @events.errors, status: :unprocessable_entity}
+          end
         end
+      else
+        raise "Forbidden"
       end
     else
       respond_to do |format|

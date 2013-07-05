@@ -23,6 +23,7 @@ Kogdata::Application.routes.draw do
   get "home/index"
   get "calendar/index"
   get "calendar/new_form"
+  get "show_bookings" => 'calendar#show_bookings'
   get 'calendar/show_form/:event_id' =>  'calendar#show_form'
   get 'office/show'
   get 'office/all'

@@ -1,6 +1,7 @@
 #= require Calendar/init
 
 class window.calendarHomeController
+	myEventColor: '#2D46AD'
 	calendar_selector: '#calendar'
 	create_event_selector: '#create-event-button'
 	add_event_selectors: {
@@ -33,6 +34,8 @@ class window.calendarHomeController
 				success: (response) ->
 					events = JSON.parse response.div_contents.body
 					clone_event.id = events.id
+					clone_event.user_id = events.user_id
+					clone_event.color = calendarHomeController::myEventColor
 					$(calendarHomeController::calendar_selector).fullCalendar 'renderEvent', clone_event, true
 					return
 				error: (XMLHttpRequest, textStatus, errorThrown) ->
@@ -47,7 +50,6 @@ class window.calendarHomeController
 		window.event_title = document.getElementsByClassName('title-input')[0]
 		window.event_description = document.getElementsByClassName('description-input')[0]
 		date1 = new Date document.getElementById('date-input').value
-		console.log this
 		calendarHomeController::add_event(date1, true)
 		return
 
@@ -88,6 +90,7 @@ class window.calendarHomeController
 			success: (response) ->
 				events = JSON.parse response.div_contents.body
 				for event in events
+					event.color = calendarHomeController::myEventColor
 					$(calendarHomeController::calendar_selector).fullCalendar 'renderEvent', event, true
 				return
 			error: (XMLHttpRequest, textStatus, errorThrown) ->
@@ -153,7 +156,12 @@ class window.popoverController
 				owner.addClass 'clicked'
 				owner.addClass 'selected-day'
 				owner.attr("id", this.popover_id)
-				#				console.log this.popover_id
+				windowWidth = $(window).width()
+				thisLeft =  $('#'+this.popover_id).offset().left + $('#'+this.popover_id).width()
+				if  windowWidth - thisLeft < 250
+					@init_popover_new_options.placement = 'left'
+				else
+					@init_popover_new_options.placement = 'right'
 				$('#'+this.popover_id).popover(@init_popover_new_options).popover 'show'
 				document.getElementById('date-input').value = date
 			else
@@ -185,10 +193,10 @@ class window.popoverController
 					container: 'body'
 					trigger: 'manual'
 				}
-				#				console.log init_popover_show_options.content(event.id)
-				#				console.log init_popover_new_options.content()
-				#init_popover_show_options['content'] = init_popover_show_options['content'] +"<a href='users/"+user_id+"/events/"+event.id+"'> to photo"
-				#console.log init_popover_show_options
+				windowWidth = $(window).width()
+				thisLeft =  $('#'+this.popover_id).offset().left + $('#'+this.popover_id).width()
+				if  windowWidth - thisLeft < 250
+					init_popover_show_options.placement = 'left'
 				$('#'+this.popover_id).popover(init_popover_show_options).popover 'show'
 				$('.title-label').html event.title
 				$('.description-label').html event.description
@@ -218,4 +226,5 @@ class window.popoverController
 		container: 'body'
 		trigger: 'manual'
 	}
+window.Calendar = new calendarHomeController
 

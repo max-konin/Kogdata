@@ -95,6 +95,10 @@ class EventsControllerTest < ActionController::TestCase
     put :update, {:user_id => currentUser.id,:id => id, :events => {:title => '', :start=> start4Event,},
                   :curDate => currentDate}
     assert_response :unprocessable_entity
+    put :update, {:user_id => 1,:id => id, :events => {:title => 'new event', :start=> start4Event,
+                                                                    :description => 'this is a new event'},:curDate => currentDate}
+    assert_raise 'forbidden'
+
   end
 
 
