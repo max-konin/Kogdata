@@ -63,7 +63,10 @@ class EventsController < ApplicationController
           end
         end
       else
-        raise "Forbidden"
+        respond_to do |format|
+          format.html {head :forbidden}
+          format.json {render :json=> @events.errors, status: :forbidden}
+        end
       end
     else
       respond_to do |format|

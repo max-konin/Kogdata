@@ -40,4 +40,18 @@ class UserTest < ActiveSupport::TestCase
     assert ability.can?(:read, user)
   end
 
+  test 'price validation' do
+    user = User.new :role => :contractor, :name => 'vasya1', :password => 'pupkin', :email => 'vasya1@pupkin.com'
+    assert !(user.save), 'contractor without price'
+    user = User.new :role => :client, :name => 'vasya2', :password => 'pupkin', :email => 'vasya2@pupkin.com'
+    assert (user.save), 'client'
+    user = User.new :role => :contractor, :name => 'vasya3', :password => 'pupkin', :email => 'vasya3@pupkin.com', :price => 200
+    assert (user.save), 'contractor with prise'
+    user = User.new :role => :contractor, :name => 'vasya4', :password => 'pupkin', :email => 'vasya4@pupkin.com', :price => 'priceless'
+    assert !(user.save), 'contractor with string price'
+    user =  user = User.new :role => :client, :name => 'vasya4', :password => 'pupkin', :email => 'vasya4@pupkin.com', :price => 200
+    assert (user.save), 'client with price'
+    assert_nil user.price, 'prise of client should not be saved'
+  end
+
 end
