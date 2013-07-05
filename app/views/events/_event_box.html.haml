@@ -4,15 +4,15 @@
       =@event.title
     %p
       %h4
-        = t(:date) + ':'
+        = t(:date_text) + ':'
         =@event.start.strftime("%d.%m.%Y")
     %p
       %h4
         = t(:description) + ':'
       =@event.description
-    %p
       -if @event.user_id == @user.id
-        = t(:recalls)  + ':' + @event.messages.count.to_s
+        %h4
+          = t(:recalls)  + ':' + @event.messages.count.to_s
       -else
         %button{:type=> 'button', :class => 'btn btn-large btn-inverse', :id=>'message-btn',
           'data-target'=>'#messageModal', 'data-toggle' => 'modal'}

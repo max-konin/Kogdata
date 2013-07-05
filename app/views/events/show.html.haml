@@ -1,2 +1,3 @@
 = render :partial => 'events/event_box'#, :locals => {:event => @event}
-- @event.messages.each do |message|
+= render :partial => '/conversations/conversation', :collection => @event, :as => :conversation
+

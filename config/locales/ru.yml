@@ -82,7 +82,7 @@ ru:
   sign_in: "Войти"
   sign_up: "Регистрация"
   your_conversations: "Ваши сообщения"
-  date: "Дата"
+  date_text: "Дата"
   description: "Описание"
   select: "Выбрать"
   image: "Изображение"
