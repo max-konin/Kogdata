@@ -1,5 +1,4 @@
 $(document).ready () ->
-	console.log 'ready'
 	window.Popover = new popoverController
 	$('body').on('mousedown', (e) ->
 		if  $(e.target).parents('.popover').size() == 0
