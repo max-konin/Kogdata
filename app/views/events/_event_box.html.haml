@@ -14,8 +14,14 @@
         %h4
           = t(:recalls)  + ':' + @event.messages.count.to_s
       -else
-        %button{:type=> 'button', :class => 'btn btn-large btn-inverse', :id=>'message-btn',
-          'data-target'=>'#messageModal', 'data-toggle' => 'modal'}
-          =t :to_photo
-        #messageModal.modal.hide.fade
-          = render :partial => 'messages/new_response_to_event', :locals => {:event => @event}
+        - if @event.messages.where("user_id = ?", current_user.id).count > 0 # Count message for photographer then looking user page
+          %p
+            = link_to t(:go_to_conversaion),
+              '/conversations/' + @event.messages.where("user_id = ?", current_user.id).first.conversation_id.to_s
+        -else
+          %div
+            %button{:type=> 'button', :class => 'btn btn-large btn-inverse', :id=>'message-btn',
+              'data-target'=>'#messageModal', 'data-toggle' => 'modal'}
+              =t :to_photo
+            #messageModal.modal.hide.fade
+              = render :partial => 'messages/new_response_to_event', :locals => {:event => @event}

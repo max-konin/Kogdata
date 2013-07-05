@@ -3,4 +3,4 @@
     -#{link_to t(:conversation).mb_chars.downcase, conversation.messages.last}
     = t :says
     %p= conversation.messages.last.body
-    %p #{ t(:at) + ' ' + conversation.messages.last.created_at.strftime("%H:%M, %d %B")}
+    %p #{ t(:at) + ' ' + conversation.messages.last.created_at.strftime("%H:%M - %d.%m.%Y")}

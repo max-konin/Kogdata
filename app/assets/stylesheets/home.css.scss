@@ -77,6 +77,14 @@ input.span2{
   font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
 }
 
+.description-label
+{
+  overflow: hidden;
+  word-wrap: break-word;
+  max-height: 80px;
+  width: 135px;
+}
+
 
 #EventTitle
 {
