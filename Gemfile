@@ -29,6 +29,7 @@ gem 'json'
 # Modules that makes life easier
 gem 'haml-rails'
 gem 'fullcalendar-rails'
+#gem 'squeel'
 
 # For work with images
 gem 'paperclip'
