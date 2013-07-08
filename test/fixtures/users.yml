@@ -12,6 +12,7 @@ Adarich:
   email: ad@fromhell.com
   encrypted_password: adpass
   role: contractor
+  price: 200
 
 Anton:
   id: 3
@@ -19,6 +20,7 @@ Anton:
   email: a@ton.com
   encrypted_password: apass
   role: contractor
+  price: 200
 
 Max:
   id: 4

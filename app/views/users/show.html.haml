@@ -14,6 +14,8 @@
           %h3
             = @user.name
           - if @user.role == 'contractor'
+            %p3
+              = t(:price)+' '+@user.price.to_s+t(:rur)+' '+t(:per_hour)
             %h3
               = t :portfolio
             .container.demo-4
