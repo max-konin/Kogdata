@@ -114,5 +114,13 @@ class EventsControllerTest < ActionController::TestCase
     assert_raise (NotImplementedError){ delete :destroy, {:user_id => currentUser.id, :id => 4}}
   end
 
+  test 'put close' do
+    currentUser = users(:Adarich)
+    sign_in currentUser
+    start4Event = Time.parse '2013-06-25 11:02:57'
+    event = Event.find()
+    #assert_equal Event.
+  end
+
 
 end

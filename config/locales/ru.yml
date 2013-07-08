@@ -49,6 +49,8 @@ ru:
   rur: "руб."
   per_hour: "в час"
 
+  close_event: "Закрыть событие"
+  reopen: "Передумать"
 
   date:
       abbr_day_names:
