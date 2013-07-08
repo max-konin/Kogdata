@@ -119,10 +119,18 @@ class EventsControllerTest < ActionController::TestCase
     sign_in currentUser
     start4Event = Time.parse '2013-06-25 11:02:57'
     id = 2
-    event = Event.find(2)
-    put :close, {:user_id => currentUser.id, :id => 2}
+    event = Event.find(id)
+    put :close, {:user_id => currentUser.id, :event_id => id}
     assert_response :ok
-    assert_equal Event.find(2).closed, true
+    assert_equal Event.find(id).closed, true
+    put :close, {:user_id => currentUser.id, :event_id => id}
+    assert_response :forbidden
+    put :reopen, {:user_id => currentUser.id, :event_id => id}
+    assert_blank Event.find(id).closed
+    put :reopen, {:user_id => currentUser.id, :event_id => id}
+    assert_response :forbidden
+    put :reopen, {:user_id => currentUser.id, :event_id => 1}
+    assert_response :forbidden
   end
 
 
