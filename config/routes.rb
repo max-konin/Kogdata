@@ -33,11 +33,13 @@ Kogdata::Application.routes.draw do
   resources :users do
     resources :events do
       post 'respond'
+      put 'close'
+      put 'reopen'
     end
   end
 
-  put 'users/:user_id/events/:id/close' => 'events#close'
-  put 'users/:user_id/events/:id/reopen' => 'events#reopen'
+  #put 'users/:user_id/events/:id/close' => 'events#close'
+  #put 'users/:user_id/events/:id/reopen' => 'events#reopen'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -12,6 +12,8 @@ class EventsController < ApplicationController
       @events = Event.where("user_id = ?",params[:user_id])
     end
 
+    puts '!!!!!!!!!!'
+
     respond_to do |format|
       format.html {render :html => @events}
       format.json {render :json => @events}
@@ -20,7 +22,7 @@ class EventsController < ApplicationController
   end
 
   def close
-    @event = Event.find(params[:id])
+    @event = Event.find(params[:event_id])
     if @event.user_id == current_user.id && @event.closed.blank?
       @event.update_attribute(:closed,true)
       respond_to do |format|
@@ -37,7 +39,7 @@ class EventsController < ApplicationController
   end
 
   def reopen
-    @event = Event.find(params[:id])
+    @event = Event.find(params[:event_id])
     if @event.user_id == current_user.id && @event.closed == true
       @event.update_attribute(:closed,'')
       respond_to do |format|
@@ -77,7 +79,7 @@ class EventsController < ApplicationController
 
   def show
     @user = current_user
-    @event = Event.find(params[:id])
+    @event = Event.find(params[:event_id])
     respond_to do |format|
       format.html
       format.json {render json:@event, :content_type => 'application/json'}

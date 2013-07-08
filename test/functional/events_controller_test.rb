@@ -12,7 +12,7 @@ class EventsControllerTest < ActionController::TestCase
     assert_response :success
     assert_template :index
     eventsTest = assigns(:events)
-    eventsEtalon = Event.where('user_id = ? AND start > ? AND start < ?',currentUser.id, startDate, finishDate)
+    eventsEtalon = Event.where('user_id = ? AND start > ? AND start < ? AND closed IS NULL',currentUser.id, startDate, finishDate)
     assert_equal eventsTest.count, eventsEtalon.count
     eventsTest.each do |event|
       assert_equal event.user_id, currentUser.id
@@ -118,8 +118,11 @@ class EventsControllerTest < ActionController::TestCase
     currentUser = users(:Adarich)
     sign_in currentUser
     start4Event = Time.parse '2013-06-25 11:02:57'
-    event = Event.find()
-    #assert_equal Event.
+    id = 2
+    event = Event.find(2)
+    put :close, {:user_id => currentUser.id, :id => 2}
+    assert_response :ok
+    assert_equal Event.find(2).closed, true
   end
 
 
