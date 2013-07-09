@@ -29,6 +29,7 @@ gem 'json'
 # Modules that makes life easier
 gem 'haml-rails'
 gem 'fullcalendar-rails'
+#gem 'squeel'
 
 # For work with images
 gem 'paperclip'
@@ -59,4 +60,4 @@ gem 'cancan'
 # gem 'capistrano'
 
 # To use debugger
-#gem 'debugger', group: [:developmnet, :test]
+gem 'debugger', group: [:developmnet, :test]
