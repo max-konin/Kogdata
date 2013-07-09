@@ -71,7 +71,6 @@ class searcher
 		not _request || _request.readyState == 4 || _request.abort("New request. Drop this away.")
 		_request = $.ajax {
 			url: _url
-			async: false
 			type: 'post'
 			data: _request_data
 			success: if typeof success == 'function' then success else (d) -> console.log d; return
@@ -79,9 +78,6 @@ class searcher
 				console.log e
 				return
 			complete: () ->
-				_request = undefined
-				_request_data = undefined
-				_better_request_data = undefined
 				return
 		}
 		return true

@@ -6,9 +6,9 @@ class UsersController < ApplicationController
       if current_user.role? :admin then
         @users = User.all
       else
-        @users = User.where(:role => ['client', 'contractor']).limit(25)
+        @users = User.where(:role => ['client', 'contractor']).limit(40)
       end
-		session['search.offset'] = 20
+		session['search.offset'] = 35
 		render
       return
     end
@@ -30,12 +30,7 @@ class UsersController < ApplicationController
   end
   
   def search
-	if not params[:again].nil? and params[:again] == 1
- 		session['session.offset'] += 5
-	else
-		session['search.offset'] = 0
-	end
-	_offset = session['search.offset']
+	_limit = 5
 	_input = params[:input]
 	_contractor = params[:contractor].to_i
 	_client = params[:client].to_i
@@ -47,7 +42,14 @@ class UsersController < ApplicationController
 			_role = [ 'client' ]
 		end
 	end
-	@users = User.where('name like ? and (' + (['role = ?']*_role.size).join(' or ') + ')', "%#{_input}%", *_role).limit(5).offset(_offset)
+	if not params[:again].nil? and params[:again].to_i == 1
+ 		session['search.offset'] += 5
+	else
+		session['search.offset'] = 0
+		_limit = 40
+	end
+	_offset = session['search.offset']
+	@users = User.where('name like ? and (' + (['role = ?']*_role.size).join(' or ') + ')', "%#{_input}%", *_role).limit(_limit).offset(_offset)
 	render :partial => "user_search_chunk", :locals => { :users => @users }
   end
 
