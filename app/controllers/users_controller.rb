@@ -29,25 +29,26 @@ class UsersController < ApplicationController
   end
   
   def search
-	if not params[:again].nil? and params[:again] == 1
- 		session['session.offset'] += 10
-	else
-		session['search.offset'] = 0
-	_offset = session['search.offset']
-	_input = params[:input]
-	_contractor = params[:contractor].to_i
-	_client = params[:client].to_i
-	_role = [ 'contractor', 'client']
-	if _contractor ^ _client == 1
-		if _contractor == 1
-			_role = [ 'contractor' ]
-		else
-			_role = [ 'client' ]
-		end
-	end
-	@users = User.where('name like ? and (' + (['role = ?']*_role.size).join(' or ') + ')', "%#{_input}%", *_role).limit(10).offset(_offset)
-	#@users = User.where {(name =~ "%#{_input}%") & (role.eq_any _role)}
-	render :partial => "user_search_chunk", :locals => { :users => @users }
+    if not params[:again].nil? and params[:again] == 1
+      session['session.offset'] += 10
+    else
+      session['search.offset'] = 0
+    end
+    _offset = session['search.offset']
+    _input = params[:input]
+    _contractor = params[:contractor].to_i
+    _client = params[:client].to_i
+    _role = [ 'contractor', 'client']
+    if _contractor ^ _client == 1
+      if _contractor == 1
+        _role = [ 'contractor' ]
+      else
+        _role = [ 'client' ]
+      end
+    end
+    @users = User.where('name like ? and (' + (['role = ?']*_role.size).join(' or ') + ')', "%#{_input}%", *_role).limit(10).offset(_offset)
+    #@users = User.where {(name =~ "%#{_input}%") & (role.eq_any _role)}
+    render :partial => "user_search_chunk", :locals => { :users => @users }
   end
 
   def destroy
