@@ -148,8 +148,10 @@ class window.calendarHomeController
 	}
 
 class window.popoverController
+
 	popover_id: "null"
 	event: "null"
+	inside_popver_show: "null"
 	show: (owner, date, type, number,event) ->
 		inside_popover_show = 'null'
 		if date != ''
@@ -186,8 +188,9 @@ class window.popoverController
 					async: false
 					dataType: 'html'
 					contentType: 'application/json'
-					success: (data) ->
-						inside_popover_show = data
+					success: (data, textStatus, xhr) ->
+						if xhr.status == 200
+							popoverController::inside_popover_show = data
 						return
 					error: () ->
 						console.log 'Error!!'
@@ -196,7 +199,7 @@ class window.popoverController
 				init_popover_show_options = {
 					html: true
 					content: () ->
-						return inside_popover_show
+						return popoverController::inside_popover_show
 					container: 'body'
 					trigger: 'manual'
 				}
@@ -205,6 +208,7 @@ class window.popoverController
 				if  windowWidth - thisLeft < 250
 					init_popover_show_options.placement = 'left'
 				$('#'+this.popover_id).popover(init_popover_show_options).popover 'show'
+				$('#'+this.popover_id).addClass('popver-created')
 				$('.title-label').html event.title
 				$('.description-label').html event.description
 			else
@@ -234,6 +238,7 @@ class window.popoverController
 		trigger: 'manual'
 	}
 
+
 	close_event: () ->
 		$.ajax {
 			type: 'PUT'
@@ -257,7 +262,7 @@ class window.popoverController
 				$(window.Calendar.calendar_selector).fullCalendar('updateEvent', popoverController::event);
 		}
 		return
-
-window.Calendar = new calendarHomeController
 window.Popover = new popoverController
+window.Calendar = new calendarHomeController
+
 

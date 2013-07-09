@@ -32,6 +32,7 @@ class window.calendarProfileController extends calendarHomeController
 		return
 class window.popoverProfileController extends popoverController
 	show: (owner, date, type, number,event) ->
+		console.log 'Profile!!!'
 		if type == 'event'
 			super(owner, date, type, number,event)
 		if type == 'day' && Calendar.profileUserId == parseInt user_id
