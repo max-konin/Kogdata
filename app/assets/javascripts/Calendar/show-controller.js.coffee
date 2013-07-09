@@ -1,5 +1,4 @@
 class window.calendarShowController extends calendarHomeController
-	otherEventColor: '#4C85BC'
 	update_calendar: () ->
 		return unless $(@calendar_selector).length != 0
 		$(@calendar_selector).fullCalendar 'removeEvents'

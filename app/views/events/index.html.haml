@@ -3,7 +3,7 @@
 - @events.each do |event|
   #events-container
     %h3
-      - if event.closed == true
+      - if !event.closed.blank?
         = link_to event.title + " (Closed)", user_event_path(event)
       - else
         = link_to event.title, user_event_path(event)

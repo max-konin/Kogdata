@@ -2,6 +2,8 @@
 
 class window.calendarHomeController
 	myEventColor: '#2D46AD'
+	otherEventColor: '#4C85BC'
+	closedEventColor: '#BABABA'
 	calendar_selector: '#calendar'
 	create_event_selector: '#create-event-button'
 	add_event_selectors: {
@@ -22,7 +24,6 @@ class window.calendarHomeController
 				start: date.format 'isoDateTime'
 				description: clone_event.description
 			}
-			console.log request
 			$.ajax {
 				type: 'POST'
 				url: "/users/#{user_id}/events.json"
@@ -81,16 +82,20 @@ class window.calendarHomeController
 		$(@calendar_selector).fullCalendar 'removeEvents'
 		request = {
 			curDate: $(@calendar_selector).fullCalendar('getDate').format 'isoDateTime'
+			showClosed: true
 		}
 		$.ajax {
 			type: 'GET'
-			url: "users/#{user_id}/events.json"
+			url: "/users/#{user_id}/events.json"
 			dataType: 'json'
 			data: request
 			success: (response) ->
 				events = JSON.parse response.div_contents.body
 				for event in events
-					event.color = calendarHomeController::myEventColor
+					if event.closed == null
+						event.color = calendarHomeController::myEventColor
+					else
+						event.color = calendarHomeController::closedEventColor
 					$(calendarHomeController::calendar_selector).fullCalendar 'renderEvent', event, true
 				return
 			error: (XMLHttpRequest, textStatus, errorThrown) ->
@@ -177,7 +182,7 @@ class window.popoverController
 				#				console.log get_inside_popover_show(event.id)
 				$.ajax {
 					type: 'GET'
-					url: "calendar/show_form/#{event.id}"
+					url: "/calendar/show_form/#{event.id}"
 					async: false
 					dataType: 'html'
 					contentType: 'application/json'
@@ -199,7 +204,6 @@ class window.popoverController
 				thisLeft =  $('#'+this.popover_id).offset().left + $('#'+this.popover_id).width()
 				if  windowWidth - thisLeft < 250
 					init_popover_show_options.placement = 'left'
-				console.log this
 				$('#'+this.popover_id).popover(init_popover_show_options).popover 'show'
 				$('.title-label').html event.title
 				$('.description-label').html event.description
@@ -214,7 +218,7 @@ class window.popoverController
 	get_inside_popover_new: () ->
 		$.ajax {
 			type: 'GET'
-			url: 'calendar/new_form'
+			url: '/calendar/new_form'
 			dataType: 'html'
 			success: (data) ->
 				window.inside_popover_new = data
@@ -233,11 +237,11 @@ class window.popoverController
 	close_event: () ->
 		$.ajax {
 			type: 'PUT'
-			url: 'users/'+ user_id + '/events/' +  popoverController::popover_id + '/close/'
+			url: '/users/'+ user_id + '/events/' +  popoverController::popover_id + '/close/'
 			data: { cl: "ose" }
 			success: (data) ->
 				popoverController::hide()
-				popoverController::event.color = '#BABABA'
+				popoverController::event.color = Calendar.closedEventColor
 				$(window.Calendar.calendar_selector).fullCalendar('updateEvent', popoverController::event);
 		}
 		return
@@ -245,7 +249,7 @@ class window.popoverController
 	reopen_event: () ->
 		$.ajax {
 			type: 'PUT'
-			url: 'users/'+ user_id + '/events/' +  popoverController::popover_id + '/reopen/'
+			url: '/users/'+ user_id + '/events/' +  popoverController::popover_id + '/reopen/'
 			data: { cl: "ose" }
 			success: (data) ->
 				popoverController::hide()
@@ -255,4 +259,5 @@ class window.popoverController
 		return
 
 window.Calendar = new calendarHomeController
+window.Popover = new popoverController
 
