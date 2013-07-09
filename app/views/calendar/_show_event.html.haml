@@ -17,3 +17,10 @@
         %td
           .description-label
   = link_to t(:to_event), 'users/'+current_user.id.to_s+'/events/'+@event_id.to_s
+  - if @event.user_id == current_user.id
+    - if @event.closed.blank?
+      %a{:class => 'close-event', :href => '#'}
+        = t(:close_event)
+    - else
+      %a{:class => 'reopen-event', :href => '#'}
+        = t(:reopen)

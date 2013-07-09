@@ -6,15 +6,55 @@ class EventsController < ApplicationController
     #the curDate parameter is a day of the current month
     #the event must be created by the current user and be booked on the current month
     if params[:curDate] != nil
-      @events = Event.where("user_id = ? AND start >= ? AND start <= ? ",params[:user_id], Days.firstDay(params[:curDate]),
+      if params[:showClosed]
+        @events = Event.where("user_id = ? AND start >= ? AND start <= ?",params[:user_id], Days.firstDay(params[:curDate]),
+                              Days.lastDay(params[:curDate]))
+      else
+        @events = Event.where("user_id = ? AND start >= ? AND start <= ? AND closed IS NULL",params[:user_id], Days.firstDay(params[:curDate]),
                            Days.lastDay(params[:curDate]))
+      end
     else
       @events = Event.where("user_id = ?",params[:user_id])
     end
+
     respond_to do |format|
       format.html {render :html => @events}
       format.json {render :json => @events}
       format.xml {render :xml => @events}
+    end
+  end
+
+  def close
+    @event = Event.find(params[:event_id])
+    if @event.user_id == current_user.id && @event.closed.blank?
+      @event.update_attribute(:closed,true)
+      respond_to do |format|
+        format.html {head :ok}
+        format.json {head :ok}
+        format.xml {head :ok}
+      end
+    else
+      respond_to do |format|
+        format.html {head :forbidden}
+        format.json {render :json=> @events.errors, status: :forbidden}
+      end
+    end
+  end
+
+  def reopen
+    @event = Event.find(params[:event_id])
+    if @event.user_id == current_user.id && @event.closed == true
+      @event.update_attribute(:closed,'')
+      respond_to do |format|
+        format.html {head :ok}
+        format.json {head :ok}
+        format.xml {head :ok}
+      end
+    else
+      respond_to do |format|
+        format.html {head :forbidden}
+        format.json {render :json=> @events.errors, status: :forbidden}
+      end
     end
   end
 

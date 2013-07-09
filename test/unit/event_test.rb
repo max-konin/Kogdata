@@ -34,4 +34,19 @@ class EventTest < ActiveSupport::TestCase
     assert event.save
   end
 
+  test 'validate closed' do
+    event = Event.new()
+    event.title = 'title'
+    event.description = 'description'
+    event.start = Time.now
+    event.closed = false
+    assert !event.save
+    event.closed = 'not closed'
+    assert !event.save
+    event.closed = true
+    assert event.save
+    event.closed = nil
+    assert event.save
+  end
+
 end

@@ -1,6 +1,10 @@
 %h1
   = t(:users) + ":"
 %form.flying
+  %input#search_photograph{:type => 'checkbox'}
+    = t(:photograph)
+  %input#search_client{:type => 'checkbox'}
+    = t(:client)
   %input#search_pattern.search-query.input-medium{:placeholder => t(:find_user)}
 %div#search_content
   = render "user_search_chunk", :users => @users

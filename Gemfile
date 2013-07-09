@@ -29,6 +29,7 @@ gem 'json'
 # Modules that makes life easier
 gem 'haml-rails'
 gem 'fullcalendar-rails'
+#gem 'squeel'
 
 # For work with images
 gem 'paperclip'
@@ -45,6 +46,7 @@ gem 'omniauth-twitter'
 gem 'omniauth-vkontakte'
 gem 'cancan'
 
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -58,4 +60,4 @@ gem 'cancan'
 # gem 'capistrano'
 
 # To use debugger
-#gem 'debugger', group: [:developmnet, :test]
+gem 'debugger', group: [:developmnet, :test]
