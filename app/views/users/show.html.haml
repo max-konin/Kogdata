@@ -29,9 +29,10 @@
                   .image-preview
                     %img{:id=>'preview'}
           - if @user.role == 'client'
-            - @events = @user.event
-            = render :template => 'events/index'
+            = render :template => 'calendar/index'
 
 #messageModal.modal.hide.fade
   = render :partial => "messages/new_message", :locals => {:contact_id => @user.id}
-= javascript_include_tag 'portfolio_viewer'
+
+- if @user.role == 'contractor'
+  = javascript_include_tag 'portfolio_viewer'

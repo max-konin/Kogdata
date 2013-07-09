@@ -1,5 +1,4 @@
 $(document).ready () ->
-	window.Popover = new popoverController
 	$('body').on('mousedown', (e) ->
 		if  $(e.target).parents('.popover').size() == 0
 			Popover.hide()

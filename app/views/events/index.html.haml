@@ -3,10 +3,10 @@
 - @events.each do |event|
   #events-container
     %h3
-      - if event.closed == true
-        = link_to event.title + " (Closed)", user_event_path(event)
+      - if !event.closed.blank?
+        = link_to event.title + " (Closed!!!)"
       - else
-        = link_to event.title, user_event_path(event)
+        = link_to event.title, event.id.to_s
     %h5
       = t(:date_text) + ':  ' + event.start.strftime("%d.%m.%Y") # Inline date for compact out
     %h5

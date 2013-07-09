@@ -10,7 +10,7 @@ class OfficeController < ApplicationController
   end
 
   def all
-  @events = Event.where("start >= ? AND start <= ? ", Days.firstDay(params[:curDate]),
+  @events = Event.where("start >= ? AND start <= ? AND closed IS NULL", Days.firstDay(params[:curDate]),
                         Days.lastDay(params[:curDate]))
   respond_to do |format|
     format.html {render :json => @events }

@@ -133,5 +133,26 @@ class EventsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
+  test 'get index for closed events' do
+    currentUser = users(:Adarich)
+    sign_in currentUser
+    currentDate = Time.parse '2013-06-18 11:02:57'
+    startDate = Time.parse '2013-06-01 00:00:00'
+    finishDate = Time.parse '2013-06-30 23:59:59'
+    start4Event = Time.parse '2013-06-25 11:02:57'
+    post :create, {:user_id => currentUser.id, :events => {:title => 'new event', :start=> start4Event,
+                                                           :description => 'this is a new event'},:curDate => currentDate}
+    event_id = Event.last.id
+    put :close, {:user_id => currentUser.id, :event_id => event_id}
+    get :index, {:user_id => currentUser.id, :curDate => currentDate, :showClosed => true}
+    event_test = assigns(:events)
+    events_etalon = Event.where('user_id = ? AND start > ? AND start < ?',currentUser.id, startDate, finishDate)
+    assert_equal event_test.count, events_etalon.count
+    get :index, {:user_id => currentUser.id, :curDate => currentDate}
+    event_test = assigns(:events)
+    events_etalon = Event.where('user_id = ? AND start > ? AND start < ? AND closed IS NULL',currentUser.id, startDate, finishDate)
+    assert_equal event_test.count, events_etalon.count
+  end
+
 
 end
