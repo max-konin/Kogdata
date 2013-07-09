@@ -16,7 +16,7 @@ Kogdata::Application.routes.draw do
   get 'users/get_info' => 'users#registration_after_omniauth'
   put 'users' => 'users#create'
   put 'users/:id' => 'users#update'
-
+  put 'users/:id/social_links' => 'social_links#create'
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
@@ -34,6 +34,7 @@ Kogdata::Application.routes.draw do
     resources :events do
       post 'respond'
     end
+    resources :social_links, only: [:index, :new, :create, :destroy]
   end
 
   # The priority is based upon order of creation:

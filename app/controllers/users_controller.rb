@@ -49,7 +49,7 @@ class UsersController < ApplicationController
 
   def edit
 	 @user = current_user
-	 render 'users/edit'
+	 #render 'users/edit'
   end
 
   def update
