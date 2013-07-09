@@ -6,8 +6,9 @@ class UsersController < ApplicationController
       if current_user.role? :admin then
         @users = User.all
       else
-        @users = User.where(:role => ['client', 'contractor']).limit(10)
+        @users = User.where(:role => ['client', 'contractor']).limit(25)
       end
+		session['search.offset'] = 25
 		render
       return
     end
@@ -29,10 +30,11 @@ class UsersController < ApplicationController
   end
   
   def search
-	if not params[:again].nil? and params[:again] == 1
- 		session['session.offset'] += 10
+	if not params[:again].nil? and params[:again].to_i == 1
+		session['search.offset'] += 5
 	else
 		session['search.offset'] = 0
+	end
 	_offset = session['search.offset']
 	_input = params[:input]
 	_contractor = params[:contractor].to_i
