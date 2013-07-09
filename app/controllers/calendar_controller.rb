@@ -26,6 +26,7 @@ class CalendarController < ApplicationController
 
   def show_form
     @event_id = params[:event_id]
+    @event = Event.find(@event_id)
     render :partial => 'show_event'
   end
 end

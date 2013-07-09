@@ -144,12 +144,13 @@ class window.calendarHomeController
 
 class window.popoverController
 	popover_id: "null"
+	event: "null"
 	show: (owner, date, type, number,event) ->
 		inside_popover_show = 'null'
 		if date != ''
-			this.popover_id = 'day'+date.getDate().toString() + number + ""
+			popoverController::popover_id = 'day'+date.getDate().toString() + number + ""
 		else
-			this.popover_id = number + ""
+			popoverController::popover_id = number + ""
 		if type == 'day'
 			if !owner.hasClass 'clicked'
 				$('.clicked').removeClass('clicked')
@@ -167,6 +168,7 @@ class window.popoverController
 			else
 				owner.removeClass 'clicked'
 		if type == 'event'
+			popoverController::event = event
 			if !owner.hasClass 'clicked'
 				$('.clicked').removeClass('clicked')
 				owner.addClass 'clicked'
@@ -197,6 +199,7 @@ class window.popoverController
 				thisLeft =  $('#'+this.popover_id).offset().left + $('#'+this.popover_id).width()
 				if  windowWidth - thisLeft < 250
 					init_popover_show_options.placement = 'left'
+				console.log this
 				$('#'+this.popover_id).popover(init_popover_show_options).popover 'show'
 				$('.title-label').html event.title
 				$('.description-label').html event.description
@@ -226,5 +229,30 @@ class window.popoverController
 		container: 'body'
 		trigger: 'manual'
 	}
+
+	close_event: () ->
+		$.ajax {
+			type: 'PUT'
+			url: 'users/'+ user_id + '/events/' +  popoverController::popover_id + '/close/'
+			data: { cl: "ose" }
+			success: (data) ->
+				popoverController::hide()
+				popoverController::event.color = '#BABABA'
+				$(window.Calendar.calendar_selector).fullCalendar('updateEvent', popoverController::event);
+		}
+		return
+
+	reopen_event: () ->
+		$.ajax {
+			type: 'PUT'
+			url: 'users/'+ user_id + '/events/' +  popoverController::popover_id + '/reopen/'
+			data: { cl: "ose" }
+			success: (data) ->
+				popoverController::hide()
+				popoverController::event.color = Calendar.myEventColor
+				$(window.Calendar.calendar_selector).fullCalendar('updateEvent', popoverController::event);
+		}
+		return
+
 window.Calendar = new calendarHomeController
 
