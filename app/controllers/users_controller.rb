@@ -34,6 +34,7 @@ class UsersController < ApplicationController
  		session['session.offset'] += 5
 	else
 		session['search.offset'] = 0
+	end
 	_offset = session['search.offset']
 	_input = params[:input]
 	_contractor = params[:contractor].to_i
