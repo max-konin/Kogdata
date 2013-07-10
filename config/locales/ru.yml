@@ -55,6 +55,7 @@ ru:
   add_link: "Добавить ссылку"
   example: "Пример"
   blog: "Блог"
+  delete: "Удалить"
 
   send_message: "Отправить сообщение"
   drag_to_calendar_to_new_event: "Перетащите событие в календарь, чтобы создать новое событие"
@@ -66,56 +67,29 @@ ru:
   close_event: "Закрыть событие"
   reopen: "Передумать"
 
-  date:
-      abbr_day_names:
-      - Вс
-      - Пн
-      - Вт
-      - Ср
-      - Чт
-      - Пт
-      - Сб
-      abbr_month_names:
-      -
-      - янв.
-      - февр.
-      - марта
-      - апр.
-      - мая
-      - июня
-      - июля
-      - авг.
-      - сент.
-      - окт.
-      - нояб.
-      - дек.
-      day_names:
-      - воскресенье
-      - понедельник
-      - вторник
-      - среда
-      - четверг
-      - пятница
-      - суббота
-      month_names:
-      -
-      - января
-      - февраля
-      - марта
-      - апреля
-      - мая
-      - июня
-      - июля
-      - августа
-      - сентября
-      - октября
-      - ноября
-      - декабря
-      order:
-      - :day
-      - :month
-      - :year
-      formats:
-        numeric: "%d.%m.%Y"
-        with_text: "%H:%M, %d %B"
+  activerecord:
+    errors:
+      models:
+        conversation:
+          attributes:
 
+        event:
+          attributes:
+
+        image:
+          attributes:
+
+        message:
+          attributes:
+
+        social_link:
+          attributes:
+            url:
+              invalid: "Введите верную ссылку"
+              too_long: "Ссылка слишком длинная, максимум %{count}"
+
+        user:
+          attributes:
+            price:
+              numericality: "Цена должна быть целым числом"
+              presence: "Цена должна быть заполнена"

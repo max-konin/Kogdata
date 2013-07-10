@@ -4,5 +4,8 @@
   .span6
     = social_link.url
   .span2#iconic
-    = link_to [social_link.user, social_link], method: :delete do
+    -#= link_to [social_link.user, social_link], :method => :delete do
       %i{:class => 'icon-trash'}
+    =form_for [social_link.user, social_link], :method => :delete do |f|
+      %a{:href => '#', :title => t(:delete)}
+        %i{:class => 'icon-trash', :onclick => 'submit()'}

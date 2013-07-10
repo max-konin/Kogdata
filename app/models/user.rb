@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
 	# Setup accessible (or protected) attributes for your model
 	attr_accessible :email, :password, :remember_me, :name, :provider, :uid, :role, :images, :avatar, :price
-  validates :price, :presence => true,:numericality => {:only_integer => true}, :if => :is_contractor?
+  validates :price, :presence => true, :numericality => {:only_integer => true}, :if => :is_contractor?
   def is_contractor?
     role == :contractor
   end

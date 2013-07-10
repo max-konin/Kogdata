@@ -1,4 +1,4 @@
-= form_for [@user, SocialLink.new], :html => {:class => 'form-horizontal'} do |f|
+= form_for [@user, @social_link], :html => {:class => 'form-horizontal'} do |f|
   %fieldset
     %legend
       =t(:add_link)
@@ -11,6 +11,11 @@
       .controls
         = f.url_field :url, :required => 'true', :placeholder => t(:example) + ': ' + 'http://myblog.blogspot.com',
           :class => 'input-xxlarge'
+        - if @social_link.errors.messages[:url].count > 0
+          %ul
+            - @social_link.errors.messages[:url].each do |errmsg|
+              %li
+                = errmsg
     .control-group
       .controls
         = f.submit t(:submit_add), :class => 'btn'

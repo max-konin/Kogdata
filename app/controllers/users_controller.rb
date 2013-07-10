@@ -65,6 +65,7 @@ class UsersController < ApplicationController
 
   def edit
 	 @user = current_user
+   @social_link = SocialLink.new(params[:social_link])
 	 render 'users/edit'
   end
 
