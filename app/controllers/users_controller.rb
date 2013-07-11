@@ -81,7 +81,7 @@ class UsersController < ApplicationController
 	 if @user == nil
 		redirect_to 'users/edit'
 	 end
-	 render 'users/after_omniauth', :layout => 'office'
+	 render 'users/after_omniauth', :layout => 'application'
   end
 
   def create
