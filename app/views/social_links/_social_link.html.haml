@@ -1,0 +1,8 @@
+.row-fluid
+  .span4
+    = link_to social_link.description, social_link.url
+  .span6
+    = social_link.url
+  .span2#iconic
+    = link_to [social_link.user, social_link], method: :delete do
+      %i{:class => 'icon-trash'}

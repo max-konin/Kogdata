@@ -9,6 +9,7 @@ ru:
   description: "Описание"
   submit: "Подтвердить"
   submit_edit: "Изменить"
+  submit_add: "Добавить"
   create_event: "Создать событие"
   new_event: "Новое событие"
   the_event: "Просмотр события"
@@ -41,7 +42,20 @@ ru:
   go_to_conversaion: "Перейти к разговору"
 
   users: "Пользователи"
+  user: "Пользователь"
+  name: "Имя"
+  email: "Электронная почта"
+  url: "Ссылка"
+  avatar: "Изображение"
+  role: "Статус"
+  contractor: "Фотограф"
+  client: "Пользователь"
   find_user: "Найти пользователя"
+  links_list: "Список ссылок"
+  add_link: "Добавить ссылку"
+  example: "Пример"
+  blog: "Блог"
+
   send_message: "Отправить сообщение"
   drag_to_calendar_to_new_event: "Перетащите событие в календарь, чтобы создать новое событие"
 

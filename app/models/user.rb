@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
 	has_and_belongs_to_many :conversations
 	has_many :messages
   has_many :provider
+  has_many :social_links, dependent: :destroy
 
 	def get_image_by_name(name)
 		Image.find(name)

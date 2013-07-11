@@ -15,5 +15,6 @@
 //= require jquery.ui.all
 //= require jquery.cookie
 //= require bootstrap
+//= require jquery_ujs
 
 
