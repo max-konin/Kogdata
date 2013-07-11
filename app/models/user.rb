@@ -27,6 +27,7 @@ class User < ActiveRecord::Base
 	has_many :event
 	has_and_belongs_to_many :conversations
 	has_many :messages
+  has_many :provider
 
 	def get_image_by_name(name)
 		Image.find(name)

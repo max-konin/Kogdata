@@ -1,5 +1,6 @@
 module OmniauthCallbacksHelper
 	def routesFurther
+
 		if @user.persisted?
 			sign_in_and_redirect @user, :event => :authentication
 		else
