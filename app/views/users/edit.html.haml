@@ -1,5 +1,7 @@
 = render :partial => 'users/user_form'
 = render :partial => 'social_links/form_add'
-%legend
-  =t(:links_list)
-= render @user.social_links
+
+#social_link_list
+	%legend
+		=t(:links_list)
+	= render @user.social_links

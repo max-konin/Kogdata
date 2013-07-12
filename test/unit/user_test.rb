@@ -49,7 +49,7 @@ class UserTest < ActiveSupport::TestCase
     assert (user.save), 'contractor with prise'
     user = User.new :role => :contractor, :name => 'vasya4', :password => 'pupkin', :email => 'vasya4@pupkin.com', :price => 'priceless'
     assert !(user.save), 'contractor with string price'
-    user =  user = User.new :role => :client, :name => 'vasya4', :password => 'pupkin', :email => 'vasya4@pupkin.com', :price => 200
+    user = User.new :role => :client, :name => 'vasya4', :password => 'pupkin', :email => 'vasya4@pupkin.com', :price => 200
     assert (user.save), 'client with price'
     assert_nil user.price, 'prise of client should not be saved'
   end

@@ -19,6 +19,10 @@
       = f.label :role, t(:role), :class => 'control-label'
       .controls
         = f.select :role, [ [t(:user), :client], [t(:contractor), :contractor] ]
+    .control-group#price-div
+      = f.label :role, t(:price), :class => 'control-label'
+      .controls
+        = f.text_field :price, :id => 'price-field', :placeholder => t(:price)
     .control-group
       .controls
         = f.submit t(:submit_edit), :class => 'btn'

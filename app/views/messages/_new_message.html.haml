@@ -2,6 +2,7 @@
   #blac-div.modal-header
     %h5
       = ((t :new_message_for) + User.find(contact_id).name)
+      &nbsp|&nbsp
       #for-close
         %a{'data-dismiss'=> 'modal',:id=> 'close-button'}
           = t :close

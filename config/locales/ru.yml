@@ -51,11 +51,13 @@ ru:
   contractor: "Фотограф"
   client: "Пользователь"
   find_user: "Найти пользователя"
+  password: "Пароль"
   links_list: "Список ссылок"
   add_link: "Добавить ссылку"
   example: "Пример"
   blog: "Блог"
   delete: "Удалить"
+  remember_me: "Запомнить меня"
 
   send_message: "Отправить сообщение"
   drag_to_calendar_to_new_event: "Перетащите событие в календарь, чтобы создать новое событие"
@@ -66,6 +68,11 @@ ru:
 
   close_event: "Закрыть событие"
   reopen: "Передумать"
+  sign_up_to: "Регистрация в"
+  sign_in_to: "Вход в"
+  sign_in_with: "Войти через"
+  sign_up_with: "Регистрация через"
+  delete_error: "Ошибка удаления"
 
   activerecord:
     errors:
@@ -84,9 +91,14 @@ ru:
 
         social_link:
           attributes:
+            description:
+              invalid: "Описание должно содержать только буквы, цифры, пробел, '-' и '_'"
+              too_long: "Описание слишком длинное, максимум %{count}"
             url:
               invalid: "Введите верную ссылку"
               too_long: "Ссылка слишком длинная, максимум %{count}"
+              taken: "Такая ссылка уже существует"
+              blank: "Поле ссылка должна быть заполнена"
 
         user:
           attributes:

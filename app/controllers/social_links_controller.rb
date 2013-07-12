@@ -1,12 +1,12 @@
 class SocialLinksController < ApplicationController
   before_filter :authenticate_user!
   def index
-    raise NotImplementedError
+    redirect_to '/users/edit'
   end
 
   def new
     @social_link = SocialLink.new()
-    render :partial => 'social_links/form_add'
+    render :partial => '/social_links/form_add'
   end
 
   def create
@@ -16,16 +16,32 @@ class SocialLinksController < ApplicationController
     @social_link = SocialLink.new(params[:social_link])
     @social_link.user_id = @user.id
     if @social_link.save
-      redirect_to :back
+      respond_to do |format|
+        format.html {redirect_to :back}
+        format.json {render :json => @social_link}
+      end
     else
-      render 'users/edit'
+      respond_to do |format|
+        format.html {redirect_to '/users/edit'}
+        format.json {render :json => {:errors => @social_link.errors.messages}}
+      end
     end
   end
 
   def destroy
     @user = current_user
     @social_link = @user.social_links.find(params[:id])
-      @social_link.destroy
-    redirect_to :back
+    result = false
+    if @social_link.destroy
+      result = true
+    end
+    error = false
+    if result == false
+      error = t(:delete_error)
+    end
+    respond_to do |format|
+      format.html {redirect_to :back}
+      format.json {render :json => {:result => result, :error => error}}
+    end
   end
 end

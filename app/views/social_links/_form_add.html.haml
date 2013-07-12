@@ -1,4 +1,4 @@
-= form_for [@user, @social_link], :html => {:class => 'form-horizontal'} do |f|
+= form_for [@user, @social_link], :html => {:class => 'form-horizontal', :id => 'social_link_form'} do |f|
   %fieldset
     %legend
       =t(:add_link)
@@ -6,6 +6,11 @@
       = f.label :description, t(:description), :class => 'control-label'
       .controls
         = f.text_field :description, :placeholder => t(:example) + ': ' + t(:blog)
+        - if @social_link.errors.messages[:description].count > 0
+          %ul
+            - @social_link.errors.messages[:description].each do |errmsg|
+              %li
+                = errmsg
     .control-group
       = f.label :url, t(:url), :class => 'control-label'
       .controls
