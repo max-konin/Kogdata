@@ -1,6 +1,4 @@
 = form_for @user, :html => { :method => :put, :multipath => true, :id => 'user_update' } do |f|
-	= f.hidden_field :provider, :value => @user.provider
-	= f.hidden_field :uid, :value => @user.uid
 	= f.hidden_field :password, :value => @user.password
 	%div
 		= f.label :name
