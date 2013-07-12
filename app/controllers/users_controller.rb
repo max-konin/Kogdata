@@ -78,18 +78,39 @@ class UsersController < ApplicationController
   end
 
   def registration_after_omniauth
-	 @user = session['devise.omniauth_data']
-	 if @user == nil
-		redirect_to 'users/edit'
-	 end
-	 render 'users/after_omniauth', :layout => 'office'
+	  @user = session['devise.omniauth_data']
+    @provider = session['devise.provider']
+    if user_signed_in?
+      if @provider.user_id.nil?
+        @provider.user_id = current_user.id
+        @provider.save!
+        redirect_to :root
+      else
+        if @provider.user_id == current_user.id
+          redirect_to :root
+        else
+          redirect_to '/users/merge'
+        end
+      end
+    else
+	    render '/users/after_omniauth', :layout => 'application'
+    end
   end
 
   def create
 	 @user = User.new params[:user]
+   @provider = session['devise.provider']
 	 @user.save!
+   unless @provider.nil?
+     @provider.user_id = @user.id
+     @provider.save!
+   end
 	 session['devise.omniauth_data'] = nil
 	 sign_in_and_redirect @user
+  end
+
+  def merge
+    render 'users/merge_form'
   end
 
   private

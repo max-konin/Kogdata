@@ -1,9 +1,7 @@
 = form_for @user, :html => { :method => :put, :multipath => true, :id => 'user_update' } do |f|
 	%fieldset
 		%legend
-			=t :edit_page
-		= f.hidden_field :provider, :value => @user.provider
-		= f.hidden_field :uid, :value => @user.uid
+			=t :edit_page		
 		= f.hidden_field :password, :value => @user.password
 		.control-group
 			= f.label :name, t(:name), :class => 'control-label'
