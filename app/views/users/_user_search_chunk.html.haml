@@ -6,7 +6,7 @@
     .span4
       %h4
         =t(user.role)
-    .span4
+    .span4.text-right
       %button{:type=> 'button', :class => 'btn btn-primary', :id=>'message-btn',
                     'data-target'=>'#messageModal_' + user.id.to_s,
                     'data-toggle' => 'modal'}

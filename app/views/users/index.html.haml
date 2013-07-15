@@ -1,11 +1,21 @@
-%h1
-  = t(:users) + ":"
-%form.flying
-  %input#search_photograph{:type => 'checkbox'}
-    = t(:photograph)
-  %input#search_client{:type => 'checkbox'}
-    = t(:client)
-  %input#search_pattern.search-query.input-medium{:placeholder => t(:find_user)}
+.row-fluid
+  .span4
+    %h3
+      = t(:users) + ":"
+  .span8
+    %form.form-search.flying
+      .input-prepend
+        %span.add-on
+          %label.checkbox
+            %input#search_photograph{:type => 'checkbox'}
+            = t(:contractor)
+        %span.add-on
+          %label.checkbox
+            %input#search_client{:type => 'checkbox'}
+            = t(:client)
+        %span.add-on
+          %i.icon-search
+        %input#search_pattern.search-query.input-medium{:placeholder => t(:find_user), :type => 'text'}
 %div#search_content
   = render "user_search_chunk", :users => @users
 = javascript_include_tag "portfolio_viewer"

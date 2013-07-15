@@ -1,9 +1,12 @@
 
 $(document).ready () ->
+	if $("select#user_role").val() == 'contractor'
+		$("#price-div").show()
 	$("select#user_role").on('change', () ->
 		if $("select#user_role").val() == 'contractor'
-			$("#price-field").show('slow')
+			$("#price-div").show('slow')
 		else
-			$("#price-field").hide('slow')
+			$("#price-div").hide('slow')
+			$("#price-field").val(null)
 		return )
 	return

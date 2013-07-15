@@ -6,8 +6,9 @@ class UsersController < ApplicationController
       if current_user.role? :admin then
         @users = User.all
       else
-        @users = User.where(:role => ['client', 'contractor']).limit(10)
+        @users = User.where(:role => ['client', 'contractor']).limit(40)
       end
+		session['search.offset'] = 35
 		render
       return
     end
@@ -29,26 +30,27 @@ class UsersController < ApplicationController
   end
   
   def search
-    if not params[:again].nil? and params[:again] == 1
-      session['session.offset'] += 10
-    else
-      session['search.offset'] = 0
-    end
-    _offset = session['search.offset']
-    _input = params[:input]
-    _contractor = params[:contractor].to_i
-    _client = params[:client].to_i
-    _role = [ 'contractor', 'client']
-    if _contractor ^ _client == 1
-      if _contractor == 1
-        _role = [ 'contractor' ]
-      else
-        _role = [ 'client' ]
-      end
-    end
-    @users = User.where('name like ? and (' + (['role = ?']*_role.size).join(' or ') + ')', "%#{_input}%", *_role).limit(10).offset(_offset)
-    #@users = User.where {(name =~ "%#{_input}%") & (role.eq_any _role)}
-    render :partial => "user_search_chunk", :locals => { :users => @users }
+	_limit = 5
+	_input = params[:input]
+	_contractor = params[:contractor].to_i
+	_client = params[:client].to_i
+	_role = [ 'contractor', 'client']
+	if _contractor ^ _client == 1
+		if _contractor == 1
+			_role = [ 'contractor' ]
+		else
+			_role = [ 'client' ]
+		end
+	end
+	if not params[:again].nil? and params[:again].to_i == 1
+ 		session['search.offset'] += 5
+	else
+		session['search.offset'] = 0
+		_limit = 40
+	end
+	_offset = session['search.offset']
+	@users = User.where('name like ? and (' + (['role = ?']*_role.size).join(' or ') + ')', "%#{_input}%", *_role).limit(_limit).offset(_offset)
+	render :partial => "user_search_chunk", :locals => { :users => @users }
   end
 
   def destroy
@@ -63,7 +65,8 @@ class UsersController < ApplicationController
 
   def edit
 	 @user = current_user
-	 #render 'users/edit'
+   @social_link = SocialLink.new(params[:social_link])
+	 render 'users/edit'
   end
 
   def update
@@ -75,18 +78,39 @@ class UsersController < ApplicationController
   end
 
   def registration_after_omniauth
-	 @user = session['devise.omniauth_data']
-	 if @user == nil
-		redirect_to 'users/edit'
-	 end
-	 render 'users/after_omniauth', :layout => 'office'
+	  @user = session['devise.omniauth_data']
+    @provider = session['devise.provider']
+    if user_signed_in?
+      if @provider.user_id.nil?
+        @provider.user_id = current_user.id
+        @provider.save!
+        redirect_to :root
+      else
+        if @provider.user_id == current_user.id
+          redirect_to :root
+        else
+          redirect_to '/users/merge'
+        end
+      end
+    else
+	    render '/users/after_omniauth', :layout => 'application'
+    end
   end
 
   def create
 	 @user = User.new params[:user]
+   @provider = session['devise.provider']
 	 @user.save!
+   unless @provider.nil?
+     @provider.user_id = @user.id
+     @provider.save!
+   end
 	 session['devise.omniauth_data'] = nil
 	 sign_in_and_redirect @user
+  end
+
+  def merge
+    render 'users/merge_form'
   end
 
   private

@@ -1,19 +1,29 @@
 = form_for @user, :html => { :method => :put, :multipath => true, :id => 'user_update' } do |f|
-	= f.hidden_field :provider, :value => @user.provider
-	= f.hidden_field :uid, :value => @user.uid
-	= f.hidden_field :password, :value => @user.password
-	%div
-		= f.label :name
-		= f.text_field :name, :autocomplete => "on"
-	%div
-		= f.label :email
-		= f.email_field :email, :autocomplete => "on"
-	%div
-		= f.label :avatar
-		%span
-			%img{:src => @user.avatar.url(:thumb)}
-		= f.file_field :avatar, :accept => 'image/*'
-	%div
-		= f.label :role
-		= f.select :role, :options => [ :client, :contractor ]
-	= f.submit t(:submit_edit)
+	%fieldset
+		%legend
+			=t :edit_page		
+		= f.hidden_field :password, :value => @user.password
+		.control-group
+			= f.label :name, t(:name), :class => 'control-label'
+			.controls
+				= f.text_field :name, :autocomplete => "on"
+		.control-group
+			= f.label :email, t(:email), :class => 'control-label'
+			.controls
+				= f.email_field :email, :autocomplete => "on"
+		.control-group
+			= f.label :avatar, t(:avatar), :class => 'control-label'
+			.controls
+				%img{:src => @user.avatar.url(:thumb)}
+				= f.file_field :avatar, :accept => 'image/*'
+		.control-group
+			= f.label :role, t(:role), :class => 'control-label'
+			.controls
+				= f.select :role, [ [t(:user), :client], [t(:contractor), :contractor] ]
+		.control-group#price-div
+			= f.label :role, t(:price), :class => 'control-label'
+			.controls
+				= f.text_field :price, :id => 'price-field', :placeholder => t(:price)
+		.control-group
+			.controls
+				= f.submit t(:submit_edit), :class => 'btn'

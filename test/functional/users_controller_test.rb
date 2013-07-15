@@ -62,4 +62,81 @@ class UsersControllerTest < ActionController::TestCase
     end
   end
 
+  test 'post create' do
+    provider = Provider.new
+    provider.uid = 4
+    provider.soc_net_name = 'facebook'
+    session['devise.provider'] = provider
+    post :create, {:user => {:name => 'vasya1', :email => 'v1@v.ru', :role => 'client', :password => '12345'}}
+    provider = Provider.where(:soc_net_name => 'facebook', :uid => 4).first
+    user = User.where(:email => 'v1@v.ru').first
+    assert_response :found
+    assert provider.user_id == user.id
+    assert_redirected_to :root
+    session['devise.provider'] = nil
+    post :create, {:user => {:name => 'vasya2', :email => 'v2@v.ru', :role => 'client', :password => '12345'}}
+    assert_response :found
+    assert_redirected_to :root
+  end
+
+  test 'put registration after omniauth user is not signed in' do
+    user = User.new
+    provider = Provider.new
+    session['devise.provider'] = provider
+    session['devise.omniauth_data'] = user
+    put :registration_after_omniauth
+    assert_template 'users/after_omniauth'
+  end
+
+  test 'put registration after omniauth user is signed in provider without user_id' do
+    user = User.find(2)
+    sign_in user
+    provider = Provider.new
+    provider.soc_net_name = 'twitter'
+    provider.uid = 101
+    user1 = User.new
+    session['devise.provider'] = provider
+    session['devise.omniauth_data'] = user1
+    put :registration_after_omniauth
+    providerTest = Provider.where(:uid => 101).first
+    assert_not_nil providerTest
+    assert_redirected_to :root
+  end
+
+  test 'put registration after omniauth user is signed in provider has user_id equal to current user id' do
+    user = User.find(2)
+    sign_in user
+    provider = Provider.new
+    provider.soc_net_name = 'twitter'
+    provider.uid = 101
+    provider.user_id = user.id
+    provider.save!
+    session['devise.provider'] = provider
+    session['devise.omniauth_data'] = user
+    put :registration_after_omniauth
+    providerTest = Provider.where(:uid => 101).first
+    assert_not_nil providerTest
+    assert_redirected_to :root
+  end
+
+  test 'put registration after omniauth user is signed in provider has user_id not equal to current user id' do
+    user = User.find(2)
+    sign_in user
+    user1 = User.find(1)
+    provider = Provider.new
+    provider.soc_net_name = 'twitter'
+    provider.uid = 101
+    provider.user_id = user1.id
+    provider.save!
+    session['devise.provider'] = provider
+    session['devise.omniauth_data'] = user1
+    put :registration_after_omniauth
+    providerTest = Provider.where(:uid => 101)
+    assert_not_nil providerTest
+    assert_redirected_to '/users/merge'
+  end
+
+
+
+
 end

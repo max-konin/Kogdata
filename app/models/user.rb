@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
 	# Setup accessible (or protected) attributes for your model
 	attr_accessible :email, :password, :remember_me, :name, :provider, :uid, :role, :images, :avatar, :price
-  validates :price, :presence => true,:numericality => {:only_integer => true}, :if => :is_contractor?
+  validates :price, :presence => true, :numericality => {:only_integer => true}, :if => :is_contractor?
   def is_contractor?
     role == :contractor
   end
@@ -27,6 +27,7 @@ class User < ActiveRecord::Base
 	has_many :event
 	has_and_belongs_to_many :conversations
 	has_many :messages
+  has_many :provider
   has_many :social_links, dependent: :destroy
 
 	def get_image_by_name(name)

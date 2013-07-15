@@ -1,35 +1,33 @@
-#wrap
-  .content
-    %div
-      #layout
-        .left-column
-          .avatar
-            = image_tag @user.avatar.url(:small)
-          .btn-container
-            - if @user.id != current_user.id
-              %button{:type=> 'button', :class => 'btn btn-primary', :id=>'message-btn', 'data-target'=>'#messageModal',
-              'data-toggle' => 'modal'}
-                = t :send_message
-        .right-column
-          %h3
-            = @user.name
-          - if @user.role == 'contractor'
-            %p3
-              = t(:price)+' '+@user.price.to_s+t(:rur)+' '+t(:per_hour)
-            %h3
-              = t :portfolio
-            .container.demo-4
-              .main
-                .gallery
-                  %ul{:class=>'elastislide-list', :id=>'carousel'}
-                    - @user.images.each do |image|
-                      %li{'data-preview'=> image.src.url(:original)}
-                        %a{:href=> '#'}
-                          = image_tag image.src.url(:small)
-                  .image-preview
-                    %img{:id=>'preview'}
-          - if @user.role == 'client'
-            = render :template => 'calendar/index'
+.row-fluid
+  .span3
+    .avatar
+      = image_tag @user.avatar.url(:small)
+    .btn-container
+      - if @user.id != current_user.id
+        %button{:type=> 'button', :class => 'btn btn-primary', :id=>'message-btn', 'data-target'=>'#messageModal',
+        'data-toggle' => 'modal'}
+          = t :send_message
+  .span9
+    %h3
+      = @user.name
+    - if @user.role == 'contractor'
+      %p3
+        = t(:price) + ': ' + @user.price.to_s + ' '  + t(:rur)+' '+t(:per_hour)
+      %h3
+        = t :portfolio
+      .container.demo-4
+        .main
+          .gallery
+            %ul{:class=>'elastislide-list', :id=>'carousel'}
+              - @user.images.each do |image|
+                %li{'data-preview'=> image.src.url(:original)}
+                  %a{:href=> '#'}
+                    = image_tag image.src.url(:small)
+            .image-preview
+              %img{:id=>'preview'}
+- if @user.role == 'client'
+  %br
+  = render :template => 'calendar/index'
 
 #messageModal.modal.hide.fade
   = render :partial => "messages/new_message", :locals => {:contact_id => @user.id}
