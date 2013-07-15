@@ -89,6 +89,7 @@ class UsersController < ApplicationController
         if @provider.user_id == current_user.id
           redirect_to :root
         else
+
           redirect_to '/users/merge'
         end
       end
@@ -110,7 +111,28 @@ class UsersController < ApplicationController
   end
 
   def merge
+    #@provider = session['devise.provider']
+    @provider = Provider.new
+    @provider.user_id = 1
+    @provider.uid = 100001
+    @provider.soc_net_name = 'twitter'
+    @provider.save!
+    @userNew = current_user
+    @userOld = User.find(@provider.user_id)
+    if @userOld.role != @userNew.role
+      if @userNew.role == :contractor
+        @images = @userNew.images
+      end
+      if @userOld.role == :contractor
+        @images = @userOld.images
+      end
+    end
     render 'users/merge_form'
+  end
+
+  def merge_on_submit
+
+    redirect_to :back
   end
 
   private

@@ -8,3 +8,4 @@ class CreateTableProviders < ActiveRecord::Migration
     add_index :providers, :user_id
   end
 end
+1
