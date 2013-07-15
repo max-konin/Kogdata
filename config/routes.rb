@@ -7,23 +7,23 @@ Kogdata::Application.routes.draw do
   post 'conversations/create_message'
   get  'conversations/delete_message/:m_id' => 'conversations#delete_message'
 
-  post "image/bind"
-  delete "image/delete"
+  post   'image/bind'
+  delete 'image/delete'
   
   get 'users/edit'
   put 'users/:id' => 'users#update'
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
+  devise_for :users, :controllers => { :omniauth_callbacks => 'omniauth_callbacks' }
 
-  get "home/index"
-  get "calendar/index"
-  get "calendar/new_form"
+  get 'home/index'
+  get 'calendar/index'
+  get 'calendar/new_form'
   get 'calendar/show_form/:event_id' =>  'calendar#show_form'
   get 'office/show'
   get 'office/all'
   get 'office/portfolio' => 'office#portfolio'
 
-  match 'office/'=> "office#show"
+  match 'office/'=> 'office#show'
   resources :users do
     resources :events do
       post 'respond'
