@@ -137,6 +137,56 @@ class UsersControllerTest < ActionController::TestCase
   end
 
 
+  test 'put merge on submit new name old email new role cilent' do
+    user = User.find(2)
+    sign_in user
+    user1 = User.find(1)
+    provider = Provider.new
+    provider.soc_net_name = 'twitter'
+    provider.uid = 101
+    provider.user_id = user1.id
+    provider.save!
+    session['devise.provider'] = provider
+    session['devise.omniauth_data'] = user1
+    put :merge_on_submit, {"radio-name"=>"new-name", "radio-email"=>"old-email", "radio-role"=>"client-role"}
+    assert_nil User.where(:id => 1).first
+    userTest = User.find(2)
+    assert_equal userTest.name, user.name
+    assert_equal userTest.email, user1.email
+    assert_nil userTest.images.first
+    assert_equal userTest.role, 'client'
+    events = user.event
+    events1 = user1.event
+    eventsTest = userTest.event
+    assert_equal events.count+events1.count, eventsTest.count
+    eventsTest.each do |event|
+      assert events.include?(event) || events1.include?(event)
+    end
+  end
 
-
+  test 'put merge on submit other name other email new role contractor'  do
+    user = User.find(2)
+    sign_in user
+    user1 = User.find(3)
+    provider = Provider.new
+    provider.soc_net_name = 'twitter'
+    provider.uid = 101
+    provider.user_id = user1.id
+    provider.save!
+    session['devise.provider'] = provider
+    session['devise.omniauth_data'] = user1
+    put :merge_on_submit, {"radio-name"=>"other-name", "text-name" => "bender", "radio-email"=>"other-email", "text-email" => "bender@rodriges.com", "radio-role"=>"contractor-role"}
+    assert_nil User.where(:id => 3).first
+    userTest = User.find(2)
+    assert_equal userTest.name, 'bender'
+    assert_equal userTest.email, 'bender@rodriges.com'
+    assert_equal userTest.role, 'contractor'
+    images = user.images
+    images1 = user1.images
+    imagesTest = userTest.images
+    assert_equal images.count+images1.count, imagesTest.count
+    imagesTest.each do |image|
+      assert images.include?(image)||images1.include?(image)
+    end
+  end
 end

@@ -41,12 +41,20 @@
           .main
             .gallery
               %ul{:class=>'elastislide-list', :id=>'carousel'}
-                - @user.images.each do |image|
+                - @images.each do |image|
                   %li{'data-preview'=> image.src.url(:original)}
                     %a{:href=> '#'}
                       = image_tag image.src.url(:small)
-                  .image-preview
-                    %img{:id=>'preview'}
+              .image-preview
+                %img{:id=>'preview'}
+      %h4
+        = t(:your_role)
+      %label.radio-role
+        %input{:type => "radio",  :name => "radio-role", :id => "client-role", :value => "client-role", :checked => true}
+          %p2= t(:client)
+      %label.radio-name
+        %input{:type => "radio",  :name => "radio-role", :id =>"contractor-role", :value => "contractor-role"}
+          %p2= t(:contractor)
 
   %br
   = submit_tag("merge")
