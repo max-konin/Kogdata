@@ -177,6 +177,42 @@ class UsersController < ApplicationController
       event.user_id = @user.id
       event.save!
     end
+
+    @userOld.messages.each do |message|
+      message.user_id = @user.id
+      message.save!
+    end
+
+    @userOld.conversations.each do |conversation|
+      hash_string = conversation.hash_string
+      arr = hash_string.split
+      arr.delete(@userOld.id.to_s)
+      unless arr.include? @user.id.to_s
+        arr.push @user.id.to_s
+        arr.sort!
+      end
+      new_hash_string = ""
+      arr.each do |id|
+        new_hash_string += id+' '
+      end
+      conversation.hash_string = new_hash_string[0..-2]
+
+      if conversation.valid?
+        userConv = conversation.users
+        userConv.delete(@userOld)
+        unless userConv.include?(@user)
+          userConv.push(@user)
+        end
+        conversation.save!
+      else
+        convExists = Conversation.where(:hash_string => conversation.hash_string).first
+        conversation.messages.each do |message|
+           message.conversation_id = convExists.id
+        end
+        conversation.destroy
+      end
+    end
+
     User.find(@userOld.id).destroy
     @user.save!
     redirect_to :root
