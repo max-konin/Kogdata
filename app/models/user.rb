@@ -72,7 +72,6 @@ class User < ActiveRecord::Base
 	end
 
 	def download_avatar
-		debugger
 		self.avatar = get_image
 		self.avatar_url = ""
 	rescue
@@ -80,7 +79,6 @@ class User < ActiveRecord::Base
 	end
 
 	def get_image
-		debugger
 		img = open(URI.parse(self.avatar_url))
 		img.base_uri.path.split("/").last.blank? ? nil : img
 	end
