@@ -162,6 +162,7 @@ class UsersControllerTest < ActionController::TestCase
     eventsTest.each do |event|
       assert events.include?(event) || events1.include?(event)
     end
+
   end
 
   test 'put merge on submit other name other email new role contractor'  do
