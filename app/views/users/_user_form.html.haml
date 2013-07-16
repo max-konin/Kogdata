@@ -6,23 +6,28 @@
       = f.label :name, t(:name), :class => 'control-label'
       .controls
         = f.text_field :name, :autocomplete => "on"
+        = list_error_messagses f, :name
     .control-group
       = f.label :email, t(:email), :class => 'control-label'
       .controls
         = f.email_field :email, :autocomplete => "on"
+        = list_error_messagses f, :email
     .control-group
       = f.label :avatar, t(:avatar), :class => 'control-label'
       .controls
         %img{:src => @user.avatar.url(:thumb)}
         = f.file_field :avatar, :accept => 'image/*'
+        = list_error_messagses f, :avatar
     .control-group
       = f.label :role, t(:role), :class => 'control-label'
       .controls
         = f.select :role, [ [t(:user), :client], [t(:contractor), :contractor] ]
+        = list_error_messagses f, :role
     .control-group#price-div
       = f.label :role, t(:price), :class => 'control-label'
       .controls
         = f.text_field :price, :id => 'price-field', :placeholder => t(:price)
+        = list_error_messagses f, :price
     .control-group
       .controls
         = f.submit t(:submit_edit), :class => 'btn'

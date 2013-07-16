@@ -26,7 +26,7 @@ window.delete_social_link = (parent, id) ->
 			return
 	}
 
-show_errors = (list, elem) ->
+window.show_errors = (list, elem) ->
 	if list == undefined
 		return
 	if list.length > 0
