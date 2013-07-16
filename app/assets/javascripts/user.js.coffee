@@ -6,11 +6,11 @@ $(document).ready () ->
 	$("#user_update").find("input[type='file']").change () ->
 		thus = this
 		if typeof FileReader == undefined
-			$(thus).siblings("span").find("img").attr("src", "http://placekitten.com/50/50")
+			$(thus).siblings("img").attr("src", "http://placekitten.com/50/50")
 		else
 			reader = new FileReader()
 			reader.onload = (e) ->
-				$(thus).siblings("span").find("img")
+				$(thus).siblings("img")
 					.attr("src", e.target.result)
 					.width(50)
 					.height(50)
