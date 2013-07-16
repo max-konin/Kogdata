@@ -77,25 +77,25 @@ class UsersController < ApplicationController
 		redirect_to '/users/' + current_user.id.to_s
 	end
 
-	def registration_after_omniauth
-		@user = session['devise.omniauth_data']
-		@provider = session['devise.provider']
-		if user_signed_in?
-			if @provider.user_id.nil?
-				@provider.user_id = current_user.id
-				@provider.save!
-				redirect_to :root
-			else
-				if @provider.user_id == current_user.id
-					redirect_to :root
-				else
-					redirect_to '/users/merge'
-				end
-			end
-		else
-			render '/users/after_omniauth', :layout => 'application'
-		end
-	end
+  def registration_after_omniauth
+	  @user = session['devise.omniauth_data']
+    @provider = session['devise.provider']
+    if user_signed_in?
+      if @provider.user_id.nil?
+        @provider.user_id = current_user.id
+        @provider.save!
+        redirect_to :root
+      else
+        if @provider.user_id == current_user.id
+          redirect_to :root
+        else
+          redirect_to '/users/merge'
+        end
+      end
+    else
+	    render '/users/after_omniauth', :layout => 'application'
+    end
+  end
 
 	def create
 		@user = User.new params[:user]
@@ -112,18 +112,84 @@ class UsersController < ApplicationController
 		sign_in_and_redirect @user
 	end
 
-	def merge
-		render 'users/merge_form'
-	end
+  def merge
+    @provider = session['devise.provider']
+    #@provider = Provider.new
+    #@provider.user_id = 1
+    #@provider.uid = 100001
+    #@provider.soc_net_name = 'twitter'
+    #@provider.save!
+    @userNew = current_user
+    @userOld = User.find(@provider.user_id)
+    if @userOld.role != @userNew.role
+      if @userNew.role == 'contractor'
+        @images = @userNew.images
+      end
+      if @userOld.role == 'contractor'
+        @images = @userOld.images
+      end
+    end
+    render 'users/merge_form'
+  end
 
-	private
-	def can_view_users_with_role? role
-		if current_user.role? :admin then
-			return true
-		end
-		if ['client', 'contractor'].include? role then
-			return true
-		end
-		return false
-	end
+  def merge_on_submit
+    @provider = session['devise.provider']
+    @userOld = User.find(@provider.user_id)
+    @user = current_user
+
+    case params['radio-name']
+      when "old-name"
+        @user.name = @userOld.name
+      when "other-name"
+        if !params['text-name'].blank?
+          @user.name = params['text-name']
+        else
+          redirect_to :back
+        end
+    end
+
+    case params['radio-email']
+      when "old-email"
+        @user.email = @userOld.email
+      when "other-email"
+       if !params['text-email'].blank?
+         @user.email = params['text-email']
+       else
+         redirect_to :back
+       end
+    end
+
+    if !params['radio-role'].blank?
+      case params['radio-role']
+        when "client-role"
+          @user.role = "client"
+          @user.images.destroy_all
+        when "contractor-role"
+          @user.role = "contractor"
+          @userOld.images.each do |image|
+            image.user_id = @user.id
+            image.save!
+          end
+      end
+    end
+
+    @userOld.event.each do |event|
+      event.user_id = @user.id
+      event.save!
+    end
+    User.find(@userOld.id).destroy
+    @user.save!
+    redirect_to :root
+  end
+
+  private
+  def can_view_users_with_role? role
+    if current_user.role? :admin then
+      return true
+    end
+    if ['client', 'contractor'].include? role then
+      return true
+    end
+    return false
+  end
 end

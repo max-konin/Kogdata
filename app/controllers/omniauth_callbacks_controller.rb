@@ -22,7 +22,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 	def facebook
 		debugger
 		oauth = request.env['omniauth.auth']
-		@provider = Provider.where(:provider => oauth.provider, :uid => oauth.uid).first
+		@provider = Provider.where(:soc_net_name => oauth.provider, :uid => oauth.uid).first
 		if @provider
 			@user = User.find(@provider.user_id)
 		else

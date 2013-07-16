@@ -74,6 +74,7 @@ class User < ActiveRecord::Base
 	def download_avatar
 		debugger
 		self.avatar = get_image
+		self.avatar_url = ""
 	rescue
 		puts "Error while download."
 	end

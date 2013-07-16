@@ -13,6 +13,8 @@ Kogdata::Application.routes.draw do
   post 'users/search' => 'users#search'
   post 'users/search/:input' => 'users#search'
   get 'users/edit'
+  get 'users/merge'
+  post 'users/merge_on_submit'
   get 'users/get_info' => 'users#registration_after_omniauth'
   put 'users' => 'users#create'
   put 'users/:id' => 'users#update'
