@@ -164,6 +164,7 @@ class UsersControllerTest < ActionController::TestCase
     assert_equal userTest.email, user1.email
     assert_nil userTest.images.first
     assert_equal userTest.role, 'client'
+    assert_nil userTest.price
     assert_equal events.count+events1.count, eventsTest.count
     eventsTest.each do |event|
       assert events.include?(event) || events1.include?(event)
@@ -201,4 +202,22 @@ class UsersControllerTest < ActionController::TestCase
       assert images.include?(image)||images1.include?(image)
     end
   end
+
+  test 'put merge on submit price checking' do
+    user = User.find(1)
+    sign_in user
+    user1 = User.find(2)
+    provider = Provider.new
+    provider.soc_net_name = 'twitter'
+    provider.uid = 101
+    provider.user_id = user1.id
+    provider.save!
+    session['devise.provider'] = provider
+    session['devise.omniauth_data'] = user1
+    put :merge_on_submit, {"radio-name"=>"new-name", "radio-email"=>"old-email", "radio-role"=>"contractor-role"}
+    userTest = User.find(1)
+    assert_equal userTest.role, 'contractor'
+    assert_equal userTest.price, user1.price
+  end
+
 end

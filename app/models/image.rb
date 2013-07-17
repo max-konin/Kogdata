@@ -5,7 +5,7 @@ class Image < ActiveRecord::Base
 	attr_accessible :name, :src
 	has_attached_file :src,
 				:styles => { 
-					:thumb => ["50x50#", :png],
+					:thumb => ["35x35", :png],
 					:small => ["90x90#", :png],
 					:original => ["1600x1200#", :png] 
 				},
@@ -18,5 +18,6 @@ class Image < ActiveRecord::Base
 			name = SecureRandom.uuid
 		end while not Image.where(:src_file_name => name).empty?
 		self.src.instance_write :file_name, "_#{name}"
+    self.name = name
 	end
 end

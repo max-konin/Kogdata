@@ -114,11 +114,6 @@ class UsersController < ApplicationController
 
   def merge
     @provider = session['devise.provider']
-    #@provider = Provider.new
-    #@provider.user_id = 1
-    #@provider.uid = 100001
-    #@provider.soc_net_name = 'twitter'
-    #@provider.save!
     @userNew = current_user
     @userOld = User.find(@provider.user_id)
     if @userOld.role != @userNew.role
@@ -164,7 +159,11 @@ class UsersController < ApplicationController
         when "client-role"
           @user.role = "client"
           @user.images.destroy_all
+          @user.price = nil
         when "contractor-role"
+          if @user.role == 'client'
+            @user.price = @userOld.price
+          end
           @user.role = "contractor"
           @userOld.images.each do |image|
             image.user_id = @user.id
