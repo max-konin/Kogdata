@@ -18,3 +18,5 @@ $(document).ready () ->
 			reader.readAsDataURL(thus.files[0])
 		return
 	return
+
+	validate_form("#user_update")

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!, :except => [ :registration_after_omniauth, :create ]
+  before_filter :authenticate_user!, :except => [ :registration_after_omniauth, :create, :validate ]
 
   def index
     if params[:role].nil? then
@@ -111,6 +111,25 @@ class UsersController < ApplicationController
 
   def merge
     render 'users/merge_form'
+  end
+
+  def validate
+    @user = User.new(params[:user])
+    if @user.valid?
+      respond_to do |format|
+        format.json {render :json => {:success => 'yes'}}
+      end
+    else
+      if params[:field] == nil
+        respond_to do |format|
+          format.json {render :json => {:errors => @user.errors.messages}}
+        end
+      else
+        respond_to do |format|
+          format.json {render :json => {:errors => {params[:field] => @user.errors[params[:field]]}}}
+        end
+      end
+    end
   end
 
   private

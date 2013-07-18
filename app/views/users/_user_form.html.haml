@@ -26,7 +26,7 @@
     .control-group#price-div
       = f.label :role, t(:price), :class => 'control-label'
       .controls
-        = f.text_field :price, :id => 'price-field', :placeholder => t(:price)
+        = f.number_field :price, :min => '0', :placeholder => t(:price)
         = list_error_messagses f, :price
     .control-group
       .controls
