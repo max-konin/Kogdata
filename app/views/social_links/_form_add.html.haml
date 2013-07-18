@@ -6,21 +6,14 @@
       = f.label :description, t(:description), :class => 'control-label'
       .controls
         = f.text_field :description, :placeholder => t(:example) + ': ' + t(:blog)
-        - if @social_link.errors.messages[:description].count > 0
-          %ul
-            - @social_link.errors.messages[:description].each do |errmsg|
-              %li
-                = errmsg
+        = list_error_messagses f, :description
+
     .control-group
       = f.label :url, t(:url), :class => 'control-label'
       .controls
         = f.url_field :url, :required => 'true', :placeholder => t(:example) + ': ' + 'http://myblog.blogspot.com',
           :class => 'input-xxlarge'
-        - if @social_link.errors.messages[:url].count > 0
-          %ul
-            - @social_link.errors.messages[:url].each do |errmsg|
-              %li
-                = errmsg
+        = list_error_messagses f, :url
     .control-group
       .controls
         = f.submit t(:submit_add), :class => 'btn'

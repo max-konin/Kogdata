@@ -7,6 +7,21 @@
 @import "bootstrap";
 @import "bootstrap-responsive";
 
+/* ---  Fix to working spin  --- */
+@-moz-keyframes spin {
+  from { -moz-transform: rotate(0deg); }
+  to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+  from { -webkit-transform: rotate(0deg); }
+  to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+  from {transform:rotate(0deg);}
+  to {transform:rotate(360deg);}
+}
+/* ---  END fix ---  */
+
 body {
   margin-top: 0px;
   font-size: 14px;
@@ -238,9 +253,11 @@ div.container{
 .navbar-fixed-top .container{
   width: auto;
 }
-
-
-
+.navbar_padding_elem
+{
+  padding-top: 41px;
+  padding-bottom: 15px;
+}
 input.span2{
   height: 30px;
 }
@@ -563,4 +580,30 @@ div.mainbox-add{
 #text-email
 {
   display:none
+}
+
+/* --- From http://fontawesome.veliovgroup.com/ --- */
+.icon-spin {
+  display: inline-block;
+  -moz-animation: spin 1s infinite linear;
+  -o-animation: spin 1s infinite linear;
+  -webkit-animation: spin 1s infinite linear;
+  animation: spin 1s infinite linear;
+}
+
+input[type='checkbox'] {
+  width: 16px;
+}
+input[type='checkbox']:before {
+  position: absolute;
+  background-image: url('/assets/checkbox.png');
+  content: '';
+  background-position: 0 0px;
+  width: 16px;
+  height: 16px;
+  margin-top: -2px;
+}
+
+input[type='checkbox']:checked:before {
+  background-position: 0 -16px;
 }
