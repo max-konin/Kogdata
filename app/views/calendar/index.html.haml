@@ -1,5 +1,11 @@
-.calendar-container
-  #calendar
+.container.main-container
+  .row
+    .span3
+      - if can? :create, :all
+        %p завтра здесь будет форма...
+    .span9
+      .calendar-container
+        #calendar
 %input{:id => 'title-for-show',:class => 'hidden'}
 %textarea{:id => 'description-for-show',:class => 'hidden'}
 %input{:id => 'date-input', :type => 'text'}

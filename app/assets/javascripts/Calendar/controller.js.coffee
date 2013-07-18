@@ -130,8 +130,9 @@ class window.calendarHomeController
 			prev: 'circle-triangle-w'
 			next: 'circle-triangle-e'
 		}
+		borderSpace: true
 		firstDay: 1
-		height: 600
+		height: 550
 		monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь']
 		monthNamesShort: ['Янв.','Фев.','Март','Апр.','Май','Июнь','Июль','Авг.','Сент.','Окт.','Ноя.','Дек.']
 		dayNames: ["Воскресенье","Понедельник","Вторник","Среда","Четверг","Пятница","Суббота"]

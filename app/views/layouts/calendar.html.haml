@@ -1,3 +1,4 @@
+!!!
 %html
   %head
     = stylesheet_link_tag 'home'
@@ -13,17 +14,4 @@
     %title Kogdata
 %body
   = render 'application/header'
-  %p.notice
-    = notice
-  %p.alert
-    = alert
-  -if user_signed_in? then
-    .container
-      .row
-        .span3
-          =render 'office/sidebar_box'
-        .span9
-          = yield
-  -else
-    .container
-      = yield
+  = yield

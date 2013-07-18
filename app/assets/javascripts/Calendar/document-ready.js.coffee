@@ -18,4 +18,8 @@ $(document).ready () ->
 		Calendar.add_event_on_submit()
 		return)
 	Calendar.update_calendar()
+	$('.fc-button-prev').html('<label> < </label>')
+	$('.fc-button-next').html('<label> > </label>')
+
+	$('.fc-widget-header').html('<div class = "fc-header-inside"> '+ $('.fc-widget-header').html().toString()+'</div>')
 	return
