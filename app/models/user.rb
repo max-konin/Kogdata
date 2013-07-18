@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
 	has_many :messages
 	has_many :provider, :dependent => :destroy
 	has_many :social_links, :dependent => :destroy
+	has_many :busyness, :dependent => :destroy
 
 	after_initialize :set_default_role
 	after_save :set_default_name

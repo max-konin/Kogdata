@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 			if current_user.role? :admin then
 				@users = User.all
 			else
-				@users = User.where(:role => ['client', 'contractor']).limit(40)
+				@users = User.where(:role => ['client', 'contractor']).limit(40).order :name
 			end
 			session['search.offset'] = 35
 			render
@@ -29,6 +29,11 @@ class UsersController < ApplicationController
 		end
 	end
 	
+	def show_modal
+		params
+		render :partial => "messages/new_message", :locals => {:contact_id => params[:user_id]}
+	end
+
 	def search
 		_limit = 5
 		_input = params[:input]
@@ -49,7 +54,7 @@ class UsersController < ApplicationController
 			_limit = 40
 		end
 		_offset = session['search.offset']
-		@users = User.where('name like ? and (' + (['role = ?']*_role.size).join(' or ') + ')', "%#{_input}%", *_role).limit(_limit).offset(_offset)
+		@users = User.where('name like ? and (' + (['role = ?']*_role.size).join(' or ') + ')', "%#{_input}%", *_role).limit(_limit).offset(_offset).order :name
 		render :partial => "user_search_chunk", :locals => { :users => @users }
 	end
 

@@ -6,6 +6,7 @@
 //= require fullcalendar
 @import "bootstrap";
 @import "bootstrap-responsive";
+@import "font-awesome";
 
 body {
   margin-top: 0px;
@@ -389,4 +390,10 @@ div.mainbox-add{
 #text-email
 {
   display:none
+}
+
+a {
+	b {
+		color: #003377;
+	}
 }
