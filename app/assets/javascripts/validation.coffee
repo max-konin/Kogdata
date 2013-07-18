@@ -2,7 +2,7 @@
 	if form_id == null
 		console.log "Error: in send_data form_id is null"
 		return false
-	path = $(form_id).attr('action') + '/validate'
+	path = $(form_id).attr('action') #+ '/validate'
 	obj = new Object
 	collection = $(form_id).find(' input[type!=submit][type!=image][type!=hidden]')
 	$(collection).each(
@@ -18,13 +18,18 @@
 			obj[obj_name][obj_field] = obj_val
 			return
 	)
+	method = $(form_id).find('input[name=_method]').val()
+	method = if method then method else 'post'
 	$.ajax {
 		type: 'POST'
 		url: path
 		dataType: 'json'
 		utf8: "&#x2713;"
+		method: method
 		data: obj
 		success: (response) ->
+			if typeof response.redirect_to != 'undefined'
+				document.location.href = response.redirect_to
 			result = JSON.parse response.div_contents.body
 			errors = undefined
 			$(form_id).find('ul[class = errors_list]').remove()

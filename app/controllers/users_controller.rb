@@ -8,8 +8,8 @@ class UsersController < ApplicationController
       else
         @users = User.where(:role => ['client', 'contractor']).limit(40)
       end
-		session['search.offset'] = 35
-		render
+      session['search.offset'] = 35
+      render
       return
     end
 
@@ -100,13 +100,19 @@ class UsersController < ApplicationController
   def create
 	 @user = User.new params[:user]
    @provider = session['devise.provider']
-	 @user.save!
-   unless @provider.nil?
-     @provider.user_id = @user.id
-     @provider.save!
+	 if @user.save
+     unless @provider.nil?
+       @provider.user_id = @user.id
+       @provider.save!
+     end
+     session['devise.omniauth_data'] = nil
+     sign_in_and_redirect @user
+   else
+     respond_to do |format|
+       format.html {render :back}
+       format.json {render :json => {:errors => @user.errors.messages}}
+     end
    end
-	 session['devise.omniauth_data'] = nil
-	 sign_in_and_redirect @user
   end
 
   def merge

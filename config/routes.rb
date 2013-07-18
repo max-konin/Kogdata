@@ -14,11 +14,11 @@ Kogdata::Application.routes.draw do
   post 'users/search/:input' => 'users#search'
   post '/users/validate' => 'users#validate'
   post '/users/validate/:field' => 'users#validate'
+  post '/users/:id/validate/:field' => 'users#validate'
   get 'users/edit'
   get 'users/get_info' => 'users#registration_after_omniauth'
   put 'users' => 'users#create'
   put 'users/:id' => 'users#update'
-  #put 'users/:id/social_links' => 'social_links#create'
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
   get 'welcome/index'
