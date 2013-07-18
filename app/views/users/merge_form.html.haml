@@ -1,0 +1,63 @@
+%h2
+  = t(:user_merge)
+= form_tag ('/users/merge_on_submit') do
+  %h3
+    = t :choose_name
+  %label.radio-name
+    %input{:type => "radio",  :name => "radio-name", :id => "new-name", :value => "new-name", :checked => true}
+      %p2= @userNew.name
+  %label.radio-name
+    %input{:type => "radio",  :name => "radio-name", :id =>"old-name", :value => "old-name"}
+      %p2= @userOld.name
+  %label.radio-name
+    %input{:type => "radio",  :name => "radio-name", :id =>"other-name", :value => "other-name"}
+      %p2 Other
+  %input{:type => "text", :name => "text-name", :id => "text-name"}
+  %h3
+    = t :choose_email
+  %label.radio-email
+    %input{:type => "radio",  :name => "radio-email", :id => "new-email", :value => "new-email", :checked => true}
+      %p2= @userNew.email
+  %label.radio-email
+    %input{:type => "radio",  :name => "radio-email", :id =>"old-email", :value => "old-email"}
+      %p2= @userOld.email
+  %label.radio-email
+    %input{:type => "radio",  :name => "radio-email", :id =>"other-email", :value => "other-email"}
+      %p2 Other
+  %input{:type => "email", :name => "text-email", :id => "text-email"}
+  - unless @userNew.role == @userOld.role
+    %h3
+      = t :choose_role
+    - if @userNew.role != @userOld.role
+      %p2
+        =t(:client_vs_contractor)
+      - if @images.empty?
+        %p2
+          = t(:you_dont_have_portfolio)
+      - else
+        %h4
+          = t(:your_portfolio)
+        .container.demo-4
+          .main
+            .gallery
+              %ul{:class=>'elastislide-list', :id=>'carousel'}
+                - @images.each do |image|
+                  %li{'data-preview'=> image.src.url(:original)}
+                    %a{:href=> '#'}
+                      = image_tag image.src.url(:small)
+              .image-preview
+                %img{:id=>'preview'}
+      %h4
+        = t(:your_role)
+      %label.radio-role
+        %input{:type => "radio",  :name => "radio-role", :id => "client-role", :value => "client-role", :checked => true}
+          %p2= t(:client)
+      %label.radio-name
+        %input{:type => "radio",  :name => "radio-role", :id =>"contractor-role", :value => "contractor-role"}
+          %p2= t(:contractor)
+
+  %br
+  = submit_tag("merge")
+  = javascript_include_tag 'merge'
+  - if !@images.nil?
+    = javascript_include_tag 'portfolio_viewer'

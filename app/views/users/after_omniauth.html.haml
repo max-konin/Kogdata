@@ -3,6 +3,7 @@
 		%legend
 			=t :edit_page		
 		= f.hidden_field :password, :value => @user.password
+		= f.hidden_field :avatar_url, :value => @user.avatar_url
 		.control-group
 			= f.label :name, t(:name), :class => 'control-label'
 			.controls
@@ -14,7 +15,7 @@
 		.control-group
 			= f.label :avatar, t(:avatar), :class => 'control-label'
 			.controls
-				%img{:src => @user.avatar.url(:thumb)}
+				%img{:src => !@user.avatar_url.blank? ? @user.avatar_url : @user.avatar.url(:thumb), :width => '50px', :height => '50px'}
 				= f.file_field :avatar, :accept => 'image/*'
 		.control-group
 			= f.label :role, t(:role), :class => 'control-label'
@@ -27,3 +28,4 @@
 		.control-group
 			.controls
 				= f.submit t(:submit_edit), :class => 'btn'
+= javascript_include_tag 'user'

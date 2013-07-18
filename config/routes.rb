@@ -16,6 +16,8 @@ Kogdata::Application.routes.draw do
   post '/users/validate/:field' => 'users#validate'
   post '/users/:id/validate/:field' => 'users#validate'
   get 'users/edit'
+  get 'users/merge'
+  post 'users/merge_on_submit'
   get 'users/get_info' => 'users#registration_after_omniauth'
   put 'users' => 'users#create'
   put 'users/:id' => 'users#update'

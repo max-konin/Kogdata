@@ -12,4 +12,15 @@ class ConversationTest < ActiveSupport::TestCase
     conv = Conversation.find_or_create_by_users [1, 3]
     assert conv.id != 1
   end
+
+  test 'validate uniqueness of hash_string' do
+    conv1 = Conversation.new
+    conv1.hash_string = '5 9 '
+    assert conv1.save!
+    conv2 = Conversation.new
+    conv2.hash_string = '5 9 '
+    assert !conv2.valid?
+    assert !conv2.save!
+  end
+
 end

@@ -137,6 +137,87 @@ class UsersControllerTest < ActionController::TestCase
   end
 
 
+  test 'put merge on submit new name old email new role cilent' do
+    user = User.find(2)
+    sign_in user
+    user1 = User.find(1)
+    provider = Provider.new
+    provider.soc_net_name = 'twitter'
+    provider.uid = 101
+    provider.user_id = user1.id
+    provider.save!
+    session['devise.provider'] = provider
+    session['devise.omniauth_data'] = user1
+    events = user.event
+    events1 = user1.event
+    messages = user.messages
+    messages1 = user1.messages
+    conversations = user.conversations
+    conversations1 = user1.conversations
+    put :merge_on_submit, {"radio-name"=>"new-name", "radio-email"=>"old-email", "radio-role"=>"client-role"}
+    assert_nil User.where(:id => 1).first
+    userTest = User.find(2)
+    eventsTest = userTest.event
+    messagesTest = userTest.messages
+    conversationsTest = userTest.conversations
+    assert_equal userTest.name, user.name
+    assert_equal userTest.email, user1.email
+    assert_nil userTest.images.first
+    assert_equal userTest.role, 'client'
+    assert_nil userTest.price
+    assert_equal events.count+events1.count, eventsTest.count
+    eventsTest.each do |event|
+      assert events.include?(event) || events1.include?(event)
+    end
 
+    assert_equal messages.count+messages1.count, messagesTest.count
+    messagesTest.each do |message|
+      assert messages.include?(message) || messages1.include?(message)
+    end
+
+  end
+
+  test 'put merge on submit other name other email new role contractor'  do
+    user = User.find(2)
+    sign_in user
+    user1 = User.find(3)
+    provider = Provider.new
+    provider.soc_net_name = 'twitter'
+    provider.uid = 101
+    provider.user_id = user1.id
+    provider.save!
+    session['devise.provider'] = provider
+    session['devise.omniauth_data'] = user1
+    images = user.images
+    images1 = user1.images
+    put :merge_on_submit, {"radio-name"=>"other-name", "text-name" => "bender", "radio-email"=>"other-email", "text-email" => "bender@rodriges.com", "radio-role"=>"contractor-role"}
+    assert_nil User.where(:id => 3).first
+    userTest = User.find(2)
+    assert_equal userTest.name, 'bender'
+    assert_equal userTest.email, 'bender@rodriges.com'
+    assert_equal userTest.role, 'contractor'
+    imagesTest = userTest.images
+    assert_equal images.count+images1.count, imagesTest.count
+    imagesTest.each do |image|
+      assert images.include?(image)||images1.include?(image)
+    end
+  end
+
+  test 'put merge on submit price checking' do
+    user = User.find(1)
+    sign_in user
+    user1 = User.find(2)
+    provider = Provider.new
+    provider.soc_net_name = 'twitter'
+    provider.uid = 101
+    provider.user_id = user1.id
+    provider.save!
+    session['devise.provider'] = provider
+    session['devise.omniauth_data'] = user1
+    put :merge_on_submit, {"radio-name"=>"new-name", "radio-email"=>"old-email", "radio-role"=>"contractor-role"}
+    userTest = User.find(1)
+    assert_equal userTest.role, 'contractor'
+    assert_equal userTest.price, user1.price
+  end
 
 end

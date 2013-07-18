@@ -27,6 +27,91 @@ body {
   font-size: 14px;
   font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
 }
+.navbar {
+.navbar-inner {
+   background-color: #00525a;
+   background-image: linear-gradient(to bottom, #00525a, #00525a);
+   background-repeat: repeat-x;
+   filter: none;
+   .brand {
+     color: #ffffff;
+     font-family: "Comfortaa bold";
+     font-size: 28px;
+     margin-left: 30px;
+   }
+ }
+
+.calendar-icon
+{
+  background: url(/images/header/icons.png) no-repeat 0 0;
+  width: 35px;
+  height: 35px;
+  position: relative;
+  left: -10px;
+  top: 5px;
+}
+
+.messages-icon
+{
+  background: url(/images/header/icons.png) no-repeat -35 0;
+  width: 35px;
+  height: 35px;
+  position: relative;
+  left: 0px;
+  top: 5px;
+}
+
+ul.nav.pull-right{
+  li.user-name{
+    p{
+      font-family: "Comfortaa regular";
+      font-size: 22;
+      margin: 10px 10px 0px 10px;
+      color:  #ffffff;
+    }
+  }
+  li.exit{
+    a{
+      font-family: "Comfortaa regular";
+      font-size: 16;
+      margin: 10px 10px 0px 10px;
+      color:  #ffffff;
+      padding: 0 10 0 5px;
+      border-left-width: 10px;
+      border-color: #ffffff;
+      border-left-style: solid;
+      border-left-width: 1px;
+      border-color: #ffffff;
+    }
+  }
+  li.avatar{
+    margin-top: 5px;
+  }
+}
+
+
+}
+.fc-view{
+  table.fc-border-separate
+  {
+    border-collapse: separate;
+    border-spacing: 10px;
+    tr.fc-first.fc-last{
+      th.fc-widget-header
+      {
+        width: 80px;
+      }
+    }
+    td.fc-widget-content
+    {
+      border-style: trasparent;
+      background-color: #eae2d7;
+      width: 80px;
+      height: 80px;
+      border-width: 0px;
+    }
+  }
+}
 
 
 #wrap {
@@ -398,6 +483,17 @@ div.mainbox-add{
 .cursor:hover
 {
   cursor: pointer;
+}
+
+#text-name
+{
+  display:none
+}
+
+
+#text-email
+{
+  display:none
 }
 
 /* --- From http://fontawesome.veliovgroup.com/ --- */
