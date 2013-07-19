@@ -57,7 +57,7 @@ class searcher
 		}
 		append_data = (data) ->
 			_data += data
-			_data_container.append data
+			show_data(_data)
 			return
 		send_ajax(append_data)
 		return
@@ -69,16 +69,17 @@ class searcher
 			contractor: if _checkboxes[0].checked then 1 else 0
 			client: if _checkboxes[1].checked then 1 else 0
 		}
-		not _request || _request.readyState == 4 || _request.abort("New request. Drop this away.")
+		not _request || _request.readyState == 4 || not _request.again || _request.abort("New request. Drop this away.")
 		_request = $.ajax {
 			url: _url
 			type: 'post'
 			data: _request_data
 			success: if typeof success == 'function' then success else (d) -> console.log d; return
 			error: (e) ->
-				console.log e
+				console.log e.readyState
 				return
 			complete: () ->
+				_better_request_data = undefined
 				return
 		}
 		return true
@@ -86,10 +87,15 @@ class searcher
 	show_data = (data) ->
 		$('#status-icon').removeClass('icon-repeat icon-spin').attr('class', 'icon-search')
 		_data = data
+		val = _input.val()
+		reg = new RegExp("(#{val})", "gi")
 		_data_container.html _data
+		_a_strings = _data_container.find("a[href^='/users/']")
+		_a_strings.each((i, e) ->
+			$(e).html($(e).html().replace(reg, "<b>$1</b>"))
+			return
+		)
 		return
-
-	
 
 $(document).ready () ->
 	live_search = new searcher()

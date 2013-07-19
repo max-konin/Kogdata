@@ -14,6 +14,7 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'bootstrap-sass'
+  gem 'font-awesome-sass-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # Only linux users
@@ -60,4 +61,5 @@ gem 'cancan'
 # gem 'capistrano'
 
 # To use debugger
-gem 'debugger', group: [:developmnet, :test]
+gem 'debugger', :group => [:developmnet, :test]
+gem 'single_test', :group => [:test]

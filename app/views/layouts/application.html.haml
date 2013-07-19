@@ -2,7 +2,6 @@
 -# --- "!!!" THIS IS DOCTYPE, DON'T REMOVE !!!!!!!!!!!!!!!!!!!!! ----------
 %html
   %head
-    %meta{:charset => 'utf-8'}
     = stylesheet_link_tag 'profile'
     = stylesheet_link_tag 'home'
     = javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery?
@@ -20,13 +19,4 @@
     %title Kogdata
   %body
     = render 'application/header'
-    -if user_signed_in? then
-      .container
-        .row
-          .span3
-            =render 'office/sidebar_box'
-          .span9
-            = yield
-    -else
-      .container
-        = yield
+    = yield

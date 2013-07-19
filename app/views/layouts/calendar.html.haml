@@ -15,13 +15,4 @@
     %title Kogdata
 %body
   = render 'application/header'
-  -if user_signed_in? then
-    .container
-      .row
-        .span3
-          =render 'office/sidebar_box'
-        .span9
-          = yield
-  -else
-    .container
-      = yield
+  = yield
