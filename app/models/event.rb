@@ -1,9 +1,11 @@
 class Event < ActiveRecord::Base
   belongs_to :user
-  attr_accessible :start, :description, :closed, :type, :location, :duration, :price, :status
-  validates :start, :duration, :description, :type, :location, :presence => true
+  attr_accessible :start,:finish, :description, :closed, :type, :location,  :price, :status
+  validates :start, :finish, :duration, :description, :type, :location, :presence => true
   validates :closed, :inclusion => {:in => [true, nil]}
-  validate :type, :inclusion => {:in => %w(marridge birthday other)}
-  validate :status, :inclusion => {:in => %w(open closed in_progress)}
+  TYPES = %w(marridge birthday other)
+  STATUSES = %w(open closed in_progress)
+  validate :type, :inclusion => {:in => TYPES}
+  validate :status, :inclusion => {:in => STATUSES}
   has_many :messages
 end

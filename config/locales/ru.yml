@@ -83,6 +83,11 @@ ru:
   you_dont_have_portfolio: "Однако, у вас нет портфолио."
   your_portfolio: "Ваше портфолио"
   your_role: "Итак, ваша роль"
+  start_time: "Время начала"
+  finish_date: "Дата окончания"
+  budget: "Бюджет мероприятия"
+  your_town: "Ваш город"
+
 
   fill_in_event: "Задайте параметры события"
   town: "Город"
@@ -174,3 +179,24 @@ ru:
               blank: "Пароль не заполнен"
               invalid: "Пароль должен содержать только ..."
               too_short: "Пароль короткий, минимум %{count} символов"
+
+
+  date:
+    formats:
+      default: "%d-%m-%Y"
+      short: "%b %d"
+      long: "%B %d, %Y"
+      only_day: "%d"
+      only_month: "%B"
+      only_year: "%Y"
+
+    day_names: [Воскресенье, Понедельник, Вторник, Среда, Четверг, Пятница, Суббота]
+    abbr_day_names: [Вос, Пон, Вт, Ср, Чет, Пят, Суб]
+
+    month_names: [~, Января, Февраля, Марта, Апреля, Мая, Июня, Июля, Августа, Сентября, Октября, Ноября, Декабря]
+    abbr_month_names: [~, Янв, Фев, Мар, Апр, Маи, Июн, Июл, Авг, Сен, Окт, Ноя, Дек]
+  time:
+    formats:
+      default: "%d-%m-%Y %H:%M:%S"
+      short: "%d %B %H:%M"
+      long: "%B %d, %Y %H:%M"

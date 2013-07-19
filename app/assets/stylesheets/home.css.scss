@@ -144,6 +144,7 @@ table.fc-header{
       color: #ffffff;
       h2{
         font-size: 50px;
+        font-weight: lighter;
         margin-bottom: 0;
         line-height: 60px;
       }
@@ -163,8 +164,6 @@ table.fc-header{
     tbody{
       border-collapse: collapse;
     }
-    //border-spacing: 10px;
-    //border: 30px solid transparent;
     .fc-today{
       background-color: #ffffff;
       div{
@@ -199,6 +198,85 @@ table.fc-header{
     }
   }
 }
+
+
+.add-event-container
+{
+  h4{
+    font-family: "Open Sans";
+    font-weight: bold;
+    font-size: 30px;
+  }
+}
+
+.new_event
+{
+  margin-right: 20px;
+  .date-container{
+    height: 30px;
+    #event_day{
+      width: 40px;
+      position: absolute;
+      margin-top: 0px;
+    }
+    #event_month{
+      width: 100px;
+      position: absolute;
+      margin-top: 0px;
+      margin-left: 50px;
+    }
+    #event_year{
+      width: 50px;
+      margin-left: 150px;
+    }
+  }
+  #event_location, #event_description, #event_type, #event_price{
+    width: 100%;
+  }
+
+
+  #event_description{
+    height: 50px;
+  }
+
+
+  #event_start_4i{
+    width: 100px;
+  }
+  #event_start_5i{
+    width: 100px;
+  }
+}
+
+form.new_event
+{
+  input, label, textarea, select{
+    font-family: "Open Sans";
+    font-weight: bold;
+    font-size: 25px;
+    height: 50px;
+    text-align: center;
+  }
+  .date-container
+  {
+    margin: 0 auto;
+  }
+
+}
+
+//form.new_event > textarea
+//{
+//  font-family: "Open Sans";
+//  font-weight: bold;
+//  font-size: 25px;
+//}
+//
+//form.new_event > select
+//{
+//  font-family: "Open Sans";
+//  font-weight: bold;
+//  font-size: 25px;
+//}
 
 
 #wrap {
