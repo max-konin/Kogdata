@@ -1,34 +1,34 @@
 class CalendarController < ApplicationController
   before_filter :authenticate_user!
-  def index
-    if user_signed_in?
-	    @user = current_user
-	    cookies[:role] = @user.role
-	    cookies[:user_id] = @user.id
-    else
-      redirect_to '/welcome/index'
-    end
-    @action = 'show-current'
-    @event = Event.new
-  end
+  
+	before_filter :authenticate_user!, :except => [:new_form, :show_form]
 
-  def show_bookings
-    if user_signed_in?
-      @user = current_user
-      cookies[:role] = @user.role
-      cookies[:user_id] = @user.id
-    end
-    @action = 'show-bookings'
-    render 'calendar/index'
-  end
+	def index
+		@user = current_user
+		cookies[:role] = @user.role
+		cookies[:user_id] = @user.id
+		@action = 'show-current'
+	end
 
-  def new_form
-    render :partial => 'new_event'
-  end
+	def show_bookings
+		@user = current_user
+		cookies[:role] = @user.role
+		cookies[:user_id] = @user.id
+		@action = 'show-bookings'
+		render 'calendar/index'
+	end
 
-  def show_form
-    @event_id = params[:event_id]
-    @event = Event.find(@event_id)
-    render :partial => 'show_event'
-  end
+	def new_form
+		render :partial => 'new_event'
+	end
+
+	def show_form
+		@event_id = params[:event_id]
+		@event = Event.find(@event_id)
+		render :partial => 'show_event'
+	end
+
+	def set_busyness
+
+	end
 end
