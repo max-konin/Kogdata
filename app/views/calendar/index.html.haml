@@ -1,9 +1,17 @@
 .container.main-container
   .row
-    .span3
+    .span4
       - if can? :create, :all
-        %p завтра здесь будет форма...
-    .span9
+        .add-event-container
+          %h4
+            = t :fill_in_event
+          = form_tag  :url=> 'events/create' do
+            //= time_tag Date.current
+            = text_field_tag 'title'
+            //= time_tag Time.now
+            = text_field_tag 'price'
+            = submit_tag t(:create_event)
+    .span8
       .calendar-container
         #calendar
 %input{:id => 'title-for-show',:class => 'hidden'}
