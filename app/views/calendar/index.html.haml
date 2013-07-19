@@ -5,12 +5,7 @@
         .add-event-container
           %h4
             = t :fill_in_event
-          = form_tag  :url=> 'events/create' do
-            //= time_tag Date.current
-            = text_field_tag 'title'
-            //= time_tag Time.now
-            = text_field_tag 'price'
-            = submit_tag t(:create_event)
+      //= form_for @event, url => 'events/create', :remote => true do |f|
     .span8
       .calendar-container
         #calendar

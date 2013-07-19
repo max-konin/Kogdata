@@ -8,6 +8,7 @@ class CalendarController < ApplicationController
 		cookies[:role] = @user.role
 		cookies[:user_id] = @user.id
 		@action = 'show-current'
+    @event = Event.new
 	end
 
 	def show_bookings
