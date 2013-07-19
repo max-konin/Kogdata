@@ -1,4 +1,3 @@
-
 $(document).ready () ->
 	if $("select#user_role").val() == 'contractor'
 		$("#price-div").show()
@@ -7,6 +6,8 @@ $(document).ready () ->
 			$("#price-div").show('slow')
 		else
 			$("#price-div").hide('slow')
-			$("#price-field").val(null)
+			$("#user_price").val(null)
 		return )
+
+	validate_form("#new_user")
 	return

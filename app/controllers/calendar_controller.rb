@@ -1,4 +1,5 @@
 class CalendarController < ApplicationController
+
 	before_filter :authenticate_user!, :except => [:new_form, :show_form]
 
 	def index

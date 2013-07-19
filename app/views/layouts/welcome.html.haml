@@ -1,0 +1,29 @@
+!!!
+-# --- "!!!" THIS IS DOCTYPE, DON'T REMOVE !!!!!!!!!!!!!!!!!!!!! ----------
+%html
+  %head
+    %meta{:charset => 'utf-8'}
+    = stylesheet_link_tag 'bootstrap'
+    = stylesheet_link_tag 'bootstrap-responsive'
+    -#= stylesheet_link_tag 'profile'
+    -#= stylesheet_link_tag 'home'
+    -#= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery?
+    -#= javascript_include_tag "application"
+    -#= javascript_include_tag "common"
+    -#= javascript_include_tag "image_uploader"
+    -#= stylesheet_link_tag "application"
+    -#= stylesheet_link_tag "registration"
+    -#= javascript_include_tag "registration"
+    -#= javascript_include_tag "social_link"
+    -#= javascript_include_tag 'modernizr.custom.17475'
+    -#= javascript_include_tag 'Calendar/profile'
+
+    %title Kogdata
+  %body
+    = render 'application/header'
+    %p.notice
+      = notice
+    %p.alert
+      = alert
+    .container
+      = yield

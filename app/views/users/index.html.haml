@@ -14,8 +14,8 @@
             %input#search_client{:type => 'checkbox'}
             = t(:client)
         %span.add-on
-          %i.icon-search
-        %input#search_pattern.search-query.input-medium{:placeholder => t(:find_user), :type => 'text'}
+          %i.icon-search#status-icon
+        %input#search_pattern.search-query.input-medium{:placeholder => t(:find_user), :type => 'text', :maxlength => '20'}
 %div#search_content
   = render "user_search_chunk", :users => @users
 = javascript_include_tag "portfolio_viewer"

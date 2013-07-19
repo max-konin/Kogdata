@@ -44,6 +44,7 @@ class searcher
 		)
 
 	search = () ->
+		$('#status-icon').removeClass('icon-search').attr('class', 'icon-repeat icon-spin')
 		send_ajax show_data
 		return
 
@@ -84,6 +85,7 @@ class searcher
 		return true
 
 	show_data = (data) ->
+		$('#status-icon').removeClass('icon-repeat icon-spin').attr('class', 'icon-search')
 		_data = data
 		val = _input.val()
 		reg = new RegExp("(#{val})", "gi")

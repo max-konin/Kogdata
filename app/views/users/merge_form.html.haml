@@ -25,13 +25,13 @@
     %input{:type => "radio",  :name => "radio-email", :id =>"other-email", :value => "other-email"}
       %p2 Other
   %input{:type => "email", :name => "text-email", :id => "text-email"}
-  - unless @userNew.role == @userOld.role && @userOld.role == :client
+  - unless @userNew.role == @userOld.role
     %h3
       = t :choose_role
     - if @userNew.role != @userOld.role
       %p2
         =t(:client_vs_contractor)
-      - if @images.nil?
+      - if @images.empty?
         %p2
           = t(:you_dont_have_portfolio)
       - else

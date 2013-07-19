@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-	before_filter :authenticate_user!, :except => [ :registration_after_omniauth, :create ]
+  before_filter :authenticate_user!, :except => [ :registration_after_omniauth, :create, :validate ]
 
 	def index
 		if params[:role].nil? then
@@ -58,29 +58,29 @@ class UsersController < ApplicationController
 		render :partial => "user_search_chunk", :locals => { :users => @users }
 	end
 
-	def destroy
-		@user = User.find(params[:id])
-		authorize! :destroy, @user
-		@user.destroy
-		respond_to do |format|
-			format.html { redirect_to users_url }
-			format.json { head :no_content }
-		end
-	end
+  def destroy
+    @user = User.find(params[:id])
+    authorize! :destroy, @user
+    @user.destroy
+    respond_to do |format|
+      format.html { redirect_to users_url }
+      format.json { head :no_content }
+    end
+  end
 
-	def edit
-		@user = current_user
-		@social_link = SocialLink.new(params[:social_link])
-		render 'users/edit'
-	end
+  def edit
+	 @user = current_user
+   @social_link = SocialLink.new(params[:social_link])
+	 render 'users/edit'
+  end
 
-	def update
-		if not current_user.role? params[:user][:role] and current_user.role? 'contractor' then
-			Image.destroy_all :user_id => current_user.id
-		end
-		User.update current_user.id, params[:user]
-		redirect_to '/users/' + current_user.id.to_s
-	end
+  def update
+	 if not current_user.role? params[:user][:role] and current_user.role? 'contractor' then
+		Image.destroy_all :user_id => current_user.id
+	 end
+	 User.update current_user.id, params[:user]
+	 redirect_to '/users/' + current_user.id.to_s
+  end
 
   def registration_after_omniauth
 	  @user = session['devise.omniauth_data']
@@ -102,28 +102,48 @@ class UsersController < ApplicationController
     end
   end
 
-	def create
-		@user = User.new params[:user]
-		if !params[:user][:avatar].nil?
-			@user.avatar_url = ""
-		end
-		@provider = session['devise.provider']
-		@user.save!
-		unless @provider.nil?
-			@provider.user_id = @user.id
-			@provider.save!
-		end
-		session['devise.omniauth_data'] = nil
-		sign_in_and_redirect @user
-	end
+  def create
+    @user = User.new params[:user]
+    if !params[:user][:avatar].nil?
+      @user.avatar_url = ''
+    end
+    @provider = session['devise.provider']
+	if @user.save
+      unless @provider.nil?
+       @provider.user_id = @user.id
+       @provider.save!
+      end
+      session['devise.omniauth_data'] = nil
+      sign_in_and_redirect @user
+    else
+    respond_to do |format|
+     format.html {render :back}
+     format.json {render :json => {:errors => @user.errors.messages}}
+    end
+   end
+  end
+
+  def validate
+    @user = User.new(params[:user])
+    if @user.valid?
+      respond_to do |format|
+        format.json {render :json => {:success => 'yes'}}
+      end
+    else
+      if params[:field] == nil
+        respond_to do |format|
+          format.json {render :json => {:errors => @user.errors.messages}}
+        end
+      else
+        respond_to do |format|
+          format.json {render :json => {:errors => {params[:field] => @user.errors[params[:field]]}}}
+        end
+      end
+    end
+  end
 
   def merge
     @provider = session['devise.provider']
-    #@provider = Provider.new
-    #@provider.user_id = 1
-    #@provider.uid = 100001
-    #@provider.soc_net_name = 'twitter'
-    #@provider.save!
     @userNew = current_user
     @userOld = User.find(@provider.user_id)
     if @userOld.role != @userNew.role
@@ -169,7 +189,11 @@ class UsersController < ApplicationController
         when "client-role"
           @user.role = "client"
           @user.images.destroy_all
+          @user.price = nil
         when "contractor-role"
+          if @user.role == 'client'
+            @user.price = @userOld.price
+          end
           @user.role = "contractor"
           @userOld.images.each do |image|
             image.user_id = @user.id
@@ -182,10 +206,46 @@ class UsersController < ApplicationController
       event.user_id = @user.id
       event.save!
     end
+
+    @userOld.messages.each do |message|
+      message.user_id = @user.id
+      message.save!
+    end
+
+    @userOld.conversations.each do |conversation|
+      hash_string = conversation.hash_string
+      arr = hash_string.split
+      arr.delete(@userOld.id.to_s)
+      unless arr.include? @user.id.to_s
+        arr.push @user.id.to_s
+        arr.sort!
+      end
+      new_hash_string = ""
+      arr.each do |id|
+        new_hash_string += id+' '
+      end
+      conversation.hash_string = new_hash_string[0..-2]
+
+      if conversation.valid?
+        userConv = conversation.users
+        userConv.delete(@userOld)
+        unless userConv.include?(@user)
+          userConv.push(@user)
+        end
+        conversation.save!
+      else
+        convExists = Conversation.where(:hash_string => conversation.hash_string).first
+        conversation.messages.each do |message|
+           message.conversation_id = convExists.id
+        end
+        conversation.destroy
+      end
+    end
+
     User.find(@userOld.id).destroy
     @user.save!
     redirect_to :root
-  end
+  end  
 
   private
   def can_view_users_with_role? role

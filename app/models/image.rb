@@ -5,7 +5,7 @@ class Image < ActiveRecord::Base
 	attr_accessible :name, :src
 	has_attached_file :src,
 				:styles => { 
-					:thumb => ["50x50#", :png],
+					:thumb => ["35x35", :png],
 					:small => ["90x90#", :png],
 					:original => ["1600x1200#", :png] 
 				},
