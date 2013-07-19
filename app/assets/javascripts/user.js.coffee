@@ -17,5 +17,19 @@ $(document).ready () ->
 				return
 			reader.readAsDataURL(thus.files[0])
 		return
+
+		if $("select#user_role").val() == 'contractor'
+			$("#price-div").show()
+			$("#social_link_list").show()
+
+		$("select#user_role").on('change', () ->
+			if $("select#user_role").val() == 'contractor'
+				$("#price-div").show('slow')
+			else
+				$("#price-div").hide('slow')
+				$("#social_link_list").hide('slow')
+				$("#user_price").val(null)
+			return )
+
 		validate_form("#user_update")
 	return

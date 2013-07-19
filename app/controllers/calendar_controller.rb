@@ -1,12 +1,12 @@
 class CalendarController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:index]
   def index
     if user_signed_in?
 	    @user = current_user
 	    cookies[:role] = @user.role
 	    cookies[:user_id] = @user.id
     else
-      redirect_to '/welcome/index'
+      redirect_to '/welcome'
     end
     @action = 'show-current'
   end

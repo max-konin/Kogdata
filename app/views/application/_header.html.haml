@@ -19,6 +19,7 @@
               = current_user.name
           %li.avatar
             = image_tag current_user.avatar(:thumb)
+          %li.splitter
           %li.exit
             = link_to t(:sign_out).mb_chars.upcase, destroy_user_session_path
         -else

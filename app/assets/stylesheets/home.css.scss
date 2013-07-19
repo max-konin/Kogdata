@@ -53,7 +53,7 @@ body {
 
 .messages-icon
 {
-  background: url(/images/header/icons.png) no-repeat -35 0;
+  background: url(/images/header/icons.png) no-repeat -35px 0;
   width: 35px;
   height: 35px;
   position: relative;
@@ -65,23 +65,28 @@ ul.nav.pull-right{
   li.user-name{
     p{
       font-family: "Comfortaa regular";
-      font-size: 22;
+      font-size: 22px;
       margin: 10px 10px 0px 10px;
       color:  #ffffff;
     }
   }
+  li.splitter
+  {
+    border-color: #043338;
+    border-left-style: solid;
+    border-right-style: solid;
+    border-width: 1px;
+    border-right-color: #056C79;
+    margin: 5px 10px;
+    height: 30px;
+
+  }
   li.exit{
     a{
       font-family: "Comfortaa regular";
-      font-size: 16;
-      margin: 10px 10px 0px 10px;
+      font-size: 16px;
       color:  #ffffff;
-      padding: 0 10 0 5px;
-      border-left-width: 10px;
-      border-color: #ffffff;
-      border-left-style: solid;
-      border-left-width: 1px;
-      border-color: #ffffff;
+      padding-left: 0px;
     }
   }
   li.avatar{
@@ -96,6 +101,9 @@ ul.nav.pull-right{
   {
     border-collapse: separate;
     border-spacing: 10px;
+    tbody{
+      cursor: pointer;
+    }
     tr.fc-first.fc-last{
       th.fc-widget-header
       {
@@ -438,11 +446,6 @@ form#add-event-form
     font-size: 11px;
   }
 }
-.fc-border-separate
-{
-  tbody
-  {  cursor: hand;  }
-}
 
 .selected-day
 {
@@ -504,7 +507,7 @@ div.mainbox-add{
   -webkit-animation: spin 1s infinite linear;
   animation: spin 1s infinite linear;
 }
-
+/* --- CUSTOM CHECKBOX --- */
 input[type='checkbox'] {
   width: 16px;
 }
@@ -520,4 +523,22 @@ input[type='checkbox']:before {
 
 input[type='checkbox']:checked:before {
   background-position: 0 -16px;
+}
+/* --- END CUSTOM CHECKBOX --- */
+
+.input-prepend .add-on + .add-on
+{
+  min-width: 150px;
+  text-align: right;
+}
+
+[id*="social_link_form_"] {
+  margin-bottom: 0;
+}
+[id*="social_link_form_"] input {
+*margin-left: 0;
+vertical-align: top;
+-webkit-border-radius: 0 4px 4px 0;
+-moz-border-radius: 0 4px 4px 0;
+border-radius: 0 4px 4px 0;
 }
