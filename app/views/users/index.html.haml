@@ -1,21 +1,22 @@
-.container
-  %h1
-    Users:
-  -@users.each do |user|
-    .row
-      .span2.offset2
-        %h2
-          =link_to user.name, user
-      .span1
-        %h4
-          =user.role
-      .span4.offset1
-        %h2
-          %button{:type=> 'button', :class => 'btn btn-primary', :id=>'message-btn',
-                  'data-target'=>'#messageModal_' + user.id.to_s,
-                  'data-toggle' => 'modal'} Send a message
-        .modal.hide.fade{:id => 'messageModal_' + user.id.to_s}
-          = render :partial => "messages/new_message", :locals => {:contact_id => user.id}
-
-= javascript_include_tag "profile"
-
+.row-fluid
+  .span4
+    %h3
+      = t(:users) + ":"
+  .span8
+    %form.form-search.flying
+      .input-prepend
+        %span.add-on
+          %label.checkbox
+            %input#search_photograph{:type => 'checkbox'}
+            = t(:contractor)
+        %span.add-on
+          %label.checkbox
+            %input#search_client{:type => 'checkbox'}
+            = t(:client)
+        %span.add-on
+          %i.icon-search
+        %input#search_pattern.search-query.input-medium{:placeholder => t(:find_user), :type => 'text'}
+%div#search_content
+  = render "user_search_chunk", :users => @users
+= javascript_include_tag "portfolio_viewer"
+= javascript_include_tag "live_search"

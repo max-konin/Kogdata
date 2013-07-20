@@ -1,13 +1,15 @@
-= stylesheet_link_tag 'home'
 .mainbox
-  #blac-div
+  #blac-div.modal-header
     %h5
-      = t :new_message
+      = ((t :new_message_for) + User.find(contact_id).name)
+      &nbsp|&nbsp
       #for-close
         %a{'data-dismiss'=> 'modal',:id=> 'close-button'}
           = t :close
   =form_for Message.new, :url => {:controller => 'conversations', :action => 'create_message',
   :members => [contact_id]} do |f|
-    =f.label :body, (t :new_message_for) + User.find(contact_id).name
-    =f.text_area :body, :class=>'span2', :id=> 'send-message-input'
-    =f.submit t :send, :class => 'btn btn-small btn-inverse',:id=> 'send-message-button';
+    .modal-body
+      =f.text_area :body, :class=>'span2', :id=> 'send-message-input',
+                   :placeholder => ((t :new_message_for) + User.find(contact_id).name)
+    .modal-footer
+      =f.submit t :send, :class => 'btn btn-small btn-inverse',:id=> 'send-message-button';

@@ -4,9 +4,5 @@ class Message < ActiveRecord::Base
   belongs_to :user
   belongs_to :event
 
-  def self.cut_body!
-    if (self.body.to_s.length >= 121)
-      self.body = self.body.str[0,119]
-    end
-  end
 end
+

@@ -12,7 +12,7 @@ class EventsControllerTest < ActionController::TestCase
     assert_response :success
     assert_template :index
     eventsTest = assigns(:events)
-    eventsEtalon = Event.where('user_id = ? AND start > ? AND start < ?',currentUser.id, startDate, finishDate)
+    eventsEtalon = Event.where('user_id = ? AND start > ? AND start < ? AND closed IS NULL',currentUser.id, startDate, finishDate)
     assert_equal eventsTest.count, eventsEtalon.count
     eventsTest.each do |event|
       assert_equal event.user_id, currentUser.id
@@ -95,6 +95,10 @@ class EventsControllerTest < ActionController::TestCase
     put :update, {:user_id => currentUser.id,:id => id, :events => {:title => '', :start=> start4Event,},
                   :curDate => currentDate}
     assert_response :unprocessable_entity
+    put :update, {:user_id => currentUser.id,:id => 3, :events => {:title => 'new event', :start=> start4Event,
+                                                                    :description => 'this is a new event'},:curDate => currentDate}
+    assert_response :forbidden
+
   end
 
 
@@ -108,6 +112,46 @@ class EventsControllerTest < ActionController::TestCase
     currentUser = users(:Adarich)
     sign_in currentUser
     assert_raise (NotImplementedError){ delete :destroy, {:user_id => currentUser.id, :id => 4}}
+  end
+
+  test 'put close' do
+    currentUser = users(:Adarich)
+    sign_in currentUser
+    start4Event = Time.parse '2013-06-25 11:02:57'
+    id = 2
+    event = Event.find(id)
+    put :close, {:user_id => currentUser.id, :event_id => id}
+    assert_response :ok
+    assert_equal Event.find(id).closed, true
+    put :close, {:user_id => currentUser.id, :event_id => id}
+    assert_response :forbidden
+    put :reopen, {:user_id => currentUser.id, :event_id => id}
+    assert_blank Event.find(id).closed
+    put :reopen, {:user_id => currentUser.id, :event_id => id}
+    assert_response :forbidden
+    put :reopen, {:user_id => currentUser.id, :event_id => 1}
+    assert_response :forbidden
+  end
+
+  test 'get index for closed events' do
+    currentUser = users(:Adarich)
+    sign_in currentUser
+    currentDate = Time.parse '2013-06-18 11:02:57'
+    startDate = Time.parse '2013-06-01 00:00:00'
+    finishDate = Time.parse '2013-06-30 23:59:59'
+    start4Event = Time.parse '2013-06-25 11:02:57'
+    post :create, {:user_id => currentUser.id, :events => {:title => 'new event', :start=> start4Event,
+                                                           :description => 'this is a new event'},:curDate => currentDate}
+    event_id = Event.last.id
+    put :close, {:user_id => currentUser.id, :event_id => event_id}
+    get :index, {:user_id => currentUser.id, :curDate => currentDate, :showClosed => true}
+    event_test = assigns(:events)
+    events_etalon = Event.where('user_id = ? AND start > ? AND start < ?',currentUser.id, startDate, finishDate)
+    assert_equal event_test.count, events_etalon.count
+    get :index, {:user_id => currentUser.id, :curDate => currentDate}
+    event_test = assigns(:events)
+    events_etalon = Event.where('user_id = ? AND start > ? AND start < ? AND closed IS NULL',currentUser.id, startDate, finishDate)
+    assert_equal event_test.count, events_etalon.count
   end
 
 

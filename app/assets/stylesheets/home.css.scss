@@ -53,15 +53,16 @@ div#external-events {
 }
 
 #calendar {
-  width: 980px;
+  width: 100%;
   position: relative;
   min-width: 700px;
   margin: 0 auto;
 }
 
 div.container{
-  margin-left: 30px;
-  margin-right: 30px;
+  h1 {
+	 display: inline-block;
+  }
 }
 .navbar-fixed-top .container{
   width: auto;
@@ -74,6 +75,14 @@ input.span2{
   text-align: center;
   font-size: 14px;
   font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+}
+
+.description-label
+{
+  overflow: hidden;
+  word-wrap: break-word;
+  max-height: 80px;
+  width: 135px;
 }
 
 
@@ -206,6 +215,7 @@ select#user_role
 }
 
 
+
 div#blac-div
 {
   background-color: #000;
@@ -256,9 +266,17 @@ div.mainbox{
 #iconic{
   text-align: center;
 }
-#messageModal
+.modal
 {
-  width: 400px;
+  $width: 350px;
+  width: $width;
+  margin-left: -$width / 2;
+}
+
+#black
+{
+  background-color: #000;
+  color: #999999;
 }
 
 #send-message-button-for-list
@@ -336,4 +354,28 @@ div.mainbox-add{
   padding-bottom: 10px;
   data-html: true;
   font-size: 8px
+}
+
+.fc-event-inner
+{
+  cursor: hand;
+}
+
+.flying {
+  margin: 15px 0 0 0;
+  text-align: right;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.favicon {
+  width: 16px;
+  height: 16px;
+}
+
+.cursor:hover
+{
+  cursor: pointer;
 }

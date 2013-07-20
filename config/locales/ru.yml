@@ -8,6 +8,100 @@ ru:
   title: "Заголовок"
   description: "Описание"
   submit: "Подтвердить"
-  new_event: "Создать событие"
+  submit_edit: "Изменить"
+  submit_add: "Добавить"
+  create_event: "Создать событие"
+  new_event: "Новое событие"
   the_event: "Просмотр события"
   to_event: "Перейти"
+  event_title: "Заголовок события"
+  event_description: "Описание события"
+  my_page: "Моя страница"
+  events: "События"
+
+  home: "Главная"
+  edit_page: "Редактировать"
+  conversations: "Сообщения"
+  conversation: "Сообщение"
+  show_bookings: "Просмотр заказов"
+  portfolio: "Портфолио"
+  office: "Офис"
+  sign_out: "Выйти"
+  sign_in: "Войти"
+  sign_up: "Регистрация"
+  your_conversations: "Ваши сообщения"
+  date_text: "Дата"
+  description: "Описание"
+  select: "Выбрать"
+  image: "Изображение"
+  images: "Изображения"
+  add: "Добавить"
+  says: "Сказал"
+  at: "в"
+  recalls: "Отзывов"
+  go_to_conversaion: "Перейти к разговору"
+
+  users: "Пользователи"
+  user: "Пользователь"
+  name: "Имя"
+  email: "Электронная почта"
+  url: "Ссылка"
+  avatar: "Изображение"
+  role: "Статус"
+  contractor: "Фотограф"
+  client: "Пользователь"
+  find_user: "Найти пользователя"
+  password: "Пароль"
+  links_list: "Список ссылок"
+  add_link: "Добавить ссылку"
+  example: "Пример"
+  blog: "Блог"
+  delete: "Удалить"
+  remember_me: "Запомнить меня"
+
+  send_message: "Отправить сообщение"
+  drag_to_calendar_to_new_event: "Перетащите событие в календарь, чтобы создать новое событие"
+
+  price: "Стоимость работы"
+  rur: "руб."
+  per_hour: "в час"
+
+  close_event: "Закрыть событие"
+  reopen: "Передумать"
+  sign_up_to: "Регистрация в"
+  sign_in_to: "Вход в"
+  sign_in_with: "Войти через"
+  sign_up_with: "Регистрация через"
+  delete_error: "Ошибка удаления"
+
+  activerecord:
+    errors:
+      models:
+        conversation:
+          attributes:
+
+        event:
+          attributes:
+
+        image:
+          attributes:
+
+        message:
+          attributes:
+
+        social_link:
+          attributes:
+            description:
+              invalid: "Описание должно содержать только буквы, цифры, пробел, '-' и '_'"
+              too_long: "Описание слишком длинное, максимум %{count}"
+            url:
+              invalid: "Введите верную ссылку"
+              too_long: "Ссылка слишком длинная, максимум %{count}"
+              taken: "Такая ссылка уже существует"
+              blank: "Поле ссылка должна быть заполнена"
+
+        user:
+          attributes:
+            price:
+              numericality: "Цена должна быть целым числом"
+              presence: "Цена должна быть заполнена"

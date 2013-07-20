@@ -10,12 +10,14 @@
         %li.divider-vertical
         -if user_signed_in?
           %li
-            = link_to "OFFICE", "/office"
+            = link_to t(:office).mb_chars.upcase, "/office"
           %li.divider-vertical
           %li
-            = link_to "SIGN OUT", destroy_user_session_path
+            = link_to t(:sign_out).mb_chars.upcase, destroy_user_session_path
         -else
           %li
-            %a{:href => "/users/sign_in"} LOG IN
+            %a{:href => "/users/sign_in"}
+              = t(:sign_in).mb_chars.upcase
           %li
-            %a{:href => "/users/sign_up"} SIGN UP
+            %a{:href => "/users/sign_up"}
+              = t(:sign_up).mb_chars.upcase

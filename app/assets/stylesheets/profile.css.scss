@@ -1,18 +1,30 @@
 //= require elastislide
 //= require custom
-//= require demo
+.js .gallery {
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+  border-radius: 20px;
+  position: relative;
+  background: #000 url(img/black_denim.png);
+  box-shadow: 0 2px 1px rgba(255,255,255,0.9), 0 -2px 1px rgba(255,255,255,0.9);
+}
+
+.lt-ie8 .elastislide-list {
+  display: none;
+}
 
 .left-column
 {
-  width: 200px;
+  width: 20%;
   float: left;
 }
 
 .right-column
 {
-  width: 400px;
+  width: 78%;
   float:right;
-  margin-left: 20px;
+  margin-left: 2%;
   padding-top: 0px;
   h3
   {
@@ -40,8 +52,7 @@
 {
   #message-btn
   {
-    margin: 10px auto;
-    width: 200px
+    margin: 15px auto;
   }
 }
 

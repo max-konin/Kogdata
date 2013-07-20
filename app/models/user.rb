@@ -7,7 +7,12 @@ class User < ActiveRecord::Base
          :omniauth_providers => [ :facebook, :vkontakte, :twitter, :gplus, :google_oauth2, :devianart ]
 
 	# Setup accessible (or protected) attributes for your model
-	attr_accessible :email, :password, :remember_me, :name, :provider, :uid, :role, :images, :avatar
+	attr_accessible :email, :password, :remember_me, :name, :provider, :uid, :role, :images, :avatar, :price
+  validates :price, :presence => true, :numericality => {:only_integer => true}, :if => :is_contractor?
+  def is_contractor?
+    role == :contractor
+  end
+
 
 	has_attached_file :avatar,
                     :styles => {
@@ -22,6 +27,8 @@ class User < ActiveRecord::Base
 	has_many :event
 	has_and_belongs_to_many :conversations
 	has_many :messages
+  has_many :provider
+  has_many :social_links, dependent: :destroy
 
 	def get_image_by_name(name)
 		Image.find(name)
@@ -29,6 +36,12 @@ class User < ActiveRecord::Base
 
   after_initialize :set_default_role
   after_save :set_default_name
+  after_save :remove_price_4_client
+  def remove_price_4_client
+     if self.role == :client
+       self.price = nil
+     end
+  end
 
   def set_default_name
     if (self.name.nil?) || (self.name.empty?) then

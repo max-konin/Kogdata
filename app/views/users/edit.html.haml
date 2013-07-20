@@ -1,16 +1,7 @@
-= form_for @user, :html => { :method => :put, :multipath => true, :id => 'user_update' } do |f|
-	%div
-		= f.label :name
-		= f.text_field :name, :autocomplete => "on"
-	%div
-		= f.label :email
-		= f.email_field :email, :autocomplete => "on"
-	%div
-		= f.label :avatar
-		%span
-			%img{:src => @user.avatar.url(:thumb)}
-		= f.file_field :avatar, :accept => 'image/*'
-	%div
-		= f.label :role
-		= f.select :role, :options => [ :client, :contractor ]
-	= f.submit
+= render :partial => 'users/user_form'
+= render :partial => 'social_links/form_add'
+
+#social_link_list
+	%legend
+		=t(:links_list)
+	= render @user.social_links

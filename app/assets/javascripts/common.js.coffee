@@ -1,3 +1,5 @@
+$.ajaxSetup({ ifModified: true })
+
 $(document).ajaxSend (e, r, s) ->
 	if typeof AUTH_TOKEN == undefined
 		return

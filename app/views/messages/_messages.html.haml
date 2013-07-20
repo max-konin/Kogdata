@@ -5,9 +5,9 @@
       .span1
         = image_tag message.user.avatar.url(:small)
       .span10
-        %br #{link_to message.user.name, message.user} says:
-        = message.body
-        %br at #{message.created_at.strftime("%H:%M,  %d %B")}
+        %br #{link_to message.user.name, message.user}
+        = message.created_at.strftime("%H:%M - %d.%m.%Y") + ' ' + t(:says).mb_chars.downcase + ':'
+        %br  #{ message.body}.
       -if message.user == current_user
         .span1#iconic
           =link_to(:controller => 'conversations', :action => 'delete_message', :m_id => message.id) do

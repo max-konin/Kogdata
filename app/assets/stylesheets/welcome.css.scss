@@ -1,0 +1,85 @@
+body
+{
+  background: fff;
+}
+.box {
+  font-size: 18px;
+  position: relative;
+  padding: 40px 50px 60px 50px;
+  margin: 0 auto;
+  background-color: #fff;
+  -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+}
+
+.georgia
+{
+  font-family: georgia;
+}
+
+.float_right
+{
+  float: right;
+}
+
+.italic
+{
+  font-style: italic;
+}
+
+.box:before, .box:after {
+  position: absolute;
+  width: 40%;
+  height: 10px;
+  content: ' ';
+  left: 0.5%;
+  bottom: 12px;
+  background: transparent;
+  -webkit-transform: skew(-3deg) rotate(-3deg);
+  -moz-transform: skew(-3deg) rotate(-3deg);
+  -ms-transform: skew(-3deg) rotate(-3deg);
+  -o-transform: skew(-3deg) rotate(-3deg);
+  transform: skew(-3deg) rotate(-3deg);
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
+.box:after {
+  left: auto;
+  right: 0.5%;
+  -webkit-transform: skew(3deg) rotate(3deg);
+  -moz-transform: skew(3deg) rotate(3deg);
+  -ms-transform: skew(3deg) rotate(3deg);
+  -o-transform: skew(3deg) rotate(3deg);
+  transform: skew(3deg) rotate(3deg);
+}
+
+.center_text
+{
+  text-align: center;
+}
+
+.text_header
+{
+  display: block;
+  text-align: center;
+  font-size: 50px;
+  font-weight: bold;
+  line-height: normal;
+}
+.kogdata
+{
+  color: #2788C9;
+  font-size: 80px;
+  text-shadow: -1px -1px 1px #333, 0 -1px 0 #fff;
+}
+.kogdata sup
+{
+  color: #1bb9ff;
+  font-size: 24px;
+  margin-left: -20px;
+  vertical-align: middle;
+  text-shadow:  none;
+}

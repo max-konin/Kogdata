@@ -1,0 +1,26 @@
+= stylesheet_link_tag 'home'
+.mainbox-add
+  %form{:id => 'add-event-form'}
+    %h6
+      =t :the_event
+    %table
+      %tr
+        %th
+          %label
+            =t :title
+        %td
+          %label{ :class=> 'title-label' }
+      %tr
+        %th
+          %label
+            =t :description
+        %td
+          .description-label
+  = link_to t(:to_event), 'users/'+current_user.id.to_s+'/events/'+@event_id.to_s
+  - if @event.user_id == current_user.id
+    - if @event.closed.blank?
+      %a{:class => 'close-event', :href => '#'}
+        = t(:close_event)
+    - else
+      %a{:class => 'reopen-event', :href => '#'}
+        = t(:reopen)

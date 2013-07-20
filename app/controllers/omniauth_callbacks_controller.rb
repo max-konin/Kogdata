@@ -1,43 +1,49 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+	include OmniauthCallbacksHelper
+
 	def twitter
 		oauth = request.env['omniauth.auth']
-		@user = User.where(:provider => oauth.provider, :uid => oauth.uid).first
-		unless @user
-			@user = User.new
-			@user.email = oauth.extra.raw_info.screen_name.nil? || oauth.extra.raw_info.screen_name.empty? ? "pretty" : oauth.extra.raw_info.screen_name + "@please.full"
-			@user.provider = oauth.provider
-			@user.uid = oauth.uid
+		@provider = Provider.where(:soc_net_name => oauth.provider, :uid => oauth.uid).first
+    if @provider
+      @user = User.find(@provider.user_id)
+		else
+      @user = User.new
+			@provider = Provider.new
+			@provider.soc_net_name = oauth.provider
+			@provider.uid = oauth.uid
 			@user.password = Devise.friendly_token[0,20]
-			@user.save!
 		end
-		sign_in_and_redirect @user, :event => :authentication
+		routesFurther
 	end
 
 	def facebook
 		oauth = request.env['omniauth.auth']
-		@user = User.where(:provider => oauth.provider, :uid => oauth.uid).first
-		unless @user
+		@provider = Provider.where(:provider => oauth.provider, :uid => oauth.uid).first
+    if @provider
+      @user = User.find(@provider.user_id)
+    else
 			@user = User.new
-			@user.email = oauth.info.email || "pretty@please.full"
-			@user.provider = oauth.provider
-			@user.uid = oauth.uid
-			@user.password = Devise.friendly_token[0,20]
-			@user.save!
+			@user.email = oauth.info.email
+      @provider = Provider.new
+      @provider.soc_net_name = oauth.provider
+      @provider.uid = oauth.uid
+      @user.password = Devise.friendly_token[0,20]
 		end
-		sign_in_and_redirect @user, :event => :authentication
+		routesFurther
 	end
 
 	def vkontakte
 		oauth = request.env['omniauth.auth']
-		@user = User.where(:provider => oauth.provider, :uid => oauth.uid).first
-		unless @user
-			@user = User.new
-			@user.email = oauth.info.nickname.nil? || oauth.info.nickname.empty? ? "pretty" : oauth.info.nickname + "@please.full"
-			@user.provider = oauth.provider
-			@user.uid = oauth.uid
-			@user.password = Devise.friendly_token[0,20]
-			@user.save!
-		end
-		sign_in_and_redirect @user, :event => :authentication
+    @provider = Provider.where(:soc_net_name => oauth.provider, :uid => oauth.uid).first
+    if @provider
+      @user = User.find(@provider.user_id)
+    else
+      @user = User.new
+      @provider = Provider.new
+      @provider.soc_net_name = oauth.provider
+      @provider.uid = oauth.uid
+      @user.password = Devise.friendly_token[0,20]
+    end
+		routesFurther
 	end
 end

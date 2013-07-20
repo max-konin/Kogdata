@@ -1,4 +1,5 @@
-%h2 Select Image
+%h2
+	= t(:select) + ' ' + t(:images).mb_chars.downcase
 %div
 	= form_for :upload, :url => "/image/bind" do |f|
 		%ul#images
@@ -8,10 +9,11 @@
 						%img{:src => image.src.url(:thumb)}
 					%div.deleteImage{:id => image.id}
 						X
+		%br
 		%div.uploadImage.btn
-			add image
+			= t(:add) + ' ' + t(:image).mb_chars.downcase
 			= f.fields_for :images do |file|
 				= file.file_field :image, :accept => "image/*", :id => "uploadImage", :name => "images[]"
 		%div.uploadImage.btn
-			submit images
+			= t(:send) + ' ' + t(:images).mb_chars.downcase
 			= f.submit

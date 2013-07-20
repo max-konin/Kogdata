@@ -1,24 +1,26 @@
 .container#forms
-  %h2.span8.offset3 Sign up to Kogdata
+  %h2.span8.offset3 #{t(:sign_up_to)} Kogdata
   .container-fluid
     .row-fluid
       .span3.offset3
         //= render "devise/shared/links"
-        %a.btn.social-btn.btn-inverse{:href => "/users/auth/vkontakte"} Sign up with vkontakte
-        %a.btn.social-btn.btn-info{:href => "/users/auth/twitter"} Sign up with twitter
-        %a.btn.social-btn.btn-primary{:href => "/users/auth/facebook"} Sign up with facebook
+        %a.btn.social-btn.btn-inverse{:href => "/users/auth/vkontakte"} #{t(:sign_in_with)} vkontakte
+        %a.btn.social-btn.btn-info{:href => "/users/auth/twitter"}  #{t(:sign_in_with)} twitter
+        %a.btn.social-btn.btn-primary{:href => "/users/auth/facebook"}  #{t(:sign_in_with)} facebook
       .span6
         %br
-        = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+        = form_for(resource, :as => resource_name, :url => '/users', :method => 'put') do |f|
           = devise_error_messages!
           .control-group
-            = f.text_field :name, :class => 'large', :autofocus => true,  :placeholder => "Your name"
+            = f.text_field :name, :class => 'large', :autofocus => true,  :placeholder => t(:name)
           .control-group
-            = f.select :role, options_for_select([['Client', :client], ['Photographer', :contractor]] )
+            = f.select :role, options_for_select([[t(:client), :client], [t(:contractor), :contractor]])
+          .control-group#price-div
+            = f.text_field :price, :id => "price-field",:class => 'large', :placeholder => t(:price)
           .control-group
-            = f.email_field :email, :class => 'large',  :placeholder => "Email"
+            = f.email_field :email, :class => 'large',  :placeholder => t(:email)
           .control-group
-            = f.password_field :password, :class => 'large', :placeholder => "Password"
+            = f.password_field :password, :class => 'large', :placeholder => t(:password)
           .control-group
-            = f.submit "Sign up", :class => "btn btn-danger"
+            = f.submit t(:sign_up), :class => "btn btn-danger btn-large"
 

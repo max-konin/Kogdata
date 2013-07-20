@@ -13,7 +13,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-
+.idea/
 # Ignore some rails files
 Gemfile.lock
 db/schema.rb
@@ -25,7 +25,9 @@ db/schema.rb
 
 # Anti paperclip
 /public/system/
-/public/avatar/
+/public/avatars/
 
 # Anti Shubin
 goalfile
+create_many_users
+
