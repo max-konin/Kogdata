@@ -5,14 +5,22 @@
         %span{:class=>'icon-bar'}
         %span{:class=>'icon-bar'}
         %span{:class=>'icon-bar'}
-      %a{:class => 'brand', :href=> '/'} Kogdata
+      %a{:class => 'brand', :href=> '/'}
+        Kogdata
+        %sup beta
       %ul.nav.pull-right
-        %li.divider-vertical
         -if user_signed_in?
-          %li
-            = link_to t(:office).mb_chars.upcase, "/office"
-          %li.divider-vertical
-          %li
+          %li.calendar-icon
+            = link_to '', :root
+          %li.messages-icon
+            = link_to '', :conversations
+          %li.user-name
+            %p
+              = current_user.name
+          %li.avatar
+            = image_tag current_user.avatar(:thumb)
+          %li.splitter
+          %li.exit
             = link_to t(:sign_out).mb_chars.upcase, destroy_user_session_path
         -else
           %li
@@ -21,3 +29,4 @@
           %li
             %a{:href => "/users/sign_up"}
               = t(:sign_up).mb_chars.upcase
+.navbar_padding_elem

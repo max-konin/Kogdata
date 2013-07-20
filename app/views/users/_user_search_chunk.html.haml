@@ -7,9 +7,9 @@
       %h4
         =t(user.role)
     .span4.text-right
-      %button{:type=> 'button', :class => 'btn btn-primary', :id=>'message-btn',
-                    'data-target'=>'#messageModal_' + user.id.to_s,
+      %button{:type => 'button', :class => 'btn btn-primary', :id => 'message-btn',
+                    'data-target' => '#messageModal_' + user.id.to_s,
                     'data-toggle' => 'modal'}
         = t :send_message
       .modal.hide.fade{:id => 'messageModal_' + user.id.to_s}
-        = render :partial => "messages/new_message", :locals => {:contact_id => user.id}
+        %i.icon-spin.icon-refresh

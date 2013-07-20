@@ -2,33 +2,49 @@ Kogdata::Application.routes.draw do
 
   root :to => 'calendar#index'
 
-  get  'conversations/:id'             => 'conversations#show'
-  get  'conversations'                => 'conversations#index'
+  get  'conversations/:id'                  => 'conversations#show'
+  get  'conversations'                      => 'conversations#index'
   post 'conversations/create_message'
   get  'conversations/delete_message/:m_id' => 'conversations#delete_message'
 
-  post   'image/bind'
+  post 'image/bind'
   delete 'image/delete'
-  
-  get 'users/edit'
-  put 'users/:id' => 'users#update'
+ 
+  post 'users/search'               => 'users#search'
+  post 'users/search/:input'        => 'users#search'
+  post '/users/validate'            => 'users#validate'
+  post '/users/validate/:field'     => 'users#validate'
+  post '/users/:id/validate/:field' => 'users#validate'
+  get 'users/edit'                  => 'users#edit'
+  get 'users/merge'
+  post 'users/merge_on_submit'
+  get 'users/get_info'  => 'users#registration_after_omniauth'
+  put 'users'           => 'users#create'
+  put 'users/edit'       => 'users#update'
+  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
-  devise_for :users, :controllers => { :omniauth_callbacks => 'omniauth_callbacks' }
-
-  get 'home/index'
+  get 'welcome'                       => 'welcome#index'
+  get 'welcome/index'                 => 'welcome#index'
   get 'calendar/index'
   get 'calendar/new_form'
-  get 'calendar/show_form/:event_id' =>  'calendar#show_form'
+  get 'show_bookings'                 => 'calendar#show_bookings'
+  get 'calendar/show_form/:event_id'  =>  'calendar#show_form'
   get 'office/show'
   get 'office/all'
-  get 'office/portfolio' => 'office#portfolio'
+  get 'office/portfolio'              => 'office#portfolio'
+  match 'office/'                     => 'office#show'
 
-  match 'office/'=> 'office#show'
   resources :users do
     resources :events do
       post 'respond'
+      put 'close'
+      put 'reopen'
     end
+    resources :social_links, only: [:create]
   end
+
+  #put 'users/:user_id/events/:id/close' => 'events#close'
+  #put 'users/:user_id/events/:id/reopen' => 'events#reopen'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

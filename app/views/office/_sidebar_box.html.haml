@@ -6,7 +6,6 @@
       // user_signed_in? check in file /app/views/layouts/calendar.html.haml
       // in /app/views/layouts/office.html.haml unauthorized user redirecting to sign_in
       %li
-        - debugger
         =link_to t(:my_page), user_url(current_user)
       %li
         =link_to t(:edit_page), "/users/edit"

@@ -1,4 +1,5 @@
 !!!
+-# --- "!!!" THIS IS DOCTYPE, DON'T REMOVE !!!!!!!!!!!!!!!!!!!!! ----------
 %html
   %head
     = stylesheet_link_tag 'profile'
@@ -11,23 +12,11 @@
     = stylesheet_link_tag "registration"
     = javascript_include_tag "registration"
     = javascript_include_tag "social_link"
+    = javascript_include_tag "validation"
     = javascript_include_tag 'modernizr.custom.17475'
     = javascript_include_tag 'Calendar/profile'
 
     %title Kogdata
   %body
     = render 'application/header'
-    %p.notice
-      = notice
-    %p.alert
-      = alert
-    -if user_signed_in? then
-      .container
-        .row
-          .span3
-            =render 'office/sidebar_box'
-          .span9
-            = yield
-    -else
-      .container
-        = yield
+    = yield
