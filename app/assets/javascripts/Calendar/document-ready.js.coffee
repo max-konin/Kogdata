@@ -20,6 +20,8 @@ $(document).ready () ->
 	Calendar.update_calendar()
 	$('.fc-button-prev').html('<label> < </label>')
 	$('.fc-button-next').html('<label> > </label>')
+	
+	fc_widget_header_html = if $('.fc-widget-header').html() then $('.fc-widget-header').html().toString() else ""
 
-	$('.fc-widget-header').html('<div class = "fc-header-inside"> '+ $('.fc-widget-header').html().toString()+'</div>')
+	$('.fc-widget-header').html("<div class = 'fc-header-inside'>#{fc_widget_header_html}</div>")
 	return

@@ -97,7 +97,7 @@
 		validate_all_fields(form)
 		return false
 	)
-	$(form).on('focusout', 'input[type!=submit][type!=image]', () ->
+	$(form).on('focusout', 'input[type!=submit][type!=image][type!=file]', () ->
 		validate_one_field(form, this)
 	)
 	return

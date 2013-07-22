@@ -25,8 +25,8 @@ class User < ActiveRecord::Base
 	has_many :provider, :dependent => :destroy
 	has_many :social_links, :dependent => :destroy
 	has_many :busyness, :dependent => :destroy
-  ajaxful_rater
-  ajaxful_rateable :stars => 5, :dimensions => [:quality]
+  	ajaxful_rater
+  	ajaxful_rateable :stars => 5, :dimensions => [:quality]
 
 	after_initialize :set_default_role
 	after_save :set_default_name
@@ -80,7 +80,7 @@ class User < ActiveRecord::Base
 	end
 
 	def get_image
-		img = open(URI.parse(self.avatar_url))
+		img = URI.parse(self.avatar_url)
 		img.base_uri.path.split("/").last.blank? ? nil : img
   end
 
