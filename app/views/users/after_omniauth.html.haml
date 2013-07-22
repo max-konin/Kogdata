@@ -1,7 +1,7 @@
-= form_for @user, :html => { :method => :put, :multipath => true, :id => 'user_update' } do |f|
+= form_for @user, :html => { :method => :put, :multipath => true } do |f|
 	%fieldset
 		%legend
-			=t :edit_page		
+			=t :edit_page
 		= f.hidden_field :password, :value => @user.password
 		= f.hidden_field :avatar_url, :value => @user.avatar_url
 		.control-group

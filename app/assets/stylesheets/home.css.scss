@@ -30,7 +30,7 @@ body {
 }
 
 .main-container{
-  margin-top: 60px;
+  margin-top: 10px;
 }
 .navbar {
 .navbar-inner {
@@ -91,7 +91,12 @@ ul.nav.pull-right{
       font-family: "Comfortaa regular";
       font-size: 16px;
       color:  #ffffff;
-      padding-left: 0px;
+      padding: 0 10px 0 5px;
+      border-left-width: 10px;
+      border-color: #ffffff;
+      border-left-style: solid;
+      border-left-width: 1px;
+      border-color: #ffffff;
     }
   }
   li.avatar{
@@ -149,6 +154,7 @@ table.fc-header{
       color: #ffffff;
       h2{
         font-size: 50px;
+        font-weight: lighter;
         margin-bottom: 0;
         line-height: 60px;
       }
@@ -156,11 +162,24 @@ table.fc-header{
   }
 
 }
+
+
 .fc-view{
   table.fc-border-separate
   {
-    border-collapse: separate;
-    border-spacing: 10px;
+    margin-top: 10px;
+    thead{
+      border-collapse: collapse;
+    }
+    tbody{
+      border-collapse: collapse;
+    }
+    .fc-today{
+      background-color: #ffffff;
+      div{
+      }
+    }
+
     tr.fc-first.fc-last{
       th.fc-widget-header
       {
@@ -172,6 +191,7 @@ table.fc-header{
         width: 80px;
       }
     }
+
     td.fc-widget-content
     {
       border-width: 0px;
@@ -187,6 +207,73 @@ table.fc-header{
       }
     }
   }
+}
+
+
+.add-event-container
+{
+  h4{
+    font-family: "Open Sans";
+    font-weight: bold;
+    font-size: 30px;
+  }
+}
+
+.new_event
+{
+  text-align: left;
+  .date-container{
+    #event_day{
+      width: 60px;
+      height: 35px;
+    }
+    #event_month{
+      width: 130px;
+    }
+    #event_year{
+      width: 130px;
+    }
+  }
+  #event_location, #event_description, #event_type, #event_price, .start-time-container {
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+  #event_description{
+    height: 60px;
+  }
+
+  .start-time-container
+  {
+    text-align: left;
+    #event_start_4i{
+      width: 100px;
+    }
+    #event_start_5i{
+      width: 100px;
+    }
+  }
+}
+
+form.new_event
+{
+  input, label, textarea, select{
+    font-family: "Open Sans";
+    font-weight: bold;
+    font-size: 25px;
+    height: 43px;
+    text-align: left;
+  }
+  .date-container
+  {
+    padding-bottom: 10px;
+    select, input{
+      margin-right: 5px;
+    }
+
+  }
+
 }
 
 

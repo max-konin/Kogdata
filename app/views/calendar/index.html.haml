@@ -1,9 +1,25 @@
 .container.main-container
   .row
-    .span3
+    .span5
       - if can? :create, :all
-        %p завтра здесь будет форма...
-    .span9
+        .add-event-container
+          %h4
+            = t :fill_in_event
+      = form_for @event, :url => 'events/create', :remote => true do |f|
+        .date-container
+          = f.label l(Date.today, :format => :only_day), :id => 'event_day'
+          = f.label l(Date.today, :format => :only_month), :id => 'event_month'
+          = f.label l(Date.today, :format => :only_year), :id => 'event_year'
+        = f.text_field :location, :placeholder => t(:your_town)
+        = f.select :type, Event::TYPES
+        = f.text_area :description, :placeholder => t(:description)
+        %p
+          = f.label t(:start_time)
+          = f.time_select :start
+        = f.text_field :price, :placeholder => t(:budget)
+        %br
+        = f.submit
+    .span7
       .calendar-container
         #calendar
 %input{:id => 'title-for-show',:class => 'hidden'}
