@@ -1,9 +1,7 @@
-require 'open-uri'
-
 class User < ActiveRecord::Base
 	# Include default devise modules. Others available are:
 	# :confirmable,
-	# :lockable, :timeoutable and :omniauthable
+	# :lockable, :timeoutable
 	devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :token_authenticatable, :omniauth_providers => [ :facebook, :vkontakte, :twitter, :gplus, :google_oauth2, :devianart ]
 
 	# Setup accessible (or protected) attributes for your model
@@ -27,6 +25,8 @@ class User < ActiveRecord::Base
 	has_many :provider, :dependent => :destroy
 	has_many :social_links, :dependent => :destroy
 	has_many :busyness, :dependent => :destroy
+  	ajaxful_rater
+  	ajaxful_rateable :stars => 5, :dimensions => [:quality]
 
 	after_initialize :set_default_role
 	after_save :set_default_name
@@ -80,7 +80,7 @@ class User < ActiveRecord::Base
 	end
 
 	def get_image
-		img = open(URI.parse(self.avatar_url))
+		img = URI.parse(self.avatar_url)
 		img.base_uri.path.split("/").last.blank? ? nil : img
   end
 

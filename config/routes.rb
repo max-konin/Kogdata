@@ -1,5 +1,4 @@
 Kogdata::Application.routes.draw do
-
   root :to => 'calendar#index'
 
   get  'conversations/:id'                  => 'conversations#show'
@@ -35,6 +34,9 @@ Kogdata::Application.routes.draw do
   match 'office/'                     => 'office#show'
 
   resources :users do
+    member do
+      get :rate
+    end
     resources :events do
       post 'respond'
       put 'close'

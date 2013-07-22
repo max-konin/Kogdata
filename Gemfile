@@ -47,7 +47,7 @@ gem 'omniauth-twitter'
 gem 'omniauth-vkontakte'
 gem 'cancan'
 
-
+gem 'ajaxful_rating', :git => 'git://github.com/edgarjs/ajaxful-rating.git', :branch => "rails3"
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -61,4 +61,4 @@ gem 'cancan'
 # gem 'capistrano'
 
 # To use debugger
-gem 'debugger', :group => [:developmnet, :test]
+#gem 'debugger', :group => [:developmnet, :test]
