@@ -62,4 +62,3 @@ gem 'ajaxful_rating', :git => 'git://github.com/edgarjs/ajaxful-rating.git', :br
 
 # To use debugger
 #gem 'debugger', :group => [:developmnet, :test]
-gem 'single_test', :group => [:test]
