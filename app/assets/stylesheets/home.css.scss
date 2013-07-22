@@ -27,6 +27,7 @@ body {
   margin-top: 0px;
   font-size: 14px;
   font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+  background: url(/images/header/background.png) 0 0
 }
 
 .main-container{
@@ -176,7 +177,7 @@ table.fc-header{
       border-collapse: collapse;
     }
     .fc-today{
-      background-color: #ffffff;
+      background-color: transparent;
       div{
       }
     }
@@ -217,45 +218,117 @@ table.fc-header{
     font-family: "Open Sans";
     font-weight: bold;
     font-size: 30px;
+    margin-bottom: 30px;
+    color: #ff6060;
   }
+
 }
 
 .new_event
 {
+  .invalid {
+    background: orange;
+  }
+  font-family: "Open Sans";
+  font-weight: bold;
+  font-size: 30px;
+  width: 400px;
   text-align: left;
+  color: #ff6060;
+
   .date-container{
     #event_day{
       width: 60px;
       height: 35px;
     }
     #event_month{
-      width: 130px;
+      width: 160px;
     }
     #event_year{
       width: 130px;
     }
+
   }
-  #event_location, #event_description, #event_type, #event_price, .start-time-container {
-    width: 100%;
+  .start-time-container{
+    display: inline;
     margin-bottom: 20px;
+    #event_hour{
+      width: 68px;
+      margin-left: 5px;
+      height: 30px;
+    }
+    #event_minute{
+      width: 70px;
+      margin-right: 5px;
+      height: 30px;
+    }
+    label{
+      width: 200px;
+      display: inline;
+    }
+  }
+  #event_location, #event_description,  #event_price, .start-time-container {
+    width: 370px;
+    margin-bottom: 20px;
+    margin-right: 0px;
     text-align: left;
+    color: #ff6060;
+  }
+  #event_price{
+    margin-top: 10px;
+  }
+
+  #event_type{
+    width: 383px;
+    margin-bottom: 20px;
   }
 
   #event_description{
     height: 60px;
   }
-
-  .start-time-container
-  {
-    text-align: left;
-    #event_start_4i{
-      width: 100px;
-    }
-    #event_start_5i{
-      width: 100px;
-    }
+  #event_submit{
+    margin: 0 auto;
+    background-color: #ff6060;
+    color: #ffffff;
+  }
+  .submit-container{
+    text-align: center;
   }
 }
+
+input::-webkit-input-placeholder{
+  color:#eae2d7;
+}
+
+input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color:#eae2d7;
+}
+
+input::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color:#eae2d7;
+}
+
+input:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color:#eae2d7;
+}
+
+
+textarea::-webkit-input-placeholder{
+  color:#eae2d7;
+}
+
+textarea:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color:#eae2d7;
+}
+
+textarea::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color:#eae2d7;
+}
+
+textarea:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color:#eae2d7;
+}
+
 
 form.new_event
 {
@@ -265,12 +338,16 @@ form.new_event
     font-size: 25px;
     height: 43px;
     text-align: left;
+    color: #ff6060;
   }
-  .date-container
+  .date-container, .start-time-container
   {
     padding-bottom: 10px;
     select, input{
       margin-right: 5px;
+    }
+    .invalid {
+      background: orange;
     }
 
   }
