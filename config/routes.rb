@@ -1,5 +1,4 @@
 Kogdata::Application.routes.draw do
-
   root :to => 'calendar#index'
 
   get  'conversations/:id'                  => 'conversations#show'

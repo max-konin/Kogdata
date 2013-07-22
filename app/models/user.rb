@@ -1,9 +1,7 @@
-require 'open-uri'
-
 class User < ActiveRecord::Base
 	# Include default devise modules. Others available are:
 	# :confirmable,
-	# :lockable, :timeoutable and :omniauthable
+	# :lockable, :timeoutable
 	devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :token_authenticatable, :omniauth_providers => [ :facebook, :vkontakte, :twitter, :gplus, :google_oauth2, :devianart ]
 
 	# Setup accessible (or protected) attributes for your model
