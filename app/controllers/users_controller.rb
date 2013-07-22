@@ -71,15 +71,27 @@ class UsersController < ApplicationController
   def edit
 	 @user = current_user
    @social_link = SocialLink.new(params[:social_link])
-	 render 'users/edit'
+	 render '/users/edit'
   end
 
   def update
 	 if not current_user.role? params[:user][:role] and current_user.role? 'contractor' then
 		Image.destroy_all :user_id => current_user.id
-	 end
-	 User.update current_user.id, params[:user]
-	 redirect_to '/users/' + current_user.id.to_s
+   end
+   @user = User.find(current_user.id)
+	 if @user.update_attributes(params[:user])
+     respond_to do |format|
+       format.html { render :edit }
+       format.json { render :json => {:success => 'yes'}}
+     end
+   else
+     respond_to do |format|
+       format.html { render :edit }
+       format.json { render :json => {:errors => @user.errors.messages}}
+     end
+   end
+
+
   end
 
   def registration_after_omniauth

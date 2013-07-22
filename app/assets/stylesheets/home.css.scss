@@ -75,6 +75,17 @@ ul.nav.pull-right{
       color:  #ffffff;
     }
   }
+  li.splitter
+  {
+    border-color: #043338;
+    border-left-style: solid;
+    border-right-style: solid;
+    border-width: 1px;
+    border-right-color: #056C79;
+    margin: 5px 10px;
+    height: 30px;
+
+  }
   li.exit{
     a{
       font-family: "Comfortaa regular";
@@ -211,40 +222,38 @@ table.fc-header{
 
 .new_event
 {
-  margin-right: 20px;
+  text-align: left;
   .date-container{
-    height: 30px;
     #event_day{
-      width: 40px;
-      position: absolute;
-      margin-top: 0px;
+      width: 60px;
+      height: 35px;
     }
     #event_month{
-      width: 100px;
-      position: absolute;
-      margin-top: 0px;
-      margin-left: 50px;
+      width: 130px;
     }
     #event_year{
-      width: 50px;
-      margin-left: 150px;
+      width: 130px;
     }
   }
-  #event_location, #event_description, #event_type, #event_price{
+  #event_location, #event_description, #event_type, #event_price, .start-time-container {
     width: 100%;
+    margin-bottom: 20px;
+    text-align: left;
   }
-
 
   #event_description{
-    height: 50px;
+    height: 60px;
   }
 
-
-  #event_start_4i{
-    width: 100px;
-  }
-  #event_start_5i{
-    width: 100px;
+  .start-time-container
+  {
+    text-align: left;
+    #event_start_4i{
+      width: 100px;
+    }
+    #event_start_5i{
+      width: 100px;
+    }
   }
 }
 
@@ -254,29 +263,19 @@ form.new_event
     font-family: "Open Sans";
     font-weight: bold;
     font-size: 25px;
-    height: 50px;
-    text-align: center;
+    height: 43px;
+    text-align: left;
   }
   .date-container
   {
-    margin: 0 auto;
+    padding-bottom: 10px;
+    select, input{
+      margin-right: 5px;
+    }
+
   }
 
 }
-
-//form.new_event > textarea
-//{
-//  font-family: "Open Sans";
-//  font-weight: bold;
-//  font-size: 25px;
-//}
-//
-//form.new_event > select
-//{
-//  font-family: "Open Sans";
-//  font-weight: bold;
-//  font-size: 25px;
-//}
 
 
 #wrap {
@@ -675,7 +674,7 @@ a {
   -webkit-animation: spin 1s infinite linear;
   animation: spin 1s infinite linear;
 }
-
+/* --- CUSTOM CHECKBOX --- */
 input[type='checkbox'] {
   width: 16px;
 }
@@ -691,4 +690,22 @@ input[type='checkbox']:before {
 
 input[type='checkbox']:checked:before {
   background-position: 0 -16px;
+}
+/* --- END CUSTOM CHECKBOX --- */
+
+.input-prepend .add-on + .add-on
+{
+  min-width: 150px;
+  text-align: right;
+}
+
+[id*="social_link_form_"] {
+  margin-bottom: 0;
+}
+[id*="social_link_form_"] input {
+*margin-left: 0;
+vertical-align: top;
+-webkit-border-radius: 0 4px 4px 0;
+-moz-border-radius: 0 4px 4px 0;
+border-radius: 0 4px 4px 0;
 }

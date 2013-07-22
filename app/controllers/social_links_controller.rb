@@ -1,24 +1,44 @@
 class SocialLinksController < ApplicationController
   before_filter :authenticate_user!
   def index
-    redirect_to '/users/edit'
+    @user = current_user
+    @social_link = SocialLink.where('user_id = ?', @user.id)
+    render :partial => '/social_links/form', :collection => @social_link
   end
 
   def new
+    @user = current_user
     @social_link = SocialLink.new()
-    render :partial => '/social_links/form_add'
+    render :partial => '/social_links/form'
   end
 
   def create
     @user = current_user
-    # Separate object @social_link for not display this link in list links /app/views/social_links/_social_link.html.haml
-    # form view /app/views/users/edit.html.haml
-    @social_link = SocialLink.new(params[:social_link])
-    @social_link.user_id = @user.id
-    if @social_link.save
+    result = false
+    begin
+      @social_link = @user.social_links.find(params[:social_link][:id])
+      if params[:social_link][:url].strip.length == 0
+        result = @social_link.destroy
+        if result
+          @social_link = SocialLink.new(:provider => @social_link.provider)
+        end
+      else
+        result = @social_link.update_attributes(params[:social_link])
+      end
+    rescue ActiveRecord::RecordNotFound
+      @social_link = @user.social_links.new(params[:social_link])
+      if params[:social_link][:url].strip.length != 0
+        result = @social_link.save
+      end
+    rescue Exception do |exception|
+      logger.error "rescued_from:: #{params[:controller]}##{params[:action]}: #{exception.inspect}\n"
+      end
+    end
+
+    if result
       respond_to do |format|
         format.html {redirect_to :back}
-        format.json {render :json => @social_link}
+        format.json {render :json => {:social_link => @social_link, :success => 'yes'}}
       end
     else
       respond_to do |format|
@@ -27,6 +47,8 @@ class SocialLinksController < ApplicationController
       end
     end
   end
+
+
 
   def destroy
     @user = current_user

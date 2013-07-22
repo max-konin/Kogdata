@@ -62,4 +62,3 @@ gem 'cancan'
 
 # To use debugger
 gem 'debugger', :group => [:developmnet, :test]
-gem 'single_test', :group => [:test]

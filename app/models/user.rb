@@ -82,5 +82,10 @@ class User < ActiveRecord::Base
 	def get_image
 		img = open(URI.parse(self.avatar_url))
 		img.base_uri.path.split("/").last.blank? ? nil : img
-	end
+  end
+
+  before_validation do
+    self.name = self.name.strip
+    self.email = self.email.strip
+  end
 end
