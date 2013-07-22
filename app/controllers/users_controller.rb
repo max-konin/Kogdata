@@ -128,10 +128,7 @@ class UsersController < ApplicationController
       session['devise.omniauth_data'] = nil
       sign_in_and_redirect @user
     else
-    respond_to do |format|
-     format.html {render :back}
-     format.json {render :json => {:errors => @user.errors.messages}}
-    end
+     render :json => {:errors => @user.errors.messages}
    end
   end
 
