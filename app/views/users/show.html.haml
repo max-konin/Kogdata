@@ -12,6 +12,8 @@
     %h3
       = @user.name
     - if @user.role == 'contractor'
+      = ratings_for @user, :static, :dimension => :quality
+
       %p3
         = t(:price) + ': ' + @user.price.to_s + ' '  + t(:rur)+' '+t(:per_hour)
       %h3
