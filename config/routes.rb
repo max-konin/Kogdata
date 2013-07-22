@@ -34,6 +34,9 @@ Kogdata::Application.routes.draw do
   match 'office/'                     => 'office#show'
 
   resources :users do
+    member do
+      get :rate
+    end
     resources :events do
       post 'respond'
       put 'close'
