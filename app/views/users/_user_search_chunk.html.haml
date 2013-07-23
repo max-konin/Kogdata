@@ -2,13 +2,14 @@
 	.row-fluid
 		.span4
 			%h4
-				=link_to user.name, user
+				=link_to user.name, user, :id => 'user_' + user.id.to_s
 		.span4
 			%h4
 				=t(user.role)
 		.span4.text-right
 			%button{:type => 'button', :class => 'btn btn-primary', :id => 'message-btn',
-										'data-target' => '#messageModal_' + user.id.to_s,
+										'data-target' => '#messageModal',
+										'user_id' => user.id.to_s,
 										'data-toggle' => 'modal'}
 				= t :send_message
 			.modal.hide.fade{:id => 'messageModal_' + user.id.to_s}

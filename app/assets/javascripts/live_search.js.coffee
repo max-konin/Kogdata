@@ -33,7 +33,15 @@ class searcher
 			search()
 			return
 
-		$(options.data_container_selector).on('click', 'button[data-target^=#messageModal_]' , get_message_dialog)
+		$(options.data_container_selector).on('click', 'button[data-target=#messageModal]' , () ->
+			user_id = $(this).attr('user_id')
+			user_name = $('#user_' + user_id).text()
+			$('#messageModal .user_name').html(user_name)
+			acttion = $('#messageModal form').attr('action')
+			acttion = acttion.substring(0, acttion.lastIndexOf('=') + 1) + user_id
+			$('#messageModal form').attr('action', acttion)
+			return
+		)
 
 		for checkbox in _checkboxes
 			$(checkbox).change (event) ->

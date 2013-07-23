@@ -1,7 +1,9 @@
 .mainbox
   #blac-div.modal-header
     %h5
-      = ((t :new_message_for) + User.find(contact_id).name)
+      = (t :new_message_for)
+      %span.user_name
+        = User.find(contact_id).name
       &nbsp|&nbsp
       #for-close
         %a{'data-dismiss'=> 'modal',:id=> 'close-button'}
@@ -10,6 +12,6 @@
   :members => [contact_id]} do |f|
     .modal-body
       =f.text_area :body, :class=>'span2', :id=> 'send-message-input',
-                   :placeholder => ((t :new_message_for) + User.find(contact_id).name)
+                   :placeholder => (t :new_message)
     .modal-footer
       =f.submit t :send, :class => 'btn btn-small btn-inverse',:id=> 'send-message-button';
