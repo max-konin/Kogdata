@@ -1,39 +1,39 @@
 .row-fluid
-  .span3
-    .avatar
-      = image_tag @user.avatar.url(:small)
-    .btn-container
-      - if @user.id != current_user.id
-        %button{:type=> 'button', :class => 'btn btn-primary', :id=>'message-btn', 'data-target'=>'#messageModal',
-        'data-toggle' => 'modal'}
-          = t :send_message
-    = render 'users/link_social_nets'
-  .span9
-    %h3
-      = @user.name
-    - if @user.role == 'contractor'
-      = ratings_for @user, :static, :dimension => :quality
+	.span3
+		.avatar
+			= image_tag @user.avatar.url(:small)
+		.btn-container
+			- if @user.id != current_user.id
+				%button{:type=> 'button', :class => 'btn btn-primary', :id=>'message-btn', 'data-target'=>'#messageModal',
+				'data-toggle' => 'modal'}
+					= t :send_message
+		= render 'users/link_social_nets'
+	.span9
+		%h3
+			= @user.name
+		- if @user.role == 'contractor'
+			= ratings_for @user, :static, :dimension => :quality
 
-      %p3
-        = t(:price) + ': ' + @user.price.to_s + ' '  + t(:rur)+' '+t(:per_hour)
-      %h3
-        = t :portfolio
-      .container.demo-4
-        .main
-          .gallery
-            %ul{:class=>'elastislide-list', :id=>'carousel'}
-              - @user.images.each do |image|
-                %li{'data-preview'=> image.src.url(:original)}
-                  %a{:href=> '#'}
-                    = image_tag image.src.url(:small)
-            .image-preview
-              %img{:id=>'preview'}
+			%p3
+				= t(:price) + ': ' + @user.price.to_s + ' '  + t(:rur)+' '+t(:per_hour)
+			%h3
+				= t :portfolio
+			.container.demo-4
+				.main
+					.gallery
+						%ul{:class=>'elastislide-list', :id=>'carousel'}
+							- @user.images.each do |image|
+								%li{'data-preview'=> image.src.url(:original)}
+									%a{:href=> '#'}
+										= image_tag image.src.url(:small)
+						.image-preview
+							%img{:id=>'preview'}
 - if @user.role == 'client'
-  %br
-  = render :template => 'calendar/index'
+	%br
+	= render :template => 'calendar/index'
 
 #messageModal.modal.hide.fade
-  = render :partial => "messages/new_message", :locals => {:contact_id => @user.id}
+	= render :partial => "messages/new_message", :locals => {:contact_id => @user.id}
 
 - if @user.role == 'contractor'
-  = javascript_include_tag 'portfolio_viewer'
+	= javascript_include_tag 'portfolio_viewer'
