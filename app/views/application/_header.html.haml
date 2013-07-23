@@ -1,32 +1,34 @@
 .navbar.navbar-inverse.navbar-fixed-top
-  .navbar-inner
-    .container
-      %button{:type=> 'button', :class=> 'btn btn-navbar collapsed', 'data-toggle'=>'collapse','data-target'=>'.nav-colapse' }
-        %span{:class=>'icon-bar'}
-        %span{:class=>'icon-bar'}
-        %span{:class=>'icon-bar'}
-      %a{:class => 'brand', :href=> '/'}
-        kogdata
-        %sup beta
-      %ul.nav.pull-right
-        -if user_signed_in?
-          %li.calendar-icon
-            = link_to '', :root
-          %li.messages-icon
-            = link_to '', :conversations
-          %li.user-name
-            %p
-              = current_user.name
-          %li.avatar
-            = image_tag current_user.avatar(:thumb)
-          %li.splitter
-          %li.exit
-            = link_to t(:sign_out).mb_chars.upcase, destroy_user_session_path
-        -else
-          %li
-            %a{:href => "/users/sign_in"}
-              = t(:sign_in).mb_chars.upcase
-          %li
-            %a{:href => "/users/sign_up"}
-              = t(:sign_up).mb_chars.upcase
+	.navbar-inner
+		.container
+			%button{:type=> 'button', :class=> 'btn btn-navbar collapsed', 'data-toggle'=>'collapse','data-target'=>'.nav-colapse' }
+				%span{:class=>'icon-bar'}
+				%span{:class=>'icon-bar'}
+				%span{:class=>'icon-bar'}
+			%a{:class => 'brand', :href=> '/'}
+				kogdata
+				%sup beta
+			%ul.nav.pull-right
+				-if user_signed_in?
+					%li.calendar-icon
+						= link_to '', :root
+					%li.messages-icon
+						%a{:href => :conversations}
+							%p
+								0
+					%li.user-name
+						%p
+							= current_user.name
+					%li.avatar
+						= image_tag current_user.avatar(:thumb)
+					%li.splitter
+					%li.exit
+						= link_to t(:sign_out).mb_chars.upcase, destroy_user_session_path
+				-else
+					%li
+						%a{:href => "/users/sign_in"}
+							= t(:sign_in).mb_chars.upcase
+					%li
+						%a{:href => "/users/sign_up"}
+							= t(:sign_up).mb_chars.upcase
 .navbar_padding_elem
