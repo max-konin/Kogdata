@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  desc: MyText
+  end: 2013-07-22 19:01:58
+  start: 2013-07-22 19:01:58
+  user: 
+
+two:
+  desc: MyText
+  end: 2013-07-22 19:01:58
+  start: 2013-07-22 19:01:58
+  user: 

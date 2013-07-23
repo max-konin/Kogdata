@@ -116,10 +116,10 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new params[:user]
-    if !params[:user][:avatar].nil?
-      @user.avatar_url = ''
+	 if !params[:user][:avatar].nil?
+      params[:user][:avatar_url] = ""
     end
+    @user = User.new params[:user]
     @provider = session['devise.provider']
 	if @user.save
       unless @provider.nil?
@@ -129,10 +129,7 @@ class UsersController < ApplicationController
       session['devise.omniauth_data'] = nil
       sign_in_and_redirect @user
     else
-    respond_to do |format|
-     format.html {render :back}
-     format.json {render :json => {:errors => @user.errors.messages}}
-    end
+     render :json => {:errors => @user.errors.messages}
    end
   end
 

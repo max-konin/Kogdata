@@ -13,11 +13,6 @@
 			.controls
 				= f.email_field :email, :autocomplete => "on"
 		.control-group
-			= f.label :avatar, t(:avatar), :class => 'control-label'
-			.controls
-				%img{:src => !@user.avatar_url.blank? ? @user.avatar_url : @user.avatar.url(:thumb), :width => '50px', :height => '50px'}
-				= f.file_field :avatar, :accept => 'image/*'
-		.control-group
 			= f.label :role, t(:role), :class => 'control-label'
 			.controls
 				= f.select :role, [ [t(:user), :client], [t(:contractor), :contractor] ]

@@ -1,3 +1,44 @@
+current_date_on_change = () ->
+	daysInMonth =  new Date($('#event_year').val(),$('#event_month').val(),0).getDate()
+	$('#event_day').attr('max', daysInMonth)
+	if $.isNumeric($('#event_day').val()) && $('#event_day').val() <= daysInMonth && $('#event_day').val() >= 1
+		$('#event_day').removeClass('invalid')
+	else
+		$('#event_day').addClass('invalid')
+	return
+
+current_time_on_change = ()	->
+	if $.isNumeric($(this).val())
+		if $(this).is('#event_hour')
+			if $(this).val() >= 0 &&  $(this).val() <= 24
+				$(this).removeClass('invalid')
+			else
+				$(this).addClass('invalid')
+		if $(this).is('#event_minute')
+			if $(this).val() >= 0 &&  $(this).val() <= 59
+				$(this).removeClass('invalid')
+			else
+				$(this).addClass('invalid')
+	else
+		$(this).addClass('invalid')
+	return
+
+addZero = () ->
+	if $(this).val() == ''
+		$(this).removeClass('invalid')
+		$(this).val('00')
+	if !$(this).hasClass('invalid')
+		if $(this).val().length == 1
+			$(this).val('0'+$(this).val())
+	return
+
+price_on_change = () ->
+	if $.isNumeric($(this).val())
+		$(this).removeClass('invalid')
+	else
+		$(this).addClass('invalid')
+	return
+
 $(document).ready () ->
 	$('body').on('mousedown', (e) ->
 		if  $(e.target).parents('.popover').size() == 0
@@ -18,8 +59,36 @@ $(document).ready () ->
 		Calendar.add_event_on_submit()
 		return)
 	Calendar.update_calendar()
-	$('.fc-button-prev').html('<label> < </label>')
-	$('.fc-button-next').html('<label> > </label>')
+	if $('#calendar').length
+		$('.fc-button-prev').html('<label> < </label>')
+		$('.fc-button-next').html('<label> > </label>')
 
-	$('.fc-widget-header').html('<div class = "fc-header-inside"> '+ $('.fc-widget-header').html().toString()+'</div>')
+		
+		$('.fc-widget-header').html('<div class = "fc-header-inside"> '+ $('.fc-widget-header').html().toString()+'</div>')
+		#!!!!!!!!!!!!
+		#Alex, good morning!!!
+		#this is my part of work, and if you want this to 
+		#be implemented in some other way, you just can come to 
+		#me and ask me to do it like that
+		#but, please dont make any corrections in my code,
+		#I am working with it, and I am tired of resolving merge conflicts!!
+		#Thanks, Mitya.
+		#!!!!!!!!!!
+		currentDate = new Date()
+		month = currentDate.getMonth()
+		day = currentDate.getDate()
+		year = currentDate.getYear()
+		opt = $("option[value="+month+"]")
+
+		html = $("<div>").append(opt.clone()).html()
+		html = html.replace(/\>/, ' selected="selected">')
+		opt.replaceWith(html)
+		$('#event_day').val(day)
+		$('#event_day').on('input', current_date_on_change)
+		$('#event_month').on('change', current_date_on_change)
+		$('#event_hour').on('input', current_time_on_change)
+		$('#event_minute').on('input', current_time_on_change)
+		$('#event_hour').on('change', addZero)
+		$('#event_minute').on('change', addZero)
+		$('#event_price').on('input', price_on_change)
 	return

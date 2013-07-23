@@ -9,6 +9,7 @@ class CreateEvents < ActiveRecord::Migration
       t.datetime :end
       t.integer :price
       t.string :status
+		t.references :user
 
       t.timestamps
     end

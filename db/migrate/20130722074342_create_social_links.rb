@@ -4,6 +4,7 @@ class CreateSocialLinks < ActiveRecord::Migration
       t.string :provider
       t.string :url
       t.text :description
+		t.references :user
 
       t.timestamps
     end
