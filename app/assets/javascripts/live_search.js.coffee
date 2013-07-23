@@ -54,8 +54,7 @@ class searcher
 			$.ajax({
 				url: _url_message + '/' + user_id
 				type: 'post'
-				data: ""
-				method: 'get'
+				data: {user_id: user_id}
 				success: (data) -> $(div_id).html(data); return;
 				error: (e) ->
 					console.log e.readyState
