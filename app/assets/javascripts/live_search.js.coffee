@@ -1,6 +1,6 @@
 class searcher
 
-	_url = _input = _data_container = _checkboxes = _data = ""
+	_url = _url_message = _input = _data_container = _checkboxes = _data = ""
 	_page_position = _again = _offset = 0
 
 	_request = undefined
@@ -9,6 +9,7 @@ class searcher
 
 	_default_options = {
 		url: "/users/search"
+		url_message: '/users/show_modal'
 		input_selector: "#search_pattern"
 		data_container_selector: "#search_content"
 		checkbox_photograph: "#search_photograph"
@@ -21,6 +22,7 @@ class searcher
 		for option of _default_options
 			options[option] ||= _default_options[option]
 		_url = options.url
+		_url_message = options.url_message
 		_input = $(options.input_selector)
 		_data_container = $(options.data_container_selector)
 		_checkboxes = [ $(options.checkbox_photograph)[0], $(options.checkbox_client)[0] ]
@@ -30,7 +32,17 @@ class searcher
 		_input.bind 'input', (event) ->
 			search()
 			return
-	
+
+		$(options.data_container_selector).on('click', 'button[data-target=#messageModal]' , () ->
+			user_id = $(this).attr('user_id')
+			user_name = $('#user_' + user_id).text()
+			$('#messageModal .user_name').html(user_name)
+			acttion = $('#messageModal form').attr('action')
+			acttion = acttion.substring(0, acttion.lastIndexOf('=') + 1) + user_id
+			$('#messageModal form').attr('action', acttion)
+			return
+		)
+
 		for checkbox in _checkboxes
 			$(checkbox).change (event) ->
 				send_ajax show_data
@@ -42,6 +54,21 @@ class searcher
 				search_deeper()
 			return
 		)
+
+	get_message_dialog = () ->
+		div_id = $(this).attr('data-target')
+		user_id = div_id.substring(div_id.indexOf('_') + 1)
+		if $(div_id + ' i[class="icon-spin icon-refresh"]')[0]
+			$.ajax({
+				url: _url_message + '/' + user_id
+				type: 'post'
+				data: {user_id: user_id}
+				success: (data) -> $(div_id).html(data); return;
+				error: (e) ->
+					console.log e.readyState
+					return
+			})
+		return
 
 	search = () ->
 		$('#status-icon').removeClass('icon-search').attr('class', 'icon-repeat icon-spin')
