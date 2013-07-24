@@ -18,7 +18,13 @@ $(document).ready () ->
 	}
 
 	$(form_id).on("focusout", 'form',() ->
+		value = $(this).find('input[type=text]').val()
+		value = value.trim()
+		id = $(this).find('input[name$=\'[id]\']').val()
 
-		validate_all_fields(this, options)
+		if value.length == 0
+			options.method = 'delete'
+		if value.length != 0 or id.length != 0
+			validate_all_fields(this, options)
 		return)
 	return

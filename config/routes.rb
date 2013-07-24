@@ -11,7 +11,6 @@ Kogdata::Application.routes.draw do
 
 	post 'users/search'               => 'users#search'
 	post 'users/search/:input'        => 'users#search'
-	post '/users/validate'            => 'users#validate'
 	post '/users/validate/:field'     => 'users#validate'
 	post '/users/:id/validate/:field' => 'users#validate'
 	get 'users/edit'                  => 'users#edit'
@@ -20,8 +19,9 @@ Kogdata::Application.routes.draw do
 	get 'users/get_info'              => 'users#registration_after_omniauth'
 	put 'users'                       => 'users#create'
 	put 'users/edit'                  => 'users#update'
-	post 'users/show_modal/:user_id'   => 'users#show_modal'
+	post 'users/show_modal/:user_id'  => 'users#show_modal'
 	devise_for :users, :controllers => { :omniauth_callbacks => 'omniauth_callbacks'}
+	delete '/users/:user_id/social_links' => 'social_links#destroy'
 
 	get 'welcome'                       => 'welcome#index'
 	get 'welcome/index'                 => 'welcome#index'
@@ -44,7 +44,7 @@ Kogdata::Application.routes.draw do
 			put 'reopen'
 		end
 		resources :responses, only: [:update, :destroy]
-		resources :social_links, only: [:create]
+		resources :social_links, only: [:create, :destroy]
 	end
 
 	resources :events,only: [:show]  do
