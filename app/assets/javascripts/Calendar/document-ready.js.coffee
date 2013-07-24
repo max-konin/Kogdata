@@ -64,16 +64,8 @@ $(document).ready () ->
 		$('.fc-button-next').html('<label> > </label>')
 
 		
-		$('.fc-widget-header').html('<div class = "fc-header-inside"> '+ $('.fc-widget-header').html().toString()+'</div>')
-		#!!!!!!!!!!!!
-		#Alex, good morning!!!
-		#this is my part of work, and if you want this to 
-		#be implemented in some other way, you just can come to 
-		#me and ask me to do it like that
-		#but, please dont make any corrections in my code,
-		#I am working with it, and I am tired of resolving merge conflicts!!
-		#Thanks, Mitya.
-		#!!!!!!!!!!
+		for header in $('.fc-widget-header')
+			header.innerHTML = '<div class = "fc-header-inside"> '+ header.innerHTML+'</div>'
 		currentDate = new Date()
 		month = currentDate.getMonth()
 		day = currentDate.getDate()
