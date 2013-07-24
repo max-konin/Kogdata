@@ -24,6 +24,6 @@ module SocialLinkHelper
   end
 
   def providers_list
-    ['vkontakte', 'twitter', 'facebook', 'gplus']
+    SocialLink::PROVIDERS
   end
 end

@@ -1,0 +1,5 @@
+-if current_user.role == 'contractor'
+	-if @event.responses.where('user_id = ?', current_user.id).count == 0
+		= form_for [@event, @event.responses.build] do |f|
+			= f.hidden_field :user_id, :value => current_user.id
+			= f.submit t(:to_photo), :class => 'btn'

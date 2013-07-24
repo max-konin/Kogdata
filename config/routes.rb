@@ -21,7 +21,7 @@ Kogdata::Application.routes.draw do
 	put 'users'                       => 'users#create'
 	put 'users/edit'                  => 'users#update'
 	post 'users/show_modal/:user_id'   => 'users#show_modal'
-	devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
+	devise_for :users, :controllers => { :omniauth_callbacks => 'omniauth_callbacks'}
 
 	get 'welcome'                       => 'welcome#index'
 	get 'welcome/index'                 => 'welcome#index'
@@ -43,7 +43,12 @@ Kogdata::Application.routes.draw do
 			put 'close'
 			put 'reopen'
 		end
+		resources :responses, only: [:update, :destroy]
 		resources :social_links, only: [:create]
+	end
+
+	resources :events,only: [:show]  do
+		resources :responses, only: [:create]
 	end
 
 	#put 'users/:user_id/events/:id/close' => 'events#close'
