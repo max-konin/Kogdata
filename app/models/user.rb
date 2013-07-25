@@ -24,9 +24,10 @@ class User < ActiveRecord::Base
 	has_many :messages
 	has_many :provider, :dependent => :destroy
 	has_many :social_links, :dependent => :destroy
-	has_many :busyness, :dependent => :destroy
-  	ajaxful_rater
-  	ajaxful_rateable :stars => 5, :dimensions => [:quality]
+	has_many :busynesses, :dependent => :destroy
+	has_many :responses, :dependent => :destroy
+	ajaxful_rater
+	ajaxful_rateable :stars => 5, :dimensions => [:quality]
 
 	after_initialize :set_default_role
 	after_save :set_default_name

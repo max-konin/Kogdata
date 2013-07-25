@@ -1,8 +1,11 @@
 class SocialLink < ActiveRecord::Base
-  attr_accessible :provider, :url, :description
-  validates_uniqueness_of :url
-  # If change reg expr in this file, change expr in file /app/assets/javascripts/social_link.js.coffee and helper social_link
-  validates :url, :presence => true,:format => {:with => /\Ahttps?:\/\/([\w-]+\.)?[\w-]+\.\w+(\.\w+)?(\/\w+)+\/?\z/}, :length => {:maximum => 255}
-  validates :description, :format => {:with => /\A[\w\u0410-\u044F \-+#,\.')(]+\z/}, :length => {:maximum => 40}
-  belongs_to :user
+  attr_accessible :provider, :url
+	validates_uniqueness_of :url
+  validates :url, :presence => true,:format => {:with => /\A[\w-]+\z/}, :length => {:maximum => 24}
+	validates :user_id, :presence => true
+
+	PROVIDERS = %w(vkontakte twitter facebook gplus) # If change -> update /app/helpers/social_link_helper.rb
+	validates :provider, :presence => true, :inclusion =>{:in => PROVIDERS}
+
+	belongs_to :user
 end

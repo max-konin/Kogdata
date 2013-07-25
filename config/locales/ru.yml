@@ -11,6 +11,7 @@ ru:
   submit_edit: "Изменить"
   submit_add: "Добавить"
   submit_save: "Сохранить"
+  submit_reject: "Отказаться"
   create_event: "Создать событие"
   new_event: "Новое событие"
   the_event: "Просмотр события"
@@ -50,6 +51,7 @@ ru:
   url: "Ссылка"
   avatar: "Изображение"
   role: "Статус"
+  status: "Статус"
   contractor: "Фотограф"
   client: "Пользователь"
   find_user: "Найти пользователя"
@@ -93,6 +95,13 @@ ru:
 
   fill_in_event: "Задайте параметры события"
   town: "Город"
+
+  response_status:
+    submitted: 'Подано'
+    rejected: 'Отклонено'
+    confirmed: 'Подтверждено'
+    completed: 'Выполнено'
+
   devise:
       failure:
         already_authenticated: "Вы уже вошли в систему."

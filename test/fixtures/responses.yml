@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id : 1
+  event_id: 5
+  user_id: 2
+  status: submitted
+
+two:
+  id: 2
+  event_id: 5
+  user_id:  3
+  status: submitted

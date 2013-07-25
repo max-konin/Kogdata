@@ -596,8 +596,6 @@ p4
 	margin-left: 22%;
 }
 .list_box{
-  overflow: auto;
-  max-height: 70%;
 	overflow-y: scroll;
 	max-height: 70%;
 }
@@ -624,9 +622,6 @@ p4
 	border-radius: 10px;
 	border-left: 1px solid #aaaaaa;
 	border-right: 1px solid #aaaaaa;
-}
-.list-messages-form{
-
 }
 .social-btn
 {
