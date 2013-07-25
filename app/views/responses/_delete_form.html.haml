@@ -1,0 +1,10 @@
+= form_for [@event, @response], :method => 'delete', :html => {:class => 'form-horizontal'} do |f|
+	%fieldset
+		= f.hidden_field :user_id, :value => current_user.id
+		.control-group
+			%span
+				= t(:status) + ': '
+				%strong
+					= t(@response.status, scope: :response_status)
+			.controls
+				= f.submit t(:submit_reject), :class => 'btn'

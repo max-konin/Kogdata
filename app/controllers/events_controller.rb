@@ -83,7 +83,8 @@ class EventsController < ApplicationController
   def show
     @user = current_user
     @event = Event.find(params[:id])
-    respond_to do |format|
+		@response = @event.responses.where('user_id = ?', @user.id).first
+		respond_to do |format|
       format.html
       format.json {render json:@event, :content_type => 'application/json'}
     end

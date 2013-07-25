@@ -23,30 +23,30 @@ class ResponsesController < ApplicationController
   end
 
   def update
-		@response = Response.find(params[:response_id])
-		if @response.update_attributes(params[:responses])
+		@response = Response.find(params[:id])
+		if @response.update_attributes(params[:response])
 			respond_to do |format|
-				format.html {redirect_to 'events/show'}
+				format.html {redirect_to '/events/' + @response.event_id.to_s}
 				format.json {render :json => {:status => 'yes'}}
 			end
 		else
 			respond_to do |format|
-				format.html {redirect_to 'events/show'}
+				format.html {redirect_to '/events/' + @response.event_id.to_s}
 				format.json {render :json => {:errors => @response.errors.messages}}
 			end
 		end
   end
 
-  def delete
-		@response = Response.find(params[:response_id])
+  def destroy
+		@response = Response.find(params[:id])
 		if @response.destroy
 			respond_to do |format|
-				format.html {redirect_to 'events/show'}
+				format.html {redirect_to '/events/' + @response.event_id.to_s}
 				format.json {render :json => {:status => 'yes'}}
 			end
 		else
 			respond_to do |format|
-				format.html {redirect_to 'events/show'}
+				format.html {redirect_to '/events/' + @response.event_id.to_s}
 				format.json {render :json => {:errors => @response.errors.messages}}
 			end
 		end

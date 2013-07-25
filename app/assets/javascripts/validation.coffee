@@ -34,7 +34,7 @@
 	path = if options.path then options.path else $(form_id).attr('action')
 	#set collection wich be parsed and sent
 	collection = if options.collection then options.collection else
-		$(form_id).find(' input[type!=submit][type!=image][type!=file]')
+		$(form_id).find(' input[type!=submit][type!=image][type!=file], select')
 
 	data_obj = new Object
 	collection = $(collection).map(
@@ -94,7 +94,8 @@
 						obj_property_name = obj_property_name.match(/(\w+)\[(\w+)\]/)
 						obj_name = obj_property_name[1]
 						obj_field = obj_property_name[2]
-						$(elem).val(result[obj_name][obj_field])
+						if result[obj_name] and result[obj_name][obj_field]
+							$(elem).val(result[obj_name][obj_field])
 						return)
 
 					if options.default_submit == true
@@ -178,7 +179,7 @@
 	if !options.field_event
 		options.field_event = 'focusout'
 
-	$(form).on(options.field_event, 'input[type!=submit][type!=image][type!=file]', () ->
+	$(form).on(options.field_event, 'input[type!=submit][type!=image][type!=file], select', () ->
 		validate_one_field(form, this, to_field_options)
 	)
 	return

@@ -9,6 +9,10 @@ class SocialLinksController < ApplicationController
 
 	def create
 		@user = current_user
+		if !@user.role? 'contractor'
+			logger.error "rescued_from:: #{params[:controller]}##{params[:action]}: #{@user.role} not contractor\n"
+			raise(RuntimeError, 'Access denied')
+		end
 		result = false
 		begin
 			@social_link = @user.social_links.find(params[:social_link][:id])

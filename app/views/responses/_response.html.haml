@@ -1,0 +1,7 @@
+.response_field
+	= form_for [@event, response], :html => {:class => 'form-inline'} do |f|
+		%span.user_info
+			%span
+				= response.user.name
+		= f.select :status, list_of_status, {}, :class => 'input-medium'
+		= f.submit t(:submit_save), :class => 'btn'
