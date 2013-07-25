@@ -13,19 +13,3 @@ Conv2User3:
 Conv2User4:
   conversation_id: 2
   user_id: 4
-
-Conv3User1:
-  conversation_id: 3
-  user_id: 1
-
-Conv3User3:
-  conversation_id: 3
-  user_id: 3
-
-Conv4User2:
-  conversation_id: 4
-  user_id: 2
-
-Conv2User4:
-  conversation_id: 4
-  user_id: 3

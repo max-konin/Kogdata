@@ -1,5 +1,4 @@
-= stylesheet_link_tag 'home'
-.message_box
+.message_box{:id => "message_box_#{message.id}"}
   .container-fluid
     .row-fluid
       .span1
@@ -10,5 +9,4 @@
         %br  #{ message.body}.
       -if message.user == current_user
         .span1#iconic
-          =link_to(:controller => 'conversations', :action => 'delete_message', :m_id => message.id) do
-            %i{:class => 'icon-trash'}
+          %i{:class => 'icon-trash cursor', :onclick => "delete_message(\"#message_box_#{message.id}\", #{message.id})"}

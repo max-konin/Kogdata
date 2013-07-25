@@ -8,24 +8,19 @@
         %a.btn.social-btn.btn-info{:href => "/users/auth/twitter"}  #{t(:sign_in_with)} twitter
         %a.btn.social-btn.btn-primary{:href => "/users/auth/facebook"}  #{t(:sign_in_with)} facebook
       .span6
+        %br
         = form_for(resource, :as => resource_name, :url => '/users', :method => 'put') do |f|
+          = devise_error_messages!
           .control-group
-            = alert
-          .control-group
-            = f.text_field :name, :autofocus => true,  :placeholder => t(:name)
-            = list_error_messagses f, :name
+            = f.text_field :name, :class => 'large', :autofocus => true,  :placeholder => t(:name)
           .control-group
             = f.select :role, options_for_select([[t(:client), :client], [t(:contractor), :contractor]])
-            = list_error_messagses f, :role
           .control-group#price-div
-            = f.number_field :price, :min => '0', :placeholder => t(:price)
-            = list_error_messagses f, :price
+            = f.text_field :price, :id => "price-field",:class => 'large', :placeholder => t(:price)
           .control-group
-            = f.email_field :email,  :placeholder => t(:email)
-            = list_error_messagses f, :email
+            = f.email_field :email, :class => 'large',  :placeholder => t(:email)
           .control-group
-            = f.password_field :password, :placeholder => t(:password)
-            = list_error_messagses f, :password
+            = f.password_field :password, :class => 'large', :placeholder => t(:password)
           .control-group
-            = f.submit t(:sign_up), :class => 'btn btn-danger btn-large'
+            = f.submit t(:sign_up), :class => "btn btn-danger btn-large"
 

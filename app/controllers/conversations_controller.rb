@@ -9,8 +9,7 @@ class ConversationsController < ApplicationController
       message.was_seen = false
       message.user = current_user
     end
-
-    redirect_to :back
+    render :partial => 'messages/messages', :locals => {:message => @message}
   end
 
   def show
@@ -24,9 +23,7 @@ class ConversationsController < ApplicationController
 
   def delete_message
     current_user.messages.find_by_id(params[:m_id]).destroy
-
-    redirect_to :back
+    render :json => {:result => true}
   end
-
 
 end

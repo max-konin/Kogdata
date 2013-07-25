@@ -5,12 +5,13 @@
     = stylesheet_link_tag 'home'
     = stylesheet_link_tag 'user'
     = javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery?
-    = javascript_include_tag "application"
-    = javascript_include_tag "common"
-    = javascript_include_tag "office"
-    = javascript_include_tag "calendar"
-    = javascript_include_tag "image_uploader"
-    = javascript_include_tag "user"
+    = javascript_include_tag 'application'
+    = javascript_include_tag 'common'
+    = javascript_include_tag 'office'
+    = javascript_include_tag 'calendar'
+    = javascript_include_tag 'image_uploader'
+    = javascript_include_tag 'user'
+    = javascript_include_tag 'conversations'
   %title Kogdata
 %body
   = render 'application/header'

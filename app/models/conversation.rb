@@ -2,8 +2,6 @@ class Conversation < ActiveRecord::Base
   attr_accessible :theme, :hash_string, :users
   has_and_belongs_to_many :users
   has_many :messages
-  validates :hash_string, :uniqueness => true
-
 
   #Force method for find conversation between 2 users
   #Unsafe SQL query!

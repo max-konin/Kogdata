@@ -1,6 +1,5 @@
 class Busyness < ActiveRecord::Base
 	belongs_to :user
-
 	attr_accessible :desc, :end, :start
 
 	validate :start, :presence => true
@@ -11,9 +10,9 @@ class Busyness < ActiveRecord::Base
 	def busyness_span
 		self.end - self.start
 	end
-
+	
 	private
-
+	
 	def valid_span
 		self.start < self.end
 	end
