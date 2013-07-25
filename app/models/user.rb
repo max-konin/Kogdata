@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
 	devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :token_authenticatable, :omniauth_providers => [ :facebook, :vkontakte, :twitter, :gplus, :google_oauth2, :devianart ]
 
 	# Setup accessible (or protected) attributes for your model
-	attr_accessible :email, :password, :remember_me, :name, :role, :images, :avatar, :avatar_url, :price
+	attr_accessible :email, :password, :remember_me, :name, :role, :images, :avatar, :avatar_url, :price, :town
 
 
 	has_attached_file :avatar, 
@@ -67,6 +67,10 @@ class User < ActiveRecord::Base
 	def set_default_role
 		self.role ||= "client"
 	end
+
+  #def set_default_town
+  #  self.town ||= "Новосибирск"
+  #end
 
 	def avatar_url_provided?
 		!self.avatar_url.blank?
