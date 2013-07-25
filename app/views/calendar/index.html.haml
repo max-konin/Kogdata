@@ -1,9 +1,35 @@
 .container.main-container
   .row
-    .span3
+    .span5
       - if can? :create, :all
-        %p завтра здесь будет форма...
-    .span9
+        .add-event-container
+          %h4
+            = t :fill_in_event
+      = form_for @event, :url => 'events/create', :remote => true do |f|
+        .date-container
+          %input{:id => 'event_day',:name => 'event[day]',:type => 'number', :min => 1, :max => 31, :autocomplete => :off}
+          %select{:id => 'event_month', :name => 'event[month]'}
+            = for i in 1..12
+              %option{:value => i}
+                = t('date.month_names', :locale => :ru)[i]
+          %select{:id => 'event_year', :name => 'event[year]'}
+            - year = Date.current.year
+            %option{:value => year}
+              = year
+            %option{:value => year+1}
+              = year+1
+        = f.text_field :location, :placeholder => t(:your_town)
+        = f.select :type, Event::TYPES
+        = f.text_area :description, :placeholder => t(:description)
+        .start-time-container
+          = f.label t(:start_time)
+          %input{:id => 'event_hour', :name => 'event[hour]', :value => '10',:type => 'number', :min => 0, :max => 23} :
+          %input{:id => 'event_minute', :name => 'event[minute]', :value => '00', :type => 'number', :min => 0, :max => 59}
+        = f.text_field :price, :placeholder => t(:budget)
+        %br
+        .submit-container
+          = f.submit  t(:create_event), :id => 'event_submit'
+    .span7
       .calendar-container
         #calendar
 %input{:id => 'title-for-show',:class => 'hidden'}

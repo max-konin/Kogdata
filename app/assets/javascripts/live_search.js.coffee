@@ -1,6 +1,6 @@
 class searcher
 
-	_url = _input = _data_container = _checkboxes = _data = ""
+	_url = _url_message = _input = _data_container = _checkboxes = _data = ""
 	_page_position = _again = _offset = 0
 
 	_request = undefined
@@ -9,6 +9,7 @@ class searcher
 
 	_default_options = {
 		url: "/users/search"
+		url_message: '/users/show_modal'
 		input_selector: "#search_pattern"
 		data_container_selector: "#search_content"
 		checkbox_photograph: "#search_photograph"
@@ -21,6 +22,7 @@ class searcher
 		for option of _default_options
 			options[option] ||= _default_options[option]
 		_url = options.url
+		_url_message = options.url_message
 		_input = $(options.input_selector)
 		_data_container = $(options.data_container_selector)
 		_checkboxes = [ $(options.checkbox_photograph)[0], $(options.checkbox_client)[0] ]
@@ -30,7 +32,17 @@ class searcher
 		_input.bind 'input', (event) ->
 			search()
 			return
-	
+
+		$(options.data_container_selector).on('click', 'button[data-target=#messageModal]' , () ->
+			user_id = $(this).attr('user_id')
+			user_name = $('#user_' + user_id).text()
+			$('#messageModal .user_name').html(user_name)
+			acttion = $('#messageModal form').attr('action')
+			acttion = acttion.substring(0, acttion.lastIndexOf('=') + 1) + user_id
+			$('#messageModal form').attr('action', acttion)
+			return
+		)
+
 		for checkbox in _checkboxes
 			$(checkbox).change (event) ->
 				send_ajax show_data
@@ -43,8 +55,22 @@ class searcher
 			return
 		)
 
+	get_message_dialog = () ->
+		div_id = $(this).attr('data-target')
+		user_id = div_id.substring(div_id.indexOf('_') + 1)
+		if $(div_id + ' i[class="icon-spin icon-refresh"]')[0]
+			$.ajax({
+				url: _url_message + '/' + user_id
+				type: 'post'
+				data: {user_id: user_id}
+				success: (data) -> $(div_id).html(data); return;
+				error: (e) ->
+					console.log e.readyState
+					return
+			})
+		return
+
 	search = () ->
-		$('#status-icon').removeClass('icon-search').attr('class', 'icon-repeat icon-spin')
 		send_ajax show_data
 		return
 
@@ -57,7 +83,7 @@ class searcher
 		}
 		append_data = (data) ->
 			_data += data
-			show_data(_data)
+			_data_container.append data
 			return
 		send_ajax(append_data)
 		return
@@ -69,33 +95,26 @@ class searcher
 			contractor: if _checkboxes[0].checked then 1 else 0
 			client: if _checkboxes[1].checked then 1 else 0
 		}
-		not _request || _request.readyState == 4 || not _request.again || _request.abort("New request. Drop this away.")
+		not _request || _request.readyState == 4 || _request.abort("New request. Drop this away.")
 		_request = $.ajax {
 			url: _url
 			type: 'post'
 			data: _request_data
 			success: if typeof success == 'function' then success else (d) -> console.log d; return
 			error: (e) ->
-				console.log e.readyState
+				console.log e
 				return
 			complete: () ->
-				_better_request_data = undefined
 				return
 		}
 		return true
 
 	show_data = (data) ->
-		$('#status-icon').removeClass('icon-repeat icon-spin').attr('class', 'icon-search')
 		_data = data
-		val = _input.val()
-		reg = new RegExp("(#{val})", "gi")
 		_data_container.html _data
-		_a_strings = _data_container.find("a[href^='/users/']")
-		_a_strings.each((i, e) ->
-			$(e).html($(e).html().replace(reg, "<b>$1</b>"))
-			return
-		)
 		return
+
+	
 
 $(document).ready () ->
 	live_search = new searcher()

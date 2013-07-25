@@ -74,7 +74,7 @@ task :see do
 end
 
 task :clear_and_upload do
-  protected_path = %w[kogdata/tmp kogdata/public/system  kogdata/public/avatars]
+  protected_path = %w[kogdata/.bundle kogdata/vendor/bundle kogdata/tmp kogdata/public/system  kogdata/public/avatars]
   puts protected_path
   Net::SFTP.start('168.63.105.134', 'deployer', :password => 'E1plHrOq') do |sftp|
     sftp.mkdir("kogdata")

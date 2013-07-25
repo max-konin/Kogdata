@@ -23,6 +23,7 @@ class UsersController < ApplicationController
 	def show
 		@user = User.find(params[:id])
 		authorize! :read, @user
+    @event = Event.new()
 		respond_to do |format|
 			format.html # users/show.html.haml
 			format.json { render :json => @user }
@@ -115,10 +116,10 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new params[:user]
-    if !params[:user][:avatar].nil?
-      @user.avatar_url = ''
+	 if !params[:user][:avatar].nil?
+      params[:user][:avatar_url] = ""
     end
+    @user = User.new params[:user]
     @provider = session['devise.provider']
 	if @user.save
       unless @provider.nil?
@@ -128,10 +129,7 @@ class UsersController < ApplicationController
       session['devise.omniauth_data'] = nil
       sign_in_and_redirect @user
     else
-    respond_to do |format|
-     format.html {render :back}
-     format.json {render :json => {:errors => @user.errors.messages}}
-    end
+     render :json => {:errors => @user.errors.messages}
    end
   end
 
@@ -152,6 +150,18 @@ class UsersController < ApplicationController
         end
       end
     end
+  end
+
+  def rate
+    @user = User.find(params[:id])
+    @user.rate(params[:stars], current_user, params[:dimension])
+    redirect_to :back
+=begin
+    render :update do |page|
+      page.replace_html @user.wrapper_dom_id(params), ratings_for(@user, params.merge(:wrap => false))
+      page.visual_effect :highlight, @user.wrapper_dom_id(params)
+    end
+=end
   end
 
   def merge

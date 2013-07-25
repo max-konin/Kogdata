@@ -1,22 +1,24 @@
 .row-fluid
-  .span4
-    %h3
-      = t(:users) + ":"
-  .span8
-    %form.form-search.flying
-      .input-prepend
-        %span.add-on
-          %label.checkbox
-            %input#search_photograph{:type => 'checkbox'}
-            = t(:contractor)
-        %span.add-on
-          %label.checkbox
-            %input#search_client{:type => 'checkbox'}
-            = t(:client)
-        %span.add-on
-          %i.icon-search#status-icon
-        %input#search_pattern.search-query.input-medium{:placeholder => t(:find_user), :type => 'text', :maxlength => '20'}
+	.span4
+		%h3
+			= t(:users) + ":"
+	.span8
+		%form.form-search.flying
+			.input-prepend
+				%span.add-on
+					%label.checkbox
+						%input#search_photograph{:type => 'checkbox'}
+						= t(:contractor)
+				%span.add-on
+					%label.checkbox
+						%input#search_client{:type => 'checkbox'}
+						= t(:client)
+				%span.add-on
+					%i.icon-search#status-icon
+				%input#search_pattern.search-query.input-medium{:placeholder => t(:find_user), :type => 'text', :maxlength => '20'}
 %div#search_content
-  = render "user_search_chunk", :users => @users
+	= render "user_search_chunk", :users => @users
+#messageModal.modal.hide.fade
+	= render :partial => "messages/new_message", :locals => {:contact_id => current_user.id}
 = javascript_include_tag "portfolio_viewer"
 = javascript_include_tag "live_search"
