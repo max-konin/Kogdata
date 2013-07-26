@@ -1,4 +1,4 @@
-class BusynessesController < ActionController
+class BusynessesController < ApplicationController
   def index
 
   end

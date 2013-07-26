@@ -3,8 +3,8 @@
 		.span5
 			- if can? :create, @event
 				= render 'calendar/add_event_form'
-			- if can? :read, @events
-				= render 'calendar/contractor_profile'
+			-#- if @user.role == 'contractor'
+			-#	= render 'calendar/contractor_profile'
 		.span7
 			= render 'calendar/calendar'
 %input{:id => 'title-for-show',:class => 'hidden'}

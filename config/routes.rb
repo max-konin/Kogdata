@@ -31,7 +31,8 @@ Kogdata::Application.routes.draw do
   get 'office/show'
   get 'office/all'
   get 'office/portfolio'              => 'office#portfolio'
-  match 'office/'                     => 'office#show'
+  match 'office/'  => 'office#show'
+
 
   resources :users do
     resources :events do
@@ -40,6 +41,7 @@ Kogdata::Application.routes.draw do
       put 'reopen'
     end
     resources :social_links, only: [:create]
+    resources :busynesses, only: [:index, :create, :delete]
   end
 
   #put 'users/:user_id/events/:id/close' => 'events#close'
