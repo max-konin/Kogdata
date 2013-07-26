@@ -1,7 +1,7 @@
 .row-fluid{:id => "social_link_#{social_link.id}"}
   .span4
-    %img{:src => get_provider(social_link.url) + '/favicon.ico', :class => 'favicon'}
     = link_to social_link.url do
+      %img{:src => get_provider(social_link.url) + '/favicon.ico', :class => 'favicon'}
       = social_link.description
   .span6
     = social_link.url

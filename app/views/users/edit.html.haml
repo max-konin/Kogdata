@@ -1,6 +1,7 @@
-= javascript_include_tag 'user'
-= render :partial => '/users/user_form'
+= render :partial => 'users/user_form'
+= render :partial => 'social_links/form_add'
+
 #social_link_list
 	%legend
 		=t(:links_list)
-	= render :partial => '/social_links/form'
+	= render @user.social_links

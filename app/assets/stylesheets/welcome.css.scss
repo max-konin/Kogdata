@@ -1,12 +1,9 @@
-body {
+body
+{
   background: fff;
 }
-
-.navbar-fixed-top .container {
-  width: auto;
-}
 .box {
-  font-size: 16px;
+  font-size: 18px;
   position: relative;
   padding: 40px 50px 60px 50px;
   margin: 0 auto;
@@ -16,35 +13,9 @@ body {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
 }
 
-.navbar .navbar-inner {
-  background-color: #00525a;
-  background-image: linear-gradient(to bottom, #00525a, #00525a);
-  background-repeat: repeat-x;
-  filter: none;
-}
-
-.navbar .navbar-inner .brand {
-  color: #ffffff;
-  font-family: "Comfortaa bold";
-  font-size: 28px;
-  margin-left: 30px;
-}
-
-.navbar ul.nav.pull-right li.user-name p {
-  font-family: "Comfortaa regular";
-  font-size: 22px;
-  margin: 10px 10px 0px 10px;
-  color: #ffffff;
-}
-
-.navbar-inverse .brand, .navbar-inverse .nav > li > a {
-  color: #cfcfcf;
-}
-
-.navbar_padding_elem
+.georgia
 {
-  padding-top: 41px;
-  padding-bottom: 15px;
+  font-family: georgia;
 }
 
 .float_right
