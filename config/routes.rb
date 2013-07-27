@@ -4,7 +4,7 @@ Kogdata::Application.routes.draw do
 	get  'conversations/:id'                  => 'conversations#show'
 	get  'conversations'                      => 'conversations#index'
 	post 'conversations/create_message'
-	get  'conversations/delete_message/:m_id' => 'conversations#delete_message'
+	delete  'conversations/delete_message/:m_id' => 'conversations#delete_message'
 
 	post 'image/bind'
 	delete 'image/delete'

@@ -22,7 +22,7 @@
     .control-group#price-div
       = f.label :role, t(:price), :class => 'control-label'
       .controls
-        = f.text_field :price, :id => 'price-field', :placeholder => t(:price)
+        = f.number_field :price, :min => '0', :placeholder => t(:price)
     .control-group
       .controls
         = f.submit t(:submit_edit), :class => 'btn'
