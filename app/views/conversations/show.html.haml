@@ -1,3 +1,3 @@
 .list_box
-  =render :partial => 'messages/messages', :collection => @conversation.messages.reverse, :as => :message
+  =render :partial => 'messages/messages', :collection => @conversation.messages, :as => :message
 =render 'messages/new_message_for_list'
