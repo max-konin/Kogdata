@@ -41,6 +41,10 @@
 	src: url(/fonts/opensans-bold.ttf?) format('truetype');
 }
 
+@font-face {
+	font-family: "OpenSans";
+	src: url(/fonts/opensans-regular.ttf?) format('truetype');
+}
 
 @font-face {
 	font-family: "eurofurence-regular";
@@ -868,4 +872,10 @@ vertical-align: top;
 -webkit-border-radius: 0 4px 4px 0;
 -moz-border-radius: 0 4px 4px 0;
 border-radius: 0 4px 4px 0;
+}
+
+.empty_footer_filler
+{
+	width: auto;
+	padding-top: 60px;
 }

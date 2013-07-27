@@ -1,0 +1,26 @@
+.back_white_box
+	%h2.event_title
+		=t(:events)
+
+	%table.table.event_table
+		%thead
+			%tr
+				%th
+					id
+				%th
+					= t(:type_of_event)
+				%th
+					= t(:date_text)
+				%th
+					= t(:count_responses)
+		%tbody
+			- events.each do |event|
+				%tr
+					%td
+						= event.id
+					%td
+						= event.type
+					%td
+						= event.start.strftime("%d.%m.%Y")
+					%td
+						= event.responses.count
