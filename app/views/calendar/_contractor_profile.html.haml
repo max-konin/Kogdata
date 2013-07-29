@@ -1,0 +1,11 @@
+.profile-container
+  .left-container
+    .avatar
+      = image_tag @user.avatar.url(:small)
+    .rating
+      = ratings_for @user, :static, :dimension => :quality
+  .right-container
+    %h3
+      = @user.name
+
+

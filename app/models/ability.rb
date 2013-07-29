@@ -41,10 +41,12 @@ class Ability
     if user.role? :contractor
       can :upload, :photo
       can :read, @events
+      can :add, @busyness
     end
 
     if user.role? :client
       can :create, :all
+      can :read, @busyness
     end
 
 
