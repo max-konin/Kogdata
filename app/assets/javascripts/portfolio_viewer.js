@@ -8,7 +8,8 @@
 
 //= require jquerypp.custom
 //= require jquery.elastislide
-
+function carousel_init()
+{
     // example how to integrate with a previewer
     var current = 0,
         $preview = $( '#preview' ),
@@ -28,7 +29,7 @@
 
             }
         } );
-
+}
     function changeImage( el, pos ) {
 
         $preview.attr( 'src', el.data('preview' ) );
@@ -40,4 +41,4 @@
         carousel.setCurrent( pos )
 
     }
-
+carousel_init();

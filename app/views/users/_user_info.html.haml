@@ -29,43 +29,47 @@
 			- if @user.id == current_user.id # If photograph watch own page
 				- if @user.role == 'contractor' # Show info by photographs
 					.info-block
-						%i.icon-k-message
 						%button.btn.btn-link-red
+							%i.icon-k-message
 							= t(:my_messages)
 					.info-block
-						%i.icon-k-calendar
-						%button.btn.btn-link-red
+						%button.btn.btn-link-red#calendar_button_block
+							%i.icon-k-calendar
 							= t(:show_calendar)
-					.info-block
-						%i.icon-k-camera
+					.info-block#portfolio_button_block.hide{:user_id => @user.id}
 						%button.btn.btn-link-red
+							%i.icon-k-portfolio
+							= t(:show_portfolio)
+					.info-block
+						%button.btn.btn-link-red
+							%i.icon-k-camera
 							= t(:my_orders)
 
 				- if @user.role == 'client' # Show info by client
 					.info-block
-						%i.icon-k-message
 						%button.btn.btn-link-red
+							%i.icon-k-message
 							= t(:my_messages)
 					.info-block
-						%i.icon-k-event
-							= '005'
 						%button.btn.btn-link-red{:onclick => "get_partial('/users/#{@user.id}/events.html','#left_block')"}
+							%i.icon-k-event
+								= '005'
 							= t(:my_events)
 
 			- if @user.id != current_user.id
 				.info-block
-					%i.icon-k-message
 					%button.btn.btn-link-red{'data-target' => '#messageModal', 'data-toggle' => 'modal'}
+						%i.icon-k-message
 						= t(:write_message)
 					#messageModal.modal.hide.fade
 						= render :partial => 'messages/new_message', :locals => {:contact_id => @user.id}
 
 				- if @user.role == 'contractor'
 					.info-block#calendar_button_block
-						%i.icon-k-calendar
 						%button.btn.btn-link-red
+							%i.icon-k-calendar
 							= t(:show_calendar)
 					.info-block#portfolio_button_block.hide{:user_id => @user.id}
-						%i.icon-k-portfolio
 						%button.btn.btn-link-red
+							%i.icon-k-portfolio
 							= t(:show_portfolio)

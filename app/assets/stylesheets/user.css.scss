@@ -15,7 +15,8 @@
 
 .to_right{
 	text-align: right;
-	margin-bottom: -16px;
+	margin-top: -10px;
+	margin-right: -10px;
 }
 
 [class^='icon-k-'],
@@ -67,6 +68,13 @@ i.icon-k-camera {
 	height: 42px;
 }
 
+.btn [class^='icon-k-'],
+.btn [class*=' icon-k-']
+{
+	display: inline-block;
+	float: left;
+}
+
 .dark_green
 {
 	color: #00525a;
@@ -77,7 +85,7 @@ i.icon-k-camera {
 	color: #00525a;
 	font-family: 'OpenSans';
 	font-size: 34px;
-	line-height: 20px;
+	line-height: 36px;
 }
 
 .info_user_city
@@ -86,7 +94,7 @@ i.icon-k-camera {
 	font-family: 'OpenSans';
 	font-size: 24px;
 	font-weight: normal;
-	line-height: 20px;
+	line-height: 26px;
 }
 
 .header-red-text
@@ -106,12 +114,13 @@ i.icon-k-camera {
 	color: #e25957;
 	font-family: 'OpenSans';
 	-webkit-font-smoothing: 'antialiased';
-	font-size: 24px;
+	font-size: 20px;
+	line-height: 22px;
 	background: none;
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
 	box-shadow: none;
-	margin-top: 5px;
+	padding: 2px 0;
 }
 .btn-link-red:hover,
 .btn-link-red:active
@@ -145,6 +154,13 @@ i.icon-k-camera {
 	-webkit-font-smoothing: 'antialiased';
 	font-size: 24px;
 	text-align: right;
+}
+@media (max-width: 767px)
+{
+	.left_bold_text
+	{
+		text-align: left;
+	}
 }
 .right_text
 {

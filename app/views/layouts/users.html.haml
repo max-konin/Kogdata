@@ -16,6 +16,9 @@
 		= javascript_include_tag 'partial'
 		= javascript_include_tag 'modernizr.custom.17475'
 		= javascript_include_tag 'user'
+		= javascript_include_tag 'Calendar/profile'
+		= javascript_include_tag 'portfolio_viewer'
+
 		= stylesheet_link_tag 'user'
 		= stylesheet_link_tag 'rating'
 
@@ -24,11 +27,10 @@
 		= render 'application/header'
 		.container
 			.row-fluid
-				.span6
+				.span5
 					= render 'users/user_info'
 					#left_block
-					=# render :partial => 'events/list', :locals => {events: @user.event}
-				.span6
+				.span7
 					#right_block
 						= yield
 

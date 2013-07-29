@@ -13,5 +13,4 @@
 					= f.label :url, :class => 'control-label' do
 						#{get_provider_link(provider)}/
 			= f.text_field :url
-			= list_error_messagses f, :url
 			= f.submit t(:submit_save), :class => 'btn'

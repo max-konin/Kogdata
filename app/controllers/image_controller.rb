@@ -1,6 +1,11 @@
 class ImageController < ApplicationController
 	before_filter :authenticate_user!
 
+	def show
+		@user = User.find(params[:id])
+		render :partial => 'users/gallery'
+	end
+
 	def bind
 		images = params[:images]
 		images.each do |image|

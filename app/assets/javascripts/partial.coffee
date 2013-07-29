@@ -4,9 +4,10 @@
 @get_partial = (url, parent, success_fn) ->
 
 	onAjaxSuccess = (data) ->
-		$(parent).html(data.div_contents.body)
+		result = if typeof data == 'string' then data else data.div_contents.body
+		$(parent).html(result)
 		i = $('<i></i>').addClass('icon-remove pointer').on('click', () ->
-			$(this).parents('.back_white_box').first().remove()
+			$(this).parents('.parent').first().remove()
 			return
 		)
 		$(parent).find(' > div').addClass('parent').prepend($('<div></div>').addClass('to_right').append(i))

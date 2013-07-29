@@ -6,7 +6,8 @@ Kogdata::Application.routes.draw do
 	post 'conversations/create_message'
 	delete  'conversations/delete_message/:m_id' => 'conversations#delete_message'
 
-  post 'image/bind'
+  get 'image/show/:id' => 'image#show'
+	post 'image/bind'
   delete 'image/delete'
  
   post 'users/search'               => 'users#search'
@@ -34,6 +35,9 @@ Kogdata::Application.routes.draw do
   match 'office/'                     => 'office#show'
 
   resources :users do
+		member do
+			get :rate
+		end
     resources :events do
       post 'respond'
       put 'close'

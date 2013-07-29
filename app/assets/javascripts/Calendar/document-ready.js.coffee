@@ -39,7 +39,7 @@ price_on_change = () ->
 		$(this).addClass('invalid')
 	return
 
-$(document).ready () ->
+@initialize_calendar = () ->
 	$('body').on('mousedown', (e) ->
 		if  $(e.target).parents('.popover').size() == 0
 			Popover.hide()
@@ -63,7 +63,7 @@ $(document).ready () ->
 		$('.fc-button-prev').html('<label> < </label>')
 		$('.fc-button-next').html('<label> > </label>')
 
-		
+
 		for header in $('.fc-widget-header')
 			header.innerHTML = '<div class = "fc-header-inside"> '+ header.innerHTML+'</div>'
 		currentDate = new Date()
@@ -83,4 +83,8 @@ $(document).ready () ->
 		$('#event_hour').on('change', addZero)
 		$('#event_minute').on('change', addZero)
 		$('#event_price').on('input', price_on_change)
+	return
+
+$(document).ready () ->
+	initialize_calendar()
 	return

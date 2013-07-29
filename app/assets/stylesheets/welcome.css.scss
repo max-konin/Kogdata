@@ -86,7 +86,7 @@ body {
 {
 	color: #e25957;
 	font-family: 'comfortaa-bold';
-	font-size: 140px;
+	font-size: 90px;
 	line-height: initial;
   text-align: center;
 }
@@ -135,8 +135,18 @@ ul.list
 
 div.try_it
 {
-	margin-top: -25px;
 	line-height: initial;
+}
+
+@media (max-height: 655px) and (min-width: 979px) {
+	div.try_it
+	{
+		bottom: 68px;
+		left: 50%;
+		margin-left: -150px;
+		position: fixed;
+		width: 300px;
+	}
 }
 
 a.try_it
@@ -155,115 +165,6 @@ a.try_it:hover
 	color: #ffffff;
 	text-decoration: none;
 }
-
-/* --- FULL CALENDAR --- */
-
-.fc-header{
-	td.fc-header-left{
-		padding: 0;
-		vertical-align: middle;
-	}
-}
-
-table.fc-header{
-	background-color: #00525a;
-	.fc-button-inner{
-		background: url;
-		.fc-button-content{
-			display: none
-		}
-		.fc-button-effect
-		{
-			display:none
-		}
-	}
-	.fc-button{
-		background-color: #00525a;
-		label{
-			font-family: eurofurence-regular;
-			font-size: 70px;
-			margin: 0;
-			width: 50px;
-			height: 50px;
-			line-height: 50px;
-		}
-		float:right;
-		border-width: 0;
-		color: #ffffff;
-		margin: 0 auto;
-	}
-
-	.fc-button-prev{
-		float:right;
-		label{text-align: right;}
-	}
-
-	.fc-button-next{
-		float:left;
-		label{text-align: left;}
-	}
-	.fc-header-center{
-		.fc-header-title{
-			font-family: eurofurence-regular;
-			color: #ffffff;
-			h2{
-				font-size: 50px;
-				font-weight: lighter;
-				margin-bottom: 0;
-				line-height: 60px;
-			}
-		}
-	}
-
-}
-
-
-.fc-view{
-	table.fc-border-separate
-	{
-		margin-top: 10px;
-		thead{
-			border-collapse: collapse;
-		}
-		tbody{
-			border-collapse: collapse;
-		}
-		.fc-today{
-			background-color: transparent;
-			div{
-			}
-		}
-
-		tr.fc-first.fc-last{
-			th.fc-widget-header
-			{
-				div.fc-header-inside{
-					background-color: #eae2d7;
-				}
-				padding: 0 5px 0 5px;
-				border-width: 0px;
-				width: 80px;
-			}
-		}
-
-		td.fc-widget-content
-		{
-			border-width: 0px;
-			padding: 0 5px 10px 5px;
-			div{
-				background-color: #eae2d7;
-				margin: 0px;
-			}
-			.fc-day-content{
-				margin: 0px;
-				min-height: 50px;
-				height: 50px;
-			}
-		}
-	}
-}
-
-/* --- END FULL CALENDAR --- */
 
 /* --- FOORTER --- */
 .navbar-fixed-bottom{
