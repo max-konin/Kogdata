@@ -2,10 +2,176 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#user_update div {
-	padding-bottom: 15px;
-	* {
-		display: inline-block;
-		margin: 0;
+.back_white_box
+{
+	$border-raduis: 10px;
+	background-color: white;
+	border: 1px solid #ccc;
+	border-radius: $border-raduis;
+	margin-bottom: 10px;
+	min-height: 200px;
+	padding: 10px ($border-raduis + 5);
+}
+
+.to_right{
+	float: right;
+}
+
+[class^='icon-k-'],
+[class*=' icon-k-']
+{
+	display: inline-block;
+	width: 52px;
+	height: 52px;
+	line-height: 14px;
+	vertical-align: top;
+	background-image: url("/assets/users/icons.png");
+	background-position: 0px 0px;
+	background-repeat: no-repeat;
+	/*margin-top: 1px;*/
+}
+i.icon-k-vkontakte {
+	background-position: 0px 0px;
+}
+i.icon-k-facebook {
+	background-position: -52px 0px;
+}
+i.icon-k-gplus {
+	background-position: -104px 0px;
+}
+i.icon-k-twitter {
+	background-position: -156px 0px;
+}
+i.icon-k-message {
+	background-position: -208px 0px;
+	height: 42px;
+}
+i.icon-k-calendar {
+	background-position: -260px 0px;
+	height: 42px;
+}
+i.icon-k-portfolio {
+	background-position: -312px 0px;
+	height: 42px;
+}
+i.icon-k-event {
+	background-position: -364px 0px;
+	padding: 16px 0 0 10px;
+	width: 42px;
+	height: 25px;
+	color: #e25957;
+}
+i.icon-k-camera {
+	background-position: -416px 0px;
+	height: 42px;
+}
+
+.dark_green
+{
+	color: #00525a;
+}
+
+.user_name
+{
+	color: #00525a;
+	font-family: 'OpenSans';
+	font-size: 34px;
+	line-height: 20px;
+}
+
+.user_city
+{
+	color: #00525a;
+	font-family: 'OpenSans';
+	font-size: 24px;
+	font-weight: normal;
+	line-height: 20px;
+}
+
+.header-red-text
+{
+	color: #e25957;
+	display: inline-block;
+	font-family: 'OpenSans';
+	-webkit-font-smoothing: 'antialiased';
+	font-size: 24px;
+	padding-top: 10px;
+}
+
+.btn-link-red
+{
+	border-color: transparent;
+	cursor: pointer;
+	color: #e25957;
+	font-family: 'OpenSans';
+	-webkit-font-smoothing: 'antialiased';
+	font-size: 24px;
+	background: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	margin-top: 5px;
+}
+.btn-link-red:hover,
+.btn-link-red:active
+{
+	background: none;
+	box-shadow: none;
+	text-decoration: underline;
+}
+
+.openSans-bold
+{
+	font-family: 'OpenSans-bold';
+	-webkit-font-smoothing: 'antialiased';
+}
+
+.disable-link
+{
+	opacity: 0.3;
+}
+
+.left_bold_text
+{
+	color: #e25957;
+	font-family: 'OpenSans-bold';
+	-webkit-font-smoothing: 'antialiased';
+	font-size: 24px;
+	text-align: right;
+}
+.right_text
+{
+	color: #00525a;
+	font-family: 'OpenSans';
+	font-size: 20px;
+	font-weight: bold;
+	line-height: 28px;
+}
+
+.right_text ul
+{
+	list-style: none;
+	margin-left: 0;
+	li {
+		line-height: 24px;
 	}
+}
+
+.event_title
+{
+	color: #e25957;
+	font-family: 'Comfortaa-bold';
+	font-size: 30px;
+	text-align: center;
+}
+
+.event_table td
+{
+	text-align: center;
+}
+
+.event_table th
+{
+	font-family: 'Opensans-bold';
+	text-align: center;
 }

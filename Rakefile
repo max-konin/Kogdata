@@ -5,5 +5,3 @@
 require File.expand_path('../config/application', __FILE__)
 
 Kogdata::Application.load_tasks
-
-

@@ -6,7 +6,16 @@ module SocialLinkHelper
       end
     end
     return SocialLink.new(:provider => provider)
-  end
+	end
+
+	def find_link_by_provider(links, provider)
+		links.each do |l|
+			if l.provider == provider
+				return l
+			end
+		end
+		return nil
+	end
 
   def get_provider_link(provider)
     prov =

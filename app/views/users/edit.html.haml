@@ -1,7 +1,6 @@
-= render :partial => 'users/user_form'
-= render :partial => 'social_links/form_add'
-
-#social_link_list
-	%legend
-		=t(:links_list)
-	= render @user.social_links
+.back_white_box
+	= render :partial => '/users/user_form'
+	#social_link_list
+		%legend
+			=t(:links_list)
+		= render :partial => '/social_links/form'

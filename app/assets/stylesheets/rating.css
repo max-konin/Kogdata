@@ -1,7 +1,8 @@
 /*
 * Style by Rogie http://www.komodomedia.com/blog/2007/01/css-star-rating-redux/
 */
-
+/* Width for 5 stars */
+.ajaxful-rating {width: 125px; }
 .ajaxful-rating,
 .ajaxful-rating a:hover,
 .ajaxful-rating a:active,

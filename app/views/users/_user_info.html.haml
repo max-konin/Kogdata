@@ -1,0 +1,59 @@
+.back_white_box
+	.row-fluid
+		.span4
+			.avatar
+				= image_tag @user.avatar.url(:small)
+
+			- if @user.role == 'contractor'
+				= ratings_for @user, :static, :dimension => :quality
+
+		.span8
+			- if @user.id == current_user.id
+				.to_right
+					= link_to '/users/edit', :title => t(:edit_profile) do
+						%i.icon-cog
+
+			%h1.user_name
+				= @user.name
+
+			%h3.user_city
+				Город из таблицы
+				-#= @user.town
+
+			- if @user.role == 'contractor' # Show info by photographs
+				.info-block
+					- @user.social_links.each do |link|
+						= link_to get_provider_link(link.provider) + '/' + link.url, :title => link.provider do
+							%i{:class => 'icon-k-' + link.provider}
+
+				- if @user.id == current_user.id # If photograph watch own page
+					.info-block
+						%i.icon-k-message
+						%button.btn.btn-link-red
+							= t(:my_messages)
+					.info-block
+						%i.icon-k-calendar
+						%button.btn.btn-link-red
+							= t(:show_calendar)
+					.info-block
+						%i.icon-k-camera
+						%button.btn.btn-link-red
+							= t(:my_orders)
+
+			- if @user.id != current_user.id
+				.info-block
+					%i.icon-k-message
+					%button.btn.btn-link-red{:onclick => "get_partial('/users/#{@user.id}/events.html','#left_block')"}i97
+						= t(:write_message)
+
+			- if @user.role == 'client' # Show info by client
+				- if @user.id == current_user.id # If client watch own page
+					.info-block
+						%i.icon-k-message
+						%button.btn.btn-link-red
+							= t(:my_messages)
+					.info-block
+						%i.icon-k-event
+							= '005'
+						%button.btn.btn-link-red{:onclick => "get_partial('/users/#{@user.id}/events.html','#left_block')"}
+							= t(:my_events)

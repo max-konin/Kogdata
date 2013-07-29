@@ -19,7 +19,14 @@ ru:
   event_title: "Заголовок события"
   event_description: "Описание события"
   my_page: "Моя страница"
+  my_messages: "Мои сообщения"
+  write_message: "Написать сообщение"
+  my_events: "Мои события"
+  my_orders: "Мои заказы"
+  contractor_skills: "Что умеет"
+  contractor_cost: "Сколько стоит"
   events: "События"
+  type_of_event: "Тип события"
   changes_are_saved: "Измненения сохранены"
 
   home: "Главная"
@@ -69,7 +76,8 @@ ru:
   price: "Стоимость работы"
   rur: "руб."
   per_hour: "в час"
-
+  rusrubles: "рублей"
+  count_responses: "Откликов"
   close_event: "Закрыть событие"
   reopen: "Передумать"
   sign_up_to: "Регистрация в"
@@ -91,8 +99,9 @@ ru:
   finish_date: "Дата окончания"
   budget: "Бюджет мероприятия"
   your_town: "Ваш город"
-
-
+  settings: "Настройки"
+  edit_profile: "Редактировать профиль"
+  show_calendar: "Показать календарь"
   fill_in_event: "Задайте параметры события"
   town: "Город"
 

@@ -41,6 +41,10 @@
 	src: url(/fonts/opensans-bold.ttf?) format('truetype');
 }
 
+@font-face {
+	font-family: "OpenSans";
+	src: url(/fonts/opensans-regular.ttf?) format('truetype');
+}
 
 @font-face {
 	font-family: "eurofurence-regular";
@@ -869,32 +873,3 @@ vertical-align: top;
 -moz-border-radius: 0 4px 4px 0;
 border-radius: 0 4px 4px 0;
 }
-
-
-/*--- CONTRACTOR PROFILE ---*/
-
-.profile-container{
-	.left-container{
-		float: left;
-		position: relative;
-		.avatar{
-			text-align: center;
-			width:180px;
-			height:160px;
-			img{
-				max-height: 100%;
-			}
-		}
-		.rating{
-			.ajaxful-rating-wrapper{
-				.ajaxful-rating{
-					margin: 0px auto;
-				}
-			}
-		}
-
-	}
-}
-
-
-/*--- END CONTRACTOR PROFILE ---*/
