@@ -18,7 +18,7 @@
 								0
 					%li.user-name
 						%p
-							= current_user.name
+							= link_to current_user.name, current_user
 					%li.avatar
 						= image_tag current_user.avatar(:thumb)
 					%li.splitter

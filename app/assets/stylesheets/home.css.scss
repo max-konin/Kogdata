@@ -115,12 +115,18 @@ body {
 
 ul.nav.pull-right{
 	li.user-name{
-	p{
-		font-family: "Comfortaa-regular";
-		font-size: 22px;
-		margin: 10px 10px 0px 10px;
-		color:  #ffffff;
-	}
+		p{
+			font-family: "Comfortaa-regular";
+			font-size: 22px;
+			margin: 10px 10px 0px 10px;
+			color:  #ffffff;
+		}
+		a{
+			color: #ffffff;
+		}
+		a:hover{
+			color: #ffffff;
+		}
 	}
 	li.splitter
 	{

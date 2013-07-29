@@ -32,4 +32,16 @@ $(document).ready () ->
 		return )
 
 	validate_form("#user_update")
+
+	$('#calendar_button_block').click(() ->
+		$('#calendar_button_block').hide()
+		$('#portfolio_button_block').show()
+	)
+	$('#portfolio_button_block').click(() ->
+		user_id = $('#portfolio_button_block').attr('user_id')
+		get_partial("/users/#{user_id}.html",'#right_block',() ->
+			$('#calendar_button_block').show()
+			$('#portfolio_button_block').hide()
+		)
+	)
 	return

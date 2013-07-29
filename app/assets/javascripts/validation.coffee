@@ -168,6 +168,8 @@
 # | field_event - extend parameter, for change state to start validate function
 # @param to_field_options - parameters for 'validate_one_field' option
 @validate_form = (form, options, to_field_options) ->
+	if !$(form)[0]
+		return
 	if typeof options == 'undefined'
 		options = Object()
 

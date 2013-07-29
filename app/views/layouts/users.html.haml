@@ -15,6 +15,7 @@
 		= javascript_include_tag 'validation'
 		= javascript_include_tag 'partial'
 		= javascript_include_tag 'modernizr.custom.17475'
+		= javascript_include_tag 'user'
 		= stylesheet_link_tag 'user'
 		= stylesheet_link_tag 'rating'
 
@@ -28,7 +29,8 @@
 					#left_block
 					=# render :partial => 'events/list', :locals => {events: @user.event}
 				.span6
-					= yield
 					#right_block
+						= yield
+
 			#bottom_block
 		= render 'application/footer'
