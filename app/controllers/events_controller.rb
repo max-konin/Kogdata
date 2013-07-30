@@ -36,7 +36,7 @@ class EventsController < ApplicationController
     else
       respond_to do |format|
         format.html {head :forbidden}
-        format.json {render :json=> @events.errors, status: :forbidden}
+        format.json {render :json=> @event.errors, status: :forbidden}
       end
     end
   end
@@ -53,7 +53,7 @@ class EventsController < ApplicationController
     else
       respond_to do |format|
         format.html {head :forbidden}
-        format.json {render :json=> @events.errors, status: :forbidden}
+        format.json {render :json=> @event.errors, status: :forbidden}
       end
     end
   end

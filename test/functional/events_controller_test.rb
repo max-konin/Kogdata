@@ -8,7 +8,7 @@ class EventsControllerTest < ActionController::TestCase
     currentDate = Time.parse '2013-06-18 11:02:57'
     startDate = Time.parse '2013-06-01 00:00:00'
     finishDate = Time.parse '2013-06-30 23:59:59'
-    get :index, {:user_id => currentUser.id, :curDate => currentDate}
+    get :index, {:user_id => currentUser.id, :curr_date => currentDate}
     assert_response :success
     assert_template :index
     eventsTest = assigns(:events)
@@ -23,11 +23,11 @@ class EventsControllerTest < ActionController::TestCase
   test 'get index' do
     currentUser = users(:Adarich)
     sign_in currentUser
+    eventsEtalon = Event.where('user_id = ?',currentUser.id)
     get :index, {:user_id => currentUser.id}
     assert_response :success
     assert_template :index
     eventsTest = assigns(:events)
-    eventsEtalon = Event.where('user_id = ?',currentUser.id)
     assert_equal eventsTest.count, eventsEtalon.count
     eventsTest.each do |event|
       assert_equal event.user_id, currentUser.id

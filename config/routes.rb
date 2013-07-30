@@ -41,7 +41,7 @@ Kogdata::Application.routes.draw do
     end
     resources :responses, only: [:update, :destroy]
     resources :social_links, only: [:create, :destroy]
-    resources :busynesses, only: [:index, :create, :delete]
+    resources :busynesses, only: [:index, :create, :destroy]
   end
 
   resources :events, only: [:show]  do
