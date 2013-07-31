@@ -10,50 +10,67 @@
 		.span8
 			- if @user.id == current_user.id
 				.to_right
-					= link_to '/users/edit', :title => t(:edit_profile) do
+					= link_to '/users/edit', :title => t(:edit_profile), :id =>'settings_button' do
 						%i.icon-cog
 
-			%h1.user_name
+			%h1.info_user_name
 				= @user.name
 
-			%h3.user_city
+			%h3.info_user_city
 				Город из таблицы
 				-#= @user.town
 
 			- if @user.role == 'contractor' # Show info by photographs
 				.info-block
 					- @user.social_links.each do |link|
-						= link_to get_provider_link(link.provider) + '/' + link.url, :title => link.provider do
+						= link_to get_provider_link(link.provider) + '/' + link.url,
+							:title => link.provider, :class => 'social_link' do
 							%i{:class => 'icon-k-' + link.provider}
 
-				- if @user.id == current_user.id # If photograph watch own page
+			- if @user.id == current_user.id # If photograph watch own page
+				- if @user.role == 'contractor' # Show info by photographs
 					.info-block
-						%i.icon-k-message
 						%button.btn.btn-link-red
+							%i.icon-k-message
 							= t(:my_messages)
 					.info-block
-						%i.icon-k-calendar
-						%button.btn.btn-link-red
+						%button.btn.btn-link-red#calendar_button_block
+							%i.icon-k-calendar
 							= t(:show_calendar)
-					.info-block
-						%i.icon-k-camera
+					.info-block#portfolio_button_block{:user_id => @user.id}
 						%button.btn.btn-link-red
+							%i.icon-k-portfolio
+							= t(:show_portfolio)
+					.info-block#my_orders_button_block{:user_id => @user.id}
+						%button.btn.btn-link-red
+							%i.icon-k-camera
 							= t(:my_orders)
+
+				- if @user.role == 'client' # Show info by client
+					.info-block
+						%button.btn.btn-link-red
+							%i.icon-k-message
+							= t(:my_messages)
+					.info-block
+						%button.btn.btn-link-red#my_events_button_block{:user_id => @user.id}
+							%i.icon-k-event
+								= '005'
+							= t(:my_events)
 
 			- if @user.id != current_user.id
 				.info-block
-					%i.icon-k-message
-					%button.btn.btn-link-red{:onclick => "get_partial('/users/#{@user.id}/events.html','#left_block')"}i97
-						= t(:write_message)
-
-			- if @user.role == 'client' # Show info by client
-				- if @user.id == current_user.id # If client watch own page
-					.info-block
+					%button.btn.btn-link-red{'data-target' => '#messageModal', 'data-toggle' => 'modal'}
 						%i.icon-k-message
+						= t(:write_message)
+					#messageModal.modal.hide.fade
+						= render :partial => 'messages/new_message', :locals => {:contact_id => @user.id}
+
+				- if @user.role == 'contractor'
+					.info-block#calendar_button_block
 						%button.btn.btn-link-red
-							= t(:my_messages)
-					.info-block
-						%i.icon-k-event
-							= '005'
-						%button.btn.btn-link-red{:onclick => "get_partial('/users/#{@user.id}/events.html','#left_block')"}
-							= t(:my_events)
+							%i.icon-k-calendar
+							= t(:show_calendar)
+					.info-block#portfolio_button_block{:user_id => @user.id}
+						%button.btn.btn-link-red
+							%i.icon-k-portfolio
+							= t(:show_portfolio)

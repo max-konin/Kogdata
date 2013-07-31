@@ -15,6 +15,10 @@
 		= javascript_include_tag 'validation'
 		= javascript_include_tag 'partial'
 		= javascript_include_tag 'modernizr.custom.17475'
+		= javascript_include_tag 'jquery.elastislide'
+		= javascript_include_tag 'user'
+		= javascript_include_tag 'Calendar/profile'
+
 		= stylesheet_link_tag 'user'
 		= stylesheet_link_tag 'rating'
 
@@ -23,12 +27,14 @@
 		= render 'application/header'
 		.container
 			.row-fluid
-				.span6
-					= render 'users/user_info'
+				.span5
+					- if @user
+						#user_info_block
+							= render 'users/user_info'
 					#left_block
-					=# render :partial => 'events/list', :locals => {events: @user.event}
-				.span6
-					= yield
+				.span7
 					#right_block
+						= yield
+
 			#bottom_block
 		= render 'application/footer'

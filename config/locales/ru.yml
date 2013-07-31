@@ -60,6 +60,7 @@ ru:
   role: "Статус"
   status: "Статус"
   contractor: "Фотограф"
+  customer: "Заказчик"
   client: "Пользователь"
   find_user: "Найти пользователя"
   password: "Пароль"
@@ -69,6 +70,7 @@ ru:
   blog: "Блог"
   delete: "Удалить"
   remember_me: "Запомнить меня"
+  type_of_event: "Тип события"
 
   send_message: "Отправить сообщение"
   drag_to_calendar_to_new_event: "Перетащите событие в календарь, чтобы создать новое событие"
@@ -102,6 +104,7 @@ ru:
   settings: "Настройки"
   edit_profile: "Редактировать профиль"
   show_calendar: "Показать календарь"
+  show_portfolio: "Показать портфолио"
   fill_in_event: "Задайте параметры события"
   town: "Город"
 

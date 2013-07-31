@@ -6,32 +6,22 @@ Kogdata::Application.routes.draw do
 	post 'conversations/create_message'
 	delete  'conversations/delete_message/:m_id' => 'conversations#delete_message'
 
-  post 'image/bind'
-  delete 'image/delete'
- 
-  post 'users/search'               => 'users#search'
-  post 'users/search/:input'        => 'users#search'
-  post '/users/validate'            => 'users#validate'
-  post '/users/validate/:field'     => 'users#validate'
-  post '/users/:id/validate/:field' => 'users#validate'
-  get 'users/edit'                  => 'users#edit'
-  get 'users/merge'
-  post 'users/merge_on_submit'
-  get 'users/get_info'  => 'users#registration_after_omniauth'
-  put 'users'           => 'users#create'
-  put 'users/edit'       => 'users#update'
-  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
+	get 'image/show/:id' => 'image#show'
+	post 'image/bind'
+	delete 'image/delete'
 
-  get 'welcome'                       => 'welcome#index'
-  get 'welcome/index'                 => 'welcome#index'
-  get 'calendar/index'
-  get 'calendar/new_form'
-  get 'show_bookings'                 => 'calendar#show_bookings'
-  get 'calendar/show_form/:event_id'  =>  'calendar#show_form'
-  get 'office/show'
-  get 'office/all'
-  get 'office/portfolio'              => 'office#portfolio'
-  match 'office/'                     => 'office#show'
+	post 'users/search'               => 'users#search'
+	post 'users/search/:input'        => 'users#search'
+	post '/users/validate'            => 'users#validate'
+	post '/users/validate/:field'     => 'users#validate'
+	post '/users/:id/validate/:field' => 'users#validate'
+	get 'users/edit'                  => 'users#edit'
+	get 'users/merge'
+	post 'users/merge_on_submit'
+	get 'users/get_info'  						=> 'users#registration_after_omniauth'
+	put 'users'           						=> 'users#create'
+	put 'users/edit'       						=> 'users#update'
+	devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
   resources :users do
     resources :events do
@@ -43,6 +33,30 @@ Kogdata::Application.routes.draw do
     resources :social_links, only: [:create, :destroy]
     resources :busynesses, only: [:index, :create, :destroy]
   end
+	get 'welcome'                       => 'welcome#index'
+	get 'welcome/index'                 => 'welcome#index'
+	get 'calendar/index'
+	get 'calendar/new_form'
+	get 'show_bookings'                 => 'calendar#show_bookings'
+	get 'calendar/show_form/:event_id'  =>  'calendar#show_form'
+	get 'office/show'
+	get 'office/all'
+	get 'office/portfolio'              => 'office#portfolio'
+	match 'office/'                     => 'office#show'
+	get '/users/:user_id/responses/'		=> 'responses#show'
+	resources :users do
+		member do
+			get :rate
+		end
+		resources :events do
+			post 'respond'
+			put 'close'
+			put 'reopen'
+		end
+		resources :responses, only: [:update, :destroy]
+		resources :social_links, only: [:create, :destroy]
+		resources :busynesses, only: [:index, :create, :delete]
+	end
 
   resources :events, only: [:show]  do
     resources :responses, only: [:create, :update, :destroy]

@@ -1,8 +1,5 @@
-.row-fluid
-	.span4
-		%h3
-			= t(:users) + ":"
-	.span8
+.back_white_box
+	%div
 		%form.form-search.flying
 			.input-prepend
 				%span.add-on
@@ -16,9 +13,8 @@
 				%span.add-on
 					%i.icon-search#status-icon
 				%input#search_pattern.search-query.input-medium{:placeholder => t(:find_user), :type => 'text', :maxlength => '20'}
-%div#search_content
-	= render "user_search_chunk", :users => @users
-#messageModal.modal.hide.fade
-	= render :partial => "messages/new_message", :locals => {:contact_id => current_user.id}
-= javascript_include_tag "portfolio_viewer"
-= javascript_include_tag "live_search"
+	%div#search_content
+		= render "user_search_chunk", :users => @users
+	#messageModal.modal.hide.fade
+		= render :partial => "messages/new_message", :locals => {:contact_id => current_user.id}
+	= javascript_include_tag "live_search"

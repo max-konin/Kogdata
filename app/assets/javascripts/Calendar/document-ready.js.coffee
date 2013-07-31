@@ -1,4 +1,3 @@
-
 $(document).ready () ->
 	$('body').on('mousedown', (e) ->
 		if  $(e.target).parents('.popover').size() == 0

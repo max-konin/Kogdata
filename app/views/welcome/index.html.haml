@@ -1,6 +1,6 @@
 .row-fluid
-	.span3.text-to-right
-		%img{:src => '/assets/promo_page_boy.png'}
+	.span3.text-to-right.pull-left
+		%img.pull-left{:src => '/assets/promo_page_boy.png'}
 		.text_header
 			Заказчику
 		%ul.list
@@ -8,6 +8,15 @@
 			%li Размести заказ
 			%li Получи предложения
 			%li Выбери лучшего
+	.span3.pull-right
+		%img.pull-right{:src => '/assets/promo_page_panda.png'}
+		.text_header
+			Фотографу
+		%ul.list
+			%li Ищешь заказ?
+			%li Размести портфолио
+			%li Отправляй заявки
+			%li Побеждай!
 	.span6
 		.logo
 			Kogdata
@@ -20,12 +29,3 @@
 				%img{:src => '/assets/promo_page_calendar.png'}
 			.try_it
 				= link_to 'Попробуйте', '/users/sign_up', :class => 'try_it'
-	.span3
-		%img{:src => '/assets/promo_page_panda.png'}
-		.text_header
-			Фотографу
-		%ul.list
-			%li Ищешь заказ?
-			%li Размести портфолио
-			%li Отправляй заявки
-			%li Побеждай!

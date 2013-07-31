@@ -4,14 +4,18 @@ class Image < ActiveRecord::Base
 
 	attr_accessible :name, :src
 	has_attached_file :src,
-				:styles => { 
-					:thumb => ["50x50#", :png],
-					:small => ["90x90#", :png],
-					:original => ["1600x1200#", :png] 
-				},
-				:default_url => "/system/:style/default_image.png",
-				:path => ":rails_root/public/system/:style/:filename",
-				:url => "/system/:style/:filename"
+		:styles => {
+			:thumb => ["50x50#", :png],
+			:small => ["400x300#", :png],
+			:original => ["1600x1200#", :png]
+		},
+		:convert_options => {
+			:small => ' -interlace Line',
+			:original => ' -interlace Line'
+		},
+		:default_url => "/system/:style/default_image.png",
+		:path => ":rails_root/public/system/:style/:filename",
+		:url => "/system/:style/:filename"
 
 	def set_file_name
 		begin

@@ -70,8 +70,8 @@ body {
 		}
 	}
 .navbar-inner {
-	 background-color: #00525a;
-	 background-image: linear-gradient(to bottom, #00525a, #00525a);
+	 background: #00525a;
+	 background-image: linear-gradient(to bottom, #006F7A 0%, #00525a 53%, #00444b 54%, #003b41 100%);
 	 background-repeat: repeat-x;
 	 filter: none;
 	 .brand {
@@ -80,7 +80,13 @@ body {
 	 font-size: 28px;
 	 margin-left: 30px;
 	 }
- }
+}
+@media (max-width: 767px)
+{
+	.navbar-inner .brand {
+		margin-left: 0px;
+	}
+}
 
 .calendar-icon
 {
@@ -115,12 +121,18 @@ body {
 
 ul.nav.pull-right{
 	li.user-name{
-	p{
-		font-family: "Comfortaa-regular";
-		font-size: 22px;
-		margin: 10px 10px 0px 10px;
-		color:  #ffffff;
-	}
+		p{
+			font-family: "Comfortaa-regular";
+			font-size: 22px;
+			margin: 10px 10px 0px 10px;
+			color:  #ffffff;
+		}
+		a{
+			color: #ffffff;
+		}
+		a:hover{
+			color: #ffffff;
+		}
 	}
 	li.splitter
 	{
@@ -148,7 +160,7 @@ ul.nav.pull-right{
 }
 }
 .fc-header{
-	td.fc-header-left{
+	td.fc-header-left,td.fc-header-right{
 	padding: 0;
 	vertical-align: middle;
 	}
@@ -167,7 +179,9 @@ table.fc-header{
 	}
 	}
 	.fc-button{
-	background-color: #00525a;
+	background: #00525a;
+	height: auto;
+	box-shadow: none;
 	label{
 		font-family: eurofurence-regular;
 		font-size: 70px;
@@ -258,8 +272,10 @@ table.fc-header{
 	h4{
 	font-family: "Comfortaa-bold";
 	font-size: 29px;
+	line-height: 32px;
+	text-align: center;
 	margin-bottom: 30px;
-	color: #ff6060;
+	color: #516162;
 	}
 
 }
@@ -278,14 +294,13 @@ table.fc-header{
 
 	.date-container{
 	#event_day{
-		width: 60px;
-		height: 35px;
+		width: 55px;
 	}
 	#event_month{
-		width: 160px;
+		width: 180px;
 	}
 	#event_year{
-		width: 130px;
+		width: 108px;
 	}
 
 	}
@@ -295,16 +310,15 @@ table.fc-header{
 	#event_hour{
 		width: 68px;
 		margin-left: 5px;
-		height: 30px;
 	}
 	#event_minute{
 		width: 70px;
 		margin-right: 5px;
-		height: 30px;
 	}
 	label{
-		width: 200px;
-		display: inline;
+		width: 190px;
+		display: inline-block;
+		vertical-align: middle;
 	}
 	}
 	#event_location, #event_description,  #event_price, .start-time-container {
@@ -324,12 +338,17 @@ table.fc-header{
 	}
 
 	#event_description{
-		height: 60px;
+		height: 80px;
 	}
 	#event_submit{
 		margin: 0 auto;
-		background-color: #ff6060;
+		background: -webkit-linear-gradient(top, #ff6060, #bb4646);
+		background: linear-gradient(top, #ff6060, #bb4646);
+		border-radius: 5px;
+		padding: 5px 10px;
+		border: none;
 		color: #ffffff;
+		width: auto;
 	}
 	.submit-container{
 		text-align: center;
@@ -372,13 +391,16 @@ textarea:-ms-input-placeholder { /* Internet Explorer 10+ */
 
 form.new_event
 {
-	text-align: center;
+	text-align: left;
 	input, label, textarea, select{
 	font-family: "OpenSans-bold";
 	font-size: 25px;
-	height: 43px;
+	line-height: 28px;
+	box-sizing: padding-box;
+	height: auto;
 	text-align: left;
 	color: #516162;
+	width: 100%;
 	}
 	.date-container, .start-time-container
 	{
@@ -391,7 +413,6 @@ form.new_event
 	}
 
 	}
-
 }
 
 
@@ -436,7 +457,6 @@ div#external-events {
 #calendar {
 	width: 100%;
 	position: relative;
-	min-width: 700px;
 	margin: 0 auto;
 }
 
@@ -700,12 +720,6 @@ div.mainbox{
 #iconic{
 	text-align: center;
 }
-.modal
-{
-	$width: 350px;
-	width: $width;
-	margin-left: -$width / 2;
-}
 
 #black
 {
@@ -878,4 +892,9 @@ vertical-align: top;
 -webkit-border-radius: 0 4px 4px 0;
 -moz-border-radius: 0 4px 4px 0;
 border-radius: 0 4px 4px 0;
+}
+
+.empty_footer_filler
+{
+	margin-top: 60px;
 }
