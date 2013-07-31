@@ -10,6 +10,7 @@
 #   | status_start(form_id) - for display custom wait status
 #   | status_end(form_id) - for hide custom wait status
 #   | default_submit [true, false] - for call default submit on success
+#		| path - path to send
 # in success recieve:
 # | redirect_to - path to redirect page
 # | errors - associative array (Object) of string error messages

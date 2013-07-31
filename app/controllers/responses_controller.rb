@@ -1,5 +1,8 @@
 class ResponsesController < ApplicationController
-  def index
+	before_filter :authenticate_user!
+
+  def show
+		@respones = Response.where('user_id = ? and status IN (\'confirmed\', \'submitted\')', params[:user_id])
 	end
 
   def create

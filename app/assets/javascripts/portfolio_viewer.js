@@ -11,7 +11,9 @@
 function carousel_init()
 {
     // example how to integrate with a previewer
-    var current = 0,
+	$( '#carousel').elastislide();
+	/*
+	var current = 0,
         $preview = $( '#preview' ),
         $carouselEl = $( '#carousel' ),
         $carouselItems = $carouselEl.children(),
@@ -29,7 +31,7 @@ function carousel_init()
 
             }
         } );
-}
+
     function changeImage( el, pos ) {
 
         $preview.attr( 'src', el.data('preview' ) );
@@ -40,5 +42,6 @@ function carousel_init()
         el.addClass( 'current-img' );
         carousel.setCurrent( pos )
 
-    }
+    }  */
+}
 carousel_init();

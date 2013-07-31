@@ -15,10 +15,10 @@
 
 .elastislide-wrapper {
 	position: relative;
-	background-color: #fff;
+	/*background-color: #fff;*/
 	margin: 0 auto;
 	min-height: 60px;
-	box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+	/*box-shadow: 1px 1px 3px rgba(0,0,0,0.2);*/
 }
 
 .elastislide-wrapper.elastislide-loading {
@@ -28,7 +28,7 @@
 }
 
 .elastislide-horizontal {
-	padding: 10px 40px;
+	/*padding: 10px 40px;*/
 }
 
 .elastislide-vertical {
@@ -78,7 +78,6 @@
 
 .elastislide-carousel ul li a img {
 	display: block;
-	border: 2px solid white;
 	max-width: 100%;
 }
 
@@ -86,7 +85,7 @@
 
 .elastislide-wrapper nav span {
 	position: absolute;
-	background: #ddd url(img/nav.png) no-repeat 4px 3px;
+	background: #888 url(img/nav.png) no-repeat 4px 3px;
 	width: 23px;
 	height: 23px;
 	border-radius: 50%;
@@ -96,7 +95,8 @@
 }
 
 .elastislide-wrapper nav span:hover {
-	opacity: 1.0
+	opacity: 1.0;
+	box-shadow: 0 0 25px #fff;
 }
 
 .elastislide-horizontal nav span {

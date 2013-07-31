@@ -1,10 +1,8 @@
-.container.demo-4
-	.main
-		.gallery
-			%ul{:class=>'elastislide-list', :id=>'carousel'}
-				- @user.images.each do |image|
-					%li{'data-preview'=> image.src.url(:original)}
-						%a{:href=> '#'}
-							= image_tag image.src.url(:small)
-			.image-preview
-				%img{:id=>'preview'}
+.gallery
+	%ul{:class=>'elastislide-list', :id=>'carousel'}
+		- i = 0
+		- @user.images.each do |image|
+			- i += 1
+			%li
+				%a{:href => '#', :class => 'portfolio_image_link', 'data-preview' => image.src.url(:original)}
+					= image_tag image.src.url(:small), :alt => 'image' + i.to_s

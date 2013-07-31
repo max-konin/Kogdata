@@ -2,7 +2,7 @@
 	%h2.event_title
 		=t(:events)
 
-	%table.table.event_table
+	%table.table.event_table.table-hover
 		%thead
 			%tr
 				%th
@@ -22,5 +22,5 @@
 						= event.type
 					%td
 						= event.start.strftime("%d.%m.%Y")
-					%td
+					%td.center
 						= event.responses.count
