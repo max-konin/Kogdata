@@ -239,7 +239,7 @@ table.fc-header{
 	{
 		border-width: 0px;
 		padding: 0 5px 10px 5px;
-		div{
+		div.real-day{
 		background-color: #eae2d7;
 		margin: 0px;
 		}
@@ -792,6 +792,12 @@ div.mainbox-add{
 .fc-event-inner
 {
 	cursor: hand;
+}
+
+.fc-view table.fc-border-separate td.fc-widget-content  {
+div.busy-day{
+	background-color: #f5858a;
+}
 }
 
 .flying {

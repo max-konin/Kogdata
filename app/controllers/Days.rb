@@ -1,7 +1,7 @@
 class Days
   def self.firstDay(inpDay)
     #inpDay is a day of a month
-    if !inpDay.is_a? DateTime
+    if inpDay.is_a? String
       day = DateTime.parse inpDay
     else
       day = inpDay
@@ -11,7 +11,7 @@ class Days
   end
   def self.lastDay(inpDay)
     #inpDay is a day of a month
-    if !inpDay.is_a? DateTime
+    if inpDay.is_a? String
       day = DateTime.parse inpDay
     else
       day = inpDay
@@ -21,12 +21,12 @@ class Days
   end
   def self.inMonth?(eventDay,currentDay)
     #the day must be between first and last days
-    if !eventDay.is_a? DateTime
+    if eventDay.is_a? String
       day = DateTime.parse eventDay
     else
       day = eventDay
     end
-    if !currentDay.is_a? DateTime
+    if currentDay.is_a? String
       currDay = DateTime.parse currentDay
     else
       currDay = currentDay

@@ -32,8 +32,9 @@ class BusynessesControllerTest < ActionController::TestCase
     newBusyDay = Busyness.last
     assert newBusyDay.persisted?
     assert_equal newBusyDay.date, date
-    #newBusyDay_id = assigns :id
-    #assert_equal newBusyDay.id, newBusyDay_id
+    resp = JSON.parse @response.body
+    newBusyDay_id = resp['id']
+    assert_equal newBusyDay.id, newBusyDay_id
   end
 
 
@@ -59,7 +60,7 @@ class BusynessesControllerTest < ActionController::TestCase
   test 'put create user is not contractor' do
     current_user_id = 1
     user = User.find(current_user_id)
-    currDate = DateTime.parse '2013-09-01'
+    currDate = DateTime.parse '2013-09-01 00:00:00'
     sign_in user
     date = DateTime.parse '2013-07-21 00:00:00'
     put :create, {:user_id => current_user_id, :curr_date => currDate, :date => date, :format => :json}
@@ -69,11 +70,11 @@ class BusynessesControllerTest < ActionController::TestCase
   test 'destroy delete current user is contractor date in month' do
     current_user_id = 2
     user = User.find(current_user_id)
-    currDate = Busyness.find(1).date
+    currDate =  Busyness.find(1).date
     sign_in user
     busToDel = Busyness.find(2)
     delete :destroy, {:user_id => current_user_id,  :id => busToDel.id,:curr_date => currDate, :format => :json}
-    assert_empty Busyness.where(:id => busToDel.id)
+    assert !Busyness.exists?( busToDel.id), 'if record have been deleted'
   end
 
   test 'destroy delete not current user' do
@@ -95,7 +96,7 @@ class BusynessesControllerTest < ActionController::TestCase
   test 'destroy delete current user is contractor date is not in month' do
     current_user_id = 2
     user = User.find(current_user_id)
-    currDate = DateTime.parse '2013-09-01'
+    currDate = DateTime.parse '2013-09-01 00:00:00'
     sign_in user
     busToDel = Busyness.find(2)
     delete :destroy, {:user_id => current_user_id, :id =>  busToDel.id, :curr_date => currDate, :format => :json}
