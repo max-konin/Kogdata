@@ -76,7 +76,6 @@ class UsersControllerTest < ActionController::TestCase
     session['devise.provider'] = nil
     post :create, {:user => {:name => 'vasya2', :email => 'v2@v.ru', :role => 'client', :password => '12345'}}
     assert_response :found
-    assert_redirected_to :root
   end
 
   test 'put registration after omniauth user is not signed in' do

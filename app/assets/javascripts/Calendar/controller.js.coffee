@@ -77,38 +77,159 @@ class window.calendarHomeController
 		}
 		return
 
+	current_date_on_change: () ->
+		daysInMonth =  new Date($('#event_year').val(),$('#event_month').val(),0).getDate()
+		$('#event_day').attr('max', daysInMonth)
+		if $.isNumeric($('#event_day').val()) && $('#event_day').val() <= daysInMonth && $('#event_day').val() >= 1
+			$('#event_day').removeClass('invalid')
+		else
+			$('#event_day').addClass('invalid')
+		return
+
+	current_time_on_change:  ()	->
+		if $.isNumeric($(this).val())
+			if $(this).is('#event_hour')
+
+				if $(this).val() >= 0 &&  $(this).val() <= 24
+					$(this).removeClass('invalid')
+				else
+					$(this).addClass('invalid')
+			if $(this).is('#event_minute')
+				if $(this).val() >= 0 &&  $(this).val() <= 59
+					$(this).removeClass('invalid')
+				else
+					$(this).addClass('invalid')
+		else
+			$(this).addClass('invalid')
+		return
+
+	addZero: () ->
+		if $(this).val() == ''
+			$(this).removeClass('invalid')
+			$(this).val('00')
+		if !$(this).hasClass('invalid')
+			if $(this).val().length == 1
+				$(this).val('0'+$(this).val())
+		return
+
+	price_on_change:  () ->
+		if $.isNumeric($(this).val())
+			$(this).removeClass('invalid')
+		else
+			$(this).addClass('invalid')
+		return
+
+
+	set_view: () ->
+		$('.fc-button-prev').html('<label> < </label>')
+		$('.fc-button-next').html('<label> > </label>')
+
+
+		for header in $('.fc-widget-header')
+			header.innerHTML = '<div class = "fc-header-inside"> '+ header.innerHTML+'</div>'
+		$('td.fc-widget-content').children('div').addClass('real-day')
+		days = document.getElementsByClassName('real-day')
+		for day in days
+			for className in $(day).attr('class').split(' ')
+				if className.match(/fc-date+/)
+					$(day).removeClass(className)
+			date = $(day).children('.fc-day-number').html()
+			className = 'fc-date'+date
+			dayInt = parseInt date
+			if ((dayInt < 20) || !$(day).parents('.fc-week0').length) &&
+					(dayInt >= 14 || (!$(day).parents('.fc-week4').length && !$(day).parents('.fc-week5').length))
+				$(day).addClass(className)
+		currentDate = new Date()
+		month = currentDate.getMonth()
+		day = currentDate.getDate()
+		opt = $("option[value="+month+"]")
+
+		html = $("<div></div>").append(opt.clone()).html()
+		html = html.replace(/\>/, ' selected="selected">')
+		opt.replaceWith(html)
+		$('#event_day').val(day)
+		$('#event_day').on('input', @current_date_on_change)
+		$('#event_month').on('change', @current_date_on_change)
+		$('#event_hour').on('input', @current_time_on_change)
+		$('#event_minute').on('input', @current_time_on_change)
+		$('#event_hour').on('change', @addZero)
+		$('#event_minute').on('change', @addZero)
+		$('#event_price').on('input', @price_on_change)
+
+		return
+
+	busy_days: []
+	busy_cach: []
 	update_calendar: () ->
 		return unless $(@calendar_selector).length != 0
 		$(@calendar_selector).fullCalendar 'removeEvents'
-		request = {
-			curDate: $(@calendar_selector).fullCalendar('getDate').format 'isoDateTime'
-			showClosed: true
-		}
+		calendarHomeController::busy_days = []
+		$('.busy-day').removeClass('busy-day')
+		console.log Math.random()
 		$.ajax {
-			type: 'GET'
-			url: "/users/#{user_id}/events.json"
+			type: 'get'
+			url: "users/#{user_id}/busynesses"
 			dataType: 'json'
-			data: request
-			success: (response) ->
-				events = JSON.parse response.div_contents.body
-				for event in events
-					if event.closed == null
-						event.color = calendarHomeController::myEventColor
-					else
-						event.color = calendarHomeController::closedEventColor
-					$(calendarHomeController::calendar_selector).fullCalendar 'renderEvent', event, true
-				return
-			error: (XMLHttpRequest, textStatus, errorThrown) ->
+			contentType: 'application/json'
+			data: {
+				curr_date: $(@calendar_selector).fullCalendar('getDate').format 'isoDateTime'
+				random: String Math.random()
+			}
+			success: (response, status, jqXHR) ->
+				calendar_selector = calendarHomeController::calendar_selector
+				calender_cache =  calendarHomeController::busy_cach
+				if status == 'success'
+					busynesses = JSON.parse response.div_contents.body
+					calender_cache[$(calendar_selector).fullCalendar('getDate').format 'isoDateTime'] = busyness
+				else
+					busyness = calender_cache[$(calendar_selector).fullCalendar('getDate').format 'isoDateTime']
+				for busyness in busynesses
+					date = new Date busyness.date
+					day = date.getDate()
+					calendarHomeController::busy_days[day] = busyness.id
+					day_class = '.fc-date'+day
+					$(day_class).addClass('busy-day')
 				return
 		}
+		@set_view()
 		return
 	onDragStart: () ->
 		$('.clicked').removeClass('clicked')
 		return
 
 	onDayClick: (date, allDay, jsEvent, view) ->
-		window.Popover.hide()
-		window.Popover.show($(this),date,'day','','')
+		month = date.getMonth()
+		if month == $(calendarHomeController::calendar_selector).fullCalendar('getDate').getMonth()
+			day = date.getDate()
+			if !calendarHomeController::busy_days[day]
+				$(this).children('div').addClass('busy-day')
+				request = {
+					date: date.format 'isoDateTime'
+					curr_date: $(calendarHomeController::calendar_selector).fullCalendar('getDate').format 'isoDateTime'
+				}
+				$.ajax {
+					type: 'post'
+					url: "/users/#{user_id}/busynesses.json"
+					format: 'json'
+					data: request
+					success: (response) ->
+						data = JSON.parse response.div_contents.body
+						calendarHomeController::busy_days[day] = data.id
+						return
+				}
+			else
+				$(this).children('div').removeClass('busy-day')
+				$.ajax {
+					type: 'delete'
+					url: "/users/#{user_id}/busynesses/#{calendarHomeController::busy_days[day]}.json"
+					format: 'json'
+					data: {curr_date: $(calendarHomeController::calendar_selector).fullCalendar('getDate').format 'isoDateTime'}
+					success: () ->
+						delete calendarHomeController::busy_days[day]
+						return
+					error: () ->
+						delete calendarHomeController::busy_days[day]
+				}
 		return
 
 	onEventClick: (event, jsEvent, view) ->
