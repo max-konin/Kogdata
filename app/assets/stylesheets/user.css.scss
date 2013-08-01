@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import 'social_link';
+
 .back_white_box
 {
 	$border-raduis: 10px;
@@ -279,7 +281,14 @@ i.icon-k-small-message
 {
 	display: inline-block;
 	background-color: #333333;
-	margin-top: -5px;
+	margin-top: -2px;
+	width: 34px;
+	height: 34px;
+}
+
+table.vertical-header th
+{
+	text-align: right;
 }
 
 .center,
@@ -297,7 +306,7 @@ td.center
 {
 	background-color: #e6c74d;
 	color: #ffffff;
-	font-family: 'Opensans-bold';
+	font-family: 'Opensans';
 	-webkit-font-smoothing: 'antialiased';
 	padding: 2px 4px;
 }
@@ -305,10 +314,7 @@ td.center
 {
 	background-color: #6cf183;
 	color: #ffffff;
+	font-family: 'Opensans';
+	-webkit-font-smoothing: 'antialiased';
 	padding: 2px 4px;
-}
-
-a.social_link:hover
-{
-	text-decoration: none;
 }

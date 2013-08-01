@@ -1,0 +1,23 @@
+/* --- FOR FORM --- */
+#social_link_list .input-prepend .add-on + .add-on
+{
+	min-width: 150px;
+	text-align: right;
+}
+
+[id*="social_link_form_"] {
+	margin-bottom: 0;
+}
+[id*="social_link_form_"] input {
+	*margin-left: 0;
+	vertical-align: top;
+	-webkit-border-radius: 0 4px 4px 0;
+	-moz-border-radius: 0 4px 4px 0;
+	border-radius: 0 4px 4px 0;
+}
+
+a.social_link:hover
+{
+	text-decoration: none;
+}
+/* --- END FOR FORM --- */
