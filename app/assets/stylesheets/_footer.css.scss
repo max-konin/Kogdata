@@ -1,0 +1,51 @@
+.navbar-fixed-bottom{
+	.inner-bottom{
+		background: url(/images/footer/background.png) 0px 0px;
+		border-width: 0px;
+		//height: 55px;
+		a.kerweb{
+			margin-left: 20px;
+			line-height: 50px;
+			font-family: Comfortaa-regular;
+		}
+		.nav.pull-right{
+			.google-plus-link{
+				a{
+					background: url(/images/footer/soc_links_icons.png) no-repeat 0px 0px;
+					width: 51px;
+					height: 49px;
+					line-height: 20px;
+				}
+				margin-right: 20px;
+				margin-top: 10px;
+			}
+			.facebook-link{
+				a{
+					background: url(/images/footer/soc_links_icons.png) no-repeat -53px 0px;
+					width: 51px;
+					height: 49px;
+					line-height: 20px;
+				}
+				margin-right: 20px;
+				margin-top: 10px;
+			}
+			.twitter-link{
+				a{
+					background: url(/images/footer/soc_links_icons.png) no-repeat -104px 0px;
+					width: 53px;
+					height: 49px;
+					line-height: 20px;
+				}
+				margin-right: 20px;
+				margin-top: 10px;
+			}
+		}
+	}
+}
+
+/* ------------ PADDING ELEM UNDER FOOTER FOR FILL PLACE AND SHOW CONTENT UNDER FOOTER ------------ */
+
+.empty_footer_filler
+{
+	margin-top: 60px;
+}
