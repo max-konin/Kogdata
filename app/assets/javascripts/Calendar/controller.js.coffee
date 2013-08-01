@@ -124,7 +124,6 @@ class window.calendarHomeController
 		$('.fc-button-prev').html('<label> < </label>')
 		$('.fc-button-next').html('<label> > </label>')
 
-
 		for header in $('.fc-widget-header')
 			header.innerHTML = '<div class = "fc-header-inside"> '+ header.innerHTML+'</div>'
 		$('td.fc-widget-content').children('div').addClass('real-day')
@@ -136,17 +135,21 @@ class window.calendarHomeController
 			date = $(day).children('.fc-day-number').html()
 			className = 'fc-date'+date
 			dayInt = parseInt date
-			if ((dayInt < 20) || !$(day).parents('.fc-week0').length) &&
-					(dayInt >= 14 || (!$(day).parents('.fc-week4').length && !$(day).parents('.fc-week5').length))
+			if !$(day).parents('.fc-other-month').length
 				$(day).addClass(className)
+
 		currentDate = new Date()
 		month = currentDate.getMonth()
 		day = currentDate.getDate()
 		opt = $("option[value="+month+"]")
-
 		html = $("<div></div>").append(opt.clone()).html()
 		html = html.replace(/\>/, ' selected="selected">')
 		opt.replaceWith(html)
+
+		first_days = document.getElementsByClassName('fc-first fc-widget-content')
+		for day in first_days
+			$(day).children('.real-day').removeAttr('style')
+
 		$('#event_day').val(day)
 		$('#event_day').on('input', @current_date_on_change)
 		$('#event_month').on('change', @current_date_on_change)
@@ -156,10 +159,10 @@ class window.calendarHomeController
 		$('#event_minute').on('change', @addZero)
 		$('#event_price').on('input', @price_on_change)
 
+
 		return
 
 	busy_days: []
-	busy_cach: []
 	update_calendar: () ->
 		return unless $(@calendar_selector).length != 0
 		$(@calendar_selector).fullCalendar 'removeEvents'
@@ -176,13 +179,7 @@ class window.calendarHomeController
 				random: String Math.random()
 			}
 			success: (response, status, jqXHR) ->
-				calendar_selector = calendarHomeController::calendar_selector
-				calender_cache =  calendarHomeController::busy_cach
-				if status == 'success'
-					busynesses = JSON.parse response.div_contents.body
-					calender_cache[$(calendar_selector).fullCalendar('getDate').format 'isoDateTime'] = busyness
-				else
-					busyness = calender_cache[$(calendar_selector).fullCalendar('getDate').format 'isoDateTime']
+				busynesses = JSON.parse response.div_contents.body
 				for busyness in busynesses
 					date = new Date busyness.date
 					day = date.getDate()
