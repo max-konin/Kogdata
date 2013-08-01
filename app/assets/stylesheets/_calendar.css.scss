@@ -98,7 +98,6 @@ table.fc-header{
 			border-width: 0px;
 			padding: 0 5px 10px 5px;
 			div{
-				background-color: #eae2d7;
 				margin: 0px;
 			}
 			.fc-day-content{
@@ -114,8 +113,51 @@ table.fc-header{
 	cursor: hand;
 }
 
-.fc-view table.fc-border-separate td.fc-widget-content  {
-	div.busy-day{
-		background-color: #f5858a;
+
+.fc-view{
+	table.fc-border-separate
+	{
+		margin-top: 10px;
+		thead{
+			border-collapse: collapse;
+		}
+		tbody{
+			border-collapse: collapse;
+		}
+		.fc-today{
+			background-color: transparent;
+			div{
+			}
+		}
+
+		tr.fc-first.fc-last{
+			th.fc-widget-header
+			{
+				div.fc-header-inside{
+					background-color: #eae2d7;
+				}
+				padding: 0 5px 0 5px;
+				border-width: 0px;
+				width: 80px;
+			}
+		}
+
+		td.fc-widget-content
+		{
+			border-width: 0px;
+			padding: 0 5px 10px 5px;
+			div.real-day{
+				background-color: #eae2d7;
+				margin: 0px;
+			}
+			div.busy-day{
+				background-color: #f5858a;
+			}
+			.fc-day-content{
+				margin: 0px;
+				min-height: 50px;
+				height: 50px;
+			}
+		}
 	}
 }

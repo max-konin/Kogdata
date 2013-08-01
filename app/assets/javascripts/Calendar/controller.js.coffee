@@ -10,6 +10,28 @@ class window.calendarHomeController
 		parent: '#external-events'
 		child: 'div.external-event'
 	}
+
+	calendar_init: () ->
+		$('body').on('mousedown', (e) ->
+			if  $(e.target).parents('.popover').size() == 0
+				Popover.hide()
+		)
+		Popover.get_inside_popover_new()
+		#	$(bookings_selector).click Calendar.bookings_on_click
+		Calendar.add_event_handler.call $(Calendar.add_event_selectors.parent).find Calendar.add_event_selectors.child
+		$(Calendar.calendar_selector).fullCalendar Calendar.fullCalendarOption
+		$('body').on('click', '.close-event', Popover.close_event)
+		$('body').on('click', '.reopen-event', Popover.reopen_event)
+		$('.fc-button-next, .fc-button-prev').click () ->
+			Calendar.update_calendar()
+			return
+
+		$('body').on('click', '.popover submit', () ->
+			Calendar.add_event_on_submit()
+			return)
+		Calendar.update_calendar()
+		return
+
 	add_event: (date, allDay) -> # this function is called when something is dropped
 		res = true
 		if event_title.value != '' and event_description.value != ''
@@ -134,7 +156,6 @@ class window.calendarHomeController
 					$(day).removeClass(className)
 			date = $(day).children('.fc-day-number').html()
 			className = 'fc-date'+date
-			dayInt = parseInt date
 			if !$(day).parents('.fc-other-month').length
 				$(day).addClass(className)
 
@@ -145,10 +166,6 @@ class window.calendarHomeController
 		html = $("<div></div>").append(opt.clone()).html()
 		html = html.replace(/\>/, ' selected="selected">')
 		opt.replaceWith(html)
-
-		first_days = document.getElementsByClassName('fc-first fc-widget-content')
-		for day in first_days
-			$(day).children('.real-day').removeAttr('style')
 
 		$('#event_day').val(day)
 		$('#event_day').on('input', @current_date_on_change)
