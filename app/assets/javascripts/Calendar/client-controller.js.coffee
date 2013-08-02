@@ -48,7 +48,7 @@ class clientController extends calendarHomeController
 		currentDate = new Date()
 		month = currentDate.getMonth()
 		day = currentDate.getDate()
-		opt = $("option[value="+month+"]")
+		opt = $("option[value="+(month+1)+"]")
 		html = $("<div></div>").append(opt.clone()).html()
 		html = html.replace(/\>/, ' selected="selected">')
 		opt.replaceWith(html)
@@ -60,6 +60,12 @@ class clientController extends calendarHomeController
 		$('#event_hour').on('change', @add_zero)
 		$('#event_minute').on('change', @add_zero)
 		$('#event_price').on('input', @price_on_change)
+		return
+
+	calendar_init: () ->
+		Calendar.add_event_handler.call $(Calendar.add_event_selectors.parent).find Calendar.add_event_selectors.child
+		$(Calendar.calendar_selector).fullCalendar Calendar.fullCalendarOption
+		super
 		return
 window.Calendar = new clientController
 window.Popover = new popoverController
