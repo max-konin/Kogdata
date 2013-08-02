@@ -62,5 +62,4 @@ class BusynessesController < ApplicationController
       head :unprocessable_entity
     end
   end
-
 end

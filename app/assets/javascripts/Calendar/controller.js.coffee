@@ -12,14 +12,14 @@ class window.calendarHomeController
 	}
 
 	calendar_init: () ->
+		#REMEMBER: if you want extend this class and add new events(methods)
+		# you have override calendar_inint() method and add new events to the fullCalendarOption
+		# property and init fullcalendar see example in contractor-busyness-controller
 		$('body').on('mousedown', (e) ->
 			if  $(e.target).parents('.popover').size() == 0
 				Popover.hide()
 		)
-		Popover.get_inside_popover_new()
 		#	$(bookings_selector).click Calendar.bookings_on_click
-		Calendar.add_event_handler.call $(Calendar.add_event_selectors.parent).find Calendar.add_event_selectors.child
-		$(Calendar.calendar_selector).fullCalendar Calendar.fullCalendarOption
 		$('body').on('click', '.close-event', Popover.close_event)
 		$('body').on('click', '.reopen-event', Popover.reopen_event)
 		$('.fc-button-next, .fc-button-prev').click () ->
@@ -99,48 +99,6 @@ class window.calendarHomeController
 		}
 		return
 
-	current_date_on_change: () ->
-		daysInMonth =  new Date($('#event_year').val(),$('#event_month').val(),0).getDate()
-		$('#event_day').attr('max', daysInMonth)
-		if $.isNumeric($('#event_day').val()) && $('#event_day').val() <= daysInMonth && $('#event_day').val() >= 1
-			$('#event_day').removeClass('invalid')
-		else
-			$('#event_day').addClass('invalid')
-		return
-
-	current_time_on_change:  ()	->
-		if $.isNumeric($(this).val())
-			if $(this).is('#event_hour')
-
-				if $(this).val() >= 0 &&  $(this).val() <= 24
-					$(this).removeClass('invalid')
-				else
-					$(this).addClass('invalid')
-			if $(this).is('#event_minute')
-				if $(this).val() >= 0 &&  $(this).val() <= 59
-					$(this).removeClass('invalid')
-				else
-					$(this).addClass('invalid')
-		else
-			$(this).addClass('invalid')
-		return
-
-	add_zero: () ->
-		if $(this).val() == ''
-			$(this).removeClass('invalid')
-			$(this).val('00')
-		if !$(this).hasClass('invalid')
-			if $(this).val().length == 1
-				$(this).val('0'+$(this).val())
-		return
-
-	price_on_change:  () ->
-		if $.isNumeric($(this).val())
-			$(this).removeClass('invalid')
-		else
-			$(this).addClass('invalid')
-		return
-
 
 	set_view: () ->
 		$('.fc-button-prev').html('<label> < </label>')
@@ -158,93 +116,17 @@ class window.calendarHomeController
 			className = 'fc-date'+date
 			if !$(day).parents('.fc-other-month').length
 				$(day).addClass(className)
-
-		currentDate = new Date()
-		month = currentDate.getMonth()
-		day = currentDate.getDate()
-		opt = $("option[value="+month+"]")
-		html = $("<div></div>").append(opt.clone()).html()
-		html = html.replace(/\>/, ' selected="selected">')
-		opt.replaceWith(html)
-
-		$('#event_day').val(day)
-		$('#event_day').on('input', @current_date_on_change)
-		$('#event_month').on('change', @current_date_on_change)
-		$('#event_hour').on('input', @current_time_on_change)
-		$('#event_minute').on('input', @current_time_on_change)
-		$('#event_hour').on('change', @add_zero)
-		$('#event_minute').on('change', @add_zero)
-		$('#event_price').on('input', @price_on_change)
-
-
 		return
 
-	busy_days: []
+
 	update_calendar: () ->
 		return unless $(@calendar_selector).length != 0
-		$(@calendar_selector).fullCalendar 'removeEvents'
-		calendarHomeController::busy_days = []
-		$('.busy-day').removeClass('busy-day')
-		console.log Math.random()
-		$.ajax {
-			type: 'get'
-			url: "users/#{user_id}/busynesses"
-			dataType: 'json'
-			contentType: 'application/json'
-			data: {
-				curr_date: $(@calendar_selector).fullCalendar('getDate').format 'isoDateTime'
-				random: String Math.random()
-			}
-			success: (response, status, jqXHR) ->
-				busynesses = JSON.parse response.div_contents.body
-				for busyness in busynesses
-					date = new Date busyness.date
-					day = date.getDate()
-					calendarHomeController::busy_days[day] = busyness.id
-					day_class = '.fc-date'+day
-					$(day_class).addClass('busy-day')
-				return
-		}
 		@set_view()
 		return
 	onDragStart: () ->
 		$('.clicked').removeClass('clicked')
 		return
 
-	onDayClick: (date, allDay, jsEvent, view) ->
-		month = date.getMonth()
-		if month == $(calendarHomeController::calendar_selector).fullCalendar('getDate').getMonth()
-			day = date.getDate()
-			if !calendarHomeController::busy_days[day]
-				$(this).children('div').addClass('busy-day')
-				request = {
-					date: date.format 'isoDateTime'
-					curr_date: $(calendarHomeController::calendar_selector).fullCalendar('getDate').format 'isoDateTime'
-				}
-				$.ajax {
-					type: 'post'
-					url: "/users/#{user_id}/busynesses.json"
-					format: 'json'
-					data: request
-					success: (response) ->
-						data = JSON.parse response.div_contents.body
-						calendarHomeController::busy_days[day] = data.id
-						return
-				}
-			else
-				$(this).children('div').removeClass('busy-day')
-				$.ajax {
-					type: 'delete'
-					url: "/users/#{user_id}/busynesses/#{calendarHomeController::busy_days[day]}.json"
-					format: 'json'
-					data: {curr_date: $(calendarHomeController::calendar_selector).fullCalendar('getDate').format 'isoDateTime'}
-					success: () ->
-						delete calendarHomeController::busy_days[day]
-						return
-					error: () ->
-						delete calendarHomeController::busy_days[day]
-				}
-		return
 
 	onEventClick: (event, jsEvent, view) ->
 		Popover.hide()
@@ -257,6 +139,8 @@ class window.calendarHomeController
 			revertDuration: 0		# original position after the drag
 		}
 		return
+
+
 	fullCalendarOption: {
 		header: {
 			left: 'prev'
@@ -277,10 +161,10 @@ class window.calendarHomeController
 		eventDrop: @::update_event
 	# this allows things to be dropped onto the calendar !!!
 		drop: @::add_event
-		dayClick: @::onDayClick
 		eventClick: @::onEventClick
 		eventDragStart: @::onDragStart
 	}
+
 
 class window.popoverController
 
@@ -397,7 +281,4 @@ class window.popoverController
 				$(window.Calendar.calendar_selector).fullCalendar('updateEvent', popoverController::event);
 		}
 		return
-window.Popover = new popoverController
-window.Calendar = new calendarHomeController
-
 
