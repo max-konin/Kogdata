@@ -72,6 +72,11 @@ ru:
   remember_me: "Запомнить меня"
   type_of_event: "Тип события"
 
+  i_am_client: "Я - заказчик"
+  i_am_contractor: "Я - фотограф"
+  confirm_password: "Подтверждение пароля"
+
+
   send_message: "Отправить сообщение"
   drag_to_calendar_to_new_event: "Перетащите событие в календарь, чтобы создать новое событие"
 
