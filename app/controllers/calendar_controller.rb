@@ -2,6 +2,10 @@ class CalendarController < ApplicationController
 	before_filter :authenticate_user!, :except => [:index]
 	def index
 		if user_signed_in?
+      if current_user.role? :contractor
+        redirect_to current_user
+        return true
+      end
 			@user = current_user
 			cookies[:role] = @user.role
 			cookies[:user_id] = @user.id

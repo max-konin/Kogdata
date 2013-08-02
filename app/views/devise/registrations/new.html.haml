@@ -1,4 +1,4 @@
-.container#forms
+.container#forms.reg-container
   %h2.span8.offset3 #{t(:sign_up_to)} Kogdata
   .container-fluid
     .row-fluid
@@ -23,4 +23,3 @@
             = f.password_field :password, :class => 'large', :placeholder => t(:password)
           .control-group
             = f.submit t(:sign_up), :class => "btn btn-danger btn-large"
-
