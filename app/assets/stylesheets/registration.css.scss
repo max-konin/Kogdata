@@ -22,15 +22,20 @@ body{
 	height: 100%;
 	margin-top: -60px;
 	.row-fluid{
-		text-align: center;
-		#new_user{
-			text-align: left;
+		.control-wrapper{
+			text-align: center;
+			label{
+				//text-align: left;
+			}
 		}
 	}
 	#user_name{
 		display: none;
 	}
 	#user_role{
+		display: none;
+	}
+	#price-field{
 		display: none;
 	}
 }
