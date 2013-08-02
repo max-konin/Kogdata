@@ -21,7 +21,7 @@ class BusynessesControllerTest < ActionController::TestCase
   end
 
 
-  test 'put create for current user is contractor date is in month' do
+  test 'put create for current user is contractor date is in month json' do
     current_user_id = 2
     user = User.find(current_user_id)
     currDate = DateTime.parse '2013-07-01'
@@ -36,6 +36,20 @@ class BusynessesControllerTest < ActionController::TestCase
     newBusyDay_id = resp['id']
     assert_equal newBusyDay.id, newBusyDay_id
   end
+
+  test 'put create for current user is contractor date is in month html' do
+    current_user_id = 2
+    user = User.find(current_user_id)
+    currDate = DateTime.parse '2013-07-01'
+    sign_in user
+    date = DateTime.parse '2013-07-21 00:00:00'
+    put :create, {:user_id => current_user_id, :curr_date => currDate, :date => date, :format => :html}
+    assert_redirected_to 'calendar/index'
+    newBusyDay = Busyness.last
+    assert newBusyDay.persisted?
+    assert_equal newBusyDay.date, date
+  end
+
 
 
   test 'put create not current user' do
@@ -67,13 +81,25 @@ class BusynessesControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  test 'destroy delete current user is contractor date in month' do
+  test 'destroy delete current user is contractor date in month json' do
     current_user_id = 2
     user = User.find(current_user_id)
     currDate =  Busyness.find(1).date
     sign_in user
     busToDel = Busyness.find(2)
     delete :destroy, {:user_id => current_user_id,  :id => busToDel.id,:curr_date => currDate, :format => :json}
+    assert !Busyness.exists?( busToDel.id), 'if record have been deleted'
+  end
+
+
+  test 'destroy delete current user is contractor date in month html' do
+    current_user_id = 2
+    user = User.find(current_user_id)
+    currDate =  Busyness.find(1).date
+    sign_in user
+    busToDel = Busyness.find(2)
+    delete :destroy, {:user_id => current_user_id,  :id => busToDel.id,:curr_date => currDate, :format => :html}
+    assert_redirected_to 'calendar/index'
     assert !Busyness.exists?( busToDel.id), 'if record have been deleted'
   end
 

@@ -7,7 +7,6 @@ class BusynessesController < ApplicationController
     respond_to do |format|
       format.html {render 'calendar/index'}
       format.json {render :json =>@bysunesess}
-      format.xml {render :xml => @bysunesess}
     end
   end
 
@@ -15,78 +14,53 @@ class BusynessesController < ApplicationController
     user_id = params[:user_id]
     @user = current_user
     @busyness = @user.busynesses.new
-    if current_user.id == Integer(user_id) && (can? :add, @busynesses)
-      currDate = params[:curr_date]
-      date = params[:date]
-      if Days.inMonth? date, currDate
-        @busyness.date = date
-        respond_to do |format|
-          if  @busyness.save!
-            format.html {render 'calendar/index'}
-            format.json {render :json => {:id => @busyness.id}, status: :ok}
-            format.xml {render :xml => {}, status: :ok}
-          else
-            format.html {render :html => @busyness.errors, status: :unprocessable_entity}
-            format.json {render :json => @busyness.errors, status: :unprocessable_entity}
-            format.xml {render :xml => @busyness.errors, status: :unprocessable_entity}
-          end
-        end
-      else
-        respond_to do |format|
-          format.html {head :unprocessable_entity}
-          format.json {render :json => {}, status: :unprocessable_entity}
-          format.xml {render :xml => {},status: :unprocessable_entity}
-        end
+    currDate = params[:curr_date]
+    date = params[:date]
+    if current_user.id != Integer(user_id) || (!can? :add, @busynesses)
+      head :forbidden
+      return false
+    end
+    if !Days.inMonth? date, currDate
+      head :unprocessable_entity
+      return false
+    end
+    @busyness.date = date
+    if  @busyness.save!
+      respond_to do |format|
+        format.html {redirect_to 'calendar/index'}
+        format.json {render :json => {:id => @busyness.id}, status: :ok}
       end
     else
-      respond_to do |format|
-        format.html {head :forbidden}
-        format.json {render :json => {}, status: :forbidden}
-        format.xml {render :xml => {}, status: :forbidden}
-      end
+      head :unprocessable_entity
     end
   end
-
 
   def destroy
-    puts '=====================!!!!!!!!!!!!!!!!!!!!!!!======================='
     user_id = params[:user_id]
     @user = current_user
-    respond_to do |format|
-      if (Integer(user_id) == @user.id) && (can? :add, @bysunesess)
-        bus_id = params[:id]
-        if @user.busynesses.exists? bus_id
-          puts 'record exists!!!'
-          @busyness = Busyness.find(bus_id)
-          currDate = params[:curr_date]
-          puts currDate
-          puts @busyness.date
-          if Days.inMonth? @busyness.date, currDate
-            puts 'in month!!!!'
-            if @busyness.destroy
-              format.html {render 'calendar/index'}
-              format.json {render :json => {}, status: :ok}
-              format.xml {render :xml => {}, status: :ok}
-            else
-              format.html {render :html => @busyness.errors, status: :unprocessable_entity}
-              format.json {render :json => @busyness.errors, status: :unprocessable_entity}
-              format.xml {render :xml => @busyness.errors, status: :unprocessable_entity}
-            end
-          else
-            format.html {head :unprocessable_entity}
-            format.json {render :json => {}, status: :unprocessable_entity}
-            format.xml {render :xml => {},status: :unprocessable_entity}
-          end
-        else
-          format.html {head :unprocessable_entity}
-          format.json {render :json => {}, status: :unprocessable_entity}
-          format.xml {render :xml => {},status: :unprocessable_entity}
-        end
-      else
-        format.html {head :forbidden}
-        format.json {render :json => {}, status: :forbidden}
-        format.xml {render :xml => {}, status: :forbidden}
+    bus_id = params[:id]
+    if (Integer(user_id) != @user.id) || (!can? :add, @bysunesess)
+      head :forbidden
+      return false
+    end
+    if !@user.busynesses.exists? bus_id
+      head :unprocessable_entity
+      return false
+    end
+    @busyness = Busyness.find(bus_id)
+    currDate = params[:curr_date]
+    if !Days.inMonth? @busyness.date, currDate
+      head :unprocessable_entity
+      return false
+    end
+    if @busyness.destroy
+      respond_to do |format|
+        format.html {redirect_to 'calendar/index'}
+        format.json {render :json => {}, status: :ok}
       end
+    else
+      head :unprocessable_entity
     end
   end
+
 end

@@ -1,5 +1,5 @@
 #= require dateFormat
-#= require fullcalendar
+#= require Calendar/fullcalendar
 #= require bootstrap-tooltip
 #= require bootstrap-popover
 

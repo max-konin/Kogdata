@@ -9,7 +9,7 @@ class CalendarController < ApplicationController
 			redirect_to '/welcome'
 		end
 		@action = 'show-current'
-        @event = Event.new
+    @event = Event.new
 	end
 
 	def show_bookings

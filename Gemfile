@@ -29,8 +29,9 @@ gem 'rails-ajax'
 gem 'json'
 # Modules that makes life easier
 gem 'haml-rails'
-gem 'fullcalendar-rails'
+#gem 'fullcalendar-rails', :git =>  'https://github.com/mitchenkod/fullcalendar-rails-kogdata.git'
 #gem 'squeel'
+#gem 'fullcalendar-rails-kogdata', :path => '../../fullcalendar-rails-kogdata'
 
 # For work with images
 gem 'paperclip'

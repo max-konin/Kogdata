@@ -125,7 +125,7 @@ class window.calendarHomeController
 			$(this).addClass('invalid')
 		return
 
-	addZero: () ->
+	add_zero: () ->
 		if $(this).val() == ''
 			$(this).removeClass('invalid')
 			$(this).val('00')
@@ -172,8 +172,8 @@ class window.calendarHomeController
 		$('#event_month').on('change', @current_date_on_change)
 		$('#event_hour').on('input', @current_time_on_change)
 		$('#event_minute').on('input', @current_time_on_change)
-		$('#event_hour').on('change', @addZero)
-		$('#event_minute').on('change', @addZero)
+		$('#event_hour').on('change', @add_zero)
+		$('#event_minute').on('change', @add_zero)
 		$('#event_price').on('input', @price_on_change)
 
 
