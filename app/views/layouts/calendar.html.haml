@@ -6,11 +6,10 @@
 		= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery?
 		= javascript_include_tag "application"
 		= javascript_include_tag 'common'
-		- if defined?(@action)
-			- if @action == 'show-current'
-				= javascript_include_tag 'Calendar/home'
-			- if @action == 'show-bookings'
-				= javascript_include_tag 'Calendar/show-bookings'
+		- if can? :create, @events
+			= javascript_include_tag 'Calendar/client-home'
+		- if can? :add, @busynesses
+			= javascript_include_tag 'Calendar/contractor-busyness'
 		= stylesheet_link_tag 'application'
 		%title Kogdata
 	%body
