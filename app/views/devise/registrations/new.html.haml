@@ -1,5 +1,6 @@
+//= render :layout =>
 .container#forms.reg-container
-  %h2.span8.offset3 #{t(:sign_up_to)} Kogdata
+  %h2.reg-title #{t(:sign_up_to)} Kogdata
   .role-group{'data-toggle' =>"buttons-radio"}
     %button.btn.active#options.client-option{:type=>"radio", :name=>"options"}
       = t(:i_am_client)

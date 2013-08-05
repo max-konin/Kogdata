@@ -19,13 +19,19 @@ body{
 
 .reg-container{
 	background-color: #d2e6d5;
-	height: 100%;
-	margin-top: -60px;
+	min-height: 100%;
+	margin-top: -20px;
+	margin-bottom: -60px;
 	.row-fluid{
 		.control-wrapper{
-			text-align: center;
+			text-align: left;
+			width: 300px;
+			margin: 0 auto;
+			input#user_email, input#user_password{
+				width: 300px;
+			}
 			label{
-				//text-align: left;
+				font-family: OpenSans;
 			}
 		}
 	}
@@ -38,13 +44,18 @@ body{
 	#price-field{
 		display: none;
 	}
+	h2.reg-title{
+		text-align: center;
+		font-family: 'comfortaa-regular';
+		color: #e25957;
+	}
 }
 
 div.role-group{
 	max-width: 390px;
 	text-align: center;
 	margin: 0 auto;
-	margin-top: 120px;
+	margin-top: 20px;
 	button#options.active{
 		background-image: linear-gradient(to bottom, #e25957, #bc4b49);
 	}
