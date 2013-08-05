@@ -17,4 +17,4 @@
 		= render "user_search_chunk", :users => @users
 	#messageModal.modal.hide.fade
 		= render :partial => "messages/new_message", :locals => {:contact_id => current_user.id}
-	= javascript_include_tag "live_search"
+	= javascript_include_tag "users/live_search"

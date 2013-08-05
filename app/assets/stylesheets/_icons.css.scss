@@ -1,0 +1,73 @@
+[class^='icon-k-'],
+[class*=' icon-k-']
+{
+	display: inline-block;
+	width: 52px;
+	height: 52px;
+	line-height: 14px;
+	vertical-align: top;
+	background-image: url("/assets/users/icons.png");
+	background-position: 0px 0px;
+	background-repeat: no-repeat;
+	/*margin-top: 1px;*/
+}
+i.icon-k-vkontakte {
+	background-position: 0px 0px;
+}
+i.icon-k-facebook {
+	background-position: -52px 0px;
+}
+i.icon-k-gplus {
+	background-position: -104px 0px;
+}
+i.icon-k-twitter {
+	background-position: -156px 0px;
+}
+i.icon-k-message {
+	background-position: -208px 0px;
+	height: 42px;
+}
+i.icon-k-calendar {
+	background-position: -260px 0px;
+	height: 42px;
+}
+i.icon-k-portfolio {
+	background-position: -312px 0px;
+	height: 42px;
+}
+i.icon-k-event {
+	background-position: -364px 0px;
+	padding: 16px 0 0 5px;
+	margin-right: 8px;
+	font-size: 12px;
+	line-height: 14px;
+	width: 42px;
+	height: 25px;
+	color: #e25957;
+	text-decoration: none;
+}
+
+i.icon-k-camera {
+	background-position: -416px 0px;
+	height: 42px;
+}
+i.icon-k-info
+{
+	background-position: -28px -52px;
+	width: 28px;
+	height: 18px;
+}
+i.icon-k-small-message
+{
+	background-position: 0px -52px;
+	width: 28px;
+	height: 18px;
+}
+
+
+.btn [class^='icon-k-'],
+.btn [class*=' icon-k-']
+{
+	display: inline-block;
+	float: left;
+}

@@ -1,3 +1,6 @@
+@import "header";
+@import "footer";
+
 @font-face {
 	font-family: Comfortaa-bold;
 	src: url(/fonts/comfortaa-bold.ttf?) format('truetype');
@@ -9,77 +12,6 @@
 
 body {
 	background: url(/images/header/background.png) 0 0
-}
-
-.navbar-fixed-top .container {
-  width: auto;
-}
-.box {
-  font-size: 16px;
-  position: relative;
-  padding: 40px 50px 60px 50px;
-  margin: 0 auto;
-  background-color: #fff;
-  -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
-}
-
-.navbar .navbar-inner {
-  background-color: #00525a;
-  background-image: linear-gradient(to bottom, #00525a, #00525a);
-  background-repeat: repeat-x;
-  filter: none;
-}
-
-.navbar .navbar-inner .brand {
-  color: #ffffff;
-  font-family: "Comfortaa-bold";
-  font-size: 28px;
-  margin-left: 30px;
-}
-
-.navbar a {
-  font-family: "Comfortaa-regular";
-	font-size: 20px;
-  color: #ffffff;
-}
-
-.navbar-inverse .brand, .navbar-inverse .nav > li > a {
-  color: #cfcfcf;
-}
-
-.navbar_padding_elem
-{
-  padding-top: 41px;
-}
-
-.box:before, .box:after {
-  position: absolute;
-  width: 40%;
-  height: 10px;
-  content: ' ';
-  left: 0.5%;
-  bottom: 12px;
-  background: transparent;
-  -webkit-transform: skew(-3deg) rotate(-3deg);
-  -moz-transform: skew(-3deg) rotate(-3deg);
-  -ms-transform: skew(-3deg) rotate(-3deg);
-  -o-transform: skew(-3deg) rotate(-3deg);
-  transform: skew(-3deg) rotate(-3deg);
-  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
-  z-index: -1;
-}
-.box:after {
-  left: auto;
-  right: 0.5%;
-  -webkit-transform: skew(3deg) rotate(3deg);
-  -moz-transform: skew(3deg) rotate(3deg);
-  -ms-transform: skew(3deg) rotate(3deg);
-  -o-transform: skew(3deg) rotate(3deg);
-  transform: skew(3deg) rotate(3deg);
 }
 
 .logo
@@ -165,59 +97,3 @@ a.try_it:hover
 	color: #ffffff;
 	text-decoration: none;
 }
-
-/* --- FOORTER --- */
-.navbar-fixed-bottom{
-	.inner-bottom{
-		background: url(/images/footer/background.png) 0px 0px;
-		border-width: 0px;
-
-		li > a {
-			padding: 0;
-		}
-		a.kerweb{
-			margin-left: 20px;
-			line-height: 50px;
-			font-family: Comfortaa-regular;
-		}
-		.nav.pull-right{
-			.google-plus-link{
-				a{
-					background: url(/images/footer/soc_links_icons.png) no-repeat 0px 0px;
-					width: 51px;
-					height: 49px;
-					line-height: 20px;
-				}
-				margin-right: 20px;
-				margin-top: 10px;
-			}
-			.facebook-link{
-				a{
-					background: url(/images/footer/soc_links_icons.png) no-repeat -53px 0px;
-					width: 51px;
-					height: 49px;
-					line-height: 20px;
-				}
-				margin-right: 20px;
-				margin-top: 10px;
-			}
-			.twitter-link{
-				a{
-					background: url(/images/footer/soc_links_icons.png) no-repeat -104px 0px;
-					width: 53px;
-					height: 49px;
-					line-height: 20px;
-				}
-				margin-right: 20px;
-				margin-top: 10px;
-			}
-		}
-	}
-}
-
-.empty_footer_filler
-{
-	width: auto;
-	padding-top: 60px;
-}
-/*--- END FOOTER --- */

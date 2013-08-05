@@ -186,7 +186,8 @@
 		validate_one_field(form, this, to_field_options)
 	)
 	return
-
+# TODO: Create default errors messages such popover on each input / select elem
+# http://bootstrap-ru.com/javascript.php#popovers | Live demo
 @show_errors = (elem, list) ->
 	if list == undefined
 		return
