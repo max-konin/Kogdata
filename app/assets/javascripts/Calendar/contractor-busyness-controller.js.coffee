@@ -10,7 +10,7 @@ class contractorBusynessController extends calendarHomeController
 		console.log Math.random()
 		$.ajax {
 			type: 'get'
-			url: "users/#{user_id}/busynesses"
+			url: "/users/#{user_id}/busynesses"
 			dataType: 'json'
 			contentType: 'application/json'
 			data: {

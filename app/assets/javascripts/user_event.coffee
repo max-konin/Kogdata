@@ -1,42 +1,42 @@
-class UserEvent extends Partial
+class @UserEvent extends Partial
 	event_id: null
-	options:
+	_options =
+	{
 		event_elem_id: '#event'
 		close_button: false
 		on_destroy: null
+		on_success: null
+		order_elem: null
+	}
+	get_options: (options) ->
+		if options
+			for elem of _options
+				_options[elem] = if options[elem] then options[elem] else _options[elem]
+		return
 
 	# Load partial from server
 	init: (event_id, options) ->
 		if !event_id
 			throw 'event id not set'
-
-		if options
-			for elem of this.options
-				this.options[elem] = if options[elem] then options[elem] else this.options[elem]
-
 		this.event_id = event_id
-
-		if parent_id
-			this.options.event_elem_id = parent_id
-
-		this.get_partial("/events/#{this.event_id}.html", this.options.event_elem_id,
+		this.get_options(options)
+		obj = this
+		this.get_partial("/events/#{this.event_id}.html", _options.event_elem_id,
 		{
-			close_button: this.options.close_button
-			on_success: options.on_success
-
+			close_button: _options.close_button
+			on_success: _options.on_success
 			after_close: () ->
-				this.order_elem.destroy()
-				return
+				if _options.on_destroy
+					_options.on_destroy()
 		})
 		return
 
 	destroy: () ->
-		$(this.options.event_elem_id).empty()
-		if this.options.on_destroy
-			this.options.on_destroy()
+		$(_options.event_elem_id).empty()
+		if _options.on_destroy
+			_options.on_destroy()
 		return
 
 	constructor: (options) ->
-		if options
-			for elem of this.options
-				this.options[elem] = if options[elem] then options[elem] else this.options[elem]
+		this.get_options(options)
+		return

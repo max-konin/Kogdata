@@ -1,4 +1,4 @@
-#= require /Calendar/controller
+#= require Calendar/contractor-busyness-controller
 #= require ./portfolio
 #= require ./order
 
@@ -43,6 +43,18 @@ class Photograph extends Partial
 
 	# Init message controller
 	messages: () ->
+		if block.right
+			block.right.destroy()
+		block.right = null
+		###
+  	TODO: Verify Message class for working with this code
+		message = new Message
+		message.destroy = () ->
+			block.right = null
+			$(block_id.right).empty()
+			return
+
+		###
 		return
 
 	# Return info about photorgapher or client from server
@@ -125,7 +137,8 @@ class Photograph extends Partial
 		options =
 		{
 			on_success: on_success()
-			parent_id: block_id.right
+			order_elem_id: block_id.right
+			event_elem_id: block_id.left
 		}
 		order.init(user_id, options)
 		return

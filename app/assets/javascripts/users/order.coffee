@@ -1,4 +1,5 @@
 #= require ../partial
+#= require ../user_event
 
 class @Order extends Partial
 	order_elem: null
@@ -7,33 +8,47 @@ class @Order extends Partial
 	{
 		order_elem_id: '#orders'
 		event_box_id: null
+		event_elem_id: "#event"
 	}
 	btn:
 		event: '.show_event_button_block'
 
+	get_options: (options) ->
+		if options
+			for elem of _options
+				_options[elem] = if options[elem] then options[elem] else _options[elem]
+		return
+	# Bind event click on parent elem and looking for event button click
 	bind_show_event: () ->
-		$(this.btn.event).click((e) ->
+		obj = this
+		$(_options.order_elem_id).on('click', this.btn.event, (e) ->
+			# Get event id from button attr
 			event_id = $(this).attr('event_id')
-			event = new UserEvent()
-			obj = this
+
+			# Init options for Event object
 			options =
 			{
+				event_elem_id: _options.event_elem_id
 				close_button: true
 				on_success: () ->
-					if obj.event_elem
-						obj.event_elem.destroy()
-
+					# Select item in orders list
 					obj.order_elem = $(e.target).parents('tr').first()
 					obj.order_elem.addClass('info')
-
 					return
-				after_close: () ->
-					obj.order_elem.destroy()
+				on_destroy: () ->
+					# Unselect item in orders list
+					obj.order_elem.removeClass('info')
+					obj.event_elem = null
 					return
 				after_remove: () ->
 					return
 			}
-			event.init(event_id, options)
+			event = new UserEvent(options)
+			if obj.event_elem
+				obj.event_elem.destroy()
+			obj.event_elem = event
+
+			event.init(event_id)
 		)
 		return
 
@@ -52,8 +67,7 @@ class @Order extends Partial
 
 	# Load partial with list orders from server and bind event listener on needed buttons
 	init: (user_id, options) ->
-		if options.parent_id
-			_options.order_elem_id = options.parent_id
+		this.get_options(options)
 		obj = this
 		this.get_partial("/users/#{user_id}/responses.html", _options.order_elem_id,{on_success: () ->
 			if options.on_success
@@ -72,7 +86,5 @@ class @Order extends Partial
 		return
 
 	constructor: (options) ->
-		if options
-			for elem of _options
-				_options[elem] = if options[elem] then options[elem] else _options[elem]
+		this.get_options(options)
 
