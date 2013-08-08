@@ -4,14 +4,14 @@
 			= link_to '/users/edit', :title => t(:edit_profile), :id =>'settings_button' do
 				%i.icon-cog
 	.row-fluid
-		.span4
+		.user_avatar
 			.avatar
 				= image_tag @user.avatar.url(:small)
 
 			- if @user.role == 'contractor'
 				= ratings_for @user, :static, :dimension => :quality
 
-		.span8
+		.right_user_panel
 			%h1.info_user_name
 				= @user.name
 
@@ -25,7 +25,7 @@
 						= link_to get_provider_link(link.provider) + '/' + link.url,
 							:title => link.provider, :class => 'social_link' do
 							%i{:class => 'icon-k-' + link.provider}
-
+		.right_user_panel
 			- if @user.id == current_user.id # If photograph watch own page
 				- if @user.role == 'contractor' # Show info by photographs
 					.info-block

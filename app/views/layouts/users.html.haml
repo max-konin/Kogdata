@@ -17,11 +17,11 @@
 		= javascript_include_tag 'modernizr.custom.17475'
 		= javascript_include_tag 'jquery.elastislide'
 		= javascript_include_tag 'partial'
-		= javascript_include_tag 'users/photograph'
-		= javascript_include_tag 'Calendar/profile'
-
 		= stylesheet_link_tag 'user'
 		= stylesheet_link_tag 'rating'
+
+		- if current_user.role == 'contractor'
+			= javascript_include_tag 'users/photograph'
 
 		%title Kogdata
 	%body
