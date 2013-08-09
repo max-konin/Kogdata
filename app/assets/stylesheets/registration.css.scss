@@ -17,11 +17,26 @@ body{
 	}
 }
 
+div.navbar_padding_elem{
+	padding: 0;
+	position: fixed
+}
+
+div.empty_footer_filler{
+	margin: 0;
+	position: fixed;
+}
+
+div.navbar.navbar-inverse.navbar-fixed-top{
+	margin: 0;
+}
+
 .reg-container{
-	background-color: #d2e6d5;
 	min-height: 100%;
-	margin-top: -20px;
+	min-width: 340px;
 	margin-bottom: -60px;
+	padding-top: 40px;
+	background-color: #d2e6d5;
 	.row-fluid{
 		.control-wrapper{
 			text-align: left;
@@ -89,3 +104,4 @@ div.role-group{
 		margin-left: 30px;
 	}
 }
+
