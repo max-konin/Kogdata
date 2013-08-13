@@ -71,6 +71,9 @@ ru:
   delete: "Удалить"
   remember_me: "Запомнить меня"
   type_of_event: "Тип события"
+  do_sign_up: "Зарегистрироваться"
+  do_sign_in: "Войти"
+  i_agree: "Я согласен с правилами сервиса"
 
   i_am_client: "Я - заказчик"
   i_am_contractor: "Я - фотограф"

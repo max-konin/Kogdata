@@ -30,8 +30,14 @@
 						%label
 							= t(:confirm_password)
 						= f.password_field :password, :class => 'large'
-					.control-group
-						= f.submit t(:sign_up), :class => "btn btn-danger btn-large"
-			%a.btn.social-btn.btn-inverse{:href => "/users/auth/vkontakte"} #{t(:sign_in_with)} vkontakte
-			%a.btn.social-btn.btn-info{:href => "/users/auth/twitter"}  #{t(:sign_in_with)} twitter
-			%a.btn.social-btn.btn-primary{:href => "/users/auth/facebook"}  #{t(:sign_in_with)} facebook
+					.control-group#submit
+						%input{:type => "checkbox", :id => "check_agree"}
+						%label
+							= t(:i_agree)
+						%br
+						= f.submit t(:do_sign_up), :class => "btn btn-danger btn-large", :id => "reg-submit"
+	.left-column
+		.soc-links-container
+			%a.social-btn#vk-btn{:href => "/users/auth/vkontakte"}
+			%a.social-btn#twit-btn{:href => "/users/auth/twitter"}
+			%a.social-btn#face-btn{:href => "/users/auth/facebook"}
