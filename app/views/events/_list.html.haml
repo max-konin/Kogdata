@@ -2,7 +2,7 @@
 	%h2.event_title
 		=t(:events)
 
-	%table.table.event_table.table-hover
+	%table.table.event_table.table-striped
 		%thead
 			%tr
 				%th
@@ -17,10 +17,15 @@
 			- events.each do |event|
 				%tr
 					%td
-						= event.id
+						%a{ :href => '#', :class => 'show_event_link'}
+							= event.id
 					%td
 						= event.type
 					%td
 						= event.start.strftime("%d.%m.%Y")
 					%td.center
-						= event.responses.count
+						- if event.responses.count > 0
+							%a{ :href => '#', :class => 'show_responses_link'}
+								= event.responses.count
+						- else
+							= event.responses.count

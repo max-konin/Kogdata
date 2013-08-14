@@ -1,7 +1,7 @@
 .back_white_box
 	- if @user.id == current_user.id
 		.to_right
-			= link_to '/users/edit', :title => t(:edit_profile), :id =>'settings_button' do
+			= link_to '/users/edit', :title => t(:edit_profile), :id =>'user_edit_button' do
 				%i.icon-cog
 	.row-fluid
 		.user_avatar

@@ -1,6 +1,14 @@
 class ResponsesController < ApplicationController
 	before_filter :authenticate_user!
 
+	def index
+		@event = Event.find(params[:event_id])
+		if current_user.id != @event.user_id
+			 throw 'access denied'
+		end
+		@responses = @event.responses
+	end
+
   def show
 		@respones = Response.where('user_id = ? and status IN (\'confirmed\', \'submitted\')', params[:user_id])
 	end
@@ -15,7 +23,7 @@ class ResponsesController < ApplicationController
 			respond_to do |format|
 				format.html {redirect_to event_url(@event)
 				}
-				format.json {render :json => {:status => 'yes', :response => @response}}
+				format.json {render :json => {:success => 'yes', :response => @response}}
 			end
 		else
 			respond_to do |format|
@@ -30,7 +38,7 @@ class ResponsesController < ApplicationController
 		if @response.update_attributes(params[:response])
 			respond_to do |format|
 				format.html {redirect_to '/events/' + @response.event_id.to_s}
-				format.json {render :json => {:status => 'yes'}}
+				format.json {render :json => {:success => 'yes'}}
 			end
 		else
 			respond_to do |format|
@@ -45,7 +53,7 @@ class ResponsesController < ApplicationController
 		if @response.destroy
 			respond_to do |format|
 				format.html {redirect_to '/events/' + @response.event_id.to_s}
-				format.json {render :json => {:status => 'yes'}}
+				format.json {render :json => {:success => 'yes'}}
 			end
 		else
 			respond_to do |format|

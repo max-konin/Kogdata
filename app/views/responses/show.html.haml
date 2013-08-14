@@ -1,3 +1,4 @@
+-# Show photograph responses and it's status
 .back_white_box
 	%h2.event_title
 		= t(:events)
@@ -37,7 +38,7 @@
 						%button.btn.btn-link{:type => 'button', 'data-target' => '#messageModal',
 							'data-toggle' => 'modal', 'user_id' => user.id.to_s}
 							%i.icon-k-small-message
-						%button.btn.btn-link.show_event_button_block{:event_id => event.id}
+						%button.btn.btn-link.show_event_button{:event_id => event.id}
 							%i.icon-k-info
 
 	#messageModal.modal.hide.fade

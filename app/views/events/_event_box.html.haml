@@ -1,48 +1,32 @@
-.back_white_box
-	%h2.event_title
-		= t(:the_event)
-		= ' #' + @event.id.to_s
-	%table.table.table-condensed.vertical-header
-		%tbody
-			%tr
-				%th
-					= t(:date_text)
-				%td
-					= @event.start.strftime("%d.%m.%Y")
-			%tr
-				%th
-					= t(:town)
-				%td
-					О.город
-			%tr
-				%th
-					= t(:type_of_event)
-				%td
-					= @event.type
-			%tr
-				%th
-					= t(:start_time)
-				%td
-					= @event.start.strftime("%H.%M")
-			%tr
-				%th
-					= t(:budget)
-				%td
-					= @event.price
-			-if @event.user_id == @user.id
-				%tr
-					%th
-						= t(:recalls)
-					%td
-						= @event.responses.count
-
-	%div
-		-if @event.user_id != @user.id
-			- if @response
-				= render 'responses/delete_form'
-			-else
-				-if current_user.role == 'contractor'
-					%div
-						= render 'responses/form'
-	#messageModal.modal.hide.fade
-		= render :partial => 'messages/new_response_to_event', :locals => {:event => @event}
+%h2.event_title
+	= t(:the_event)
+	= ' #' + @event.id.to_s
+%table.table.table-condensed.vertical-header
+	%tbody
+		%tr
+			%th
+				= t(:date_text)
+			%td
+				= @event.start.strftime("%d.%m.%Y")
+		%tr
+			%th
+				= t(:town)
+			%td
+				О.город
+		%tr
+			%th
+				= t(:type_of_event)
+			%td
+				= @event.type
+		%tr
+			%th
+				= t(:start_time)
+			%td
+				= @event.start.strftime("%H.%M")
+		%tr
+			%th
+				= t(:budget)
+			%td
+				= @event.price
+%p
+	= @event.description

@@ -59,7 +59,7 @@ Kogdata::Application.routes.draw do
 	end
 
   resources :events, only: [:show]  do
-    resources :responses, only: [:create, :update, :destroy]
+    resources :responses, only: [:index, :create, :update, :destroy]
   end
   
   #put 'users/:user_id/events/:id/close' => 'events#close'

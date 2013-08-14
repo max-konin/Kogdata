@@ -1,0 +1,18 @@
+.back_white_box
+	%table.table.event_table.table-striped
+		%tbody
+			- @responses.each do |response|
+				%tr
+					%td
+						= image_tag response.user.avatar.url(:thumb)
+					%td
+						= ratings_for response.user, :static, :dimension => :quality
+					%td
+						= response.user.name
+					%td
+						%button.btn.btn-link#portfolio_button{:user_id => response.user.id, :title => t(:show_portfolio)}
+							%i.icon-k-small-portfolio
+
+						%button.btn.btn-link{:type => 'button', 'data-target' => '#messageModal', 'data-toggle' => 'modal',
+							'user_id' => response.user.id.to_s}
+							%i.icon-k-small-messages

@@ -24,6 +24,11 @@
 	text-align: center;
 }
 
+.event_table td
+{
+	vertical-align: middle;
+}
+
 .table .avatar
 {
 	display: inline-block;
@@ -39,7 +44,9 @@
 	color: #ffffff;
 	font-family: 'Opensans';
 	-webkit-font-smoothing: 'antialiased';
-	padding: 2px 4px;
+	padding: 5px 4px 2px;
+	height: 23px;
+	border-radius: 5px;
 }
 .response_confirmed
 {
@@ -47,7 +54,9 @@
 	color: #ffffff;
 	font-family: 'Opensans';
 	-webkit-font-smoothing: 'antialiased';
-	padding: 2px 4px;
+	padding: 5px 4px 2px;
+	height: 23px;
+	border-radius: 5px;
 }
 .response_rejected
 {
@@ -55,5 +64,7 @@
 	color: #ffffff;
 	font-family: 'Opensans';
 	-webkit-font-smoothing: 'antialiased';
-	padding: 2px 4px;
+	padding: 5px 4px 2px;
+	height: 23px;
+	border-radius: 5px;
 }

@@ -1,6 +1,6 @@
 #= require ./user
 
-class Photograph extends User
+class Client extends User
 
 	# Local vars for methods
 	block = this.block
@@ -9,35 +9,25 @@ class Photograph extends User
 
 	# Bind functions for buttons on photograph page
 	bind_buttons_events: () ->
-		photograph = this
-
+		client = this
 		# Buttons on personal page
 		$(btn.calendar).click(() ->
 			# Clear bottom block for more comfortalbe view calendar
 			if block.bottom != null
 				block.bottom.destroy()
 				block.bottom = null
-			photograph.calendar()
+			client.calendar()
 			return
 		)
 
 		$(btn.message).click(() ->
-			photograph.messages()
+			client.messages()
 			return
 		)
 
 		$(btn.portfolio).click(() ->
-			photograph.info()
-			photograph.portfolio()
-			return
-		)
-
-		$(btn.order).click(() ->
-			# Clear bottom block for more comfortalbe view orders
-			if block.bottom
-				block.bottom.destroy()
-				block.bottom = null
-			photograph.orders()
+			client.info()
+			client.portfolio()
 			return
 		)
 
@@ -46,9 +36,17 @@ class Photograph extends User
 			if block.bottom
 				block.bottom.destroy()
 				block.bottom = null
-			photograph.user_edit()
+			client.user_edit()
 			return false
 		)
+		$(btn.event).click(() ->
+			if block.bottom
+				block.bottom.destroy()
+				block.bottom = null
+			client.events()
+			return
+		)
+
 		return
 
 
@@ -56,7 +54,8 @@ class Photograph extends User
 	constructor: () ->
 		return
 
-window.photograph = new Photograph
+window.client = new Client
 $(document).ready () ->
-	window.photograph.bind_buttons_events()
+	window.client.bind_buttons_events()
+	window.client.calendar()
 

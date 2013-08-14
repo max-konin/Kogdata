@@ -11,7 +11,8 @@ class @Portfolio extends Partial
 	get_options: (options) ->
 		if options
 			for elem of _options
-				_options[elem] = if options[elem] then options[elem] else _options[elem]
+				if options[elem]
+					_options[elem] = options[elem]
 		return
 	# Bind popover on clock image to show image on full page
 	bind_portfolio_image_popover: () ->
@@ -23,7 +24,7 @@ class @Portfolio extends Partial
 			$(_options.image_popover_id).click (e) ->
 				$(e.target).remove()
 				return
-			return
+			return false
 		)
 		return
 
@@ -34,7 +35,8 @@ class @Portfolio extends Partial
 		this.get_options(options)
 		obj = this
 		this.get_partial("/image/show/#{user_id}.html", _options.parent_id, {on_success : () ->
-			options.on_success()
+			if options.on_success
+				options.on_success()
 			if $(_options.carousel_id).elastislide
 				$(_options.carousel_id).elastislide({minItems: 1})
 				obj.bind_portfolio_image_popover()

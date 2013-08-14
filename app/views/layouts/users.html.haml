@@ -23,6 +23,9 @@
 		- if current_user.role == 'contractor'
 			= javascript_include_tag 'users/photograph'
 
+		- if current_user.role == 'client'
+			= javascript_include_tag 'users/client'
+
 		%title Kogdata
 	%body
 		= render 'application/header'

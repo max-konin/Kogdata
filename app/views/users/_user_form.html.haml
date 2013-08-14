@@ -21,7 +21,7 @@
 		-#  .controls
 		-#    = f.select :role, [ [t(:user), :client], [t(:contractor), :contractor] ]
 		- if @user.role == 'contractor'
-			.control-group#price-div
+			.control-group
 				= f.label :role, t(:price), :class => 'control-label'
 				.controls
 					= f.number_field :price, :min => '0', :placeholder => t(:price)

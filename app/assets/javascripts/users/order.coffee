@@ -1,6 +1,7 @@
 #= require ../partial
 #= require ../user_event
 
+#TODO: check - work without @ and create docs
 class @Order extends Partial
 	order_elem: null
 	event_elem: null
@@ -11,16 +12,17 @@ class @Order extends Partial
 		event_elem_id: "#event"
 	}
 	btn:
-		event: '.show_event_button_block'
+		event: '.show_event_button'
 
 	get_options: (options) ->
 		if options
 			for elem of _options
-				_options[elem] = if options[elem] then options[elem] else _options[elem]
+				if options[elem]
+					_options[elem] = options[elem]
 		return
 	# Bind event click on parent elem and looking for event button click
 	bind_show_event: () ->
-		obj = this
+		order_obj = this
 		$(_options.order_elem_id).on('click', this.btn.event, (e) ->
 			# Get event id from button attr
 			event_id = $(this).attr('event_id')
@@ -32,23 +34,27 @@ class @Order extends Partial
 				close_button: true
 				on_success: () ->
 					# Select item in orders list
-					obj.order_elem = $(e.target).parents('tr').first()
-					obj.order_elem.addClass('info')
+					order_obj.order_elem = $(e.target).parents('tr').first()
+					order_obj.order_elem.addClass('info')
 					return
 				on_destroy: () ->
 					# Unselect item in orders list
-					obj.order_elem.removeClass('info')
-					obj.event_elem = null
+					order_obj.order_elem.removeClass('info')
+					order_obj.event_elem = null
 					return
-				after_remove: () ->
+				on_delete: () ->
+					# Delete elem from orders list
+					order_obj.order_elem.remove()
+					order_obj.event_elem = null
 					return
 			}
 			event = new UserEvent(options)
-			if obj.event_elem
-				obj.event_elem.destroy()
-			obj.event_elem = event
+			if order_obj.event_elem
+				order_obj.event_elem.destroy()
+			order_obj.event_elem = event
 
 			event.init(event_id)
+			return
 		)
 		return
 

@@ -1,6 +1,7 @@
 .back_white_box
 	= render :partial => '/users/user_form'
-	#social_link_list
-		%legend
-			=t(:links_list)
-		= render :partial => '/social_links/form'
+	- if @user.role == 'contractor'
+		#social_link_list
+			%legend
+				=t(:links_list)
+			= render :partial => '/social_links/form'
