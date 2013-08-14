@@ -61,7 +61,7 @@ class contractorBusynessController extends calendarHomeController
 						delete calendarHomeController::busy_days[day]
 				}
 		return
-	calendar_init: () ->
+	cale  ndar_init: () ->
 		@fullCalendarOption.dayClick = @onDayClick
 		Calendar.add_event_handler.call $(Calendar.add_event_selectors.parent).find Calendar.add_event_selectors.child
 		$(Calendar.calendar_selector).fullCalendar Calendar.fullCalendarOption
