@@ -123,6 +123,7 @@ class window.calendarHomeController
 		return unless $(@calendar_selector).length != 0
 		@set_view()
 		return
+
 	onDragStart: () ->
 		$('.clicked').removeClass('clicked')
 		return
