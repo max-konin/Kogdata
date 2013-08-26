@@ -144,6 +144,9 @@
 ###
 @validate_one_field = (form, field, options) ->
 
+	if typeof options == 'undefined'
+		options = new Object()
+
 	elem_name = $(field).attr('name')
 	path = if options.path then options.path else $(form).attr('action') + '/validate/' + elem_name.match(/\w+(?=\])/)[0]
 

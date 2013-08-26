@@ -1,5 +1,4 @@
 #= require ../partial
-#= require ../Calendar/contractor-busyness-controller
 #= require ./portfolio
 #= require ./order
 #= require ./event_list
@@ -82,6 +81,8 @@ class @User extends Partial
 	# @param with_close - if true, close button will be added
   ###
 	calendar: (with_close = false) ->
+		###
+
 		# Clear left block
 		if block.right != null
 			block.right.destroy()
@@ -91,6 +92,7 @@ class @User extends Partial
 		append($('<div></div>').attr('id', 'calendar'))
 		$(block_id.right).html(calendar)
 
+  	TODO: uncomment then bussenes-controller will fiexd or changed call method
 		if this.with_close_button || with_close
 			this.add_close_button(calendar, Calendar)
 
@@ -104,28 +106,29 @@ class @User extends Partial
 		if Calendar.calendar_init
 			Calendar.calendar_init()
 		block.right = Calendar
+  	###
 		return
 
-		###
-		# Add remove icon, and bind function destroy() object
-		# @param dom_obj - parent id elem, or jquery dom object in wich close button will added
-  	# @param object - Object elem wich needed to destroy or callback method
-  	# if object set then on close click calling object method destroy()
-  	###
-		add_close_button: (dom_obj, object) ->
-			on_close = () ->
-				if typeof object == 'function'
-					object()
-				else
-				if object and object.destroy
-					object.destroy()
-				else
-					$(dom_obj).empty()
-				return
-			i = $('<i></i>').addClass('icon-remove pointer').on('click', on_close)
-			i = $('<div></div>').addClass('to_right').append(i)
-			$(dom_obj).prepend(i)
+	###
+	# Add remove icon, and bind function destroy() object
+	# @param dom_obj - parent id elem, or jquery dom object in wich close button will added
+	# @param object - Object elem wich needed to destroy or callback method
+	# if object set then on close click calling object method destroy()
+	###
+	add_close_button: (dom_obj, object) ->
+		on_close = () ->
+			if typeof object == 'function'
+				object()
+			else
+			if object and object.destroy
+				object.destroy()
+			else
+				$(dom_obj).empty()
 			return
+		i = $('<i></i>').addClass('icon-remove pointer').on('click', on_close)
+		i = $('<div></div>').addClass('to_right').append(i)
+		$(dom_obj).prepend(i)
+		return
 
 	###
 	# Init portfolio object and load images list from server

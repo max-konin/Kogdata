@@ -1,12 +1,26 @@
 #= require ../partial
+#= require ./response_list
 
 ###
 # Object of event list in own user page
 ###
 class @EventList extends Partial
+
+	###
+	# Object of event elem UserEdit class
+	###
 	event_elem: null
+
+	###
+	# DOM elem of selected item in EventList
+	###
 	event_list_elem: null
+
+	###
+	# Object of response list ResponseList class
+	###
 	response_list: null
+
 	_options =
 	{
 		event_list_id: '#event_list'
@@ -26,15 +40,15 @@ class @EventList extends Partial
 		return
 
 	###
-  # This method create parent popover elem for content from server response
-  # @param options - parameters for function
-  # | elem_id - div id, wich will be created in  parent_id
-  # | parent_id - id parent element
-  # | parameters from _popover_opt for overwriting
-  ###
+	# This method create parent popover elem for content from server response
+	# @param options - parameters for function
+	# | elem_id - div id, wich will be created in  parent_id
+	# | parent_id - id parent element
+	# | parameters from _popover_opt for overwriting
+	###
 	prepend_popover_window: (options) ->
 		if !$( options.parent_id).length
-			throw 'Ca\'t insert element in undefined'
+			throw 'Can\'t insert element in undefined'
 
 		if $( options.elem_id).length
 			return
@@ -67,7 +81,7 @@ class @EventList extends Partial
 		return
 
 	###
-  # Init UserEvent object for show event, and create absolute popover block if it's not set
+	# Init UserEvent object for show event
 	###
 	bind_show_event: () ->
 		event_list_obj = this
@@ -122,23 +136,17 @@ class @EventList extends Partial
 		)
 		return
 
+	###
+	# Init UserEvent object for show reponse list
+	###
 	bind_show_responses: () ->
 		event_list_obj = this
 		$(_options.event_list_id).on('click', this.btn.responses, (e) ->
 			# Get event id from button attr
 			event_id = $(this).attr('event_id')
 			if !event_id
+				td = $(e.target).parent('tr').
 				event_id = $(e.target).html().trim()
-
-			if event_list_obj.event_elem
-				event_list_obj.event_elem.destroy()
-				event_list_obj.event_elem = null
-
-			event_list_obj.prepend_popover_window({
-				parent_id: _options.event_list_id
-				elem_id: _options.response_list_id
-				'width': '540px'
-			})
 
 			# Init options for Event object
 			options =
@@ -162,12 +170,25 @@ class @EventList extends Partial
 					event_list_obj.event_elem = null
 					return
 			}
-			event = new UserEvent(options)
+
+			if event_list_obj.event_elem
+				event_list_obj.event_elem.destroy()
+				event_list_obj.event_elem = null
+
 			if event_list_obj.response_list
 				event_list_obj.response_list.destroy()
-			event_list_obj.event_elem = event
+				event_list_obj.response_list = null
 
-			event.init(event_id)
+			event_list_obj.prepend_popover_window({
+				parent_id: _options.event_list_id
+				elem_id: _options.response_list_id
+				'width': '540px'
+			})
+
+			respone_list = new ResponseList(options)
+			event_list_obj.response_list = respone_list
+
+			respone_list.init(event_id)
 			return false
 		)
 		return
@@ -183,12 +204,14 @@ class @EventList extends Partial
 				if options.on_success
 					options.on_success()
 				event_list.bind_show_event()
+				event_list.bind_show_responses()
 				return
 			#fit_partial: _options.fit_partial
 		})
 		return
 
-
+	# Function wich call before destroy object for correctly work application
+	# Than EventList is destring, calling destroy methods to child objects
 	destroy: () ->
 		if this.event_elem
 			this.event_elem.destroy()

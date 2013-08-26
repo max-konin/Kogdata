@@ -75,54 +75,8 @@ class @ResponseList extends Partial
 		)
 		return
 
-	bind_show_responses: () ->
-		event_list_obj = this
-		$(_options.event_list_id).on('click', this.btn.responses, (e) ->
-			# Get event id from button attr
-			event_id = $(this).attr('event_id')
-			if !event_id
-				event_id = $(e.target).html().trim()
-
-			if event_list_obj.event_elem
-				event_list_obj.event_elem.destroy()
-				event_list_obj.event_elem = null
-
-			event_list_obj.prepend_popover_window({
-				parent_id: _options.event_list_id
-				elem_id: _options.response_list_id
-				'width': '540px'
-			})
-
-			# Init options for Event object
-			options =
-			{
-				event_elem_id: _options.event_elem_id
-				close_button: true
-				on_success: () ->
-					# Select item in orders list
-					event_list_obj.event_list_elem = $(e.target).parents('tr').first()
-					event_list_obj.event_list_elem.addClass('info')
-					return
-				on_destroy: () ->
-					# Unselect item in orders list
-					event_list_obj.event_list_elem.removeClass('info')
-					event_list_obj.event_list_elem = null
-					event_list_obj.event_elem = null
-					return
-				on_delete: () ->
-					# Delete elem from orders list
-					event_list_obj.event_list_elem.remove()
-					event_list_obj.event_elem = null
-					return
-			}
-			event = new UserEvent(options)
-			if event_list_obj.response_list
-				event_list_obj.response_list.destroy()
-			event_list_obj.event_elem = event
-
-			event.init(event_id)
-			return false
-		)
+	bind_message_popover: () ->
+		#TODO: add message popover
 		return
 
 
@@ -132,10 +86,11 @@ class @ResponseList extends Partial
 		this.get_options(options)
 		event_list = this
 		this.get_partial("/events/#{event_id}/responses.html", _options.response_list_id,{
+			close_button: true
 			on_success: () ->
-				if options.on_success
+				if options and options.on_success
 					options.on_success()
-				event_list.bind_show_event()
+				#event_list.bind_show_event()
 				return
 		#fit_partial: _options.fit_partial
 		})
@@ -143,11 +98,7 @@ class @ResponseList extends Partial
 
 
 	destroy: () ->
-		if this.event_elem
-			this.event_elem.destroy()
-
-		if this.response_list
-			this.response_list.destroy()
+		$(_options.response_list_id).remove()
 
 		return
 
