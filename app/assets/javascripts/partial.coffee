@@ -11,7 +11,7 @@ class @Partial
 	# | on_success() - callback function, called then data returned
 	# | close_button (true|false) - show or not close button
 	# | after_close() - function called after close box
-  # | fit_partial{elem, bottom_spacing} - object bottom element as to which level the height of the paftial
+	# | fit_partial{elem, bottom_spacing} - object bottom element as to which level the height of the paftial
 	###
 	get_partial: (url, parent, options) ->
 

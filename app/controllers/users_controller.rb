@@ -29,6 +29,11 @@ class UsersController < ApplicationController
 			format.json { render :json => @user }
 		end
 	end
+
+	def gallery
+		@user = User.find(params[:id])
+		render :partial => 'gallery'
+	end
 	
 	def show_modal
 		params

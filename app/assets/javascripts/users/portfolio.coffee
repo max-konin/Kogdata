@@ -22,7 +22,8 @@ class @Portfolio extends Partial
 			$(elem).append(img)
 			$('body').append(elem)
 			$(_options.image_popover_id).click (e) ->
-				$(e.target).remove()
+				if $(e.target).is('div')
+					$(e.target).remove()
 				return
 			return false
 		)
@@ -34,7 +35,7 @@ class @Portfolio extends Partial
 			throw 'Can\'t init Portfoliio without user id'
 		this.get_options(options)
 		obj = this
-		this.get_partial("/image/show/#{user_id}.html", _options.parent_id, {on_success : () ->
+		this.get_partial("/users/#{user_id}/gallery.html", _options.parent_id, {on_success : () ->
 			if options.on_success
 				options.on_success()
 			if $(_options.carousel_id).elastislide
