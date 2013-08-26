@@ -45,8 +45,10 @@
 }
 
 /* ------------ PADDING ELEM UNDER FOOTER FOR FILL PLACE AND SHOW CONTENT UNDER FOOTER ------------ */
-
-.empty_footer_filler
+@media (min-width: 980px)
 {
-	margin-top: 60px;
+	.empty_footer_filler
+	{
+		margin-top: 60px;
+	}
 }

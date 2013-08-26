@@ -57,6 +57,7 @@ class @EventList extends Partial
 			return
 
 		_popover_opt = {
+			'height': 'auto'
 			'width' : '340px'
 			'z-index' : 1
 			'position' : 'absolute'
@@ -207,8 +208,6 @@ class @EventList extends Partial
 		)
 		return
 
-
-
 	# Load partial with list orders from server and bind event listener on needed buttons
 	init: (user_id, options) ->
 		this.get_options(options)
@@ -219,6 +218,8 @@ class @EventList extends Partial
 					options.on_success()
 				event_list.bind_show_event()
 				event_list.bind_show_responses()
+				paginator = event_list.table_paginator($(_options.event_list_id).find('table').first())
+				$(_options.event_list_id).find('> div').first().append(paginator)
 				return
 			#fit_partial: _options.fit_partial
 		})

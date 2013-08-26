@@ -2,7 +2,7 @@
 #= require ./portfolio
 #= require ./order
 #= require ./event_list
-#=-require ../Calendar/contractor-busyness.js.coffee
+#= require ../Calendar/contractor-busyness-controller
 
 ###
 # Abstract basic model of user contain all methods needed for users
@@ -221,7 +221,7 @@ class @User extends Partial
 		{
 			event_list_id: block_id.left
 			fit_partial: {
-				elem: '#footer'
+				bottom_elem: '#footer'
 			}
 		}
 		# Clear bottom block controller
