@@ -39,11 +39,7 @@ class @Partial
 				$(parent).find(' > div').addClass('parent').prepend($('<div></div>').addClass('to_right').append(i))
 
 			if options.fit_partial
-				bottom_elem = $(options.fit_partial.elem).offset().top
-				elem = $(parent).find('>').first()
-				partial_top = elem.offset().top
-				bottom_spacing = if options.fit_partial.bottom_spacing >= 0 then options.fit_partial.bottom_spacing else 20
-				elem.outerHeight(bottom_elem - partial_top - bottom_spacing)
+				this.fit_block(options)
 
 			if options.on_success
 				options.on_success()
@@ -51,5 +47,14 @@ class @Partial
 		sec = new Date()
 		# Add salt to prevent 304 status - not modified
 		$.get(url, {salt: sec.getMinutes() + '' + sec.getSeconds()}, onAjaxSuccess);
+
+		return
+
+	fit_block: (options) ->
+		bottom_elem = $(options.fit_partial.elem).offset().top
+		elem = $(parent).find('>').first()
+		partial_top = elem.offset().top
+		bottom_spacing = if options.fit_partial.bottom_spacing >= 0 then options.fit_partial.bottom_spacing else 20
+		elem.outerHeight(bottom_elem - partial_top - bottom_spacing)
 
 		return

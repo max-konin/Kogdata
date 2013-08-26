@@ -23,8 +23,11 @@ class @EventList extends Partial
 
 	_options =
 	{
+		# Parent id elem for this class
 		event_list_id: '#event_list'
+		# id of child elem UserEvent class
 		event_elem_id: '#event'
+		# id of child elem ResponseList class
 		response_list_id: '#responses'
 		fit_partial: null
 	}
@@ -68,13 +71,21 @@ class @EventList extends Partial
 		$(options.parent_id).prepend(div_elem)
 		#TODO: bind resizer method on window
 		if document.width <= 767 # Width from bootstrap
-			div_elem.offset(
-					$(e.target).offset()
-			)
+			if options.offset_elem
+				offset_elem = $(options.offset_elem).offset()
+				offset_div = offset_elem
+
+				if offset_elem.left + div_elem.outerWidth() > document.width
+					offset_div.left = document.width - 20 - div_elem.outerWidth()
+
+				if offset_elem.top + div_elem.outerHeight() > document.height
+					offset_div.top = document.height - 20 - div_elem.outerHeight()
+
+				div_elem.offset(offset_div)
 		else
-			parent_pos = $(_options.event_list_id).offset()
+			parent_pos = $(options.parent_id).offset()
 			div_elem.offset({
-				left: parent_pos.left + $(_options.event_list_id).outerWidth() + 29
+				left: parent_pos.left + $(options.parent_id).outerWidth() + 20
 				top: parent_pos.top
 			})
 
@@ -127,6 +138,7 @@ class @EventList extends Partial
 			event_list_obj.prepend_popover_window({
 				parent_id: _options.event_list_id
 				elem_id: _options.event_elem_id
+				offset_elem: e.target
 			})
 
 			event = new UserEvent(options)
@@ -162,7 +174,8 @@ class @EventList extends Partial
 					# Unselect item in orders list
 					event_list_obj.event_list_elem.removeClass('info')
 					event_list_obj.event_list_elem = null
-					event_list_obj.event_elem = null
+					event_list_obj.response_list = null
+					$(_options.response_list_id).remove()
 					return
 				on_delete: () ->
 					# Delete elem from orders list
@@ -183,6 +196,7 @@ class @EventList extends Partial
 				parent_id: _options.event_list_id
 				elem_id: _options.response_list_id
 				'width': '540px'
+				offset_elem: e.target
 			})
 
 			respone_list = new ResponseList(options)

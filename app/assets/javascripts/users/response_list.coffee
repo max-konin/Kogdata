@@ -8,6 +8,8 @@ class @ResponseList extends Partial
 	{
 		response_list_id: '#responses'
 		fit_partial: null
+		on_destroy: null
+		on_success: null
 	}
 	btn:
 		events: '.show_event_link'
@@ -88,17 +90,20 @@ class @ResponseList extends Partial
 		this.get_partial("/events/#{event_id}/responses.html", _options.response_list_id,{
 			close_button: true
 			on_success: () ->
-				if options and options.on_success
-					options.on_success()
+				if _options.on_success
+					_options.on_success()
 				#event_list.bind_show_event()
 				return
+			on_destroy: _options.on_destroy
 		#fit_partial: _options.fit_partial
 		})
 		return
 
 
 	destroy: () ->
-		$(_options.response_list_id).remove()
+		if _options.on_destroy
+			_options.on_destroy()
+		$(_options.response_list_id).empty()
 
 		return
 
