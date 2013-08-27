@@ -1,5 +1,5 @@
 .back_white_box
-	%table.table.event_table.table-striped
+	%table.table.table-condensed.event_table.table-striped
 		%tbody
 			- @responses.each do |response|
 				%tr
@@ -15,4 +15,4 @@
 
 						%button.btn.btn-link{:type => 'button', 'data-target' => '#messageModal', 'data-toggle' => 'modal',
 							'user_id' => response.user.id.to_s}
-							%i.icon-k-small-messages
+							%i.icon-k-small-message

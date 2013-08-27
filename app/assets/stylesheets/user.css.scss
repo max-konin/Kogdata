@@ -204,3 +204,11 @@ td.center
 	float: left;
 }
 
+.paginator
+{
+	text-align: center;
+	.elem
+	{
+		margin: 0 10px;
+	}
+}

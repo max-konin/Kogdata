@@ -57,5 +57,6 @@ class Client extends User
 window.client = new Client
 $(document).ready () ->
 	window.client.bind_buttons_events()
-	window.client.calendar()
+	if $('#calendar').length
+		window.client.calendar()
 
