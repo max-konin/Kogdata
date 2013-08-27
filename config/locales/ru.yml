@@ -35,6 +35,7 @@ ru:
   conversation: "Сообщение"
   show_bookings: "Просмотр заказов"
   portfolio: "Портфолио"
+  portfolio_is_empty: "Портфолио пустое"
   office: "Офис"
   sign_out: "Выйти"
   sign_in: "Войти"

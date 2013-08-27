@@ -1,8 +1,11 @@
 .gallery
+	- i = 0
 	%ul{:class=>'elastislide-list', :id=>'carousel'}
-		- i = 0
 		- @user.images.reverse.each do |image|
 			- i += 1
 			%li
 				%a{:href => '#', :class => 'portfolio_image_link', 'data-preview' => image.src.url(:original)}
 					= image_tag image.src.url(:small), :alt => 'image' + i.to_s
+	- if i == 0
+		.portfolio_empty
+			= t(:portfolio_is_empty)

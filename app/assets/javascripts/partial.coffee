@@ -58,7 +58,8 @@ class @Partial
 		elem = $(options.fit_partial.elem)
 		if !elem
 			return
-
+		#TODO: Add max height. if viewport is one column and betwen elem and footer some block, fitting incorrect
+		#TODO: Bind func on resize
 		bottom = $(options.fit_partial.bottom_elem).offset().top
 		partial_top = elem.offset().top
 		bottom_spacing = if options.fit_partial.bottom_spacing >= 0 then options.fit_partial.bottom_spacing else 20

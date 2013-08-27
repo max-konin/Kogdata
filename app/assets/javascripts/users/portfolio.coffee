@@ -22,8 +22,7 @@ class @Portfolio extends Partial
 			$(elem).append(img)
 			$('body').append(elem)
 			$(_options.image_popover_id).click (e) ->
-				if $(e.target).is('div')
-					$(e.target).remove()
+				$(elem).remove()
 				return
 			return false
 		)
@@ -36,13 +35,13 @@ class @Portfolio extends Partial
 		this.get_options(options)
 		obj = this
 		this.get_partial("/users/#{user_id}/gallery.html", _options.parent_id, {on_success : () ->
-			if options.on_success
-				options.on_success()
 			if $(_options.carousel_id).elastislide
 				$(_options.carousel_id).elastislide({minItems: 1})
 				obj.bind_portfolio_image_popover()
 			else
 				throw 'Can\'t find elastislide initilazer'
+			if options.on_success
+				options.on_success()
 		})
 		return
 
