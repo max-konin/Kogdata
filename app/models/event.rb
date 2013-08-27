@@ -7,5 +7,8 @@ class Event < ActiveRecord::Base
   TYPES = %w(marridge birthday other)
   STATUSES = %w(open closed in_progress)
   validate :type, :inclusion => {:in => TYPES}
-  validate :status, :inclusion => {:in => STATUSES}
+  validate :status, :inclusion => {:in => STATUSES }
+
+  scope :opened, -> { where closed: false}
+  scope :between, ->(start_date, end_date){ where("start >= ? AND start <= ? ", start_date, end_date) }
 end
