@@ -8,9 +8,9 @@
 					%td
 						= ratings_for response.user, :static, :dimension => :quality
 					%td
-						= response.user.name
+						= link_to response.user.name, response.user, :id => 'user_' + response.user.id.to_s()
 					%td
-						%button.btn.btn-link#portfolio_button{:user_id => response.user.id, :title => t(:show_portfolio)}
+						%button.btn.btn-link.portfolio_button{:user_id => response.user.id, :title => t(:show_portfolio)}
 							%i.icon-k-small-portfolio
 
 						%button.btn.btn-link{:type => 'button', 'data-target' => '#messageModal', 'data-toggle' => 'modal',

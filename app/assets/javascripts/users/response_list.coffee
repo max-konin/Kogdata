@@ -30,7 +30,16 @@ class @ResponseList extends Partial
 		return
 
 	bind_message_popover: () ->
-		#TODO: add message popover
+		$(_options.response_list_id).on('click', 'button[data-target=#messageModal]' , () ->
+			user_id = $(this).attr('user_id')
+			user_name = $('#user_' + user_id).text()
+			$('#messageModal .user_name').html(user_name)
+			acttion = $('#messageModal form').attr('action')
+			acttion = acttion.substring(0, acttion.lastIndexOf('=') + 1) + user_id
+			$('#messageModal form').attr('action', acttion)
+			return
+		)
+
 		return
 
 
@@ -45,6 +54,7 @@ class @ResponseList extends Partial
 				if _options.on_success
 					_options.on_success()
 				#event_list.bind_show_event()
+				response_list.bind_message_popover()
 				paginator = response_list.table_paginator($(_options.response_list_id).find('table').first())
 				$(_options.event_list_id).find('> div').first().append(paginator)
 				return
