@@ -4,7 +4,6 @@ class UserTest < ActiveSupport::TestCase
   test "default role" do
     user = User.new
     assert user.role? :client
-
   end
 
   test "role?" do

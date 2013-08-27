@@ -8,11 +8,12 @@ class EventsControllerTest < ActionController::TestCase
     currentDate = Time.parse '2013-06-18 11:02:57'
     startDate = Time.parse '2013-06-01 00:00:00'
     finishDate = Time.parse '2013-06-30 23:59:59'
-    get :index, {:user_id => currentUser.id, :curr_date => currentDate}
+    get :index, {:user_id => currentUser.id, :curDate => currentDate}
     assert_response :success
     assert_template :index
     eventsTest = assigns(:events)
-    eventsEtalon = Event.where('user_id = ? AND start > ? AND start < ? AND closed IS NULL',currentUser.id, startDate, finishDate)
+    eventsEtalon = Event.where('user_id = ? AND start >= ? AND start <= ? AND closed = false',currentUser.id,
+                               startDate, finishDate)
     assert_equal eventsTest.count, eventsEtalon.count
     eventsTest.each do |event|
       assert_equal event.user_id, currentUser.id
@@ -140,7 +141,7 @@ class EventsControllerTest < ActionController::TestCase
     startDate = Time.parse '2013-06-01 00:00:00'
     finishDate = Time.parse '2013-06-30 23:59:59'
     start4Event = Time.parse '2013-06-25 11:02:57'
-    post :create, {:user_id => currentUser.id, :events => {:title => 'new event', :start=> start4Event,
+    post :create, {:user_id => currentUser.id, :events => {:start=> start4Event,
                                                            :description => 'this is a new event'},:curDate => currentDate}
     event_id = Event.last.id
     put :close, {:user_id => currentUser.id, :event_id => event_id}

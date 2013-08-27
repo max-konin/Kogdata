@@ -1,21 +1,14 @@
 require 'Days'
 class EventsController < ApplicationController
   before_filter :authenticate_user!
+  #the curDate parameter is a day of the current month
+  #the event must be created by the current user and be booked on the current month
   def index
-    #@user = current_user
-    #the curDate parameter is a day of the current month
-    #the event must be created by the current user and be booked on the current month
-    if params[:curDate] != nil
-      if params[:showClosed]
-        @events = Event.where("user_id = ? AND start >= ? AND start <= ?",params[:user_id], Days.firstDay(params[:curDate]),
-                              Days.lastDay(params[:curDate]))
-      else
-        @events = Event.where("user_id = ? AND start >= ? AND start <= ? AND closed IS NULL",params[:user_id], Days.firstDay(params[:curDate]),
-                           Days.lastDay(params[:curDate]))
-      end
-    else
-      @events = Event.where("user_id = ?",params[:user_id])
-    end
+    user = User.find params[:user_id]
+    @events = user.event
+    @events = @events.between(Days.firstDay(params[:curDate]), Days.lastDay(params[:curDate])) unless
+        params[:curDate].nil?
+    @events = @events.opened if params[:showClosed].nil? || !params[:showClosed]
 
     respond_to do |format|
       format.html {render :html => @events}
