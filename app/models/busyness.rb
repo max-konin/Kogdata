@@ -4,4 +4,6 @@ class Busyness < ActiveRecord::Base
 
 	validate :date, :presence => true
 
+  scope :between, ->(start_date, end_date) {Busyness.where("date >= ? AND date <= ? ", start_date, end_date)}
+
 end

@@ -72,7 +72,7 @@ class EventsController < ApplicationController
       end
   end
 
-
+  #TODO: inspect usage
   def show
     @user = current_user
     @event = Event.find(params[:id])

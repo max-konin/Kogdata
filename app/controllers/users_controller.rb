@@ -23,7 +23,6 @@ class UsersController < ApplicationController
 	def show
 		@user = User.find(params[:id])
 		authorize! :read, @user
-    @event = Event.new()
 		respond_to do |format|
 			format.html # users/show.html.haml
 			format.json { render :json => @user }

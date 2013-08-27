@@ -1,9 +1,10 @@
 require 'Days'
 class BusynessesController < ApplicationController
   before_filter :authenticate_user!
+
   def index
-    user_id = params[:user_id]
-    @bysunesess = Busyness.where('user_id = ? AND date >= ? AND date <= ?',user_id,Days.firstDay(params[:curr_date]),Days.lastDay(params[:curr_date]))
+    user = User.find(params[:user_id])
+    @bysunesess = user.busynesses.between(Days.firstDay(params[:curr_date]), Days.lastDay(params[:curr_date]))
     respond_to do |format|
       format.html {render 'calendar/index'}
       format.json {render :json =>@bysunesess}
