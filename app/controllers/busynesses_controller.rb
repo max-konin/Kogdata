@@ -17,7 +17,7 @@ class BusynessesController < ApplicationController
     @busyness = @user.busynesses.new
     currDate = params[:curr_date]
     date = params[:date]
-    if current_user.id != Integer(user_id) || (!can? :add, @busynesses)
+    if current_user.id != Integer(user_id) || (cannot? :add, @busynesses)
       head :forbidden
       return false
     end
