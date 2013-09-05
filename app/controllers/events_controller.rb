@@ -18,7 +18,7 @@ class EventsController < ApplicationController
 
   def close
     @event = Event.find(params[:event_id])
-    if @event.user_id == current_user.id && @event.closed.blank?
+    if @event.user_id == current_user.id && !@event.closed?
       @event.update_attribute(:closed,true)
       respond_to do |format|
         format.html {head :ok}

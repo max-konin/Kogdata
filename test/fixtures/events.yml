@@ -12,7 +12,7 @@ Event2:
     description: cooler event
     start: 2013-06-18 11:02:57
     end:   2013-06-18 22:00:00
-    closed: true
+    closed: false
 
 Event3:
     id: 3

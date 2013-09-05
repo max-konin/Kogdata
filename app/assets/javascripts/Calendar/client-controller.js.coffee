@@ -5,6 +5,7 @@ class clientController extends calendarHomeController
 		$(@calendar_selector).fullCalendar('gotoDate', year, month-1, date )
 		@set_view('on_change_date')
 		@set_current_date(year, month, date)
+		@add_events()
 		return
 
 	set_current_date: (year, month, date) ->
@@ -107,12 +108,16 @@ class clientController extends calendarHomeController
 		if flag == 'on_change_date'
 			@on_change_month()
 		# load events
+		@add_events()
+
+	add_events: () ->
 		$.ajax(
 			type: 'get'
 			url: "/users/#{user_id}/events.json"
 			dataType: 'json'
 			data: {
 				curDate: $(@calendar_selector).fullCalendar('getDate').format 'isoDateTime'
+				random: String Math.random()
 			}
 			success: (response) ->
 				events = JSON.parse response.div_contents.body
@@ -123,6 +128,7 @@ class clientController extends calendarHomeController
 						$(day_selector).addClass('event-day')
 				return
 		)
+
 	validate_event_data: () ->
 		if $('form#new_event').find('.invalid').length
 			return false
