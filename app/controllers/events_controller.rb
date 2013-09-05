@@ -9,7 +9,6 @@ class EventsController < ApplicationController
     @events = @events.between(Days.firstDay(params[:curDate]), Days.lastDay(params[:curDate])) unless
         params[:curDate].nil?
     @events = @events.opened if params[:showClosed].nil? || !params[:showClosed]
-
     respond_to do |format|
       format.html {render :html => @events}
       format.json {render :json => @events}
@@ -58,7 +57,7 @@ class EventsController < ApplicationController
   def create
       @user = current_user
       if Days.inMonth?(params[:events][:start],params[:curDate])
-        @event = @user.event.create(params[:events])
+        @event = @user.event.create!(params[:events])
         respond_to do |format|
           format.html {head :ok}
           format.json {render :json => @event}

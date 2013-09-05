@@ -69,6 +69,10 @@ table.fc-header{
 	background-color: #dbdcb5;
 }
 
+.fc-view table.fc-border-separate tr.fc-week td.fc-day div.fc-current-day.event-day{
+	background-color: #ffbabe;
+}
+
 .fc-view{
 	table.fc-border-separate
 	{
@@ -157,6 +161,10 @@ table.fc-header{
 			div.busy-day{
 				background-color: #f5858a;
 			}
+			div.event-day{
+				background-color: #f5858a;
+			}
+
 			.fc-day-content{
 				margin: 0px;
 				min-height: 50px;

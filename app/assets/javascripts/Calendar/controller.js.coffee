@@ -23,7 +23,7 @@ class window.calendarHomeController
 		$('body').on('click', '.close-event', Popover.close_event)
 		$('body').on('click', '.reopen-event', Popover.reopen_event)
 		$('.fc-button-next, .fc-button-prev').click () ->
-			Calendar.update_calendar()
+			Calendar.update_calendar('on_change_date')
 			return
 
 		$('body').on('click', '.popover submit', () ->
@@ -119,9 +119,9 @@ class window.calendarHomeController
 		return
 
 
-	update_calendar: () ->
+	update_calendar: (flag) ->
 		return unless $(@calendar_selector).length != 0
-		@set_view()
+		@set_view(flag)
 		return
 
 	onDragStart: () ->

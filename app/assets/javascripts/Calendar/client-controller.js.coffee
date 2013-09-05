@@ -12,12 +12,15 @@ class clientController extends calendarHomeController
 		$('.fc-date'+date).addClass('fc-current-day')
 		return
 
-
 	current_date_on_change: () ->
 		daysInMonth =  new Date($('#event_year').val(),$('#event_month').val(),0).getDate()
 		$('#event_day').attr('max', daysInMonth)
-		if $.isNumeric($('#event_day').val()) && $('#event_day').val() <= daysInMonth && $('#event_day').val() >= 1
+		if $.isNumeric($('#event_day').val())
 			$('#event_day').removeClass('invalid')
+			if $('#event_day').val() > daysInMonth
+				$('#event_day').val(daysInMonth)
+			if $('#event_day').val() < 1
+				$('#event_day').val(1)
 			Calendar.change_calendar_date($('#event_year').val(), $('#event_month').val(), $('#event_day').val())
 		else
 			$('#event_day').addClass('invalid')
@@ -58,7 +61,6 @@ class clientController extends calendarHomeController
 
 	set_view: (flag) ->
 		super
-
 		if flag != 'on_change_date'
 			$('.fc-today').children('.real-day').addClass('fc-current-day')
 			currentDate = new Date()
@@ -78,25 +80,92 @@ class clientController extends calendarHomeController
 			$('#event_minute').on('change', @add_zero)
 			$('#event_price').on('input', @price_on_change)
 		return
+
 	on_day_click: (date) ->
 		month = date.getMonth()
 		if month == $(calendarHomeController::calendar_selector).fullCalendar('getDate').getMonth()
 			$('#event_day').val(date.getDate())
-			Calendar.set_current_date(date.getYear(), date.getMonth(), date.getDate())
+			Calendar.set_current_date(date.getFullYear(), date.getMonth(), date.getDate())
 		return
+
 	on_change_month: () ->
 		calendar_date = $(Calendar.calendar_selector).fullCalendar('getDate')
-		$('#event_month').val calendar_date.getMonth()
-		calendar_date.setDate $('#event_day').val()
-		Calendar.change_calendar_date calendar_date.getYear(), calendar_date.getMonth(), calendar_date.getDate()
+		daysInMonth =  new Date(calendar_date.getFullYear(), calendar_date.getMonth()+1 ,0).getDate()
+		newDate = $('#event_day').val()
+		if newDate > daysInMonth
+			newDate = daysInMonth
+		calendar_date.setDate(newDate)
+		$(@calendar_selector).fullCalendar 'gotDate', calendar_date.getFullYear(), calendar_date.getMonth(), calendar_date.getDate()
+		@set_current_date calendar_date.getFullYear(), calendar_date.getMonth(), calendar_date.getDate()
+		$('#event_month').val calendar_date.getMonth()+1
+		$('#event_year').val  calendar_date.getFullYear()
+		$('#event_day').val calendar_date.getDate()
 		return
+
+	update_calendar: (flag) ->
+		super(flag)
+		if flag == 'on_change_date'
+			@on_change_month()
+		# load events
+		$.ajax(
+			type: 'get'
+			url: "/users/#{user_id}/events.json"
+			dataType: 'json'
+			data: {
+				curDate: $(@calendar_selector).fullCalendar('getDate').format 'isoDateTime'
+			}
+			success: (response) ->
+				events = JSON.parse response.div_contents.body
+				if events.length
+					for event in events
+						date = new Date event.start
+						day_selector = '.fc-date'+ date.getDate()
+						$(day_selector).addClass('event-day')
+				return
+		)
+	validate_event_data: () ->
+		if $('form#new_event').find('.invalid').length
+			return false
+		if $('#event_description').val() == '' || $('#event_price').val() == ''
+			return false
+		return true
+
+	on_add_form_submit: () ->
+		if Calendar.validate_event_data()
+			$('.invalid_message').hide()
+			start = new Date $('#event_year').val(), $('#event_month').val()-1, $('#event_day').val(), $('#event_hour').val(), $('#event_minute').val()
+			end = new Date $('#event_year').val()+1, $('#event_month').val()-1, $('#event_day').val()
+			request = {
+				 start: start.format 'isoDateTime'
+				 end: end
+				 location: $('#event_location').val()
+				 type: $('#event_type').val()
+				 description: $('#event_description').val()
+				 price: $('#event_price').val()
+			}
+			$.ajax(
+				type: 'post'
+				url: "/users/#{user_id}/events"
+				dataType: 'json'
+				data: {
+					events: request
+					curDate: $(Calendar.calendar_selector).fullCalendar('getDate').format 'isoDateTime'
+				}
+				success: () ->
+					day_selector = '.fc-date'+$('#event_day').val()
+					$(day_selector).addClass('event-day')
+				error: () ->
+					console.log 'Error!!'
+			)
+		else
+			$('.invalid_message').show()
+		return false
 
 	calendar_init: () ->
 		@fullCalendarOption.dayClick = @on_day_click
-		Calendar.add_event_handler.call $(Calendar.add_event_selectors.parent).find Calendar.add_event_selectors.child
-		$(Calendar.calendar_selector).fullCalendar Calendar.fullCalendarOption
-		$('.fc-button-prev').click @on_change_month
-		$('.fc-button-next').click @on_change_month
+		@add_event_handler.call $(@add_event_selectors.parent).find @add_event_selectors.child
+		$(@calendar_selector).fullCalendar @fullCalendarOption
+		$('form#new_event').submit(Calendar.on_add_form_submit)
 		super
 		return
 window.Calendar = new clientController
