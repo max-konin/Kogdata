@@ -3,6 +3,8 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 @import 'social_link';
+@import 'event_table';
+@import 'icons';
 
 .back_white_box
 {
@@ -13,6 +15,7 @@
 	margin-bottom: 10px;
 	min-height: 180px;
 	padding: 10px ($border-raduis + 5);
+	overflow: auto;
 }
 
 .popover_box
@@ -63,80 +66,6 @@
 	text-align: right;
 	margin-top: -10px;
 	margin-right: -10px;
-}
-
-[class^='icon-k-'],
-[class*=' icon-k-']
-{
-	display: inline-block;
-	width: 52px;
-	height: 52px;
-	line-height: 14px;
-	vertical-align: top;
-	background-image: url("/assets/users/icons.png");
-	background-position: 0px 0px;
-	background-repeat: no-repeat;
-	/*margin-top: 1px;*/
-}
-i.icon-k-vkontakte {
-	background-position: 0px 0px;
-}
-i.icon-k-facebook {
-	background-position: -52px 0px;
-}
-i.icon-k-gplus {
-	background-position: -104px 0px;
-}
-i.icon-k-twitter {
-	background-position: -156px 0px;
-}
-i.icon-k-message {
-	background-position: -208px 0px;
-	height: 42px;
-}
-i.icon-k-calendar {
-	background-position: -260px 0px;
-	height: 42px;
-}
-i.icon-k-portfolio {
-	background-position: -312px 0px;
-	height: 42px;
-}
-i.icon-k-event {
-	background-position: -364px 0px;
-	padding: 16px 0 0 5px;
-	margin-right: 8px;
-	font-size: 12px;
-	line-height: 14px;
-	width: 42px;
-	height: 25px;
-	color: #e25957;
-	text-decoration: none;
-}
-
-i.icon-k-camera {
-	background-position: -416px 0px;
-	height: 42px;
-}
-i.icon-k-info
-{
-	background-position: -28px -52px;
-	width: 28px;
-	height: 18px;
-}
-i.icon-k-small-message
-{
-	background-position: 0px -52px;
-	width: 28px;
-	height: 18px;
-}
-
-
-.btn [class^='icon-k-'],
-.btn [class*=' icon-k-']
-{
-	display: inline-block;
-	float: left;
 }
 
 .dark_green
@@ -246,46 +175,6 @@ i.icon-k-small-message
 	}
 }
 
-.event_title
-{
-	color: #e25957;
-	font-family: 'Comfortaa-bold';
-	-webkit-font-smoothing: 'antialiased';
-	font-size: 30px;
-	text-align: center;
-	margin: 0;
-}
-
-.event_table
-{
-	color: #444;
-	font-family: 'Opensans';
-	-webkit-font-smoothing: 'antialiased';
-	font-size: 18px;
-}
-
-.event_table td
-{
-	/*text-align: center;*/
-}
-
-.event_table th
-{
-	color: #00525a;
-	font-family: 'Opensans-bold';
-	-webkit-font-smoothing: 'antialiased';
-	text-align: center;
-}
-
-.table .avatar
-{
-	display: inline-block;
-	background-color: #333333;
-	margin-top: -2px;
-	width: 34px;
-	height: 34px;
-}
-
 table.vertical-header th
 {
 	text-align: right;
@@ -302,19 +191,24 @@ td.center
 	cursor: pointer;
 }
 
-.response_submitted
+.user_avatar
 {
-	background-color: #e6c74d;
-	color: #ffffff;
-	font-family: 'Opensans';
-	-webkit-font-smoothing: 'antialiased';
-	padding: 2px 4px;
+	min-width: 125px;
+	width: 30%;
+	float: left;
+	margin-right: 14px;
 }
-.response_confirmed
+
+.right_user_panel // Using in user page for contain name, city, and buttons
 {
-	background-color: #6cf183;
-	color: #ffffff;
-	font-family: 'Opensans';
-	-webkit-font-smoothing: 'antialiased';
-	padding: 2px 4px;
+	float: left;
+}
+
+.paginator
+{
+	text-align: center;
+	.elem
+	{
+		margin: 0 10px;
+	}
 }

@@ -1,18 +1,17 @@
 .back_white_box
+	- if @user.id == current_user.id
+		.to_right
+			= link_to '/users/edit', :title => t(:edit_profile), :id =>'user_edit_button' do
+				%i.icon-cog
 	.row-fluid
-		.span4
+		.user_avatar
 			.avatar
 				= image_tag @user.avatar.url(:small)
 
 			- if @user.role == 'contractor'
 				= ratings_for @user, :static, :dimension => :quality
 
-		.span8
-			- if @user.id == current_user.id
-				.to_right
-					= link_to '/users/edit', :title => t(:edit_profile), :id =>'settings_button' do
-						%i.icon-cog
-
+		.right_user_panel
 			%h1.info_user_name
 				= @user.name
 
@@ -26,7 +25,7 @@
 						= link_to get_provider_link(link.provider) + '/' + link.url,
 							:title => link.provider, :class => 'social_link' do
 							%i{:class => 'icon-k-' + link.provider}
-
+		.right_user_panel
 			- if @user.id == current_user.id # If photograph watch own page
 				- if @user.role == 'contractor' # Show info by photographs
 					.info-block
@@ -34,15 +33,15 @@
 							%i.icon-k-message
 							= t(:my_messages)
 					.info-block
-						%button.btn.btn-link-red#calendar_button_block
+						%button.btn.btn-link-red#calendar_button
 							%i.icon-k-calendar
 							= t(:show_calendar)
-					.info-block#portfolio_button_block{:user_id => @user.id}
-						%button.btn.btn-link-red
+					.info-block
+						%button.btn.btn-link-red#portfolio_button{:user_id => @user.id}
 							%i.icon-k-portfolio
 							= t(:show_portfolio)
-					.info-block#my_orders_button_block{:user_id => @user.id}
-						%button.btn.btn-link-red
+					.info-block
+						%button.btn.btn-link-red#my_orders_button{:user_id => @user.id}
 							%i.icon-k-camera
 							= t(:my_orders)
 
@@ -52,7 +51,7 @@
 							%i.icon-k-message
 							= t(:my_messages)
 					.info-block
-						%button.btn.btn-link-red#my_events_button_block{:user_id => @user.id}
+						%button.btn.btn-link-red#my_events_button{:user_id => @user.id}
 							%i.icon-k-event
 								= '005'
 							= t(:my_events)
@@ -66,11 +65,11 @@
 						= render :partial => 'messages/new_message', :locals => {:contact_id => @user.id}
 
 				- if @user.role == 'contractor'
-					.info-block#calendar_button_block
-						%button.btn.btn-link-red
+					.info-block
+						%button.btn.btn-link-red#calendar_button
 							%i.icon-k-calendar
 							= t(:show_calendar)
-					.info-block#portfolio_button_block{:user_id => @user.id}
-						%button.btn.btn-link-red
+					.info-block
+						%button.btn.btn-link-red#portfolio_button{:user_id => @user.id}
 							%i.icon-k-portfolio
 							= t(:show_portfolio)

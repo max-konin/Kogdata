@@ -4,6 +4,7 @@ Event1:
   description: cool event
   start:  2013-06-18 11:02:57
   end:   2013-06-18 22:00:00
+  closed: true
 
 Event2:
     id: 2
@@ -11,6 +12,7 @@ Event2:
     description: cooler event
     start: 2013-06-18 11:02:57
     end:   2013-06-18 22:00:00
+    closed: false
 
 Event3:
     id: 3
@@ -18,6 +20,8 @@ Event3:
     description: the coolest event
     start:  2013-06-18 11:02:57
     end:   2013-06-18 22:00:00
+    closed: false
+
 
 Event4:
    id: 4
@@ -25,6 +29,7 @@ Event4:
    description: event out of month
    start:  2013-09-18 11:02:57
    end:   2013-09-19 22:00:00
+   closed: false
 
 Event5:
    id: 5
@@ -32,3 +37,4 @@ Event5:
    description: event in month
    start:  2013-06-10 11:02:57
    end:   2013-06-11 22:00:00
+   closed: false

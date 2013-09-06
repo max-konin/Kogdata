@@ -14,7 +14,6 @@ ru:
   submit_reject: "Отказаться"
   create_event: "Создать событие"
   new_event: "Новое событие"
-  the_event: "Просмотр события"
   to_event: "Перейти"
   event_title: "Заголовок события"
   event_description: "Описание события"
@@ -26,6 +25,7 @@ ru:
   contractor_skills: "Что умеет"
   contractor_cost: "Сколько стоит"
   events: "События"
+  the_event: "Событие"
   type_of_event: "Тип события"
   changes_are_saved: "Измненения сохранены"
 
@@ -48,7 +48,7 @@ ru:
   add: "Добавить"
   says: "Сказал"
   at: "в"
-  recalls: "Отзывов"
+  recalls: "Откликов"
   go_to_conversaion: "Перейти к разговору"
 
   users: "Пользователи"
@@ -71,6 +71,14 @@ ru:
   delete: "Удалить"
   remember_me: "Запомнить меня"
   type_of_event: "Тип события"
+  do_sign_up: "Зарегистрироваться"
+  do_sign_in: "Войти"
+  i_agree: "Я согласен с правилами сервиса"
+
+  i_am_client: "Я - заказчик"
+  i_am_contractor: "Я - фотограф"
+  confirm_password: "Подтверждение пароля"
+
 
   send_message: "Отправить сообщение"
   drag_to_calendar_to_new_event: "Перетащите событие в календарь, чтобы создать новое событие"
@@ -99,7 +107,7 @@ ru:
   your_role: "Итак, ваша роль"
   start_time: "Время начала"
   finish_date: "Дата окончания"
-  budget: "Бюджет мероприятия"
+  budget: "Бюджет"
   your_town: "Ваш город"
   settings: "Настройки"
   edit_profile: "Редактировать профиль"
@@ -109,9 +117,9 @@ ru:
   town: "Город"
 
   response_status:
-    submitted: 'Подано'
+    submitted: 'Отклик подан'
     rejected: 'Отклонено'
-    confirmed: 'Подтверждено'
+    confirmed: 'В работе'
     completed: 'Выполнено'
 
   devise:

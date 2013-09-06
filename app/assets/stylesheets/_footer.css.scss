@@ -1,4 +1,5 @@
 .navbar-fixed-bottom{
+	.nav > li > a {padding: 0}
 	.inner-bottom{
 		background: url(/images/footer/background.png) 0px 0px;
 		border-width: 0px;
@@ -44,8 +45,10 @@
 }
 
 /* ------------ PADDING ELEM UNDER FOOTER FOR FILL PLACE AND SHOW CONTENT UNDER FOOTER ------------ */
-
-.empty_footer_filler
+@media (min-width: 980px)
 {
-	margin-top: 60px;
+	.empty_footer_filler
+	{
+		margin-top: 60px;
+	}
 }

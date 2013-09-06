@@ -371,18 +371,18 @@
 			var self = this;
 
 			// add navigation elements
-			this.$navigation = $( '<nav><span class="elastislide-prev">Previous</span><span class="elastislide-next">Next</span></nav>' )
+			this.$navigation = $( '<span class="nav elastislide-prev"><i> </i></span><span class="nav elastislide-next"><i> </i></span>' )
 				.appendTo( this.$wrapper );
 
 
-			this.$navPrev = this.$navigation.find( 'span.elastislide-prev' ).on( 'mousedown.elastislide', function( event ) {
+			this.$navPrev = this.$wrapper.find( 'span.elastislide-prev' ).on( 'mousedown.elastislide', function( event ) {
 
 				self._slide( 'prev' );
 				return false;
 
 			} );
 
-			this.$navNext = this.$navigation.find( 'span.elastislide-next' ).on( 'mousedown.elastislide', function( event ) {
+			this.$navNext = this.$wrapper.find( 'span.elastislide-next' ).on( 'mousedown.elastislide', function( event ) {
 
 				self._slide( 'next' );
 				return false;

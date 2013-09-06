@@ -1,0 +1,70 @@
+.event_title
+{
+	color: #e25957;
+	font-family: 'Comfortaa-bold';
+	-webkit-font-smoothing: 'antialiased';
+	font-size: 30px;
+	text-align: center;
+	margin: 0;
+}
+
+.event_table
+{
+	color: #444;
+	font-family: 'Opensans';
+	-webkit-font-smoothing: 'antialiased';
+	font-size: 18px;
+}
+
+.event_table th
+{
+	color: #00525a;
+	font-family: 'Opensans-bold';
+	-webkit-font-smoothing: 'antialiased';
+	text-align: center;
+}
+
+.event_table td
+{
+	vertical-align: middle;
+}
+
+.table .avatar
+{
+	display: inline-block;
+	background-color: #333333;
+	margin-top: -2px;
+	width: 34px;
+	height: 34px;
+}
+
+.response_submitted
+{
+	background-color: #e6c74d;
+	color: #ffffff;
+	font-family: 'Opensans';
+	-webkit-font-smoothing: 'antialiased';
+	padding: 5px 4px 2px;
+	height: 23px;
+	border-radius: 5px;
+}
+.response_confirmed
+{
+	background-color: #6cf183;
+	color: #ffffff;
+	font-family: 'Opensans';
+	-webkit-font-smoothing: 'antialiased';
+	padding: 5px 4px 2px;
+	height: 23px;
+	border-radius: 5px;
+}
+.response_rejected
+{
+	background-color: #e25957;
+	color: #ffffff;
+	font-family: 'Opensans';
+	-webkit-font-smoothing: 'antialiased';
+	padding: 5px 4px 2px;
+	height: 23px;
+	border-radius: 5px;
+}

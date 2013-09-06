@@ -1,1 +1,10 @@
-= render :partial => 'events/event_box'
+.back_white_box
+	= render :partial => 'events/event_box'
+	%div
+		-if @event.user_id != @user.id
+			- if @response
+				= render 'responses/delete_form'
+			-else
+				-if current_user.role == 'contractor'
+					%div
+						= render 'responses/form'

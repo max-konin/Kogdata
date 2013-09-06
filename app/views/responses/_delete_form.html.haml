@@ -2,7 +2,7 @@
 	%fieldset
 		= f.hidden_field :user_id, :value => current_user.id
 		.control-group
-			%span
+			%span.control-label
 				= t(:status) + ': '
 				%strong
 					= t(@response.status, scope: :response_status)

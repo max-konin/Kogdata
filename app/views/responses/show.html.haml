@@ -1,9 +1,12 @@
+-# Show photograph responses and it's status
 .back_white_box
 	%h2.event_title
 		= t(:events)
-	%table.table.event_table.table-hover
+	%table.table.table-condensed.table-striped.event_table
 		%thead
 			%tr
+				%th
+					&nbsp;
 				%th
 					= t(:customer)
 				%th
@@ -16,23 +19,27 @@
 					&nbsp;
 		%tbody
 			- @respones.each do |response|
-				%td
-					.avatar
-						= image_tag response.event.user.avatar.url(:thumb)
-					= link_to response.event.user.name, response.event.user
-				%td
-					= response.event.type
-				%td
-					= response.event.start.strftime('%d.%m.%Y')
-				%td
-					%div{:class => 'response_' + response.status}
-						= response.status
-				%td
-					%button.btn.btn-link{:type => 'button', 'data-target' => '#messageModal',
-						'data-toggle' => 'modal', 'user_id' => response.event.user.id.to_s}
-						%i.icon-k-small-message
-					%button.btn.btn-link
-						%i.icon-k-info
+				- event = response.event
+				- user = response.event.user
+				%tr{:id => 'event_' + event.id.to_s}
+					%td
+						.avatar
+							= image_tag user.avatar.url(:thumb)
+					%td
+						= link_to user.name, user, :id => 'user_' + user.id.to_s
+					%td
+						= event.type
+					%td
+						= event.start.strftime('%d.%m.%Y')
+					%td
+						%div{:class => 'response_' + response.status}
+							= t(response.status, scope: :response_status)
+					%td
+						%button.btn.btn-link{:type => 'button', 'data-target' => '#messageModal',
+							'data-toggle' => 'modal', 'user_id' => user.id.to_s}
+							%i.icon-k-small-message
+						%button.btn.btn-link.show_event_button{:event_id => event.id}
+							%i.icon-k-info
 
 	#messageModal.modal.hide.fade
 		= render :partial => "messages/new_message", :locals => {:contact_id => current_user.id}

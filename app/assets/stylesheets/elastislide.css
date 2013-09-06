@@ -83,43 +83,61 @@
 
 /* Navigation Arrows */
 
-.elastislide-wrapper nav span {
+.elastislide-wrapper span.nav {
 	position: absolute;
-	background: #888 url(img/nav.png) no-repeat 4px 3px;
-	width: 23px;
-	height: 23px;
-	border-radius: 50%;
-	text-indent: -9000px;
+	background: rgba(255, 255, 255, 0.3);
+	width: 66px;
+	height: 100%;
 	cursor: pointer;
-	opacity: 0.8;
+	opacity: 0.7;
 }
 
-.elastislide-wrapper nav span:hover {
-	opacity: 1.0;
-	box-shadow: 0 0 25px #fff;
-}
-
-.elastislide-horizontal nav span {
+.elastislide-wrapper span.nav i {
+	background: url(img/gallery_arrows.png) no-repeat 0px 0px;
+	height: 91px;
+	max-width: 90%;
+	margin-top: -46px;
+	position: absolute;
 	top: 50%;
-	left: 10px;
-	margin-top: -11px;
+	width: 66px;
 }
 
-.elastislide-vertical nav span {
-	top: 10px;
-	left: 50%;
-	margin-left: -11px;
-	background-position: -17px 5px;
+.elastislide-wrapper span.nav:hover {
+	background: rgba(255, 255, 255, 0.7);
+	opacity: 1.0;
 }
 
-.elastislide-horizontal nav span.elastislide-next {
-	right: 10px;
+.elastislide-horizontal span.nav {
+	left: 0px;
+	top: 0px;
+}
+
+.elastislide-horizontal span.nav.elastislide-next {
+	right: 0px;
 	left: auto;
-	background-position: 4px -17px;
 }
 
-.elastislide-vertical nav span.elastislide-next {
-	bottom: 10px;
-	top: auto;
-	background-position: -17px -18px;
+.elastislide-horizontal span.nav.elastislide-next i {
+	background-position: -66px 0px;
+}
+
+@media (max-width: 979px) {
+	.elastislide-wrapper span.nav
+	{
+		max-width: 7%;
+	}
+	.elastislide-wrapper span.nav i {
+		background: rgba(100, 100, 100, 0.8) url(img/nav.png) no-repeat 4px 3px;
+		border-radius: 14px;
+		height: 23px;
+		width: 23px;
+		margin-top: -12px;
+		margin-left: 8%;
+		position: absolute;
+		top: 50%;
+	}
+
+	.elastislide-horizontal span.nav.elastislide-next i {
+		background-position: 4px -17px;
+	}
 }
