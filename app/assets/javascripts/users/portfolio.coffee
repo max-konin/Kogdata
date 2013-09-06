@@ -33,11 +33,11 @@ class @Portfolio extends Partial
 		if !user_id
 			throw 'Can\'t init Portfoliio without user id'
 		this.get_options(options)
-		obj = this
+		portfolio_obj = this
 		this.get_partial("/users/#{user_id}/gallery.html", _options.parent_id, {on_success : () ->
 			if $(_options.carousel_id).elastislide
 				$(_options.carousel_id).elastislide({minItems: 1})
-				obj.bind_portfolio_image_popover()
+				portfolio_obj.bind_portfolio_image_popover()
 			else
 				throw 'Can\'t find elastislide initilazer'
 			if options.on_success

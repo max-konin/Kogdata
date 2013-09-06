@@ -5,7 +5,7 @@
 # User edit class for binding fuctions on form and various method
 # affected after change information
 ###
-class UserEdit extends Partial
+class @UserEdit extends Partial
 	order_elem: null
 	event_elem: null
 	_options =
@@ -27,10 +27,11 @@ class UserEdit extends Partial
 	###
 	bind_show_preview: (form_id) ->
 		$(form_id).find("input[type='file']").change () ->
-		thus = this
-		if typeof FileReader == undefined
-			$(thus).siblings("img").attr("src", "http://placekitten.com/50/50")
-		else
+			thus = this
+			if typeof FileReader == undefined
+				$(thus).siblings("img").attr("src", "http://placehold.it/50/50")
+				return
+
 			reader = new FileReader()
 			reader.onload = (e) ->
 				$(thus).siblings("img")
@@ -38,7 +39,9 @@ class UserEdit extends Partial
 				.width(50)
 				.height(50)
 				return
+
 			reader.readAsDataURL(thus.files[0])
+			return
 		return
 
 	update_page_data: () ->
@@ -57,7 +60,11 @@ class UserEdit extends Partial
 			on_success: on_success
 		}
 		validate_form(_options.form_id, form_options)
-		this.bind_show_event(_options.form_id)
+		this.bind_show_preview(_options.form_id)
+		return
+
+	destroy: () ->
+		$(_options.form_parent_id).empty()
 		return
 
 	init: (options) ->

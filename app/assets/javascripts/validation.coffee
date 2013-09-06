@@ -1,23 +1,34 @@
+# Show error on page for user if some happens
+alert_on_error = () ->
+	if $('#status_alert').length
+		err = $('#status_alert')
+		err.empty()
+	else
+		err = $('<div></div>').attr('id', 'status_alert').addClass('alert alert-error').html('Возникла ошибка')
+	err.prepend($('<button></button>').addClass('close').attr('data-dismiss': 'alert').html('&times'))
+	$('body > .container').first().prepend(err)
+	return
+
 ###
-# validate_all_fields
-# public function to validate all fiels in form
-# except inputs: submit, image, file
-# This function send fileds named by type like 'user[name]'
-# @param form_id - First parameter obect - form or it's id
-# @param options - Second parameter options - Object of extended parameters:
-#	  | collection - array of jQuery collention objects for send
-#   | clear_errors(form_id) - for clear custom errors
-#   | show_errors(elem, message) - for custom errors messages
-#   | status_start(form_id) - for display custom wait status
-#   | on_success(result) - external callback function.
-#   | status_end(form_id) - for hide custom wait status
-#   | default_submit [true, false] - for call default submit on success
-#   | disable_submit = true [true, false] - for call default submit on success
-#		| path - path to send
-# in success recieve:
-# | redirect_to - path to redirect page
-# | errors - associative array (Object) of string error messages
-# | success - string,if 'yes' - on server changes are success.
+validate_all_fields
+public function to validate all fiels in form
+except inputs: submit, image, file
+This function send fileds named by type like 'user[name]'
+@param form_id - First parameter obect - form or it's id
+@param options - Second parameter options - Object of extended parameters:
+  | collection - array of jQuery collention objects for send
+  | clear_errors(form_id) - for clear custom errors
+  | show_errors(elem, message) - for custom errors messages
+  | status_start(form_id) - for display custom wait status
+  | on_success(result) - external callback function.
+  | status_end(form_id) - for hide custom wait status
+  | default_submit [true, false] - for call default submit on success
+  | disable_submit = true [true, false] - for call default submit on success
+	| path - path to send
+in success recieve:
+| redirect_to - path to redirect page
+| errors - associative array (Object) of string error messages
+| success - string,if 'yes' - on server changes are success.
 ###
 @validate_all_fields = (form_id, options) ->
 	if form_id == null
@@ -126,6 +137,7 @@
 			return
 		error: (XMLHttpRequest, textStatus, errorThrown) ->
 			console.log "Error: " + errorThrown
+			alert_on_error()
 			return
 	}
 	return
@@ -180,6 +192,7 @@
 			return
 		error: (XMLHttpRequest, textStatus, errorThrown) ->
 			console.log "Error: " + errorThrown
+			alert_on_error()
 			return
 	}
 	return

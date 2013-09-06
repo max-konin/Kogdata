@@ -25,7 +25,7 @@ class @Partial
 		if typeof options.close_button == 'undefined'
 			options.close_button = false
 
-		onAjaxSuccess = (data) ->
+		onAjaxSuccess = (data, status) ->
 			result = if typeof data == 'string' then data else data.div_contents.body
 			$(parent).html(result)
 
@@ -84,7 +84,7 @@ class @Partial
 		first = $('<a href="#"></a>').append('<i class="icon-backward"></i>')
 		first.hide()
 		last = $('<a href="#"></a>').append('<i class="icon-forward"></i>')
-		number_wrap = $('<span></span>').addClass('.elem')
+		number_wrap = $('<span></span>').addClass('elem')
 		current_page = 1
 		count_page = Math.ceil($(parent).find('tbody tr').length / list_length)
 		if count_page == 1
@@ -97,9 +97,9 @@ class @Partial
 			# Hide elements from old page
 			if old_page > 0
 				# Hide old elements
-				elements.slice((old_page - 1) * 10, old_page * 10).hide()
+				elements.slice((old_page - 1) * list_length, old_page * list_length).hide()
 			#Show needed elements
-			elements.slice((page_num - 1) * 10, page_num * 10).show()
+			elements.slice((page_num - 1) * list_length, page_num * list_length).show()
 			number_wrap.html(page_num)
 			return
 		# Bind prev button click
@@ -156,9 +156,9 @@ class @Partial
 		last.on('click', () ->
 			show_page(current_page, current_page = count_page)
 
-			if current_page < count_page
+			if current_page <= count_page
 				prev.show()
-				if count_page - current_page > 1
+				if current_page > 2
 					first.show()
 
 			last.hide()

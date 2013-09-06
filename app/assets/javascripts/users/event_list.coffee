@@ -43,11 +43,12 @@ class @EventList extends Partial
 		return
 
 	###
-	# This method create parent popover elem for content from server response
-	# @param options - parameters for function
-	# | elem_id - div id, wich will be created in  parent_id
-	# | parent_id - id parent element
-	# | parameters from _popover_opt for overwriting
+	This method create parent popover elem for content from server response
+	@param options - parameters for function
+	| elem_id - div id, wich will be created in  parent_id
+	| parent_id - id parent element
+	| parameters from _popover_opt for overwriting
+  | offset_elem - need than window width is less than 767px
 	###
 	prepend_popover_window: (options) ->
 		if !$( options.parent_id).length
@@ -70,26 +71,48 @@ class @EventList extends Partial
 		div_elem = $('<div></div>').attr('id', options.elem_id.substring(1)).css(_popover_opt)
 
 		$(options.parent_id).prepend(div_elem)
-		#TODO: bind resizer method on window
-		if document.width <= 767 # Width from bootstrap
-			if options.offset_elem
-				offset_elem = $(options.offset_elem).offset()
-				offset_div = offset_elem
+		# Function to set position for div elem
+		popover_position = () ->
+			window_size = Object
+			window_size = {
+				width: document.body.clientWidth
+				height: document.body.clientHeight
+			}
 
-				if offset_elem.left + div_elem.outerWidth() > document.width
-					offset_div.left = document.width - 20 - div_elem.outerWidth()
+			if window_size.width <= 767 # Width from bootstrap
+				if options.offset_elem
+					offset_elem = $(options.offset_elem).offset()
+					offset_div = offset_elem
 
-				if offset_elem.top + div_elem.outerHeight() > document.height
-					offset_div.top = document.height - 20 - div_elem.outerHeight()
+					if offset_elem.left + div_elem.outerWidth() > window_size.width
+						offset_div.left = window_size.width - 20 - div_elem.outerWidth()
 
-				div_elem.offset(offset_div)
-		else
-			parent_pos = $(options.parent_id).offset()
-			div_elem.offset({
-				left: parent_pos.left + $(options.parent_id).outerWidth() + 20
-				top: parent_pos.top
-			})
+					if offset_elem.top + div_elem.outerHeight() > document.height
+						offset_div.top = window_size.height - 20 - div_elem.outerHeight()
 
+					div_elem.offset(offset_div)
+			else
+				parent_pos = $(options.parent_id).offset()
+				elem_left = parent_pos.left + $(options.parent_id).outerWidth() + 20
+				elem_top = parent_pos.top
+
+				if elem_left + div_elem.outerWidth() > window_size.width
+					elem_left = window_size.width - div_elem.outerWidth() - 20
+
+				if elem_top + div_elem.outerHeight > window_size.height
+					elem_top = window_size.height - div_elem.outerHeight
+
+				div_elem.offset({
+					left: elem_left
+					top: elem_top
+				})
+			return
+		popover_position()
+		$(window).resize(popover_position)
+		$(div_elem).on('remove', ()->
+			$(window).unbind(popover_position)
+			return
+		)
 		return
 
 	###
@@ -234,6 +257,7 @@ class @EventList extends Partial
 		if this.response_list
 			this.response_list.destroy()
 
+		$(_options.event_list_id).empty()
 		return
 
 	constructor: (options) ->
