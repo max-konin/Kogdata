@@ -90,7 +90,7 @@ class User < ActiveRecord::Base
   end
 
   before_validation do
-    self.name = self.name.strip
-    self.email = self.email.strip
+    self.name = self.name.strip unless self.name.nil?
+    self.email = self.email.strip unless self.email.nil?
   end
 end

@@ -207,9 +207,15 @@ td.center
 
 .paginator
 {
+	font-family: OpenSans-Bold;
+	font-size: 18px;
+	font-weight: normal;
+	color: #00525a;
 	text-align: center;
 	.elem
 	{
+		display: inline-block;
 		margin: 0 10px;
+		min-width: 18px;
 	}
 }
