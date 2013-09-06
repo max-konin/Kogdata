@@ -38,9 +38,12 @@
 						= f.submit t(:do_sign_up), :class => "btn btn-danger btn-large", :id => "reg-submit"
 	.left-column
 		.soc-links-container
-			%a.social-btn#vk-btn{:href => "/users/auth/vkontakte"}
+			%a.social-btn{:href => "/users/auth/vkontakte"}
+				%i.icon-k-vkontakte
 			%a.social-btn#twit-btn{:href => "/users/auth/twitter"}
+				%i.icon-k-facebook
 			%a.social-btn#face-btn{:href => "/users/auth/facebook"}
+				%i.icon-k-twitter
 
 
 = javascript_include_tag "validation"

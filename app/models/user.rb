@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
 							:url => "/avatars/:style/:filename"
 
 	has_many :images, :dependent => :destroy
+  #TODO: Rename to events
 	has_many :event, :dependent => :destroy
 	has_and_belongs_to_many :conversations
 	has_many :messages

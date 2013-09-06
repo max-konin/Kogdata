@@ -57,6 +57,11 @@ body {
 	.invalid {
 		background: orange;
 	}
+	.invalid_message{
+		display: none;
+		font-size: 20px;
+		font-family: opensans-regular;
+	}
 	font-family: "OpenSans-bold";
 	font-size: 30px;
 	width: 400px;

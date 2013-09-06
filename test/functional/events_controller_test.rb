@@ -8,11 +8,12 @@ class EventsControllerTest < ActionController::TestCase
     currentDate = Time.parse '2013-06-18 11:02:57'
     startDate = Time.parse '2013-06-01 00:00:00'
     finishDate = Time.parse '2013-06-30 23:59:59'
-    get :index, {:user_id => currentUser.id, :curr_date => currentDate}
+    get :index, {:user_id => currentUser.id, :curDate => currentDate}
     assert_response :success
     assert_template :index
     eventsTest = assigns(:events)
-    eventsEtalon = Event.where('user_id = ? AND start > ? AND start < ? AND closed IS NULL',currentUser.id, startDate, finishDate)
+    eventsEtalon = Event.where('user_id = ? AND start >= ? AND start <= ? AND closed = false',currentUser.id,
+                               startDate, finishDate)
     assert_equal eventsTest.count, eventsEtalon.count
     eventsTest.each do |event|
       assert_equal event.user_id, currentUser.id
@@ -24,7 +25,7 @@ class EventsControllerTest < ActionController::TestCase
     currentUser = users(:Adarich)
     sign_in currentUser
     eventsEtalon = Event.where('user_id = ?',currentUser.id)
-    get :index, {:user_id => currentUser.id}
+    get :index, {:user_id => currentUser.id, :showClosed => true}
     assert_response :success
     assert_template :index
     eventsTest = assigns(:events)
@@ -47,13 +48,15 @@ class EventsControllerTest < ActionController::TestCase
     startDate = Time.parse '2013-06-01 00:00:00'
     finishDate = Time.parse '2013-06-30 23:59:59'
     start4Event = Time.parse '2013-06-25 11:02:57'
-    post :create, {:user_id => currentUser.id, :events => {:title => 'new event', :start=> start4Event,
-                                                          :description => 'this is a new event'},:curDate => currentDate}
+    location = 'Karaganda'
+    type = 'Marridge'
+    price = 100500
+    post :create, {:user_id => currentUser.id, :events => {:start=> start4Event, :end => start4Event,
+                                                          :description => 'this is a new event', :location => location, :type => type, :price => price},:curDate => currentDate}
     newEvent = Event.last
-    assert_equal newEvent.title, 'new event'
     start4Event = Time.new '2013-08-25 11:02:57'
-    post :create, {:user_id => currentUser.id, :events => {:title => 'new event', :start=> start4Event,
-                                                          :description => 'this is a new event'},:curDate => currentDate}
+    post :create, {:user_id => currentUser.id, :events => {:start=> start4Event, :end => start4Event,
+                                                          :description => 'this is a new event', :location => location, :type => type, :price => price},:curDate => currentDate}
     assert_response :bad_request
   end
 
@@ -67,7 +70,6 @@ class EventsControllerTest < ActionController::TestCase
     eventEtalon = Event.find id
     assert_response :ok
     assert_equal event.id, id
-    assert_equal event.title, eventEtalon.title
     assert_equal event.start, eventEtalon.start
     assert_equal event.description, eventEtalon.description
   end
@@ -80,23 +82,21 @@ class EventsControllerTest < ActionController::TestCase
     startDate = Time.parse '2013-06-01 00:00:00'
     finishDate = Time.parse '2013-06-30 23:59:59'
     start4Event = Time.parse '2013-06-25 11:02:57'
-    put :update, {:user_id => currentUser.id,:id => id, :events => {:title => 'new event', :start=> start4Event,
-                                                           :description => 'this is a new event'},:curDate => currentDate}
+    location = 'Karaganda'
+    type = 'Marridge'
+    price = 100500
+    put :update, {:user_id => currentUser.id,:id => id, :events => { :start=> start4Event, :end => start4Event,
+                                                           :description => 'this is a new event', :location => location, :type => type, :price => price},:curDate => currentDate}
     updatedEvent = Event.find(id)
     assert_response :ok
-    assert_equal updatedEvent.title, 'new event'
     assert_equal updatedEvent.description, 'this is a new event'
     start4Event = Time.new '2013-08-25 11:02:57'
-    put :update, {:user_id => currentUser.id,:id => id, :events => {:title => 'new event', :start=> start4Event,
-                                                           :description => 'this is a new event'},:curDate => currentDate}
+    put :update, {:user_id => currentUser.id,:id => id, :events =>  {:start=> start4Event, :end => start4Event,
+                                                           :description => 'this is a new event', :location => location, :type => type, :price => price},:curDate => currentDate}
     assert_response :unprocessable_entity
     start4Event = Time.parse '2013-06-25 11:02:57'
-    # title is blank
-    put :update, {:user_id => currentUser.id,:id => id, :events => {:title => '', :start=> start4Event,},
-                  :curDate => currentDate}
-    assert_response :unprocessable_entity
-    put :update, {:user_id => currentUser.id,:id => 3, :events => {:title => 'new event', :start=> start4Event,
-                                                                    :description => 'this is a new event'},:curDate => currentDate}
+    put :update, {:user_id => currentUser.id,:id => 3, :events => {:start=> start4Event, :end => start4Event,
+                                                                    :description => 'this is a new event', :location => location, :type => type, :price => price},:curDate => currentDate}
     assert_response :forbidden
 
   end
@@ -117,9 +117,7 @@ class EventsControllerTest < ActionController::TestCase
   test 'put close' do
     currentUser = users(:Adarich)
     sign_in currentUser
-    start4Event = Time.parse '2013-06-25 11:02:57'
     id = 2
-    event = Event.find(id)
     put :close, {:user_id => currentUser.id, :event_id => id}
     assert_response :ok
     assert_equal Event.find(id).closed, true
@@ -140,18 +138,21 @@ class EventsControllerTest < ActionController::TestCase
     startDate = Time.parse '2013-06-01 00:00:00'
     finishDate = Time.parse '2013-06-30 23:59:59'
     start4Event = Time.parse '2013-06-25 11:02:57'
-    post :create, {:user_id => currentUser.id, :events => {:title => 'new event', :start=> start4Event,
-                                                           :description => 'this is a new event'},:curDate => currentDate}
+    location = 'Karaganda'
+    type = 'Marridge'
+    price = 100500
+    post :create, {:user_id => currentUser.id, :events => {:start=> start4Event, :end => start4Event,
+                                                           :description => 'this is a new event', :location => location, :type => type, :price => price},:curDate => currentDate}
     event_id = Event.last.id
     put :close, {:user_id => currentUser.id, :event_id => event_id}
     get :index, {:user_id => currentUser.id, :curDate => currentDate, :showClosed => true}
     event_test = assigns(:events)
     events_etalon = Event.where('user_id = ? AND start > ? AND start < ?',currentUser.id, startDate, finishDate)
-    assert_equal event_test.count, events_etalon.count
+    assert_equal event_test.count, events_etalon.count, 'closed included'
     get :index, {:user_id => currentUser.id, :curDate => currentDate}
     event_test = assigns(:events)
-    events_etalon = Event.where('user_id = ? AND start > ? AND start < ? AND closed IS NULL',currentUser.id, startDate, finishDate)
-    assert_equal event_test.count, events_etalon.count
+    events_etalon = Event.where('user_id = ? AND start > ? AND start < ? AND closed IS false',currentUser.id, startDate, finishDate)
+    assert_equal event_test.count, events_etalon.count , 'closed is not included'
   end
 
 

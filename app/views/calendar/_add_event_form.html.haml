@@ -1,7 +1,10 @@
 .add-event-container
 	%h4
 		= t :fill_in_event
-= form_for @event, :url => 'events/create', :remote => true do |f|
+= form_for @event,:url => '#', :remote => true do |f|
+	.invalid_message
+		%p
+			Задайте корректные данные!
 	.date-container
 		%input{:id => 'event_day',:name => 'event[day]',:type => 'number', :min => 1, :max => 31, :autocomplete => :off}
 		%select{:id => 'event_month', :name => 'event[month]'}

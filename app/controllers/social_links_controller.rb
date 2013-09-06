@@ -1,6 +1,6 @@
 class SocialLinksController < ApplicationController
 	before_filter :authenticate_user!
-
+  load_and_authorize_resource
 	def index
 		@user = current_user
 		@social_link = SocialLink.where('user_id = ?', @user.id)
@@ -8,36 +8,20 @@ class SocialLinksController < ApplicationController
 	end
 
 	def create
-		@user = current_user
-		if !@user.role? 'contractor'
-			logger.error "rescued_from:: #{params[:controller]}##{params[:action]}: #{@user.role} not contractor\n"
-			raise(RuntimeError, 'Access denied')
-		end
-		result = false
-		begin
-			@social_link = @user.social_links.find(params[:social_link][:id])
-			result = @social_link.update_attributes(params[:social_link])
-		rescue ActiveRecord::RecordNotFound
-			@social_link = @user.social_links.new(params[:social_link])
-			if params[:social_link][:url].strip.length != 0
-				result = @social_link.save
-			end
-		rescue Exception do |exception|
-			logger.error "rescued_from:: #{params[:controller]}##{params[:action]}: #{exception.inspect}\n"
-			end
-		end
-
-		if result
-			respond_to do |format|
-				format.html {redirect_to :back}
-				format.json {render :json => {:social_link => @social_link, :success => 'yes'}}
-			end
-		else
-			respond_to do |format|
-				format.html {redirect_to '/users/edit'}
-				format.json {render :json => {:errors => @social_link.errors.messages}}
-			end
-		end
+    @social_link = (SocialLink.find_by_id params[:social_link][:id]) || current_user.social_links.build
+    authorize! :create, @social_link
+    begin
+      @social_link.update_attributes! params[:social_link]
+      respond_to do |format|
+        format.html {redirect_to :back}
+        format.json {render :json => {:social_link => @social_link, :success => 'yes'}}
+      end
+    rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
+      respond_to do |format|
+        format.html {redirect_to '/users/edit'}
+        format.json {render :json => {:errors => @social_link.errors.messages}}
+      end
+    end
 	end
 
 

@@ -40,12 +40,13 @@ class Ability
 
     if user.role? :contractor
       can :upload, :photo
+      can :manage, SocialLink
       can :read, @events
       can :add, @busynesses
     end
 
     if user.role? :client
-      can :create, :all
+      can :manage, Event
       can :read, @busynesses
     end
 
