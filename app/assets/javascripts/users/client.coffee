@@ -1,4 +1,5 @@
 #= require ./user
+#= require ../Calendar/contractor-busyness-controller-show
 
 class Client extends User
 

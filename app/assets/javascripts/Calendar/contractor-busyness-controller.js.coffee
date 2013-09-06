@@ -1,15 +1,16 @@
 #= require Calendar/controller
-class contractorBusynessController extends calendarHomeController
+class window.contractorBusynessController extends calendarHomeController
 
-
+	calendar_inited: false
 	busy_days: []
 	update_calendar: () ->
 		super
 		calendarHomeController::busy_days = []
+		user_id_for_show = parseInt document.location.href.substring(document.location.href.lastIndexOf('/') + 1);
 		$('.busy-day').removeClass('busy-day')
 		$.ajax {
 			type: 'get'
-			url: "/users/#{user_id}/busynesses"
+			url: "/users/#{user_id_for_show}/busynesses"
 			dataType: 'json'
 			contentType: 'application/json'
 			data: {
@@ -62,9 +63,11 @@ class contractorBusynessController extends calendarHomeController
 				}
 		return
 	calendar_init: () ->
-		@fullCalendarOption.dayClick = @onDayClick
-		Calendar.add_event_handler.call $(Calendar.add_event_selectors.parent).find Calendar.add_event_selectors.child
-		$(Calendar.calendar_selector).fullCalendar Calendar.fullCalendarOption
+		if !@calendar_inited
+			console.log $(Calendar.calendar_selector).fullCalendar
+			@fullCalendarOption.dayClick = @onDayClick
+			Calendar.add_event_handler.call $(Calendar.add_event_selectors.parent).find Calendar.add_event_selectors.child
+			$(Calendar.calendar_selector).fullCalendar Calendar.fullCalendarOption
 		super
 		return
 
