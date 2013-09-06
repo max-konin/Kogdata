@@ -271,7 +271,11 @@ class UsersController < ApplicationController
     User.find(@userOld.id).destroy
     @user.save!
     redirect_to :root
-  end  
+  end
+
+  def user_id
+    render :json => {:user_id => current_user.id}
+  end
 
   private
   def can_view_users_with_role? role

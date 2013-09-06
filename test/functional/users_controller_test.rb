@@ -2,6 +2,10 @@ require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
 
+  def json
+    ActiveSupport::JSON.decode @response.body
+  end
+
   test "destroy users" do
     sign_in  users(:Max)
 
@@ -133,6 +137,14 @@ class UsersControllerTest < ActionController::TestCase
     providerTest = Provider.where(:uid => 101)
     assert_not_nil providerTest
     assert_redirected_to '/users/merge'
+  end
+
+  test 'get user id' do
+    id = 1
+    user = User.find(id)
+    sign_in user
+    get :user_id, :format => :json
+    assert_equal json['user_id'], id
   end
 
 
