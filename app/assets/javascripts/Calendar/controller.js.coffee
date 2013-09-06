@@ -15,6 +15,21 @@ class window.calendarHomeController
 		#REMEMBER: if you want extend this class and add new events(methods)
 		# you have override calendar_inint() method and add new events to the fullCalendarOption
 		# property and init fullcalendar see example in contractor-busyness-controller
+
+		$.ajax(
+			type: 'get'
+			url: '/users/user_id'
+			dataType: 'json'
+			async: false
+			data: {
+				random: String Math.random()
+			}
+			success: (response)->
+				data = JSON.parse response.div_contents.body
+				window.user_id = data.user_id
+				return
+		)
+
 		$('body').on('mousedown', (e) ->
 			if  $(e.target).parents('.popover').size() == 0
 				Popover.hide()

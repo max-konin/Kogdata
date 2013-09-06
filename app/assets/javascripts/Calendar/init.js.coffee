@@ -6,7 +6,7 @@
 
 
 window.role = $.cookie 'role'
-window.user_id = $.cookie 'user_id'
+window.user_id = 0
 window.event_title = { todo: "global" }
 window.event_description = { todo: "global" }
 window.event_start = {todo: "global"}

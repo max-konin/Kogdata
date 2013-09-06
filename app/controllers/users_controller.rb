@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!, :except => [ :registration_after_omniauth, :create, :validate ]
+  before_filter :authenticate_user!, :except => [ :registration_after_omniauth, :create, :validate, :user_id ]
 
 	def index
 		if params[:role].nil? then
@@ -274,7 +274,8 @@ class UsersController < ApplicationController
   end
 
   def user_id
-    render :json => {:user_id => current_user.id}
+      user_id = user_signed_in? ? current_user.id : 0
+      render :json => {:user_id => user_id}
   end
 
   private

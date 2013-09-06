@@ -7,7 +7,6 @@ class contractorBusynessController extends calendarHomeController
 		super
 		calendarHomeController::busy_days = []
 		$('.busy-day').removeClass('busy-day')
-		console.log user_id
 		$.ajax {
 			type: 'get'
 			url: "/users/#{user_id}/busynesses"
@@ -29,6 +28,7 @@ class contractorBusynessController extends calendarHomeController
 		}
 	onDayClick: (date, allDay, jsEvent, view) ->
 		month = date.getMonth()
+		day_selector = this
 		if month == $(calendarHomeController::calendar_selector).fullCalendar('getDate').getMonth()
 			day = date.getDate()
 			if !calendarHomeController::busy_days[day]
@@ -36,26 +36,25 @@ class contractorBusynessController extends calendarHomeController
 					date: date.format 'isoDateTime'
 					curr_date: $(calendarHomeController::calendar_selector).fullCalendar('getDate').format 'isoDateTime'
 				}
-				console.log user_id
 				$.ajax {
 					type: 'post'
 					url: "/users/#{user_id}/busynesses.json"
 					format: 'json'
 					data: request
 					success: (response) ->
-						$(this).children('div').addClass('busy-day')
+						$(day_selector).children('div').addClass('busy-day')
 						data = JSON.parse response.div_contents.body
 						calendarHomeController::busy_days[day] = data.id
 						return
 				}
 			else
-				$(this).children('div').removeClass('busy-day')
 				$.ajax {
 					type: 'delete'
 					url: "/users/#{user_id}/busynesses/#{calendarHomeController::busy_days[day]}.json"
 					format: 'json'
 					data: {curr_date: $(calendarHomeController::calendar_selector).fullCalendar('getDate').format 'isoDateTime'}
 					success: () ->
+						$(day_selector).children('div').removeClass('busy-day')
 						delete calendarHomeController::busy_days[day]
 						return
 					error: () ->
