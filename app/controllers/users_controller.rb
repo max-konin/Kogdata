@@ -139,6 +139,7 @@ class UsersController < ApplicationController
 
   def validate
     @user = User.new(params[:user])
+
     if @user.valid?
       respond_to do |format|
         format.json {render :json => {:success => 'yes'}}

@@ -21,6 +21,9 @@ class Client extends User
 		)
 
 		$(btn.message).click(() ->
+			if block.left != null
+				block.left.destroy()
+				block.left = null
 			client.messages()
 			return
 		)
@@ -43,6 +46,8 @@ class Client extends User
 			if block.bottom
 				block.bottom.destroy()
 				block.bottom = null
+
+			client.calendar()
 			client.events()
 			return
 		)

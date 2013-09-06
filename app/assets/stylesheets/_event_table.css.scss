@@ -29,6 +29,11 @@
 	vertical-align: middle;
 }
 
+.event_table button:focus
+{
+	outline: none;
+}
+
 .table .avatar
 {
 	display: inline-block;

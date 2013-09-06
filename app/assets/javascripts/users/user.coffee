@@ -2,11 +2,13 @@
 #= require ./portfolio
 #= require ./order
 #= require ./event_list
+#= require ./user_edit
+#= require ./conversations
 #= require ../Calendar/contractor-busyness-controller
 
 ###
-# Abstract basic model of user contain all methods needed for users
-# extends by partial to load rartials from server
+Abstract basic model of user contain all methods needed for users
+extends by partial to load rartials from server
 ###
 class @User extends Partial
 	# Hide button, then raprial is loaded
@@ -48,8 +50,8 @@ class @User extends Partial
 
 
 	###
-	# Show all buttons from btn list and hide needed button
-	# @param button_to_hide - id or dom object button, wich needed to hide
+	Show all buttons from btn list and hide needed button
+	@param button_to_hide - id or dom object button, wich needed to hide
   ###
 	hide_buttons: (button_to_hide) ->
 		if this.is_buttons_hide == false
@@ -65,16 +67,13 @@ class @User extends Partial
 	messages: () ->
 		if block.right
 			block.right.destroy()
-		block.right = null
-		###
-  	TODO: Verify Message class for working with this code
-		message = new Message
-		message.destroy = () ->
-			block.right = null
-			$(block_id.right).empty()
-			return
+			options = {
+				parent_id: block_id.right
+			}
+		conversations = new Conversations(options)
+		block.right = conversations
+		conversations.init()
 
-		###
 		return
 
 	# Return info about photorgapher or client from server
@@ -93,8 +92,8 @@ class @User extends Partial
 		return
 
 	###
-	# Initialize calendar on photograph page
-	# @param with_close - if true, close button will be added
+	Initialize calendar on photograph page
+	@param with_close - if true, close button will be added
   ###
 	calendar: (with_close = false) ->
 
@@ -107,7 +106,6 @@ class @User extends Partial
 		append($('<div></div>').attr('id', 'calendar'))
 		$(block_id.right).html(calendar)
 
-  	#TODO: uncomment then bussenes-controller will fiexd or changed call method
 		if this.with_close_button || with_close
 			this.add_close_button(calendar, Calendar)
 
@@ -192,20 +190,16 @@ class @User extends Partial
 	###
 	user_edit: () ->
 		user_edit = new UserEdit()
-		on_success = () ->
-			# Clear bottom block controller
-			if block.right != null
-				block.right.destroy()
-			block.right = user_edit
-			return
+		# Clear bottom block controller
+		if block.right != null
+			block.right.destroy()
+		block.right = user_edit
 
 		options =
 		{
-			on_success: on_success()
 			form_parent_id: block_id.right
 		}
-		user_id = $.cookie 'user_id'
-		user_edit.init(user_id, options)
+		user_edit.init(options)
 		return
 
 	###

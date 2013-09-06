@@ -29,7 +29,7 @@
 			- if @user.id == current_user.id # If photograph watch own page
 				- if @user.role == 'contractor' # Show info by photographs
 					.info-block
-						%button.btn.btn-link-red
+						%button.btn.btn-link-red#message_button
 							%i.icon-k-message
 							= t(:my_messages)
 					.info-block
@@ -47,7 +47,7 @@
 
 				- if @user.role == 'client' # Show info by client
 					.info-block
-						%button.btn.btn-link-red
+						%button.btn.btn-link-red#message_button
 							%i.icon-k-message
 							= t(:my_messages)
 					.info-block
@@ -61,8 +61,6 @@
 					%button.btn.btn-link-red{'data-target' => '#messageModal', 'data-toggle' => 'modal'}
 						%i.icon-k-message
 						= t(:write_message)
-					#messageModal.modal.hide.fade
-						= render :partial => 'messages/new_message', :locals => {:contact_id => @user.id}
 
 				- if @user.role == 'contractor'
 					.info-block

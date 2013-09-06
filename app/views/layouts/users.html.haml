@@ -40,4 +40,8 @@
 						= yield
 
 			#bottom_block
+
+			#messageModal.modal.hide.fade
+				= render :partial => 'messages/new_message', :locals => {:contact_id => @user.id}
+
 		= render 'application/footer'
