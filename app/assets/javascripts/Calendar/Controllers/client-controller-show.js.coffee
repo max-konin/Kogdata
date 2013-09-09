@@ -1,14 +1,19 @@
 #= require Calendar/Controllers/client-controller
 class clientControllerShow extends clientController
-	on_day_click: () ->
+	on_day_click: (date) ->
 		if $(this).hasClass('fc-other-month')
 			return false
 		real_day = $(this).children('.real-day')
 		if $(real_day).hasClass('fc-show-events')
 			$(real_day).removeClass('fc-show-events')
+			client.events()
 		else
 			$('.fc-show-events').removeClass('fc-show-events')
 			$(real_day).addClass('fc-show-events')
+			data = {
+				show_date: date.format 'isoDateTime'
+			}
+			client.events {data: data}
 		return
 
 	calendar_init: () ->

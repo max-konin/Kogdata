@@ -47,6 +47,13 @@ class @User extends Partial
 	block_id = this.block_id
 	btn = this.btn
 
+	get_options: (options, _options) ->
+		if options
+			for elem of _options
+				if options[elem]
+					_options[elem] = options[elem]
+		return
+
 
 
 	###
@@ -205,24 +212,27 @@ class @User extends Partial
 	###
   # Init events
 	###
-	events: () ->
+	events: (options) ->
 		events = new EventList()
 		user_id = $(btn.event).attr('user_id')
 		if !user_id
+			#TODO improve getting user id!!
 			user_id = $.cookie 'user_id'
 
-		options =
+		_options =
 		{
 			event_list_id: block_id.left
 			fit_partial: {
 				bottom_elem: '#footer'
 			}
+			data: null
 		}
+		this.get_options(options, _options)
 		# Clear bottom block controller
 		if block.left != null
 			block.left.destroy()
 		block.left = events
 
-		events.init(user_id, options)
+		events.init(user_id, _options)
 		return
 
