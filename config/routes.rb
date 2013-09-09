@@ -21,6 +21,7 @@ Kogdata::Application.routes.draw do
 	get 'users/get_info'  						=> 'users#registration_after_omniauth'
 	put 'users'           						=> 'users#create'
 	put 'users/edit'       						=> 'users#update'
+  get 'users/user_id'
 	devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
   resources :users do

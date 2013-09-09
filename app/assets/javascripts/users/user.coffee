@@ -4,7 +4,7 @@
 #= require ./event_list
 #= require ./user_edit
 #= require ./conversations
-#= require ../Calendar/contractor-busyness-controller
+
 
 ###
 Abstract basic model of user contain all methods needed for users

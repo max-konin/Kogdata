@@ -42,12 +42,12 @@ class Ability
       can :upload, :photo
       can :manage, SocialLink
       can :read, @events
-      can :add, @busynesses
+      can :add, Busyness
     end
 
     if user.role? :client
       can :manage, Event
-      can :read, @busynesses
+      can :read, Busyness
     end
 
 
