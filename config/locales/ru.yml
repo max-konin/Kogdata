@@ -28,6 +28,8 @@ ru:
   the_event: "Событие"
   type_of_event: "Тип события"
   changes_are_saved: "Измненения сохранены"
+  users_orders: "Заказы пользователя"
+
 
   home: "Главная"
   edit_page: "Редактировать"

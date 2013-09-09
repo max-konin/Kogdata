@@ -71,3 +71,9 @@
 						%button.btn.btn-link-red#portfolio_button{:user_id => @user.id}
 							%i.icon-k-portfolio
 							= t(:show_portfolio)
+				- if @user.role == 'client'
+					= javascript_include_tag 'users/client'
+					.info-block
+						%button.btn.btn-link-red#my_events_button{:user_id => @user.id}
+							%i.icon-k-camera
+							= t(:users_orders)

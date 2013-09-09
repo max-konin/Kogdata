@@ -1,6 +1,9 @@
 .back_white_box
 	- if @user.role == 'contractor'
-		= javascript_include_tag 'Controllers/contractor-busyness-controller-show'
+		- if @user != current_user
+			= javascript_include_tag 'Calendar/Controllers/contractor-busyness-controller-show'
+		- else
+			= javascript_include_tag 'Calendar/Controllers/contractor-busyness-controller'
 		#contractor_skills
 			.row-fluid
 				.span5
