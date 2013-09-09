@@ -38,3 +38,11 @@ Event5:
    start:  2013-06-10 11:02:57
    end:   2013-06-11 22:00:00
    closed: false
+
+Event6:
+   id: 6
+   user_id: 2
+   description: second event in a day
+   start:  2013-06-10 11:02:57
+   end:   2013-06-11 22:00:00
+   closed: false

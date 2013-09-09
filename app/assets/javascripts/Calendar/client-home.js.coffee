@@ -1,2 +1,2 @@
-#= require Calendar/client-controller
+#= require Calendar/Controllers/client-controller
 #= require Calendar/document-ready

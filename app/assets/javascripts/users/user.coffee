@@ -216,6 +216,7 @@ class @User extends Partial
 		events = new EventList()
 		user_id = $(btn.event).attr('user_id')
 		if !user_id
+			#TODO improve getting user id!!
 			user_id = $.cookie 'user_id'
 
 		_options =

@@ -1,5 +1,5 @@
-#= require Calendar/controller
-class clientController extends calendarHomeController
+#= require Calendar/Controllers/controller
+class window.clientController extends calendarHomeController
 
 	change_calendar_date: (year, month, date) ->
 		$(@calendar_selector).fullCalendar('gotoDate', year, month-1, date )
@@ -168,10 +168,11 @@ class clientController extends calendarHomeController
 		return false
 
 	calendar_init: () ->
-		@fullCalendarOption.dayClick = @on_day_click
-		@add_event_handler.call $(@add_event_selectors.parent).find @add_event_selectors.child
-		$(@calendar_selector).fullCalendar @fullCalendarOption
-		$('form#new_event').submit(Calendar.on_add_form_submit)
+		if !@calendar_inited
+			@fullCalendarOption.dayClick = @on_day_click
+			@add_event_handler.call $(@add_event_selectors.parent).find @add_event_selectors.child
+			$(@calendar_selector).fullCalendar @fullCalendarOption
+			$('form#new_event').submit(Calendar.on_add_form_submit)
 		super
 		return
 window.Calendar = new clientController
