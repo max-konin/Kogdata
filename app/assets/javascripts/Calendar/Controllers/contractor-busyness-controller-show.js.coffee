@@ -1,4 +1,4 @@
-#= require 'Calendar/contractor-busyness-controller'
+#= require 'Calendar/Controllers/contractor-busyness-controller'
 class contractorBusynessControllerShow extends  contractorBusynessController
 	onDayClick: () ->
 		console.log 'somthing is gonna happend'

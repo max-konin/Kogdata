@@ -113,7 +113,7 @@ class window.clientController extends calendarHomeController
 	add_events: () ->
 		$.ajax(
 			type: 'get'
-			url: "/users/#{window.user_id}/events.json"
+			url: document.location.href + "/events.json"
 			dataType: 'json'
 			data: {
 				curDate: $(@calendar_selector).fullCalendar('getDate').format 'isoDateTime'
