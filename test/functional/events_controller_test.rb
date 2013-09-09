@@ -2,6 +2,10 @@ require 'test_helper'
 
 class EventsControllerTest < ActionController::TestCase
 
+  def json
+    ActiveSupport::JSON.decode @response.body
+  end
+
   test 'get index in month' do
     currentUser = users :Adarich
     sign_in currentUser
@@ -33,6 +37,17 @@ class EventsControllerTest < ActionController::TestCase
     eventsTest.each do |event|
       assert_equal event.user_id, currentUser.id
     end
+  end
+
+  test 'get index with show date' do
+    currentUser = users(:Adarich)
+    sign_in currentUser
+    event_date = Time.parse '2013-06-10 11:00:00'
+    event_date_start = Time.parse '2013-06-10 00:00:00'
+    event_date_finish = Time.parse '2013-06-10 23:59:59'
+    events_in_date = Event.between(event_date_start, event_date_finish)
+    get :index, {:user_id => currentUser.id, :show_date => event_date, :format => :json}
+    assert_equal json.count, events_in_date.count
   end
 
   test 'get new' do

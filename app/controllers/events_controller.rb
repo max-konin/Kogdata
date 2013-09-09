@@ -9,6 +9,13 @@ class EventsController < ApplicationController
     @events = @events.between(Days.firstDay(params[:curDate]), Days.lastDay(params[:curDate])) unless
         params[:curDate].nil?
     @events = @events.opened if params[:showClosed].nil? || !params[:showClosed]
+    if !params[:show_date].nil?
+      date = params[:show_date].is_a?(String) ? DateTime.parse(params[:show_date]) : params[:show_date]
+      date_start = date.beginning_of_day
+      date_finish = date.end_of_day
+      @events = @events.between(date_start, date_finish) unless params[:show_date].nil?
+    end
+    #puts @events[1].start unless params[:show_date].nil?
     respond_to do |format|
       format.html {render :html => @events}
       format.json {render :json => @events}
