@@ -236,6 +236,10 @@ class @EventList extends Partial
 		this.get_options(options)
 		event_list = this
 		this.get_partial("/users/#{user_id}/events.html", _options.event_list_id,{
+			data:{
+				date: ''
+				salt: 'lkjh'
+			}
 			on_success: () ->
 				if options.on_success
 					options.on_success()

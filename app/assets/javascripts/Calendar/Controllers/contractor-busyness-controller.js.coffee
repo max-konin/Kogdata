@@ -1,7 +1,6 @@
-#= require Calendar/controller
+#= require Calendar/Controllers/controller
 class window.contractorBusynessController extends calendarHomeController
 
-	calendar_inited: false
 	busy_days: []
 	update_calendar: () ->
 		super
@@ -64,7 +63,6 @@ class window.contractorBusynessController extends calendarHomeController
 		return
 	calendar_init: () ->
 		if !@calendar_inited
-			console.log $(Calendar.calendar_selector).fullCalendar
 			@fullCalendarOption.dayClick = @onDayClick
 			Calendar.add_event_handler.call $(Calendar.add_event_selectors.parent).find Calendar.add_event_selectors.child
 			$(Calendar.calendar_selector).fullCalendar Calendar.fullCalendarOption

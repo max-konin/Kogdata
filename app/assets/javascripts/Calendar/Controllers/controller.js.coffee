@@ -11,6 +11,8 @@ class window.calendarHomeController
 		child: 'div.external-event'
 	}
 
+	calendar_inited: false
+
 	calendar_init: () ->
 		#REMEMBER: if you want extend this class and add new events(methods)
 		# you have override calendar_inint() method and add new events to the fullCalendarOption
@@ -30,13 +32,13 @@ class window.calendarHomeController
 				return
 		)
 
-		$('body').on('mousedown', (e) ->
-			if  $(e.target).parents('.popover').size() == 0
-				Popover.hide()
-		)
-		#	$(bookings_selector).click Calendar.bookings_on_click
-		$('body').on('click', '.close-event', Popover.close_event)
-		$('body').on('click', '.reopen-event', Popover.reopen_event)
+#		$('body').on('mousedown', (e) ->
+#			if  $(e.target).parents('.popover').size() == 0
+#				Popover.hide()
+#		)
+#		#	$(bookings_selector).click Calendar.bookings_on_click
+#		$('body').on('click', '.close-event', Popover.close_event)
+#		$('body').on('click', '.reopen-event', Popover.reopen_event)
 		$('.fc-button-next, .fc-button-prev').click () ->
 			Calendar.update_calendar('on_change_date')
 			return

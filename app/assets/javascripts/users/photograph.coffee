@@ -1,5 +1,5 @@
 #= require ./user
-#= require ../Calendar/contractor-busyness-controller
+#= require Controllers/contractor-busyness-controller
 
 class Photograph extends User
 

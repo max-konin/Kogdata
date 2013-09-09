@@ -1,5 +1,4 @@
 #= require ./user
-#= require ../Calendar/contractor-busyness-controller-show
 
 class Client extends User
 
@@ -63,6 +62,7 @@ class Client extends User
 window.client = new Client
 $(document).ready () ->
 	window.client.bind_buttons_events()
-	if $('#calendar').length
-		window.client.calendar()
+	#had to comment this, to avoid two calendars on one page
+	#if $('#calendar').length
+		#window.client.calendar()
 

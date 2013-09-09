@@ -5,7 +5,6 @@ class contractorBusynessControllerShow extends  contractorBusynessController
 		return
 
 	calendar_init: () ->
-		console.log @onDayClick
 		@fullCalendarOption.dayClick = @onDayClick
 		Calendar.add_event_handler.call $(Calendar.add_event_selectors.parent).find Calendar.add_event_selectors.child
 		$(Calendar.calendar_selector).fullCalendar Calendar.fullCalendarOption

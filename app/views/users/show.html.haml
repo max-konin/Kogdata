@@ -1,5 +1,6 @@
 .back_white_box
 	- if @user.role == 'contractor'
+		= javascript_include_tag 'Controllers/contractor-busyness-controller-show'
 		#contractor_skills
 			.row-fluid
 				.span5
@@ -20,4 +21,5 @@
 						= t(:rusrubles)
 
 	- if @user.role == 'client'
+		= javascript_include_tag 'Calendar/client-home-show'
 		#calendar
