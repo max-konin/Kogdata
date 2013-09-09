@@ -37,10 +37,11 @@ class @EventList extends Partial
 		responses: '.show_responses_link'
 
 	get_options: (options) ->
+		if !this._options
+			this._options = {}
 		if options
 			for elem of _options
-				if options[elem]
-					_options[elem] = options[elem]
+				this._options[elem] = if options[elem] then options[elem] else _options[elem]
 		return
 
 	###
@@ -236,15 +237,15 @@ class @EventList extends Partial
 	init: (user_id, options) ->
 		this.get_options(options)
 		event_list = this
-		this.get_partial("/users/#{user_id}/events.html", _options.event_list_id,{
-			data: _options.data
+		this.get_partial("/users/#{user_id}/events.html", event_list._options.event_list_id,{
+			data: event_list._options.data
 			on_success: () ->
 				if options.on_success
 					options.on_success()
 				event_list.bind_show_event()
 				event_list.bind_show_responses()
-				paginator = event_list.table_paginator($(_options.event_list_id).find('table').first())
-				$(_options.event_list_id).find('> div').first().append(paginator)
+				paginator = event_list.table_paginator($(event_list._options.event_list_id).find('table').first())
+				$(event_list._options.event_list_id).find('> div').first().append(paginator)
 				return
 			#fit_partial: _options.fit_partial
 		})
