@@ -8,6 +8,11 @@ class Photograph extends User
 	block_id = this.block_id
 	btn = this.btn
 
+	#add radiogroup to select calendar type only for contractor
+	calendar: () ->
+		super
+		this.get_partial('/users/contractor_calendar_type.html','back_white_box')
+
 	# Bind functions for buttons on photograph page
 	bind_buttons_events: () ->
 		photograph = this
