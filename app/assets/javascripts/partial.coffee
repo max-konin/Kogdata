@@ -48,9 +48,12 @@ class @Partial
 			if options.on_success
 				options.on_success()
 			return
-		sec = new Date()
+		data = if options.data then options.data else new Object()
 		# Add salt to prevent 304 status - not modified
-		$.get(url, {salt: sec.getMinutes() + '' + sec.getSeconds()}, onAjaxSuccess);
+		sec = new Date()
+		data.__salt = sec.getMinutes() + '' + sec.getSeconds() + '' + sec.getMilliseconds()
+
+		$.get(url, data, onAjaxSuccess);
 
 		return
 
@@ -87,7 +90,7 @@ class @Partial
 		number_wrap = $('<span></span>').addClass('elem')
 		current_page = 1
 		count_page = Math.ceil($(parent).find('tbody tr').length / list_length)
-		if count_page == 1
+		if count_page <= 1
 			return null
 		if count_page < 3
 			last.hide()

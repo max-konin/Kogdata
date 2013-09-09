@@ -30,6 +30,7 @@ class @EventList extends Partial
 		# id of child elem ResponseList class
 		response_list_id: '#responses'
 		fit_partial: null
+		data : null
 	}
 	btn:
 		events: '.show_event_link'
@@ -236,6 +237,7 @@ class @EventList extends Partial
 		this.get_options(options)
 		event_list = this
 		this.get_partial("/users/#{user_id}/events.html", _options.event_list_id,{
+			data: _options.data
 			on_success: () ->
 				if options.on_success
 					options.on_success()
