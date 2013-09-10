@@ -5,7 +5,7 @@ class SocialLinkTest < ActiveSupport::TestCase
   #   assert true
   # end
   test 'save' do
-    link = SocialLink.new :url => 'user100500', :provider => 'vkontakte'
+    link = SocialLink.new :url => '\dsads', :provider => 'vkontakte'
     assert link.save, '1. Save new link with url and description'
 
     link2 = SocialLink.new :url => '9fds0gdsfhdydfguser1', :provider => 'gplus'

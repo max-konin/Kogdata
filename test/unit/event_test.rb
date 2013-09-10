@@ -18,48 +18,63 @@ class EventTest < ActiveSupport::TestCase
     assert_equal actual_events, expected_events
   end
 
-  test 'title should not be blank'do
-    event = Event.new()
-    event.description = 'description'
-    event.start = Time.now
-    assert !(event.save)
-  end
 
   test 'description should not be blank'do
     event = Event.new()
-    event.title = 'title'
-    event.start = Time.now
-    assert !(event.save)
+    event.valid?
+    assert event.errors.messages[:description].any?
   end
 
   test 'start should not be blank'do
     event = Event.new()
-    event.title = 'title'
-    event.description = 'description'
-    assert !(event.save)
+    event.valid?
+    assert event.errors.messages[:start].any?
   end
+
+  test 'end should not be blank'do
+    event = Event.new()
+    event.valid?
+    assert event.errors.messages[:end].any?
+  end
+
+  test 'type should not be blank'do
+    event = Event.new()
+    event.valid?
+    assert event.errors.messages[:type].any?
+  end
+
+  test 'location should not be blank'do
+    event = Event.new()
+    event.valid?
+    assert event.errors.messages[:location].any?
+  end
+
 
   test 'save' do
     event = Event.new()
-    event.title = 'title'
     event.description = 'description'
     event.start = Time.now
+    event.end = Time.now
+    event.location = 'karaganda'
+    event.type = 'marridge'
     assert event.save
   end
 
   test 'validate closed' do
     event = Event.new()
-    event.title = 'title'
     event.description = 'description'
     event.start = Time.now
+    event.end = Time.now
+    event.location = 'karaganda'
+    event.type = 'marridge'
     event.closed = false
-    assert !event.save
+    event.valid?
+    assert_blank event.errors.messages[:closed]
+    event = Event.new()
     event.closed = 'not closed'
-    assert !event.save
     event.closed = true
-    assert event.save
-    event.closed = nil
-    assert event.save
+    event.valid?
+    assert_blank event.errors.messages[:closed]
   end
 
 end

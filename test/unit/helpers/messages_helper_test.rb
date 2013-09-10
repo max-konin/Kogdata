@@ -3,9 +3,11 @@ require 'messages_helper'
 
 class MessagesHelperTest <  ActiveSupport::TestCase
   include MessagesHelper
-  test 'new response for event' do
-    message = new_response_for_event 1
-    assert !message.nil?
-    assert message.event.id == 1
+  def current_user
+    users(:Mitya)
+  end
+  test 'count unread messages' do
+    message = count_unread_messages
+    assert_equal message, '(2)'
   end
 end
