@@ -135,43 +135,5 @@ a.social-btn{
 	min-width: 110px;
 }
 
-div.role-group{
-	max-width: 390px;
-	text-align: center;
-	margin: 0 auto;
-	margin-top: 20px;
-	button#options.active{
-		background-image: linear-gradient(to bottom, #e25957, #bc4b49);
-		background-color: #BC4B49;
-	}
 
-	button#options.active:hover{
-		background-color: #bc4b49;
-	}
-
-	button.btn{
-		font-family: 'opensans';
-		text-shadow: none;
-		color: #ffffff;
-		background-image: linear-gradient(to bottom,  #d2e6d5, #bbd2be);
-		width: 160px;
-		text-align: center;
-		display: inline;
-		margin-left: 15px;
-		margin-right: 15px;
-	}
-
-	button.btn:hover{
-		//background-image: linear-gradient(to bottom,  #bbd2be, #9fb1a1);
-		background-color: #bbd2be;
-	}
-
-	.client-option{
-		//float: left;
-	}
-	.contractor-option
-	{
-		margin-left: 30px;
-	}
-}
 
