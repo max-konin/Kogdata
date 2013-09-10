@@ -5,7 +5,7 @@ class EventsController < ApplicationController
   #the event must be created by the current user and be booked on the current month
   def index
     user = User.find params[:user_id]
-    @events = user.event
+    @events = !params.has_key?(:show_all) ? user.event : Event.scoped
     @events = @events.between(Days.firstDay(params[:curDate]), Days.lastDay(params[:curDate])) unless
         params[:curDate].nil?
     @events = @events.opened if params[:showClosed].nil? || !params[:showClosed]

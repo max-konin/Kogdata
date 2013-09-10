@@ -50,6 +50,15 @@ class EventsControllerTest < ActionController::TestCase
     assert_equal json.count, events_in_date.count
   end
 
+  test 'show all' do
+    user = users(:Adarich)
+    sign_in user
+    eventsEtalon = Event.scoped.opened
+    get :index, {:user_id => user.id, :show_all => true, :format => :json}
+    eventsTest = json
+    assert_equal eventsEtalon.count, eventsTest.count
+  end
+
   test 'get new' do
     currentUser = users(:Adarich)
     sign_in currentUser

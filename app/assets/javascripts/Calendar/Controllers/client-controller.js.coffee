@@ -109,11 +109,14 @@ class window.clientController extends calendarHomeController
 			@on_change_month()
 		# load events
 		@add_events()
-
+		return
 	add_events: () ->
+		url = document.location.href
+		if !url.match(/users\/%d/)
+			url += 'users/' + window.user_id
 		$.ajax(
 			type: 'get'
-			url: document.location.href + "/events.json"
+			url: url + "/events.json"
 			dataType: 'json'
 			data: {
 				curDate: $(@calendar_selector).fullCalendar('getDate').format 'isoDateTime'
