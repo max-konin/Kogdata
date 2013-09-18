@@ -8,6 +8,7 @@ gem 'rails', '3.2.13'
 gem 'mysql2'
 
 
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -26,6 +27,7 @@ end
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'rails-ajax'
+gem 'pjax_rails'
 gem 'json'
 # Modules that makes life easier
 gem 'haml-rails'

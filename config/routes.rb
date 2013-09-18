@@ -19,21 +19,9 @@ Kogdata::Application.routes.draw do
 	get 'users/merge'
 	post 'users/merge_on_submit'
 	get 'users/get_info'  						=> 'users#registration_after_omniauth'
-	put 'users'           						=> 'users#create'
-	put 'users/edit'       						=> 'users#update'
-  get 'users/user_id'
+
 	devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
-  resources :users do
-    resources :events do
-      post 'respond'
-      put 'close'
-      put 'reopen'
-    end
-    resources :responses, only: [:update, :destroy]
-    resources :social_links, only: [:create, :destroy]
-    resources :busynesses, only: [:index, :create, :destroy]
-  end
 	get 'welcome'                       => 'welcome#index'
 	get 'welcome/index'                 => 'welcome#index'
 	get 'calendar/index'

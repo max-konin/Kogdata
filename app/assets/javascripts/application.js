@@ -14,6 +14,12 @@
 //= require jquery
 //= require jquery.ui.all
 //= require jquery.cookie
+//= require jquery.pjax
 //= require bootstrap
+
+$(function() {
+    $(document).pjax('a', '#right_block')
+});
+
 
 
