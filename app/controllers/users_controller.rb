@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, :except => [ :registration_after_omniauth, :create, :validate, :user_id ]
-
+  before_filter :change_city_name_to_id, :only => [:update, :create, :validate]
 	def index
 		if params[:role].nil? then
 			if current_user.role? :admin then
@@ -80,9 +80,9 @@ class UsersController < ApplicationController
   end
 
   def update
-	 if not current_user.role? params[:user][:role] and current_user.role? 'contractor' then
-		Image.destroy_all :user_id => current_user.id
-   end
+   #if not current_user.role? params[:user][:role] and current_user.role? 'contractor' then
+		#Image.destroy_all :user_id => current_user.id
+   #end
    @user = User.find(current_user.id)
 	 if @user.update_attributes(params[:user])
      respond_to do |format|
@@ -277,6 +277,13 @@ class UsersController < ApplicationController
   def user_id
       user_id = user_signed_in? ? current_user.id : 0
       render :json => {:user_id => user_id}
+  end
+
+  protected
+  def change_city_name_to_id
+    unless params[:user][:city_id].blank?
+      params[:user][:city_id] = City.find_or_create_by_name(params[:user][:city_id]).id.to_s
+    end
   end
 
   private

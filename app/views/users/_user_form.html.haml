@@ -1,30 +1,39 @@
+= javascript_include_tag "Calendar/city-list-loading"
 = form_for @user, :html => { :method => :put, :multipath => true, :id => 'user_update', :class => 'form-horizontal' } do |f|
-	%fieldset
-		%legend
-			=t :edit_page
-		.control-group
-			= f.label :name, t(:name), :class => 'control-label'
-			.controls
-				= f.text_field :name, :autocomplete => "on"
-		.control-group
-			= f.label :email, t(:email), :class => 'control-label'
-			.controls
-				= f.email_field :email, :autocomplete => "on"
-		.control-group
-			= f.label :avatar, t(:avatar), :class => 'control-label'
-			.controls
-				%img{:src => @user.avatar.url(:thumb)}
-				= f.file_field :avatar, :accept => 'image/*'
+  %fieldset
+    %legend
+      =t :edit_page
+    .control-group
+      = f.label :name, t(:name), :class => 'control-label'
+      .controls
+        = f.text_field :name, :autocomplete => "on"
+    .control-group
+      .ui-widget
+        %label.control-label{for: 'tags'} Город
+        .controls
+          //= f.text_field :city, :id => 'tags'
+          %input#tags{:placeholder => @user.city.name, :name => 'user[city_id]'}
+    .control-group
+      = f.label :email, t(:email), :class => 'control-label'
+      .controls
+        = f.email_field :email, :autocomplete => "on"
+    .control-group
+      = f.label :avatar, t(:avatar), :class => 'control-label'
+      .controls
+        %img{:src => @user.avatar.url(:thumb)}
+        = f.file_field :avatar, :accept => 'image/*'
 
-		-#.control-group // Registered user can't change role
-		-#  = f.label :role, t(:role), :class => 'control-label'
-		-#  .controls
-		-#    = f.select :role, [ [t(:user), :client], [t(:contractor), :contractor] ]
-		- if @user.role == 'contractor'
-			.control-group
-				= f.label :role, t(:price), :class => 'control-label'
-				.controls
-					= f.number_field :price, :min => '0', :placeholder => t(:price)
-		.control-group
-			.controls
-				= f.submit t(:submit_edit), :class => 'btn'
+    -#.control-group // Registered user can't change role
+    -#  = f.label :role, t(:role), :class => 'control-label'
+    -#  .controls
+    -#    = f.select :role, [ [t(:user), :client], [t(:contractor), :contractor] ]
+    - if @user.role == 'contractor'
+      .control-group
+        = f.label :role, t(:price), :class => 'control-label'
+        .controls
+          = f.number_field :price, :min => '0', :placeholder => t(:price)
+    .control-group
+      .controls
+        = f.submit t(:submit_edit), :class => 'btn'
+
+= javascript_include_tag "Calendar/city-autocomplete"

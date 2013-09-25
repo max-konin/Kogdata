@@ -1,18 +1,26 @@
 !!!
 -# --- "!!!" THIS IS DOCTYPE, DON'T REMOVE !!!!!!!!!!!!!!!!!!!!! ----------
 %html
-	%head
-		= stylesheet_link_tag 'home'
-		= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery?
-		= javascript_include_tag "application"
-		= javascript_include_tag 'common'
-		- if can? :manage, Event
-			= javascript_include_tag 'Calendar/client-home'
-		- if can? :add, @busynesses
-			= javascript_include_tag 'Calendar/contractor-busyness'
-		= stylesheet_link_tag 'application'
-		%title Kogdata
-	%body
-		= render 'application/header'
-		= yield
-		= render 'application/footer'
+  %head
+    %meta{charset: "utf-8"}/
+    %link{href: "http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css", rel: "stylesheet"}/
+    %script{src: "http://code.jquery.com/jquery-1.9.1.js"}
+    %script{src: "http://code.jquery.com/ui/1.10.3/jquery-ui.js"}
+    %link{href: "/resources/demos/style.css", rel: "stylesheet"}/
+
+    = stylesheet_link_tag 'home'
+    = javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery?
+    = javascript_include_tag 'Calendar/city-list-loading'
+    = javascript_include_tag "application"
+    = javascript_include_tag 'common'
+    - if can? :manage, Event
+      = javascript_include_tag 'Calendar/client-home'
+    - if can? :add, @busynesses
+      = javascript_include_tag 'Calendar/contractor-busyness'
+    = stylesheet_link_tag 'application'
+    %title Kogdata
+  %body
+    = render 'application/header'
+    = yield
+    = render 'application/footer'
+    = javascript_include_tag 'Calendar/city-autocomplete'

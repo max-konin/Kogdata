@@ -1,6 +1,7 @@
 class Event < ActiveRecord::Base
   after_initialize :set_closed
   belongs_to :user
+  belongs_to :city
 	has_many :responses
   attr_accessible :start, :end,  :description, :closed, :type, :location,  :price, :status
   self.set_inheritance_column :ruby_type

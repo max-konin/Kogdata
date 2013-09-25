@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
 	devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :token_authenticatable, :omniauth_providers => [ :facebook, :vkontakte, :twitter, :gplus, :google_oauth2, :devianart ]
 
 	# Setup accessible (or protected) attributes for your model
-	attr_accessible :email, :password, :remember_me, :name, :role, :images, :avatar, :avatar_url, :price, :town
+	attr_accessible :email, :password, :remember_me, :name, :role, :images, :avatar, :avatar_url, :price, :city_id
 
 
 	has_attached_file :avatar, 
@@ -27,6 +27,7 @@ class User < ActiveRecord::Base
 	has_many :social_links, :dependent => :destroy
 	has_many :busynesses, :dependent => :destroy
 	has_many :responses, :dependent => :destroy
+  belongs_to :city
 	ajaxful_rater
 	ajaxful_rateable :stars => 5, :dimensions => [:quality]
 

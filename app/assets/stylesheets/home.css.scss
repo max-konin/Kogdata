@@ -169,14 +169,21 @@ form.new_event
 {
 	text-align: left;
 	input, label, textarea, select{
-	font-family: "OpenSans-bold";
-	font-size: 25px;
-	line-height: 28px;
-	box-sizing: padding-box;
-	height: auto;
-	text-align: left;
-	color: #516162;
-	width: 100%;
+    font-family: "OpenSans-bold";
+    font-size: 25px;
+    line-height: 28px;
+    box-sizing: padding-box;
+    height: auto;
+    text-align: left;
+    color: #516162;
+    width: 100%;
+  }
+	.ui-widget
+	{
+			#tags
+			{
+				width: 369px;
+			}
 	}
 	.date-container, .start-time-container
 	{
