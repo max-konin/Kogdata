@@ -43,10 +43,10 @@ class EventTest < ActiveSupport::TestCase
     assert event.errors.messages[:type].any?
   end
 
-  test 'location should not be blank'do
+  test 'city_id should not be blank'do
     event = Event.new()
     event.valid?
-    assert event.errors.messages[:location].any?
+    assert event.errors.messages[:city_id].any?
   end
 
 

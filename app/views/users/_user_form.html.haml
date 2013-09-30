@@ -11,8 +11,9 @@
       .ui-widget
         %label.control-label{for: 'tags'} Город
         .controls
-          //= f.text_field :city, :id => 'tags'
-          %input#tags{:placeholder => @user.city.name, :name => 'user[city_id]'}
+          -#= f.text_field :city_id, :id => 'tags', :placeholder => @user.city.name
+          %input#tags{:placeholder => @user.city.name, :name => 'user[city_id]', :autocomplete => "off",
+                                                                                 :value => @user.city.name}
     .control-group
       = f.label :email, t(:email), :class => 'control-label'
       .controls

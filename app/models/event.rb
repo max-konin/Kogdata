@@ -3,9 +3,9 @@ class Event < ActiveRecord::Base
   belongs_to :user
   belongs_to :city
 	has_many :responses
-  attr_accessible :start, :end,  :description, :closed, :type, :location,  :price, :status
+  attr_accessible :start, :end,  :description, :closed, :type, :price, :status, :city_id
   self.set_inheritance_column :ruby_type
-  validates :start, :end,  :description, :type, :location, :presence => true
+  validates :start, :end,  :description, :type, :city_id, :presence => true
   TYPES = %w(marridge birthday other)
   STATUSES = %w(open closed in_progress)
   validate :type, :inclusion => {:in => TYPES}

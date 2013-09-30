@@ -4,5 +4,9 @@ $("#tags").autocomplete({
         response( $.grep( window.city, function( item ){
             return matcher.test( item );
         }) );
+    },
+    messages: {
+        noResults: '',
+        results: function() {}
     }
 })

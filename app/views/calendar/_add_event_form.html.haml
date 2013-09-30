@@ -1,7 +1,7 @@
 .add-event-container
   %h4
     = t :fill_in_event
-= form_for @event,:url => '#', :remote => true do |f|
+= form_for [current_user, @event], :remote => true do |f|
   .invalid_message
     %p
       Задайте корректные данные!
@@ -18,7 +18,8 @@
       %option{:value => year+1}
         = year+1
   .ui-widget
-    %input#tags{:type => 'text', :placeholder => t(:your_town)}
+    = f.text_field :city_id, :id => 'tags'
+    //input#tags{:type => 'text', :placeholder => @user.city.name, :name => 'event[city_id]'}
   = f.select :type, Event::TYPES
   = f.text_area :description, :placeholder => t(:description)
   .start-time-container

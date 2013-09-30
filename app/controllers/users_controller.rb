@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, :except => [ :registration_after_omniauth, :create, :validate, :user_id ]
   before_filter :change_city_name_to_id, :only => [:update, :create, :validate]
+
 	def index
 		if params[:role].nil? then
 			if current_user.role? :admin then

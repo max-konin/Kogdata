@@ -25,8 +25,8 @@
             = f.email_field :email, :class => 'large'
           .control-group
             .ui-widget
-              %label{for: "tags"} Ваш город
-              %input#tags{:type => 'text'}
+              %label{for: 'tags'} Ваш город
+              %input#tags{:type => 'text', :name => 'user[city_id]', :class => 'large'}
           .control-group
             %label
               = t(:password)
