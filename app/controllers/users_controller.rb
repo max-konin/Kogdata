@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, :except => [ :registration_after_omniauth, :create, :validate, :user_id ]
-  before_filter :change_city_name_to_id, :only => [:update, :create, :validate]
+  before_filter :change_city_name_to_id, :only => [:update, :create]
 
 	def index
 		if params[:role].nil? then
@@ -139,6 +139,9 @@ class UsersController < ApplicationController
   end
 
   def validate
+    unless params[:user][:city_id].blank?
+      params[:user][:city_id] = City.find_or_initialize_by_name(params[:user][:city_id]).id.to_s
+    end
     @user = User.new(params[:user])
 
     if @user.valid?
