@@ -21,7 +21,17 @@ class @EventList extends Partial
 	###
 	response_list: null
 
-	_options ={}
+	_options =
+	{
+		# Parent id elem for this class
+		event_list_id: '#event_list'
+		# id of child elem UserEvent class
+		event_elem_id: '#event'
+		# id of child elem ResponseList class
+		response_list_id: '#responses'
+		fit_partial: null
+		data : null
+	}
 	btn:
 		events: '.show_event_link'
 		responses: '.show_responses_link'
@@ -254,17 +264,6 @@ class @EventList extends Partial
 		return
 
 	constructor: (options) ->
-		_options =
-		{
-		# Parent id elem for this class
-			event_list_id: '#event_list'
-		# id of child elem UserEvent class
-			event_elem_id: '#event'
-		# id of child elem ResponseList class
-			response_list_id: '#responses'
-			fit_partial: null
-			data : null
-		}
 		this.get_options(options)
 
 
