@@ -13,6 +13,10 @@ class window.calendarHomeController
 
 	calendar_inited: false
 
+	clear: () ->
+		$(@calendar_selector).html('')
+		return
+
 	calendar_init: () ->
 		#REMEMBER: if you want extend this class and add new events(methods)
 		# you have override calendar_inint() method and add new events to the fullCalendarOption

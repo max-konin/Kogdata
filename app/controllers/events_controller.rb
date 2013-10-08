@@ -1,11 +1,12 @@
 require 'Days'
 class EventsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :change_city_name_to_id, :only => [:update, :create]
   #the curDate parameter is a day of the current month
   #the event must be created by the current user and be booked on the current month
   def index
     user = User.find params[:user_id]
-    @events = user.event
+    @events = !params.has_key?(:show_all) ? user.event : Event.scoped
     @events = @events.between(Days.firstDay(params[:curDate]), Days.lastDay(params[:curDate])) unless
         params[:curDate].nil?
     @events = @events.opened if params[:showClosed].nil? || !params[:showClosed]
@@ -63,8 +64,8 @@ class EventsController < ApplicationController
 
   def create
       @user = current_user
-      if Days.inMonth?(params[:events][:start],params[:curDate])
-        @event = @user.event.create!(params[:events])
+      if Days.inMonth?(params[:event][:start],params[:curDate])
+        @event = @user.event.create!(params[:event])
         respond_to do |format|
           format.html {head :ok}
           format.json {render :json => @event}
@@ -90,11 +91,11 @@ class EventsController < ApplicationController
   end
 
   def update
-    if Days.inMonth?(params[:events][:start],params[:curDate])
+    if Days.inMonth?(params[:event][:start],params[:curDate])
       @event = Event.find(params[:id])
       if @event.user_id == current_user.id
         respond_to do |format|
-          if @event.update_attributes(params[:events])
+          if @event.update_attributes(params[:event])
             format.html {head :ok}
             format.json { render :json => true}
           else
@@ -134,5 +135,11 @@ class EventsController < ApplicationController
     raise NotImplementedError
   end
 
+  protected
+  def change_city_name_to_id
+    unless params[:event][:city_id].blank?
+      params[:event][:city_id] = City.find_or_create_by_name(params[:event][:city_id]).id.to_s
+    end
+  end
 
 end

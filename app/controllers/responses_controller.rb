@@ -4,7 +4,7 @@ class ResponsesController < ApplicationController
 	def index
 		@event = Event.find(params[:event_id])
 		if current_user.id != @event.user_id
-			 throw 'access denied'
+			 head :status => :forbidden
 		end
 		@responses = @event.responses
 	end

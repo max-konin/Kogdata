@@ -109,11 +109,14 @@ class window.clientController extends calendarHomeController
 			@on_change_month()
 		# load events
 		@add_events()
-
+		return
 	add_events: () ->
+		url = document.location.href
+		if !url.match(/users\/\d/)
+			url += 'users/' + window.user_id
 		$.ajax(
 			type: 'get'
-			url: document.location.href + "/events.json"
+			url: url + "/events.json"
 			dataType: 'json'
 			data: {
 				curDate: $(@calendar_selector).fullCalendar('getDate').format 'isoDateTime'
@@ -140,11 +143,11 @@ class window.clientController extends calendarHomeController
 		if Calendar.validate_event_data()
 			$('.invalid_message').hide()
 			start = new Date $('#event_year').val(), $('#event_month').val()-1, $('#event_day').val(), $('#event_hour').val(), $('#event_minute').val()
-			end = new Date $('#event_year').val()+1, $('#event_month').val()-1, $('#event_day').val()
+			end   = new Date $('#event_year').val(), $('#event_month').val()-1, $('#event_day').val()
 			request = {
 				 start: start.format 'isoDateTime'
 				 end: end
-				 location: $('#event_location').val()
+				 city_id: $('#tags').val()
 				 type: $('#event_type').val()
 				 description: $('#event_description').val()
 				 price: $('#event_price').val()
@@ -154,7 +157,7 @@ class window.clientController extends calendarHomeController
 				url: "/users/#{window.user_id}/events"
 				dataType: 'json'
 				data: {
-					events: request
+					event: request
 					curDate: $(Calendar.calendar_selector).fullCalendar('getDate').format 'isoDateTime'
 				}
 				success: () ->

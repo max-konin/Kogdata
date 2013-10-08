@@ -40,6 +40,7 @@ Kogdata::Application.routes.draw do
 	get 'calendar/new_form'
 	get 'show_bookings'                 => 'calendar#show_bookings'
 	get 'calendar/show_form/:event_id'  =>  'calendar#show_form'
+  get 'calendar/get_contractor_navigation'
 	get 'office/show'
 	get 'office/all'
 	get 'office/portfolio'              => 'office#portfolio'
@@ -58,7 +59,7 @@ Kogdata::Application.routes.draw do
 		resources :social_links, only: [:create, :destroy]
 		resources :busynesses, only: [:index, :create, :delete]
 	end
-
+  resources :cities, only: [:index]
   resources :events, only: [:show]  do
     resources :responses, only: [:index, :create, :update, :destroy]
   end

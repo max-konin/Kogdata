@@ -1,47 +1,49 @@
 !!!
 -# --- "!!!" THIS IS DOCTYPE, DON'T REMOVE !!!!!!!!!!!!!!!!!!!!! ----------
 %html
-	%head
-		= stylesheet_link_tag 'profile'
-		= stylesheet_link_tag 'home'
-		= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery?
-		= javascript_include_tag 'application'
-		= javascript_include_tag 'common'
-		= javascript_include_tag 'image_uploader'
-		= stylesheet_link_tag 'application'
-		= javascript_include_tag 'users/social_link'
-		= javascript_include_tag 'validation'
-		= javascript_include_tag 'partial'
-		= javascript_include_tag 'modernizr.custom.17475'
-		= javascript_include_tag 'jquery.elastislide'
-		= javascript_include_tag 'partial'
+    %head
+        %meta{charset: "utf-8"}/
+        %link{href: "http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css", rel: "stylesheet"}/
+        = stylesheet_link_tag 'profile'
+        = stylesheet_link_tag 'home'
+        = javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery?
+        = javascript_include_tag 'application'
+        = javascript_include_tag 'common'
+        = javascript_include_tag 'image_uploader'
+        = stylesheet_link_tag 'application'
+        = javascript_include_tag 'users/social_link'
+        = javascript_include_tag 'validation'
+        = javascript_include_tag 'partial'
+        = javascript_include_tag 'modernizr.custom.17475'
+        = javascript_include_tag 'jquery.elastislide'
+        = javascript_include_tag 'partial'
 
-		= stylesheet_link_tag 'user'
-		= stylesheet_link_tag 'rating'
+        = stylesheet_link_tag 'user'
+        = stylesheet_link_tag 'rating'
 
-		- if current_user.role == 'contractor'
-			= javascript_include_tag 'users/photograph'
+        - if current_user.role == 'contractor'
+            = javascript_include_tag 'users/photograph'
 
-		- if current_user.role == 'client'
-			= javascript_include_tag 'users/client'
+        - if current_user.role == 'client'
+            = javascript_include_tag 'users/client'
 
-		%title Kogdata
-	%body
-		= render 'application/header'
-		.container
-			.row
-				.span5
-					- if @user
-						#user_info_block
-							= render 'users/user_info'
-					#left_block
-				.span7
-					#right_block
-						= yield
+        %title Kogdata
+    %body
+        = render 'application/header'
+        .container
+            .row
+                .span5
+                    - if @user
+                        #user_info_block
+                            = render 'users/user_info'
+                    #left_block
+                .span7
+                    #right_block
+                        = yield
 
-			#bottom_block
+            #bottom_block
+            - if @user
+                #messageModal.modal.hide.fade
+                    = render :partial => 'messages/new_message', :locals => {:contact_id => @user.id}
 
-			#messageModal.modal.hide.fade
-				= render :partial => 'messages/new_message', :locals => {:contact_id => @user.id}
-
-		= render 'application/footer'
+        = render 'application/footer'

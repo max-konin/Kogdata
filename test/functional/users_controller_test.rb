@@ -41,8 +41,8 @@ class UsersControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_nil assigns(:users)
     users = assigns(:users)
-    assert (users.count == User.all.count)
-    assert_template :index
+    assert (users.count == User.all.count), 'test users count'
+    assert_template :index, 'test template'
   end
 
   test "select all photographers" do

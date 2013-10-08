@@ -9,9 +9,22 @@ class Photograph extends User
 	btn = this.btn
 
 	#add radiogroup to select calendar type only for contractor
+	on_success: () ->
+		$('button[name=options]').click () ->
+			unless $(this).hasClass('active')
+				window.Calendar.clear()
+				if $(this).hasClass('my-calendar-option')
+					window.Calendar = new contractorBusynessController
+					Calendar.calendar_init()
+				if $(this).hasClass('orders-option')
+					window.Calendar = new window.showAllEventsController
+					Calendar.calendar_init()
+		return
+
 	calendar: () ->
 		super
-		this.get_partial('/users/contractor_calendar_type.html','back_white_box')
+		this.get_partial('/calendar/get_contractor_navigation.html','#navigation', {on_success: @on_success})
+		return
 
 	# Bind functions for buttons on photograph page
 	bind_buttons_events: () ->

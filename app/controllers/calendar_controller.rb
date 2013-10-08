@@ -11,7 +11,7 @@ class CalendarController < ApplicationController
 			cookies[:user_id] = @user.id
 		else
 			redirect_to '/welcome'
-		end
+    end
 		@action = 'show-current'
     @event = Event.new
 	end
@@ -32,7 +32,11 @@ class CalendarController < ApplicationController
 		@event_id = params[:event_id]
 		@event = Event.find(@event_id)
 		render :partial => 'show_event'
-	end
+  end
+
+  def get_contractor_navigation
+    render :partial => 'users/contractor_calendar_type'
+  end
 
 	def set_busyness
 

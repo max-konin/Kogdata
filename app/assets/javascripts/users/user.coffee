@@ -111,7 +111,9 @@ class @User extends Partial
 
 		calendar = $('<div></div>').addClass('back_white_box parent').
 		append($('<div></div>').attr('id', 'calendar'))
-		$(block_id.right).html(calendar)
+		nav = $('<div></div>').attr('id', 'navigation')
+		$(block_id.right).html(calendar, nav)
+		$(block_id.right).append(nav)
 
 		if this.with_close_button || with_close
 			this.add_close_button(calendar, Calendar)
@@ -234,5 +236,9 @@ class @User extends Partial
 		block.left = events
 
 		events.init(user_id, _options)
+		return
+	destroy_events: () ->
+		if block.left != null
+			block.left.destroy()
 		return
 
