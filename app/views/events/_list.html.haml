@@ -24,7 +24,7 @@
 					%td
 						= event.start.strftime("%d.%m.%Y")
 					%td.center
-						- if event.responses.count > 0
+						- if event.responses.count > 0 and event.user_id == current_user.id
 							%a{ :href => '#', :class => 'show_responses_link', :event_id => event.id}
 								= event.responses.count
 						- else
