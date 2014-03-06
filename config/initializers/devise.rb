@@ -5,7 +5,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
   config.mailer_sender = "forTrash@kogdata.com"
-
+  config.secret_key = '97c7dfd1f2e65520ec8d3d4dd6f67920c294a59ef67ba83f47a231ad7788c95f3c0c000ceba02e614691c3400746128de1b0c472e66614fe7605604cbf2962df'
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
 

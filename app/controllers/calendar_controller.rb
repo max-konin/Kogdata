@@ -11,7 +11,7 @@ class CalendarController < ApplicationController
 			cookies[:user_id] = @user.id
 		else
 			redirect_to '/welcome'
-		end
+    end
 		@action = 'show-current'
     @event = Event.new
 	end
